@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/e-commerce-fullstack-app/precache-manifest.78020b614962bbf4ce9040b99f1956ec.js"
+  "/e-commerce-fullstack-app/precache-manifest.acd1905b80ed188b4eb869a0e678c5b0.js"
 );
 
 workbox.clientsClaim();
