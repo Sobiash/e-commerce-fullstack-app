@@ -8,7 +8,11 @@ const App = () => {
   return (
     <Layout>
       <Switch>
-        <Route path="/register_login" exact component={RegisterLogin} />
+        <Route
+          path="/e-commerce-fullstack-app/"
+          exact
+          component={RegisterLogin}
+        />
         <Route path="/" exact component={RegisterLogin} />
       </Switch>
     </Layout>
