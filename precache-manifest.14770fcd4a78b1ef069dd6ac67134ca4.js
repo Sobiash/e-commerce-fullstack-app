@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/e-commerce-fullstack-app/static/js/runtime~main.f99dc5b9.js"
   },
   {
-    "revision": "ecf33e33c9fa708a5dc3",
-    "url": "/e-commerce-fullstack-app/static/js/main.ecf33e33.chunk.js"
+    "revision": "08659298f001557db31e",
+    "url": "/e-commerce-fullstack-app/static/js/main.08659298.chunk.js"
   },
   {
     "revision": "c5050522dc0721376f09",
     "url": "/e-commerce-fullstack-app/static/js/1.c5050522.chunk.js"
   },
   {
-    "revision": "ecf33e33c9fa708a5dc3",
-    "url": "/e-commerce-fullstack-app/static/css/main.50a463b5.chunk.css"
+    "revision": "08659298f001557db31e",
+    "url": "/e-commerce-fullstack-app/static/css/main.4a9f04d9.chunk.css"
   },
   {
-    "revision": "910b867be7d7aabc8cccd8a265523891",
+    "revision": "5dbac820b8504b1609364856ac8869f6",
     "url": "/e-commerce-fullstack-app/index.html"
   }
 ];
