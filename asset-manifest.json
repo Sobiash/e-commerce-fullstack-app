@@ -1,13 +1,13 @@
 {
-  "main.css": "/e-commerce-fullstack-app/static/css/main.4a9f04d9.chunk.css",
-  "main.js": "/e-commerce-fullstack-app/static/js/main.08659298.chunk.js",
-  "main.js.map": "/e-commerce-fullstack-app/static/js/main.08659298.chunk.js.map",
+  "main.css": "/e-commerce-fullstack-app/static/css/main.6f4aaabd.chunk.css",
+  "main.js": "/e-commerce-fullstack-app/static/js/main.5b253fe1.chunk.js",
+  "main.js.map": "/e-commerce-fullstack-app/static/js/main.5b253fe1.chunk.js.map",
   "static/js/1.c5050522.chunk.js": "/e-commerce-fullstack-app/static/js/1.c5050522.chunk.js",
   "static/js/1.c5050522.chunk.js.map": "/e-commerce-fullstack-app/static/js/1.c5050522.chunk.js.map",
   "runtime~main.js": "/e-commerce-fullstack-app/static/js/runtime~main.f99dc5b9.js",
   "runtime~main.js.map": "/e-commerce-fullstack-app/static/js/runtime~main.f99dc5b9.js.map",
-  "static/css/main.4a9f04d9.chunk.css.map": "/e-commerce-fullstack-app/static/css/main.4a9f04d9.chunk.css.map",
+  "static/css/main.6f4aaabd.chunk.css.map": "/e-commerce-fullstack-app/static/css/main.6f4aaabd.chunk.css.map",
   "index.html": "/e-commerce-fullstack-app/index.html",
-  "precache-manifest.14770fcd4a78b1ef069dd6ac67134ca4.js": "/e-commerce-fullstack-app/precache-manifest.14770fcd4a78b1ef069dd6ac67134ca4.js",
+  "precache-manifest.9a1b73cdca58e306a59771dede5f2fa9.js": "/e-commerce-fullstack-app/precache-manifest.9a1b73cdca58e306a59771dede5f2fa9.js",
   "service-worker.js": "/e-commerce-fullstack-app/service-worker.js"
 }
