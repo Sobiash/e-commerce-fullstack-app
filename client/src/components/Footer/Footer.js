@@ -5,7 +5,7 @@ class Footer extends React.Component {
     return (
       <footer className="bck_b_dark">
         <div className="container">
-          <div className="logo">Waves</div>
+          <div className="logo">Mobile Shop</div>
           <div className="wrapper">
             <div className="left">
               <h2>Contact Information</h2>
@@ -39,10 +39,7 @@ class Footer extends React.Component {
             <div className="left">
               <h2>Be the first to know</h2>
               <div>
-                <div>
-                  Get all the information on events, sales and offers. You can
-                  miss out.
-                </div>
+                <div>Get all the information on events, sales and offers.</div>
               </div>
             </div>
           </div>

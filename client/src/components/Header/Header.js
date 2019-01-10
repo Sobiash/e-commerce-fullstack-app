@@ -6,7 +6,7 @@ class Header extends React.Component {
       <header className="bck_b_light">
         <div className="container">
           <div className="left">
-            <div className="logo">Waves</div>
+            <div className="logo">Mobiles</div>
           </div>
           <div className="right">
             <div className="top">Links</div>

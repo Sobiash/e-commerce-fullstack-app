@@ -3,6 +3,8 @@ body {
   padding: 0;
   font-family: "Roboto", sans-serif;
   color: #404040;
+  background-color: #e6e6e8;
+  font-weight: 400;
 }
 
 .container {
@@ -28,11 +30,11 @@ a {
 }
 
 .bck_b_light {
-  background: #313131;
+  background: #06000a;
 }
 
 .bck_b_dark {
-  background: #f2f2f2;
+  background: #300032;
 }
 
 .dialog_alert {
@@ -109,11 +111,13 @@ input {
 
 button {
   cursor: pointer;
-  text-transform: uppercase;
-  padding: 10px;
-  background: #e1ddc3;
+  /* text-transform: uppercase; */
+  padding: 6px;
+  border: solid 1px #333333;
+  background: #c43235;
+  color: #fff;
   margin-top: 10px;
-  font-family: "Oswald", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
 }
 
@@ -183,10 +187,12 @@ select {
             BUTTONS
 ==============================*/
 .link_default {
-  text-transform: uppercase;
-  padding: 10px;
+  /* text-transform: uppercase; */
+  padding: 5px;
   display: table;
-  background: #e1ddc3;
+  border: solid 1px #333333;
+  background: #c43235;
+  color: #fff;
   margin-top: 10px;
 }
 
@@ -199,7 +205,7 @@ select {
   display: block;
   box-sizing: border-box;
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
   text-transform: uppercase;
   color: #c3c0b1;
   background: #f8f8f8;
@@ -315,7 +321,7 @@ header .log_out_link {
 footer .logo {
   text-align: center;
   font-family: "Monoton", cursive;
-  color: #4d4d4d;
+  color: #fff;
   font-size: 30px;
   padding: 11px 0px;
   border-bottom: 1px solid #4d4d4d;
@@ -323,8 +329,9 @@ footer .logo {
 
 footer .wrapper {
   display: flex;
-  color: #4d4d4d;
+  color: #ffff;
   opacity: 0.9;
+  font-size: 12px;
 }
 
 footer .left,
