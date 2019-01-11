@@ -9,7 +9,7 @@ class Login extends React.Component {
   state = {
     formError: false,
     formSuccess: "",
-    formdata: {
+    formData: {
       email: {
         element: "input",
         value: "",
@@ -45,18 +45,18 @@ class Login extends React.Component {
   };
 
   updateForm = element => {
-    const newFormdata = update(element, this.state.formdata, "login");
+    const newFormData = update(element, this.state.formData, "login");
     this.setState({
       formError: false,
-      formdata: newFormdata
+      formData: newFormData
     });
   };
 
   submitForm = event => {
     event.preventDefault();
 
-    let dataToSubmit = generateData(this.state.formdata, "login");
-    let formIsValid = isFormValid(this.state.formdata, "login");
+    let dataToSubmit = generateData(this.state.formData, "login");
+    let formIsValid = isFormValid(this.state.formData, "login");
 
     if (formIsValid) {
       this.props.dispatch(loginUser(dataToSubmit)).then(response => {
@@ -81,12 +81,12 @@ class Login extends React.Component {
         <form onSubmit={event => this.submitForm(event)}>
           <FormField
             id={"email"}
-            formdata={this.state.formdata.email}
+            data={this.state.formData.email}
             change={element => this.updateForm(element)}
           />
           <FormField
             id={"password"}
-            formdata={this.state.formdata.password}
+            data={this.state.formData.password}
             change={element => this.updateForm(element)}
           />
           {this.state.formError ? (

@@ -3,19 +3,19 @@ import { Link } from "react-router-dom";
 
 const MyButton = props => {
   const buttons = () => {
-    let template = "";
+    let button = "";
     switch (props.type) {
       case "default":
-        template = (
+        button = (
           <Link className="link_default" to={props.linkTo} {...props.addStyles}>
             {props.title}
           </Link>
         );
         break;
       default:
-        template = "";
+        button = "";
     }
-    return template;
+    return button;
   };
   return <div className="my_link">{buttons()}</div>;
 };
