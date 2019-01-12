@@ -12,7 +12,7 @@ class Header extends React.Component {
         public: true
       },
       {
-        name: "Phones",
+        name: "Shop",
         linkTo: "/shop",
         public: true
       }
@@ -20,6 +20,7 @@ class Header extends React.Component {
     user: [
       {
         name: "My Cart",
+        icon: "/images/icons/icon-header-02.png",
         linkTo: "user/cart",
         public: false
       },
@@ -30,6 +31,7 @@ class Header extends React.Component {
       },
       {
         name: "Log in",
+        icon: "/images/icons/icon-header-01.png",
         linkTo: "/register_login",
         public: true
       },
@@ -59,8 +61,8 @@ class Header extends React.Component {
         {item.name}
       </div>
     ) : (
-      <Link to={item.linkTo} key={i}>
-        {item.name}
+      <Link to={item.linkTo} key={i} className="icon-login">
+        {item.icon ? <img src={item.icon} alt="LOG_IN" /> : item.name}
       </Link>
     );
 
@@ -69,7 +71,9 @@ class Header extends React.Component {
     return (
       <div className="cart_link" key={i}>
         <span>{user.cart ? user.cart.length : 0}</span>
-        <Link to={item.linkTo}>{item.name}</Link>
+        <Link to={item.linkTo} className="icon-cart">
+          <img src={item.icon} alt="MY_CART" />
+        </Link>
       </div>
     );
   };
@@ -99,14 +103,17 @@ class Header extends React.Component {
   };
   render() {
     return (
-      <header className="bck_b_light">
-        <div className="container">
-          <div className="left">
-            <div className="logo">Mobiles</div>
+      <header className="header1">
+        <div className="wrap_header">
+          <Link to="/" className="logo">
+            <img src="/images/icons/logo.png" alt="IMG-LOGO" />
+          </Link>
+          <div className="main_menu">
+            <nav className="menu">middle nav</nav>
           </div>
-          <div className="right">
-            <div className="top">{this.showLinks(this.state.user)}</div>
-            <div className="bottom">{this.showLinks(this.state.page)}</div>
+          <div className="header-icons">
+            <div>{this.showLinks(this.state.user)}</div>
+            <div>{this.showLinks(this.state.page)}</div>
           </div>
         </div>
       </header>

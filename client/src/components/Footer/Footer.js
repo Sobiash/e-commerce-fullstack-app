@@ -3,41 +3,19 @@ import React from "react";
 class Footer extends React.Component {
   render() {
     return (
-      <footer className="bck_b_dark">
-        <div className="container">
-          <div className="logo">Mobile Shop</div>
-          <div className="wrapper">
+      <footer>
+        <div className="wrapper">
+          <div className="flex-w">
             <div className="left">
-              <h2>Contact Information</h2>
-              <div className="business_nfo">
-                <div className="tag">
-                  <div className="nfo">
-                    <div>Address</div>
-                    <div>Wiertnicza 91, apt 4</div>
-                  </div>
-                </div>
-                <div className="tag">
-                  <div className="nfo">
-                    <div>Phone</div>
-                    <div>444 444 444</div>
-                  </div>
-                </div>
-                <div className="tag">
-                  <div className="nfo">
-                    <div>Working Hours</div>
-                    <div>Mon-Sun / 9am-8pm</div>
-                  </div>
-                </div>
-                <div className="tag">
-                  <div className="nfo">
-                    <div>Email</div>
-                    <div>se@waves.com</div>
-                  </div>
-                </div>
-              </div>
+              <h4 className="newsletter">GET IN TOUCH</h4>
+              <p>
+                Any questions? Let us know in store at 8th floor, 379 Hudson St,
+                New York, NY 10018 or call us on (+1) 96 716 6879
+              </p>
             </div>
-            <div className="left">
-              <h2>Be the first to know</h2>
+            <div className="middle">middle links</div>
+            <div className="right">
+              <h4 className="newsletter">NEWSLETTER</h4>
               <div>
                 <div>Get all the information on events, sales and offers.</div>
               </div>

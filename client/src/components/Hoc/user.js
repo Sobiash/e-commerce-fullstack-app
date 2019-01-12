@@ -32,7 +32,6 @@ const UserLayout = props => {
         </div>
         <div className="user_right">{props.children}</div>
       </div>
-      dashboard
     </div>
   );
 };
