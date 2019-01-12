@@ -4,14 +4,15 @@ import { auth } from "../../actions/user_actions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function(ComposedClass, reload, adminRoute = null) {
-  class Authentication extends Component {
+  class AuthenticationCheck extends Component {
     state = {
-      loading: false
+      loading: true
     };
 
     componentDidMount() {
       this.props.dispatch(auth()).then(response => {
         let user = this.props.user.userData;
+
         if (!user.isAuth) {
           if (reload) {
             this.props.history.push("/register_login");
@@ -25,10 +26,10 @@ export default function(ComposedClass, reload, adminRoute = null) {
             }
           }
         }
-
         this.setState({ loading: false });
       });
     }
+
     render() {
       if (this.state.loading) {
         return (
@@ -37,11 +38,7 @@ export default function(ComposedClass, reload, adminRoute = null) {
           </div>
         );
       }
-      return (
-        <div>
-          <ComposedClass {...this.props} user={this.props.user} />
-        </div>
-      );
+      return <ComposedClass {...this.props} user={this.props.user} />;
     }
   }
 
@@ -50,5 +47,6 @@ export default function(ComposedClass, reload, adminRoute = null) {
       user: state.user
     };
   }
-  return connect(mapStateToProps)(Authentication);
+
+  return connect(mapStateToProps)(AuthenticationCheck);
 }
