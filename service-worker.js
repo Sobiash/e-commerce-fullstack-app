@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/e-commerce-fullstack-app//register_login/precache-manifest.2966a4621ada5d66f07f8876cd00f3c4.js"
+  "/e-commerce-fullstack-app/register_login/precache-manifest.0201172d8e9aa288d6925e8bced495f7.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/e-commerce-fullstack-app//register_login/index.html", {
+workbox.routing.registerNavigationRoute("/e-commerce-fullstack-app/register_login/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
