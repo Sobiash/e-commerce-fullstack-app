@@ -62,8 +62,14 @@ body {
 }
 
 .page_container {
-  min-height: 75vh;
-  padding-top: 85px;
+  min-height: 100vh;
+}
+.carrousel_wrapper {
+  overflow: hidden;
+}
+
+.carrousel_image {
+  min-height: 93vh;
 }
 .main_loader {
   text-align: center;
