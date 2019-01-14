@@ -7,11 +7,24 @@ const MyButton = props => {
     switch (props.type) {
       case "default":
         button = (
-          <Link className="link_default" to={props.linkTo} {...props.addStyles}>
+          <Link
+            className={!props.altClass ? "link_default" : props.altClass}
+            to={props.linkTo}
+            {...props.addStyles}
+          >
             {props.title}
           </Link>
         );
         break;
+      case "cart_link":
+        button = (
+          <div
+            className="cart_link"
+            onClick={() => {
+              props.runAction();
+            }}
+          />
+        );
       default:
         button = "";
     }
