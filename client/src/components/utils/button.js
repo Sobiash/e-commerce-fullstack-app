@@ -19,12 +19,19 @@ const MyButton = props => {
       case "cart_link":
         button = (
           <div
-            className="cart_link"
             onClick={() => {
               props.runAction();
             }}
-          />
+          >
+            <Link
+              to={props.linkTo}
+              className={!props.altClass ? "link_default" : props.altClass}
+            >
+              Add to cart
+            </Link>
+          </div>
         );
+        break;
       default:
         button = "";
     }
