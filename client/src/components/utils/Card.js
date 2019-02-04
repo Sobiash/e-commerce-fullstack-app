@@ -1,5 +1,6 @@
 import React from "react";
 import MyButton from "../utils/button";
+import { Link } from "react-router-dom";
 
 class Card extends React.Component {
   renderCardImage = images => {
@@ -13,24 +14,27 @@ class Card extends React.Component {
     const props = this.props;
     return (
       <div className={`card_item_wrapper ${props.grid}`}>
-        <div
-          className="image"
-          style={{
-            background: `url(${this.renderCardImage(props.images)}) no-repeat`
-          }}
-        />
-        <div className="overlay" />
-        <div>
-          <MyButton
-            type="cart_link"
-            linkTo={`/product_detail/${props._id}`}
-            title="Add to cart"
-            altClass="card_button"
-            runAction={() => {
-              console.log("added to cart");
+        <Link to={`/product_detail/${props._id}`}>
+          <div
+            className="image"
+            style={{
+              background: `url(${this.renderCardImage(props.images)}) no-repeat`
             }}
           />
-        </div>
+
+          <div className="overlay" />
+          <div>
+            <MyButton
+              type="cart_link"
+              linkTo={`/product_detail/${props._id}`}
+              title="Add to cart"
+              altClass="card_button"
+              runAction={() => {
+                console.log("added to cart");
+              }}
+            />
+          </div>
+        </Link>
         <div className="action_container">
           <div className="tags">
             <div className="name">{props.name}</div>
@@ -38,17 +42,6 @@ class Card extends React.Component {
           </div>
         </div>
         {props.grid ? <div className="description">havdsadsdhabdja</div> : null}
-        <div className="button_wrapp">
-          <MyButton
-            type="default"
-            altClass="card_link"
-            title="View Product"
-            linkTo={`/product_detail/${props._id}`}
-            addStyle={{
-              margin: "10px 0 0 0"
-            }}
-          />
-        </div>
       </div>
     );
   }

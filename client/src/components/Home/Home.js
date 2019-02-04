@@ -19,10 +19,10 @@ class Home extends React.Component {
       <div>
         <HomeSlider />
         <CardBlock
-          list={this.props.product.bySell}
+          list={this.props.products.bySell}
           title="Best Selling Products"
         />
-        <CardBlock list={this.props.product.byArrival} title="New Arrivals" />
+        <CardBlock list={this.props.products.byArrival} title="New Arrivals" />
         <Promotions />
       </div>
     );
@@ -31,7 +31,7 @@ class Home extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    product: state.product
+    products: state.products
   };
 };
 

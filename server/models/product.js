@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+
 const Schema = mongoose.Schema;
 
 const productSchema = mongoose.Schema(
@@ -19,10 +20,20 @@ const productSchema = mongoose.Schema(
       type: Number,
       maxlength: 255
     },
-    brand: {
+    dress: {
       type: Schema.Types.ObjectId,
-      ref: "Brand",
+      ref: "Dress",
       required: true
+    },
+    type: {
+      type: Schema.Types.ObjectId,
+      ref: "Type",
+      required: true
+    },
+    size: {
+      required: true,
+      type: Array,
+      default: []
     },
     color: {
       required: true,
@@ -42,15 +53,9 @@ const productSchema = mongoose.Schema(
       maxlength: 100,
       default: 0
     },
-    release: {
+    publish: {
       required: true,
-      type: String,
-      maxlength: 200
-    },
-    built_in_memory: {
-      required: true,
-      type: String,
-      maxlength: 200
+      type: Boolean
     },
     images: {
       type: Array,

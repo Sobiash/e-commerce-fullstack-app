@@ -149,10 +149,6 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 
-/*============================
-            FORM
-==============================*/
-
 input {
   font-size: 15px;
   -webkit-box-sizing: border-box;
@@ -161,17 +157,6 @@ input {
   width: 100%;
   margin: 10px 0px 0px 0px;
 }
-
-/* button {
-  cursor: pointer;
-  padding: 6px;
-  border: solid 1px #333333;
-  background: #c43235;
-  color: #fff;
-  margin-top: 10px;
-  font-family: "Roboto", sans-serif;
-  font-size: 16px;
-} */
 
 .error_label {
   color: #f44336;
@@ -235,11 +220,7 @@ select {
   display: block;
 }
 
-/*============================
-            BUTTONS
-==============================*/
 button {
-  /* text-transform: uppercase; */
   padding: 5px;
   display: table;
   border: solid 1px #333333;
@@ -249,7 +230,6 @@ button {
 }
 
 .link_default {
-  /* text-transform: uppercase; */
   padding: 5px 15px;
   display: table;
   border: solid 1px #333333;
@@ -297,19 +277,12 @@ button {
   margin-top: 10px;
 }
 
-/*============================
-        PAGE TOP
-==============================*/
-
 .page_top {
   border-bottom: 1px solid #999592;
   padding: 20px 0px;
   text-transform: uppercase;
 }
 
-/*============================
-            HEADER
-==============================*/
 header {
   position: fixed;
   z-index: 999;
@@ -367,10 +340,6 @@ header .log_out_link {
   margin-left: 20px;
 }
 
-/*============================
-            FOOTER
-==============================*/
-
 footer .wrapper {
   padding: 45px;
   background-color: #f0f0f0;
@@ -427,10 +396,6 @@ footer .business_nfo .nfo {
   padding-left: 40px;
 }
 
-/*============================
-        FEATURED IMAGE
-==============================*/
-
 .carrousel_wrapper .featured_action {
   position: absolute;
   top: 25%;
@@ -469,17 +434,13 @@ div.tag.low_title {
   text-transform: uppercase;
 }
 
-/*============================
-        FEATURED PROMOTION
-==============================*/
-
 .home_promotion .home_promotion_img {
   height: 350px;
   background-size: cover !important;
   background-position: top center !important;
   padding: 15px;
   box-sizing: border-box;
-  margin: 0 auto;
+  margin: 40px auto;
   position: relative;
 }
 
@@ -516,19 +477,18 @@ div.tag.low_title {
   left: 45%;
 }
 
-/*============================
-        CARD BLOCK
-==============================*/
-
 .card_block {
-  margin: 110px 0px;
+  margin: 50px 0px 0px 0px;
 }
 
 .card_block .title {
-  text-transform: uppercase;
+  font-family: Montserrat-Bold;
+  font-size: 30px;
+  color: #222;
+  line-height: 1.2;
   text-align: center;
-  font-size: 25px;
-  margin-bottom: 50px;
+  text-transform: uppercase;
+  margin-bottom: 40px;
 }
 
 .card_block_shop .card_item_wrapper {
@@ -537,11 +497,7 @@ div.tag.low_title {
   margin-bottom: 20px;
 }
 
-/*============================
-        CARD ITEM
-==============================*/
-
-.block2-overlay {
+/* .block2-overlay {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -549,7 +505,7 @@ div.tag.low_title {
   left: 0;
   background-color: rgba(0, 0, 0, 0.3);
   opacity: 0;
-}
+} */
 
 .block2-btn-addcart {
   position: absolute;
@@ -583,33 +539,18 @@ div.tag.low_title {
 .card_item_wrapper {
   flex-grow: 1;
   width: 25%;
-  padding: 0 20px;
+  padding: 0 15px;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
 }
 
-/* .card_container {
-  position: relative;
-  margin-top: 50px;
-  width: 500px;
-  height: 300px;
-}
-
-
-img.card_image {
-  position: absolute;
-  width: 500px;
-  height: 300px;
-  left: 0;
-} */
-
 .overlay {
   position: absolute;
   top: 0;
-  left: 20px;
-  width: 89%;
-  height: 281px;
+  left: 15px;
+  width: 90%;
+  height: 350px;
   margin: 0 auto;
   background: rgba(0, 0, 0, 0);
   transition: background 0.5s ease;
@@ -622,8 +563,8 @@ img.card_image {
 
 .card_button {
   position: absolute;
-  left: 100px;
-  bottom: 100px;
+  left: 60px;
+  bottom: 80px;
   opacity: 0;
   transition: all 0.4s ease 0.1s;
   padding: 6px 25px;
@@ -640,8 +581,8 @@ img.card_image {
 
 .card_item_wrapper:hover .card_button {
   opacity: 1;
-  left: 100px;
-  bottom: 130px;
+  left: 60px;
+  bottom: 100px;
 }
 
 .card_item_wrapper {
@@ -650,7 +591,7 @@ img.card_image {
 
 .card_item_wrapper .image {
   width: 100%;
-  height: 280px;
+  height: 350px;
   background-position: center !important;
   background-size: cover !important;
   border: 1px solid #f0f0f0;
@@ -674,8 +615,7 @@ img.card_image {
 }
 
 .card_item_wrapper .tags .name {
-  font-size: 21px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .card_item_wrapper .tags .price {
@@ -740,10 +680,6 @@ img.card_image {
   padding: 10px 20px 0px 15px;
 }
 
-/*============================
-        SHOP
-==============================*/
-
 .shop_wrapper {
   display: flex;
 }
@@ -775,10 +711,6 @@ img.card_image {
   border-bottom: 1px solid #e8e8e8;
   margin: 0px 20px 20px 20px;
 }
-
-/*============================
-        PRODUCT DETAIL
-==============================*/
 
 .product_detail_wrapper {
   display: flex;
@@ -894,10 +826,6 @@ img.card_image {
   margin: 10px 0px;
 }
 
-/*=============================
-         REGISTER LOGIN
-===============================*/
-
 .register_login_container {
   display: flex;
   box-sizing: border-box;
@@ -921,10 +849,6 @@ img.card_image {
   font-size: 16px;
   width: 90%;
 }
-
-/*=============================
-         USER
-===============================*/
 
 .user_container {
   display: flex;
@@ -1001,10 +925,6 @@ img.card_image {
   color: #ffffff;
   margin-top: 50px;
 }
-
-/*=============================
-         ADMIN
-===============================*/
 
 .admin_category_wrapper {
   padding-bottom: 50px;

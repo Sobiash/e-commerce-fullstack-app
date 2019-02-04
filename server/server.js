@@ -15,17 +15,42 @@ app.use(cookieParser());
 
 //models
 const { User } = require("./models/user");
-const { Brand } = require("./models/brand");
+const { Type } = require("./models/type");
 const { Product } = require("./models/product");
+// const { Size } = require("./models/size");
+const { Dress } = require("./models/dress");
 
 //middlewares
 const { auth } = require("./middleware/auth");
 const { admin } = require("./middleware/admin");
 
-//brands
-app.post("/api/product/brand", auth, admin, (req, res) => {
-  const brand = new Brand(req.body);
-  brand.save((err, doc) => {
+//size => Frets
+// app.post("/api/product/size", auth, admin, (req, res) => {
+//   const size = new Size(req.body);
+//   size.save((err, doc) => {
+//     if (err)
+//       return res.json({
+//         success: false,
+//         err
+//       });
+//     res.status(200).json({
+//       success: true,
+//       size: doc
+//     });
+//   });
+// });
+
+// app.get("/api/product/sizes", (req, res) => {
+//   Size.find({}, (err, sizes) => {
+//     if (err) return res.status(400).send(err);
+//     res.status(200).send(sizes);
+//   });
+// });
+
+//types => Woods
+app.post("/api/product/type", auth, admin, (req, res) => {
+  const type = new Type(req.body);
+  type.save((err, doc) => {
     if (err)
       return res.json({
         success: false,
@@ -33,19 +58,44 @@ app.post("/api/product/brand", auth, admin, (req, res) => {
       });
     res.status(200).json({
       success: true,
-      brand: doc
+      type: doc
     });
   });
 });
 
-app.get("/api/product/brands", (req, res) => {
-  Brand.find({}, (err, brands) => {
+app.get("/api/product/types", (req, res) => {
+  Type.find({}, (err, types) => {
     if (err) return res.status(400).send(err);
-    res.status(200).send(brands);
+    res.status(200).send(types);
+  });
+});
+
+//dress => Brands
+app.post("/api/product/dress", auth, admin, (req, res) => {
+  const dress = new Dress(req.body);
+  dress.save((err, doc) => {
+    if (err)
+      return res.json({
+        success: false,
+        err
+      });
+    res.status(200).json({
+      success: true,
+      dress: doc
+    });
+  });
+});
+
+app.get("/api/product/dresses", (req, res) => {
+  Dress.find({}, (err, dresses) => {
+    if (err) return res.status(400).send(err);
+    res.status(200).send(dresses);
   });
 });
 
 //products
+// /api/product/article?id=HGDDJHGG&type=single
+// /api/product/article?id=HGDDJHGG,HHFJHKJG,GHFHFHH&type=array
 
 app.post("/api/product/article", auth, admin, (req, res) => {
   const product = new Product(req.body);
@@ -70,14 +120,17 @@ app.get("/api/product/articles_by_id", (req, res) => {
     });
   }
   Product.find({ _id: { $in: items } })
-    .populate("brand")
+    .populate("dress")
+    .populate("type")
     .exec((err, docs) => {
       return res.status(200).send(docs);
     });
 });
 
-//queries
+//get products
+// by arrival
 // /api/product/articles?sortBy=createdAt&order=desc&limit=4
+// by sold
 // /api/product/articles?sortBy=sold&order=desc&limit=10
 app.get("/api/product/articles", (req, res) => {
   let order = req.query.order ? req.query.order : "asc";
@@ -85,7 +138,8 @@ app.get("/api/product/articles", (req, res) => {
   let limit = req.query.limit ? parseInt(req.query.limit) : 100;
 
   Product.find()
-    .populate("brand")
+    .populate("dress")
+    .populate("type")
     .sort([[sortBy, order]])
     .limit(limit)
     .exec((err, articles) => {
@@ -115,8 +169,8 @@ app.post("/api/users/register", (req, res) => {
   user.save((err, doc) => {
     if (err) return res.json({ success: false, err });
     res.status(200).json({
-      success: true
-      // userdata: doc
+      success: true,
+      userdata: doc
     });
   });
 });
