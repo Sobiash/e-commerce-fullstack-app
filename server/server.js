@@ -15,7 +15,7 @@ app.use(cookieParser());
 
 //models
 const { User } = require("./models/user");
-const { Type } = require("./models/type");
+const { Color } = require("./models/color");
 const { Product } = require("./models/product");
 // const { Size } = require("./models/size");
 const { Dress } = require("./models/dress");
@@ -24,7 +24,7 @@ const { Dress } = require("./models/dress");
 const { auth } = require("./middleware/auth");
 const { admin } = require("./middleware/admin");
 
-//size => Frets
+// size => Frets
 // app.post("/api/product/size", auth, admin, (req, res) => {
 //   const size = new Size(req.body);
 //   size.save((err, doc) => {
@@ -47,10 +47,10 @@ const { admin } = require("./middleware/admin");
 //   });
 // });
 
-//types => Woods
-app.post("/api/product/type", auth, admin, (req, res) => {
-  const type = new Type(req.body);
-  type.save((err, doc) => {
+//colors => Woods
+app.post("/api/product/color", auth, admin, (req, res) => {
+  const color = new Color(req.body);
+  color.save((err, doc) => {
     if (err)
       return res.json({
         success: false,
@@ -58,15 +58,15 @@ app.post("/api/product/type", auth, admin, (req, res) => {
       });
     res.status(200).json({
       success: true,
-      type: doc
+      color: doc
     });
   });
 });
 
-app.get("/api/product/types", (req, res) => {
-  Type.find({}, (err, types) => {
+app.get("/api/product/colors", (req, res) => {
+  Color.find({}, (err, colors) => {
     if (err) return res.status(400).send(err);
-    res.status(200).send(types);
+    res.status(200).send(colors);
   });
 });
 
@@ -121,7 +121,8 @@ app.get("/api/product/articles_by_id", (req, res) => {
   }
   Product.find({ _id: { $in: items } })
     .populate("dress")
-    .populate("type")
+    .populate("color")
+    .populate("size")
     .exec((err, docs) => {
       return res.status(200).send(docs);
     });
@@ -139,7 +140,8 @@ app.get("/api/product/articles", (req, res) => {
 
   Product.find()
     .populate("dress")
-    .populate("type")
+    .populate("color")
+    .populate("size")
     .sort([[sortBy, order]])
     .limit(limit)
     .exec((err, articles) => {

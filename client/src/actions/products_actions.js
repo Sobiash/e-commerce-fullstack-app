@@ -1,6 +1,11 @@
 import axios from "axios";
 import { PRODUCT_SERVER } from "../components/utils/config";
-import { GET_PRODUCTS_BY_ARRIVAL, GET_PRODUCTS_BY_SELL } from "./types";
+import {
+  GET_PRODUCTS_BY_ARRIVAL,
+  GET_PRODUCTS_BY_SELL,
+  GET_COLORS,
+  GET_DRESSES
+} from "./types";
 
 export const getProductsByArrival = () => {
   const request = axios
@@ -19,6 +24,26 @@ export const getProductsBySell = () => {
     .then(response => response.data);
   return {
     type: GET_PRODUCTS_BY_SELL,
+    payload: request
+  };
+};
+
+export const getColors = () => {
+  const request = axios
+    .get(`${PRODUCT_SERVER}/colors`)
+    .then(response => response.data);
+  return {
+    type: GET_COLORS,
+    payload: request
+  };
+};
+
+export const getDresses = () => {
+  const request = axios
+    .get(`${PRODUCT_SERVER}/dresses`)
+    .then(response => response.data);
+  return {
+    type: GET_DRESSES,
     payload: request
   };
 };

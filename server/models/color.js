@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const typeSchema = mongoose.Schema({
+const colorSchema = mongoose.Schema({
   name: {
     required: true,
     type: String,
@@ -9,6 +9,6 @@ const typeSchema = mongoose.Schema({
   }
 });
 
-const Type = mongoose.model("Type", typeSchema);
+const Color = mongoose.model("Color", colorSchema);
 
-module.exports = { Type };
+module.exports = { Color };
