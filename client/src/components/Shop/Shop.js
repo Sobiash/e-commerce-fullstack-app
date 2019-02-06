@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ShopHeader from "../utils/ShopHeader";
-import {
-  getColors,
-  getDresses,
-  getProducts
-} from "../../actions/products_actions";
-import { categories, price } from "../utils/FixedCategories";
+import { getDresses, getProducts } from "../../actions/products_actions";
+import { category, price } from "../utils/FixedCategories";
 import CollapseList from "../utils/CollapseList";
 import CollapseRadio from "../utils/CollapseRadio";
 
@@ -16,14 +12,13 @@ class Shop extends Component {
     limit: 6,
     skip: 0,
     filters: {
-      categories: [],
-      dresses: [],
+      category: [],
+      dress: [],
       colors: [],
       price: []
     }
   };
   componentDidMount() {
-    this.props.dispatch(getColors());
     this.props.dispatch(getDresses());
     this.props.dispatch(
       getProducts(this.state.skip, this.state.limit, this.state.filters)
@@ -69,12 +64,11 @@ class Shop extends Component {
   //   newFilters[category] = filters;
 
   //   if (category === "price") {
-  //     let priceValue = this.handlePrice(filters);
-  //     newFilters[category] = priceValue;
+  //     let priceValues = this.handlePrice(filters);
+  //     newFilters[category] = priceValues;
   //   }
 
   //   this.showFilterResults(newFilters);
-
   //   this.setState({
   //     filters: newFilters
   //   });
@@ -100,25 +94,18 @@ class Shop extends Component {
               <CollapseList
                 initState={true}
                 title="Choose From"
-                list={categories}
+                list={category}
                 handleFilters={filters =>
-                  this.handleFilters(filters, "categories")
+                  this.handleFilters(filters, "category")
                 }
               />
               <CollapseList
                 initState={false}
-                title="Products"
+                title="Dresses"
                 list={products.dresses}
-                handleFilters={filters =>
-                  this.handleFilters(filters, "products")
-                }
+                handleFilters={filters => this.handleFilters(filters, "dress")}
               />
-              {/* <CollapseList
-                initState={false}
-                title="Colors"
-                list={products.colors}
-                handleFilters={filters => this.handleFilters(filters, "colors")}
-              /> */}
+
               <CollapseRadio
                 initState={true}
                 title="Price"

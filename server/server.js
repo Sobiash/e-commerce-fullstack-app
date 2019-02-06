@@ -49,27 +49,27 @@ const { admin } = require("./middleware/admin");
 // });
 
 //colors => Woods
-app.post("/api/product/color", auth, admin, (req, res) => {
-  const color = new Color(req.body);
-  color.save((err, doc) => {
-    if (err)
-      return res.json({
-        success: false,
-        err
-      });
-    res.status(200).json({
-      success: true,
-      color: doc
-    });
-  });
-});
+// app.post("/api/product/color", auth, admin, (req, res) => {
+//   const color = new Color(req.body);
+//   color.save((err, doc) => {
+//     if (err)
+//       return res.json({
+//         success: false,
+//         err
+//       });
+//     res.status(200).json({
+//       success: true,
+//       color: doc
+//     });
+//   });
+// });
 
-app.get("/api/product/colors", (req, res) => {
-  Color.find({}, (err, colors) => {
-    if (err) return res.status(400).send(err);
-    res.status(200).send(colors);
-  });
-});
+// app.get("/api/product/colors", (req, res) => {
+//   Color.find({}, (err, colors) => {
+//     if (err) return res.status(400).send(err);
+//     res.status(200).send(colors);
+//   });
+// });
 
 //dress => Brands
 app.post("/api/product/dress", auth, admin, (req, res) => {
@@ -161,7 +161,7 @@ app.post("/api/product/shop", (req, res) => {
       if (err) return res.status(400).send(err);
       res.status(200).json({
         size: articles.length,
-        articles
+        articles: articles
       });
     });
 });

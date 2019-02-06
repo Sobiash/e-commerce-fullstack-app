@@ -1,7 +1,6 @@
 import {
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_BY_SELL,
-  GET_COLORS,
   GET_DRESSES,
   GET_PRODUCTS
 } from "../actions/types";
@@ -14,8 +13,6 @@ const ProductReducer = (state = initialState, action) => {
       return { ...state, bySell: action.payload };
     case GET_PRODUCTS_BY_ARRIVAL:
       return { ...state, byArrival: action.payload };
-    case GET_COLORS:
-      return { ...state, colors: action.payload };
     case GET_DRESSES:
       return { ...state, dresses: action.payload };
     case GET_PRODUCTS:

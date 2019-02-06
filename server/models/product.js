@@ -25,16 +25,6 @@ const productSchema = mongoose.Schema(
       ref: "Dress",
       required: true
     },
-    // type: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: "Type",
-    //   required: true
-    // },
-    // size: {
-    //   required: true,
-    //   type: Array,
-    //   default: []
-    // },
     color: {
       required: true,
       type: Array,
