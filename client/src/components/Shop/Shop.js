@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ShopHeader from "../utils/ShopHeader";
-import { getColors, getDresses } from "../../actions/products_actions";
+import {
+  getColors,
+  getDresses,
+  getProducts
+} from "../../actions/products_actions";
 import { categories, price } from "../utils/FixedCategories";
 import CollapseList from "../utils/CollapseList";
 import CollapseRadio from "../utils/CollapseRadio";
@@ -21,6 +25,9 @@ class Shop extends Component {
   componentDidMount() {
     this.props.dispatch(getColors());
     this.props.dispatch(getDresses());
+    this.props.dispatch(
+      getProducts(this.state.skip, this.state.limit, this.state.filters)
+    );
   }
 
   handlePrice = value => {
@@ -33,21 +40,55 @@ class Shop extends Component {
     }
     return array;
   };
+
   handleFilters = (filters, category) => {
     const newFilters = { ...this.state.filters };
     newFilters[category] = filters;
 
     if (category === "price") {
-      let priceValue = this.handlePrice(filters);
-      newFilters[category] = priceValue;
+      let priceValues = this.handlePrice(filters);
+      newFilters[category] = priceValues;
     }
 
+    this.showFilterResults(newFilters);
     this.setState({
       filters: newFilters
     });
   };
+
+  showFilterResults = filters => {
+    this.props.dispatch(getProducts(0, this.state.limit, filters)).then(() => {
+      this.setState({
+        skip: 0
+      });
+    });
+  };
+
+  // handleFilters = (filters, category) => {
+  //   const newFilters = { ...this.state.filters };
+  //   newFilters[category] = filters;
+
+  //   if (category === "price") {
+  //     let priceValue = this.handlePrice(filters);
+  //     newFilters[category] = priceValue;
+  //   }
+
+  //   this.showFilterResults(newFilters);
+
+  //   this.setState({
+  //     filters: newFilters
+  //   });
+  // };
+
+  // showFilterResults = filters => {
+  //   this.props.dispatch(getProducts(0, this.state.limit, filters)).then(() => {
+  //     this.setState({
+  //       skip: 0
+  //     });
+  //   });
+  // };
+
   render() {
-    console.log(this.state.filters);
     const products = this.props.products;
     return (
       <div>
@@ -72,12 +113,12 @@ class Shop extends Component {
                   this.handleFilters(filters, "products")
                 }
               />
-              <CollapseList
+              {/* <CollapseList
                 initState={false}
                 title="Colors"
                 list={products.colors}
                 handleFilters={filters => this.handleFilters(filters, "colors")}
-              />
+              /> */}
               <CollapseRadio
                 initState={true}
                 title="Price"

@@ -4,7 +4,8 @@ import {
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_BY_SELL,
   GET_COLORS,
-  GET_DRESSES
+  GET_DRESSES,
+  GET_PRODUCTS
 } from "./types";
 
 export const getProductsByArrival = () => {
@@ -44,6 +45,24 @@ export const getDresses = () => {
     .then(response => response.data);
   return {
     type: GET_DRESSES,
+    payload: request
+  };
+};
+
+export const getProducts = (skip, limit, filters = [], previousState = []) => {
+  const data = {
+    limit,
+    skip,
+    filters
+  };
+  const request = axios.post(`${PRODUCT_SERVER}/shop`, data).then(response => {
+    return {
+      size: response.data.size,
+      articles: response.data.articles
+    };
+  });
+  return {
+    type: GET_PRODUCTS,
     payload: request
   };
 };

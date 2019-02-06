@@ -11,7 +11,6 @@ mongoose.connect(process.env.DATABASE, {
   useNewUrlParser: true,
   useCreateIndex: true
 });
-// mongoose.connect("mongodb://localhost:27017/YourDB", { useNewUrlParser: true });
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -19,9 +18,7 @@ app.use(cookieParser());
 
 //models
 const { User } = require("./models/user");
-const { Color } = require("./models/color");
 const { Product } = require("./models/product");
-// const { Size } = require("./models/size");
 const { Dress } = require("./models/dress");
 
 //middlewares
@@ -125,10 +122,47 @@ app.get("/api/product/articles_by_id", (req, res) => {
   }
   Product.find({ _id: { $in: items } })
     .populate("dress")
-    .populate("color")
-    .populate("size")
+
     .exec((err, docs) => {
       return res.status(200).send(docs);
+    });
+});
+
+//shop
+
+app.post("/api/product/shop", (req, res) => {
+  let order = req.body.order ? req.body.order : "desc";
+  let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
+  let limit = req.body.limit ? parseInt(req.body.limit) : 100;
+  let skip = parseInt(req.body.skip);
+  let findArgs = {};
+
+  for (let key in req.body.filters) {
+    if (req.body.filters[key].length > 0) {
+      if (key === "price") {
+        findArgs[key] = {
+          $gte: req.body.filters[key][0],
+          $lte: req.body.filters[key][1]
+        };
+      } else {
+        findArgs[key] = req.body.filters[key];
+      }
+    }
+  }
+
+  // findArgs['publish'] = true;
+
+  Product.find(findArgs)
+    .populate("dress")
+    .sort([[sortBy, order]])
+    .skip(skip)
+    .limit(limit)
+    .exec((err, articles) => {
+      if (err) return res.status(400).send(err);
+      res.status(200).json({
+        size: articles.length,
+        articles
+      });
     });
 });
 
@@ -144,8 +178,6 @@ app.get("/api/product/articles", (req, res) => {
 
   Product.find()
     .populate("dress")
-    .populate("color")
-    .populate("size")
     .sort([[sortBy, order]])
     .limit(limit)
     .exec((err, articles) => {
