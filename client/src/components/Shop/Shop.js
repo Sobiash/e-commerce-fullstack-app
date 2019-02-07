@@ -5,11 +5,13 @@ import { getDresses, getProducts } from "../../actions/products_actions";
 import { category, price } from "../utils/FixedCategories";
 import CollapseList from "../utils/CollapseList";
 import CollapseRadio from "../utils/CollapseRadio";
+import LoadMore from "./LoadMore";
+import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 
 class Shop extends Component {
   state = {
     grid: "",
-    limit: 6,
+    limit: 9,
     skip: 0,
     filters: {
       category: [],
@@ -59,28 +61,29 @@ class Shop extends Component {
     });
   };
 
-  // handleFilters = (filters, category) => {
-  //   const newFilters = { ...this.state.filters };
-  //   newFilters[category] = filters;
+  loadMoreCards = () => {
+    let skip = this.state.skip + this.state.limit;
+    this.props
+      .dispatch(
+        getProducts(
+          skip,
+          this.state.limit,
+          this.state.filters,
+          this.props.products.articles
+        )
+      )
+      .then(() => {
+        this.setState({
+          skip
+        });
+      });
+  };
 
-  //   if (category === "price") {
-  //     let priceValues = this.handlePrice(filters);
-  //     newFilters[category] = priceValues;
-  //   }
-
-  //   this.showFilterResults(newFilters);
-  //   this.setState({
-  //     filters: newFilters
-  //   });
-  // };
-
-  // showFilterResults = filters => {
-  //   this.props.dispatch(getProducts(0, this.state.limit, filters)).then(() => {
-  //     this.setState({
-  //       skip: 0
-  //     });
-  //   });
-  // };
+  handleGrid = () => {
+    this.setState({
+      grid: !this.state.grid ? "grid_bars" : ""
+    });
+  };
 
   render() {
     const products = this.props.products;
@@ -93,7 +96,7 @@ class Shop extends Component {
             <div className="left">
               <CollapseList
                 initState={true}
-                title="Choose From"
+                title="Categories"
                 list={category}
                 handleFilters={filters =>
                   this.handleFilters(filters, "category")
@@ -113,7 +116,31 @@ class Shop extends Component {
                 handleFilters={filters => this.handleFilters(filters, "price")}
               />
             </div>
-            <div className="right">right</div>
+            <div className="right">
+              <div className="shop_options">
+                <div className="shop_grids clear">
+                  <div
+                    className={`grid_btn ${this.state.grid ? "" : "active"}`}
+                    onClick={() => this.handleGrid()}
+                  >
+                    <FontAwesomeIcon icon="th" className="icon" />
+                  </div>
+                  <div
+                    className={`grid_btn ${!this.state.grid ? "" : "active"}`}
+                    onClick={() => this.handleGrid()}
+                  >
+                    <FontAwesomeIcon icon="th-large" className="icon" />
+                  </div>
+                </div>
+              </div>
+              <LoadMore
+                grid={this.state.grid}
+                limit={this.state.limit}
+                size={products.size}
+                products={products.articles}
+                loadMore={() => this.loadMoreCards()}
+              />
+            </div>
           </div>
         </div>
       </div>

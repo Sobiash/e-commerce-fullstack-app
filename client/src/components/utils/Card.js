@@ -23,25 +23,31 @@ class Card extends React.Component {
           />
 
           <div className="overlay" />
-          <div>
-            <MyButton
-              type="cart_link"
-              linkTo={`/product_detail/${props._id}`}
-              title="Add to cart"
-              altClass="card_button"
-              runAction={() => {
-                console.log("added to cart");
-              }}
-            />
-          </div>
         </Link>
+        <div>
+          <MyButton
+            type="cart_link"
+            linkTo={"/"}
+            title="Add to cart"
+            altClass="card_button"
+            runAction={() => {
+              console.log("added to cart");
+            }}
+          />
+        </div>
+
         <div className="action_container">
           <div className="tags">
             <div className="name">{props.name}</div>
             <div className="price">${props.price}</div>
           </div>
+
+          {props.grid ? (
+            <div className="description">
+              <p>{props.description}</p>
+            </div>
+          ) : null}
         </div>
-        {props.grid ? <div className="description">havdsadsdhabdja</div> : null}
       </div>
     );
   }

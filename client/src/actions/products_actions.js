@@ -38,26 +38,7 @@ export const getDresses = () => {
     payload: request
   };
 };
-
-// export const getProducts = (skip, limit, filters = [], previousState = []) => {
-//   const data = {
-//     limit,
-//     skip,
-//     filters
-//   };
-//   const request = axios.post(`${PRODUCT_SERVER}/shop`, data).then(response => {
-//     return {
-//       size: response.data.size,
-//       articles: response.data.articles
-//     };
-//   });
-//   return {
-//     type: GET_PRODUCTS,
-//     payload: request
-//   };
-// };
-
-export function getProducts(skip, limit, filters = [], previousState = []) {
+export const getProducts = (skip, limit, filters = [], previousState = []) => {
   const data = {
     limit,
     skip,
@@ -65,13 +46,10 @@ export function getProducts(skip, limit, filters = [], previousState = []) {
   };
 
   const request = axios.post(`${PRODUCT_SERVER}/shop`, data).then(response => {
-    // let newState = [
-    //     ...previousState,
-    //     ...response.data.articles
-    // ];
+    let newState = [...previousState, ...response.data.articles];
     return {
       size: response.data.size,
-      articles: response.data.articles
+      articles: newState
     };
   });
 
@@ -79,4 +57,4 @@ export function getProducts(skip, limit, filters = [], previousState = []) {
     type: GET_PRODUCTS,
     payload: request
   };
-}
+};

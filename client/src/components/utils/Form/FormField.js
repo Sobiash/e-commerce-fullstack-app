@@ -18,6 +18,9 @@ const FormField = ({ data, change, id }) => {
       case "input":
         formTemplate = (
           <div className="formBlock">
+            {data.showLabel ? (
+              <div className="label_inputs">{data.config.lable}</div>
+            ) : null}
             <input
               {...data.config}
               value={data.value}
