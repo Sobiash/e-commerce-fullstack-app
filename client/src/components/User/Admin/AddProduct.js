@@ -12,6 +12,7 @@ import {
 import { connect } from "react-redux";
 import {
   getDresses,
+  getColors,
   addProduct,
   clearProductInState
 } from "../../../actions/products_actions";
@@ -78,6 +79,22 @@ class AddProduct extends Component {
         config: {
           lable: "Dress Type",
           name: "dress_input",
+          options: []
+        },
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false,
+        validationMessage: "",
+        showLabel: true
+      },
+      color: {
+        element: "select",
+        value: "",
+        config: {
+          lable: "Color Type",
+          name: "color_input",
           options: []
         },
         validation: {
@@ -172,7 +189,16 @@ class AddProduct extends Component {
     }
   };
 
-  imagesHandler = images => {};
+  imagesHandler = images => {
+    const newFormData = {
+      ...this.state.formData
+    };
+    newFormData["images"].value = images;
+    newFormData["images"].valid = true;
+    this.setState({
+      formData: newFormData
+    });
+  };
 
   resetFieldHandler = () => {
     const newFormData = resetFields(this.state.formData, "products");
@@ -236,14 +262,14 @@ class AddProduct extends Component {
       );
       this.updateFields(newFormData);
     });
-    // this.props.dispatch(getColors()).then(response => {
-    //   const newFormData = populateOptionFields(
-    //     formData,
-    //     this.props.products.colors,
-    //     "colors"
-    //   );
-    //   this.updateFields(newFormData);
-    // });
+    this.props.dispatch(getColors()).then(response => {
+      const newFormData = populateOptionFields(
+        formData,
+        this.props.products.colors,
+        "color"
+      );
+      this.updateFields(newFormData);
+    });
   }
 
   render() {
@@ -280,6 +306,11 @@ class AddProduct extends Component {
             <FormField
               id={"dress"}
               data={this.state.formData.dress}
+              change={element => this.updateForm(element)}
+            />
+            <FormField
+              id={"color"}
+              data={this.state.formData.color}
               change={element => this.updateForm(element)}
             />
 

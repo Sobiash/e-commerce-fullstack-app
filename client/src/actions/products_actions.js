@@ -4,9 +4,14 @@ import {
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_BY_SELL,
   GET_DRESSES,
+  GET_COLORS,
   GET_PRODUCTS,
   ADD_PRODUCT,
-  CLEAR_PRODUCT
+  CLEAR_PRODUCT,
+  ADD_DRESS,
+  ADD_COLOR,
+  GET_PRODUCT_DETAIL,
+  CLEAR_PRODUCT_DETAIL
 } from "./types";
 
 export const getProductsByArrival = () => {
@@ -37,6 +42,16 @@ export const getDresses = () => {
 
   return {
     type: GET_DRESSES,
+    payload: request
+  };
+};
+export const getColors = () => {
+  const request = axios
+    .get(`${PRODUCT_SERVER}/colors`)
+    .then(response => response.data);
+
+  return {
+    type: GET_COLORS,
     payload: request
   };
 };
@@ -74,6 +89,55 @@ export const addProduct = dataToSubmit => {
 export const clearProductInState = () => {
   return {
     type: CLEAR_PRODUCT,
+    payload: ""
+  };
+};
+
+export const addDressType = (dataToSubmit, existingDressType) => {
+  const request = axios
+    .post(`${PRODUCT_SERVER}/dress`, dataToSubmit)
+    .then(response => {
+      let dresses = [...existingDressType, response.data.dress];
+      return {
+        success: response.data.success,
+        dresses
+      };
+    });
+  return {
+    type: ADD_DRESS,
+    payload: request
+  };
+};
+export const addColorType = (dataToSubmit, existingColorType) => {
+  const request = axios
+    .post(`${PRODUCT_SERVER}/color`, dataToSubmit)
+    .then(response => {
+      let colors = [...existingColorType, response.data.color];
+      return {
+        success: response.data.success,
+        colors
+      };
+    });
+  return {
+    type: ADD_COLOR,
+    payload: request
+  };
+};
+
+export const getProductDetail = id => {
+  const request = axios
+    .get(`${PRODUCT_SERVER}/articles_by_id?id=${id}&type=single`)
+    .then(response => {
+      return response.data[0];
+    });
+  return {
+    type: GET_PRODUCT_DETAIL,
+    payload: request
+  };
+};
+export const clearProductDetail = () => {
+  return {
+    type: CLEAR_PRODUCT_DETAIL,
     payload: ""
   };
 };

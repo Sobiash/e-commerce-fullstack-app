@@ -21,12 +21,12 @@ class Header extends React.Component {
       {
         name: "My Cart",
         icon: "/images/icons/icon-header-02.png",
-        linkTo: "user/cart",
+        linkTo: "/user/cart",
         public: false
       },
       {
         name: "My Account",
-        linkTo: "user/dashboard",
+        linkTo: "/user/dashboard",
         public: false
       },
       {

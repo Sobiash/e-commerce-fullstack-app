@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 
 const MyButton = props => {
   const buttons = () => {
@@ -31,6 +32,20 @@ const MyButton = props => {
             </Link>
           </div>
         );
+        break;
+      case "add_to_cart_link":
+        button = (
+          <div
+            onClick={() => {
+              props.runAction();
+            }}
+            className={!props.altClass ? "link_default" : props.altClass}
+          >
+            {/* <FontAwesomeIcon icon="shopping-bag" /> */}
+            Add to cart
+          </div>
+        );
+
         break;
       default:
         button = "";

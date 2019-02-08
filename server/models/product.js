@@ -10,6 +10,11 @@ const productSchema = mongoose.Schema(
       unique: 1,
       maxlength: 100
     },
+    category: {
+      required: true,
+      type: String,
+      maxlength: 100
+    },
     description: {
       required: true,
       type: String,
@@ -26,9 +31,9 @@ const productSchema = mongoose.Schema(
       required: true
     },
     color: {
-      required: true,
-      type: Array,
-      default: []
+      type: Schema.Types.ObjectId,
+      ref: "Color",
+      required: true
     },
     shipping: {
       required: true,

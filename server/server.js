@@ -28,6 +28,7 @@ cloudinary.config({
 const { User } = require("./models/user");
 const { Product } = require("./models/product");
 const { Dress } = require("./models/dress");
+const { Color } = require("./models/color");
 
 //middlewares
 const { auth } = require("./middleware/auth");
@@ -56,28 +57,28 @@ const { admin } = require("./middleware/admin");
 //   });
 // });
 
-//colors => Woods
-// app.post("/api/product/color", auth, admin, (req, res) => {
-//   const color = new Color(req.body);
-//   color.save((err, doc) => {
-//     if (err)
-//       return res.json({
-//         success: false,
-//         err
-//       });
-//     res.status(200).json({
-//       success: true,
-//       color: doc
-//     });
-//   });
-// });
+colors => Woods;
+app.post("/api/product/color", auth, admin, (req, res) => {
+  const color = new Color(req.body);
+  color.save((err, doc) => {
+    if (err)
+      return res.json({
+        success: false,
+        err
+      });
+    res.status(200).json({
+      success: true,
+      color: doc
+    });
+  });
+});
 
-// app.get("/api/product/colors", (req, res) => {
-//   Color.find({}, (err, colors) => {
-//     if (err) return res.status(400).send(err);
-//     res.status(200).send(colors);
-//   });
-// });
+app.get("/api/product/colors", (req, res) => {
+  Color.find({}, (err, colors) => {
+    if (err) return res.status(400).send(err);
+    res.status(200).send(colors);
+  });
+});
 
 //dress => Brands
 app.post("/api/product/dress", auth, admin, (req, res) => {
@@ -130,6 +131,7 @@ app.get("/api/product/articles_by_id", (req, res) => {
   }
   Product.find({ _id: { $in: items } })
     .populate("dress")
+    .populate("color")
 
     .exec((err, docs) => {
       return res.status(200).send(docs);
@@ -162,6 +164,7 @@ app.post("/api/product/shop", (req, res) => {
 
   Product.find(findArgs)
     .populate("dress")
+    .populate("color")
     .sort([[sortBy, order]])
     .skip(skip)
     .limit(limit)
@@ -186,6 +189,7 @@ app.get("/api/product/articles", (req, res) => {
 
   Product.find()
     .populate("dress")
+    .populate("color")
     .sort([[sortBy, order]])
     .limit(limit)
     .exec((err, articles) => {
@@ -275,6 +279,14 @@ app.post("/api/users/uploadimage", auth, admin, formidable(), (req, res) => {
       resource_type: "auto"
     }
   );
+});
+
+app.get("/api/users/removeimage", auth, admin, (req, res) => {
+  let public_id = req.query.public_id;
+  cloudinary.uploader.destroy(public_id, (error, result) => {
+    if (error) return res.json({ success: false, error });
+    res.status(200).send("ok");
+  });
 });
 
 const port = process.env.PORT || 3002;

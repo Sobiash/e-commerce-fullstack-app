@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ShopHeader from "../utils/ShopHeader";
-import { getDresses, getProducts } from "../../actions/products_actions";
+import {
+  getDresses,
+  getProducts,
+  getColors
+} from "../../actions/products_actions";
 import { category, price } from "../utils/FixedCategories";
 import CollapseList from "../utils/CollapseList";
 import CollapseRadio from "../utils/CollapseRadio";
@@ -16,12 +20,13 @@ class Shop extends Component {
     filters: {
       category: [],
       dress: [],
-      colors: [],
+      color: [],
       price: []
     }
   };
   componentDidMount() {
     this.props.dispatch(getDresses());
+    this.props.dispatch(getColors());
     this.props.dispatch(
       getProducts(this.state.skip, this.state.limit, this.state.filters)
     );
@@ -107,6 +112,12 @@ class Shop extends Component {
                 title="Dresses"
                 list={products.dresses}
                 handleFilters={filters => this.handleFilters(filters, "dress")}
+              />
+              <CollapseList
+                initState={false}
+                title="Colors"
+                list={products.colors}
+                handleFilters={filters => this.handleFilters(filters, "color")}
               />
 
               <CollapseRadio
