@@ -6,3 +6,5 @@ export const GET_PRODUCTS_BY_SELL = "get_products_by_sell";
 export const GET_PRODUCTS_BY_ARRIVAL = "get_products_by_arrival";
 export const GET_DRESSES = "get_dresses";
 export const GET_PRODUCTS = "get_products";
+export const ADD_PRODUCT = "add_product";
+export const CLEAR_PRODUCT = "clear_product";

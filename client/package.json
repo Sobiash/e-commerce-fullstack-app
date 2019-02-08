@@ -13,7 +13,7 @@
     "gh-pages": "^2.0.1",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "react-dropzone": "^8.0.3",
+    "react-dropzone": "^8.0.4",
     "react-images": "^0.5.19",
     "react-moment": "^0.8.4",
     "react-redux": "^6.0.0",

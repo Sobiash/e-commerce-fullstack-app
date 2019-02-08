@@ -4,7 +4,9 @@ import {
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_BY_SELL,
   GET_DRESSES,
-  GET_PRODUCTS
+  GET_PRODUCTS,
+  ADD_PRODUCT,
+  CLEAR_PRODUCT
 } from "./types";
 
 export const getProductsByArrival = () => {
@@ -56,5 +58,22 @@ export const getProducts = (skip, limit, filters = [], previousState = []) => {
   return {
     type: GET_PRODUCTS,
     payload: request
+  };
+};
+
+export const addProduct = dataToSubmit => {
+  const request = axios
+    .post(`${PRODUCT_SERVER}/article`, dataToSubmit)
+    .then(response => response.data);
+
+  return {
+    type: ADD_PRODUCT,
+    payload: request
+  };
+};
+export const clearProductInState = () => {
+  return {
+    type: CLEAR_PRODUCT,
+    payload: ""
   };
 };

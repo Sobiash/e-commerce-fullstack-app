@@ -10,9 +10,10 @@ import {
   faAngleDown,
   faAngleUp,
   faTh,
-  faThLarge
+  faThLarge,
+  faPlusCircle
 } from "@fortawesome/free-solid-svg-icons";
-library.add(faAngleDown, faAngleUp, faThLarge, faTh);
+library.add(faAngleDown, faAngleUp, faThLarge, faTh, faPlusCircle);
 
 ReactDOM.render(
   <Provider store={store}>
