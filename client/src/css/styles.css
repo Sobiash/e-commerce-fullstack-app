@@ -953,7 +953,7 @@ div.tag.low_title {
 
 .dropzone_box {
   display: inline-block;
-  width: 100%;
+  width: 25%;
   height: 150px;
   padding: 15px;
   box-sizing: border-box;
@@ -961,7 +961,7 @@ div.tag.low_title {
 
 .dropzone_box .wrap {
   background: #eaeaea;
-  width: 20%;
+  width: 100%;
   height: 100%;
   text-align: center;
   box-sizing: border-box;
@@ -969,9 +969,4 @@ div.tag.low_title {
   background-size: contain !important;
   background-position: center center !important;
   border: 1px solid #eaeaea;
-}
-
-.dropzone_images {
-  display: block;
-  background: red;
 }
