@@ -771,7 +771,7 @@ div.tag.low_title {
 
 .product_detail_wrapper .product_actions {
   padding: 20px 0px 30px 0px;
-  border-bottom: 1px solid #d3d3d3;
+  /* border-bottom: 1px solid #d3d3d3; */
 }
 
 .product_detail_wrapper .product_specifications .item {
@@ -804,10 +804,10 @@ div.tag.low_title {
 
 .product_detail_wrapper .main_thumbs .thumb {
   cursor: pointer;
-  height: 200px;
+  height: 300px;
   width: 50%;
   background-size: cover !important;
-  background-position: bottom center !important;
+  background-position: top center !important;
   border: 1px solid #e8e8e8;
   box-sizing: border-box;
   float: left;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import FormField from "../../utils/Form/FormField";
-import ImageUpload from "../../utils/ImageUpload";
+
 import {
   update,
   generateData,

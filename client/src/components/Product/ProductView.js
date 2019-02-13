@@ -6,6 +6,7 @@ import {
   clearProductDetail
 } from "../../actions/products_actions";
 import ProductInfo from "./ProductInfo";
+import ProductImages from "./ProductImages";
 
 class ProductView extends Component {
   componentDidMount() {
@@ -22,7 +23,11 @@ class ProductView extends Component {
         <div className="container">
           {this.props.products.productDetail ? (
             <div className="product_detail_wrapper">
-              <div className="left">images</div>
+              <div className="left">
+                <div style={{ width: "500px" }}>
+                  <ProductImages detail={this.props.products.productDetail} />
+                </div>
+              </div>
               <div className="right">
                 <ProductInfo
                   detail={this.props.products.productDetail}
@@ -31,7 +36,6 @@ class ProductView extends Component {
               </div>
             </div>
           ) : (
-            //  this.props.products.productDetail
             "Loading"
           )}
         </div>

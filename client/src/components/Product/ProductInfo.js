@@ -4,6 +4,7 @@ import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 
 const ProductInfo = props => {
   const detail = props.detail;
+
   const showProductTags = detail => (
     <div className="product_tags">
       {detail.shipping ? (
@@ -40,9 +41,10 @@ const ProductInfo = props => {
       )}
     </div>
   );
+
   const showProductActions = detail => (
     <div className="product_actions">
-      <div className="price">${detail.price}</div>
+      <div className="price"> ${detail.price}</div>
       <div className="cart">
         <MyButton
           type="add_to_cart_link"
@@ -53,26 +55,26 @@ const ProductInfo = props => {
   );
 
   const showProductSpecs = detail => (
-    <div className="product_specifications">
+    <div>
       <h2>Specs:</h2>
       <div className="item">
-        <strong>Colors:</strong>
-        {detail.color.name ? detail.color.name : null}
+        <strong>Colors:</strong> {detail.color.name ? detail.color.name : null}
       </div>
       <div className="item">
-        <strong>Dress Type:</strong>
-        {detail.dress.name}
+        <strong>Dress Type:</strong> {detail.dress.name}
       </div>
     </div>
   );
 
   return (
     <div>
-      <h1>{detail.dress.name}</h1>
-      <p>{detail.description}</p>
+      <h2>{detail.dress.name}</h2>
+      <p>
+        <strong>Item details:</strong> {detail.description}
+      </p>
       {showProductTags(detail)}
-      {showProductActions(detail)}
       {showProductSpecs(detail)}
+      {showProductActions(detail)}
     </div>
   );
 };
