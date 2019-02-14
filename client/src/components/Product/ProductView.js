@@ -5,17 +5,27 @@ import {
   getProductDetail,
   clearProductDetail
 } from "../../actions/products_actions";
+import { addToCart } from "../../actions/user_actions";
 import ProductInfo from "./ProductInfo";
 import ProductImages from "./ProductImages";
 
 class ProductView extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
-    this.props.dispatch(getProductDetail(id));
+    this.props.dispatch(getProductDetail(id)).then(response => {
+      if (!this.props.products.productDetail) {
+        this.props.history.push("/");
+      }
+    });
   }
   componentWillUnmount() {
     this.props.dispatch(clearProductDetail());
   }
+
+  addToCartHandler = id => {
+    this.props.dispatch(addToCart(id));
+  };
+
   render() {
     return (
       <div>

@@ -48,7 +48,7 @@ const ProductInfo = props => {
       <div className="cart">
         <MyButton
           type="add_to_cart_link"
-          runAction={() => console.log("added to cart")}
+          runAction={() => props.addToCart(detail._id)}
         />
       </div>
     </div>
@@ -68,7 +68,7 @@ const ProductInfo = props => {
 
   return (
     <div>
-      <h2>{detail.dress.name}</h2>
+      <h2>{detail.name}</h2>
       <p>
         <strong>Item details:</strong> {detail.description}
       </p>

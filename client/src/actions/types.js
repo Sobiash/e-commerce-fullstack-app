@@ -13,3 +13,5 @@ export const ADD_DRESS = "add_dress";
 export const ADD_COLOR = "add_color";
 export const GET_PRODUCT_DETAIL = "get_product_detail";
 export const CLEAR_PRODUCT_DETAIL = "clear_product_detail";
+export const ADD_TO_CART = "add_to_cart";
+export const CART_ITEMS = "cart_items";

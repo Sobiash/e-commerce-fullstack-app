@@ -15,7 +15,8 @@ import {
   faTruck,
   faCheck,
   faTimes,
-  faShoppingBag
+  faFrown,
+  faSmile
 } from "@fortawesome/free-solid-svg-icons";
 library.add(
   faAngleDown,
@@ -26,7 +27,8 @@ library.add(
   faTruck,
   faCheck,
   faTimes,
-  faShoppingBag
+  faFrown,
+  faSmile
 );
 
 ReactDOM.render(

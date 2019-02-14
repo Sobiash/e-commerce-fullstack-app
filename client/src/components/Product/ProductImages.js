@@ -49,7 +49,7 @@ class ProductImages extends Component {
           key={i}
           onClick={() => this.handleLightBox(i)}
           className="thumb"
-          style={{ background: `url(${item}) no-repeat center` }}
+          style={{ background: `url(${item}) no-repeat` }}
         />
       ) : null
     );
