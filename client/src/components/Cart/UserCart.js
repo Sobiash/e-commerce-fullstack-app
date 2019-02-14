@@ -23,11 +23,31 @@ class UserCart extends Component {
         });
         this.props
           .dispatch(cartItems(cartItem, user.userData.cart))
-          .then(() => {});
+          .then(() => {
+            if (this.props.user.cartDetail.length > 0) {
+              this.calculateTotal(this.props.user.cartDetail);
+            }
+          });
       } else {
       }
     }
   }
+  calculateTotal = cartDetail => {
+    let total = 0;
+    cartDetail.forEach(item => {
+      total += parseInt(item.price, 10) * item.quantity;
+    });
+    this.setState({
+      total,
+      showTotal: true
+    });
+  };
+  showNotItems = () => (
+    <div className="cart_no_items">
+      <FontAwesomeIcon icon="frown" />
+      <div>You have no items</div>
+    </div>
+  );
   removeFromCart = () => {};
   render() {
     return (
@@ -40,7 +60,24 @@ class UserCart extends Component {
               type="cart"
               removeItem={id => this.removeFromCart(id)}
             />
+            {this.state.showTotal ? (
+              <div>
+                <div className="user_cart_sum">
+                  Total Amount: ${this.state.total}
+                </div>
+              </div>
+            ) : this.state.showSuccess ? (
+              <div className="cart_success">
+                <FontAwesomeIcon icon="smile" />
+                <div>Thankyou for your purchases.</div>
+              </div>
+            ) : (
+              this.showNotItems()
+            )}
           </div>
+          {this.state.showTotal ? (
+            <div className="payment_button_container">paypal</div>
+          ) : null}
         </div>
       </UserLayout>
     );
