@@ -406,7 +406,7 @@ app.post("/api/site/site_data", auth, admin, (req, res) => {
   );
 });
 
-if (process.env.NODE_ENV === "Production") {
+if (process.env.NODE_ENV === "production") {
   const path = require("path");
   app.get("/*", (req, res) => {
     res.sendfile(path.resolve(__dirname, "../client", "build", "index.html"));
