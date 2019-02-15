@@ -59,6 +59,18 @@ class ManageDresses extends Component {
         .then(response => {
           if (response.payload.success) {
             this.resetFieldsHandler();
+            this.setState(
+              {
+                formSuccess: true
+              },
+              () => {
+                setTimeout(() => {
+                  this.setState({
+                    formSuccess: false
+                  });
+                }, 2000);
+              }
+            );
           } else {
             this.setState({
               formError: true

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import UserLayout from "../Hoc/User";
 import CartBlock from "./CartBlock";
 import { connect } from "react-redux";
-import { cartItems } from "../../actions/user_actions";
+import { cartItems, removeCartItems } from "../../actions/user_actions";
+
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 
 class UserCart extends Component {
@@ -48,7 +49,17 @@ class UserCart extends Component {
       <div>You have no items</div>
     </div>
   );
-  removeFromCart = () => {};
+  removeFromCart = id => {
+    this.props.dispatch(removeCartItems(id)).then(() => {
+      if (this.props.user.cartDetail.length <= 0) {
+        this.setState({
+          showTotal: false
+        });
+      } else {
+        this.calculateTotal(this.props.user.cartDetail);
+      }
+    });
+  };
   render() {
     return (
       <UserLayout>
@@ -76,7 +87,7 @@ class UserCart extends Component {
             )}
           </div>
           {this.state.showTotal ? (
-            <div className="payment_button_container">paypal</div>
+            <div className="payment_button_container">pay</div>
           ) : null}
         </div>
       </UserLayout>

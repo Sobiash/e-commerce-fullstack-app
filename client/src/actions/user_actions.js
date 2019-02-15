@@ -6,7 +6,10 @@ import {
   AUTH_USER,
   LOGOUT_USER,
   ADD_TO_CART,
-  CART_ITEMS
+  CART_ITEMS,
+  REMOVE_CART_ITEMS,
+  UPDATE_USER_DATA,
+  CLEAR_UPDATE_USER_DATA
 } from "./types";
 
 export const registerUser = dataToSubmit => {
@@ -77,5 +80,44 @@ export const cartItems = (cartItems, userCart) => {
   return {
     type: CART_ITEMS,
     payload: request
+  };
+};
+
+export const removeCartItems = id => {
+  const request = axios
+    .get(`${USER_SERVER}/removeFromCart?_id=${id}`)
+    .then(response => {
+      response.data.cart.forEach(item => {
+        response.data.cartDetail.forEach((k, i) => {
+          if (item.id === k._id) {
+            response.data.cartDetail[i].quantity = item.quantity;
+          }
+        });
+      });
+      return response.data;
+    });
+  return {
+    type: REMOVE_CART_ITEMS,
+    payload: request
+  };
+};
+
+export const updateUserData = dataToSubmit => {
+  const request = axios
+    .post(`${USER_SERVER}/update_profile`, dataToSubmit)
+    .then(response => {
+      return response.data;
+    });
+
+  return {
+    type: UPDATE_USER_DATA,
+    payload: request
+  };
+};
+
+export const clearUpdateUserData = () => {
+  return {
+    type: CLEAR_UPDATE_USER_DATA,
+    payload: ""
   };
 };

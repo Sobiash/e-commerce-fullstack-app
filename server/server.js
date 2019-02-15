@@ -32,6 +32,7 @@ const { User } = require("./models/user");
 const { Product } = require("./models/product");
 const { Dress } = require("./models/dress");
 const { Color } = require("./models/color");
+const { Site } = require("./models/site");
 
 //middlewares
 const { auth } = require("./middleware/auth");
@@ -334,6 +335,74 @@ app.post("/api/users/addToCart", auth, (req, res) => {
       );
     }
   });
+});
+
+app.get("/api/users/removeFromCart", auth, (req, res) => {
+  User.findOneAndUpdate(
+    { _id: req.user._id },
+    { $pull: { cart: { id: mongoose.Types.ObjectId(req.query._id) } } },
+    { new: true },
+    (err, doc) => {
+      let cart = doc.cart;
+      let array = cart.map(item => {
+        return mongoose.Types.ObjectId(item.id);
+      });
+
+      Product.find({ _id: { $in: array } })
+        .populate("dress")
+        .populate("color")
+        .exec((err, cartDetail) => {
+          return res.status(200).json({
+            cartDetail,
+            cart
+          });
+        });
+    }
+  );
+});
+
+// app.post("/api/users/successBuy",auth,(req,res)=>{
+
+// })
+
+app.post("/api/users/update_profile", auth, (req, res) => {
+  User.findOneAndUpdate(
+    { _id: req.user._id },
+    {
+      $set: req.body
+    },
+    { new: true },
+    (err, doc) => {
+      if (err) return res.json({ success: false, err });
+      return res.status(200).send({
+        success: true
+      });
+    }
+  );
+});
+
+//site
+
+app.get("/api/site/site_data", (req, res) => {
+  Site.find({}, (err, site) => {
+    if (err) return res.status(400).send(err);
+    res.status(200).send(site[0].siteInfo);
+  });
+});
+
+app.post("/api/site/site_data", auth, admin, (req, res) => {
+  Site.findOneAndUpdate(
+    { name: "Site" },
+    { $set: { siteInfo: req.body } },
+    { new: true },
+    (err, doc) => {
+      if (err) return res.json({ success: false, err });
+      return res.status(200).send({
+        success: true,
+        siteInfo: doc.siteInfo
+      });
+    }
+  );
 });
 
 const port = process.env.PORT || 3002;
