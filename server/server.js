@@ -10,10 +10,7 @@ const path = require("path");
 require("dotenv").config();
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useCreateIndex: true
-});
+mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.on("error", err => {
   console.error(`${err.message}`);
 });
