@@ -5,6 +5,7 @@ const formidable = require("express-formidable");
 const cloudinary = require("cloudinary");
 const app = express();
 const mongoose = require("mongoose");
+const path = require("path");
 require("dotenv").config();
 
 mongoose.Promise = global.Promise;
@@ -19,7 +20,7 @@ mongoose.connection.on("error", err => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(express.static("client/build"));
+app.use(express.static(path.join(__dirname, "client/build")));
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -408,7 +409,7 @@ app.post("/api/site/site_data", auth, admin, (req, res) => {
 if (process.env.NODE_ENV === "production") {
   const path = require("path");
   app.get("/*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
+    res.sendFile(path.join(__dirname + "/client/build/index.html"));
   });
 }
 
