@@ -21,8 +21,7 @@ mongoose.connection.on("error", err => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-// app.use(express.static("client/build"));
-app.use(express.static(path.join(__dirname, "client/build")));
+app.use(express.static("client/build"));
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
