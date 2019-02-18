@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import UserLayout from "../../Hoc/User";
+import UserLayout from "../../Hoc/UserLayout";
 import FormField from "../../utils/Form/FormField";
 import ImageUpload from "../../utils/ImageUpload";
 import {

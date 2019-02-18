@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import UserLayout from "../Hoc/User";
+import UserLayout from "../Hoc/UserLayout";
 import CartBlock from "./CartBlock";
 import { connect } from "react-redux";
 import { cartItems, removeCartItems } from "../../actions/user_actions";
@@ -62,35 +62,52 @@ class UserCart extends Component {
   };
   render() {
     return (
-      <UserLayout>
-        <div>
-          <h1>My Cart</h1>
-          <div className="user_cart">
-            <CartBlock
-              user={this.props.user}
-              type="cart"
-              removeItem={id => this.removeFromCart(id)}
-            />
-            {this.state.showTotal ? (
-              <div>
-                <div className="user_cart_sum">
-                  Total Amount: ${this.state.total}
+      <div class="container-table-cart">
+        <div className="container">
+          <h1>Cart</h1>
+          <div className="wrap-table-shopping-cart ">
+            <table className="table-shopping-cart">
+              <tr className="table-head">
+                <th className="column-1" />
+                <th className="column-2">Product</th>
+                <th className="column-3">Price</th>
+                <th className="column-4 padding">Quantity</th>
+                <th className="column-5" />
+              </tr>
+              <CartBlock
+                user={this.props.user}
+                type="cart"
+                removeItem={id => this.removeFromCart(id)}
+              />
+            </table>
+          </div>
+          {this.state.showTotal ? (
+            <div>
+              <div className="user_cart_sum">
+                <h4>Cart Totals</h4>
+                <div>
+                  <span>Subtotal:</span>
+                  <span>${this.state.total}</span>
+                </div>
+                <div className="payment">
+                  <div className="link_default">Proceed to Checkout</div>
                 </div>
               </div>
-            ) : this.state.showSuccess ? (
-              <div className="cart_success">
-                <FontAwesomeIcon icon="smile" />
-                <div>Thankyou for your purchases.</div>
-              </div>
-            ) : (
-              this.showNotItems()
-            )}
-          </div>
+            </div>
+          ) : this.state.showSuccess ? (
+            <div className="cart_success">
+              <FontAwesomeIcon icon="smile" />
+              <div>Thankyou for your purchases.</div>
+            </div>
+          ) : (
+            this.showNotItems()
+          )}
+
           {this.state.showTotal ? (
             <div className="payment_button_container">pay</div>
           ) : null}
         </div>
-      </UserLayout>
+      </div>
     );
   }
 }

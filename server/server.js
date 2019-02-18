@@ -6,11 +6,13 @@ const cloudinary = require("cloudinary");
 
 const app = express();
 const mongoose = require("mongoose");
-const path = require("path");
 require("dotenv").config();
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useCreateIndex: true
+});
 mongoose.connection.on("error", err => {
   console.error(`${err.message}`);
 });
@@ -18,7 +20,6 @@ mongoose.connection.on("error", err => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(express.static("client/build"));
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -403,12 +404,6 @@ app.post("/api/site/site_data", auth, admin, (req, res) => {
     }
   );
 });
-
-if (process.env.NODE_ENV === "production") {
-  app.get("/*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "../client", "build", "index.html"));
-  });
-}
 
 const port = process.env.PORT || 3002;
 

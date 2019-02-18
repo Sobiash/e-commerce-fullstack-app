@@ -1,5 +1,5 @@
 import React from "react";
-import Userlayout from "../Hoc/User";
+import Userlayout from "../Hoc/UserLayout";
 import UpdateInfo from "./UpdateInfo";
 
 const UpdateUserProfile = () => {

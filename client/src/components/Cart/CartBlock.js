@@ -11,39 +11,29 @@ const CartBlock = ({ user, removeItem, type }) => {
   const renderCartItems = () =>
     user.cartDetail
       ? user.cartDetail.map(item => (
-          <div className="user_product_block" key={item._id}>
-            <div className="item">
-              <div
-                className="image"
-                style={{
-                  background: `url(${renderCartImages(item.images)}) no-repeat`
-                }}
-              />
-            </div>
-            <div className="item">
-              <h4>Item</h4>
-              <div>{item.name}</div>
-            </div>
-            <div className="item">
-              <h4>Quantity</h4>
-              <div>{item.quantity}</div>
-            </div>
-            <div className="item">
-              <h4>Price</h4>
-              <div>$ {item.price}</div>
-            </div>
-            <div className="item btn">
-              <div
-                className="cart_remove_btn"
-                onClick={() => removeItem(item._id)}
-              >
-                Remove
+          <tr className="table-row" key={item._id}>
+            <td className="column-1">
+              <div className="cart-img-product">
+                <img src={renderCartImages(item.images)} className="image" />
               </div>
-            </div>
-          </div>
+            </td>
+            <td className="column-2">{item.name}</td>
+            <td className="column-3">{item.price}</td>
+            <td class="column-4">{item.quantity}</td>
+            <td class="column-5">
+              <div className="item btn">
+                <div
+                  className="cart_remove_btn"
+                  onClick={() => removeItem(item._id)}
+                >
+                  Remove
+                </div>
+              </div>
+            </td>
+          </tr>
         ))
       : null;
-  return <div>{renderCartItems()}</div>;
+  return <React.Fragment>{renderCartItems()}</React.Fragment>;
 };
 
 export default CartBlock;

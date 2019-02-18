@@ -1,5 +1,5 @@
 import React from "react";
-import UserLayout from "../../Hoc/User";
+import UserLayout from "../../Hoc/UserLayout";
 import ManageDresses from "./ManageDresses";
 import ManageColors from "./ManageColors";
 
