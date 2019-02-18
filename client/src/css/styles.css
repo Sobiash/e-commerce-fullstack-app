@@ -218,12 +218,13 @@ button {
   border: solid 1px #333333;
   background: #222222;
   color: #fff;
-  margin-top: 10px;
+  margin-top: 30px;
   border-radius: 23px;
+  cursor: pointer;
 }
 
 .payment {
-  margin-top: 50px;
+  margin-top: 20px;
   margin-left: 100px;
 }
 
@@ -983,7 +984,7 @@ div.tag.low_title {
   width: 1px;
   height: calc(100% - 51px);
   background-color: #e6e6e6;
-  top: 51px;
+  top: 551px;
   left: 0;
 }
 
@@ -1002,6 +1003,9 @@ div.tag.low_title {
   border-collapse: collapse;
   width: 100%;
   min-width: 900px;
+}
+.container-table-cart h1 {
+  text-align: center;
 }
 
 .table-shopping-cart .column-1 {

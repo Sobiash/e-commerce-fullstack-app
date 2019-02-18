@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import UserLayout from "../Hoc/UserLayout";
 import CartBlock from "./CartBlock";
 import { connect } from "react-redux";
 import { cartItems, removeCartItems } from "../../actions/user_actions";

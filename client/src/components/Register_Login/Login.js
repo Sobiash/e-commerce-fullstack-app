@@ -92,7 +92,12 @@ class Login extends React.Component {
           {this.state.formError ? (
             <div className="error_label">Please check your data</div>
           ) : null}
-          <button onClick={event => this.submitForm(event)}>Log in</button>
+          <div
+            className="link_default"
+            onClick={event => this.submitForm(event)}
+          >
+            Log in
+          </div>
         </form>
       </div>
     );
