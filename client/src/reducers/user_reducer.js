@@ -7,7 +7,8 @@ import {
   CART_ITEMS,
   REMOVE_CART_ITEMS,
   UPDATE_USER_DATA,
-  CLEAR_UPDATE_USER_DATA
+  CLEAR_UPDATE_USER_DATA,
+  RESET_USER
 } from "../actions/types";
 
 const initialState = {};
@@ -54,6 +55,8 @@ const UserReducer = (state = initialState, action) => {
         ...state,
         updateUserData: action.payload
       };
+    case RESET_USER:
+      return { ...state, resetUser: action.payload };
     default:
       return state;
   }

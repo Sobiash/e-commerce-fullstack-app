@@ -9,7 +9,8 @@ import {
   CART_ITEMS,
   REMOVE_CART_ITEMS,
   UPDATE_USER_DATA,
-  CLEAR_UPDATE_USER_DATA
+  CLEAR_UPDATE_USER_DATA,
+  RESET_USER
 } from "./types";
 
 export const registerUser = dataToSubmit => {
@@ -119,5 +120,15 @@ export const clearUpdateUserData = () => {
   return {
     type: CLEAR_UPDATE_USER_DATA,
     payload: ""
+  };
+};
+
+export const resetUser = dataToSubmit => {
+  const request = axios
+    .post(`${USER_SERVER}/resetUser`, dataToSubmit)
+    .then(response => response.data);
+  return {
+    type: RESET_USER,
+    payload: request
   };
 };

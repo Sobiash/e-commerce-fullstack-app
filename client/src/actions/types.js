@@ -20,3 +20,4 @@ export const UPDATE_USER_DATA = "update_user_data";
 export const CLEAR_UPDATE_USER_DATA = "clear_update_user_data";
 export const GET_SITE_DATA = "get_site_data";
 export const UPDATE_SITE_DATA = "update_site_data";
+export const RESET_USER = "reset_user";

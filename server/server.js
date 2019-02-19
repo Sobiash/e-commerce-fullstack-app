@@ -338,6 +338,21 @@ app.get("/api/users/removeFromCart", auth, (req, res) => {
   );
 });
 
+app.post("/api/users/resetUser", (req, res) => {
+  User.findOne(
+    {
+      email: req.body.email
+    },
+    (err, user) => {
+      user.generateResetToken((err, user) => {
+        if (err) return res.json({ success: false, err });
+        sendEmail(user.name, user.email, null, "reset_password", user);
+        return res.json({ success: true });
+      });
+    }
+  );
+});
+
 // app.post("/api/users/successBuy",auth,(req,res)=>{
 
 // })

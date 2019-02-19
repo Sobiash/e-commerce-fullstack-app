@@ -17,7 +17,7 @@ class CartBlock extends React.Component {
               <div className="cart-img-product">
                 <img
                   src={this.renderCartImages(item.images)}
-                  alt="item image"
+                  alt="item"
                   className="image"
                 />
               </div>
