@@ -38,30 +38,7 @@ const { Site } = require("./models/site");
 const { auth } = require("./middleware/auth");
 const { admin } = require("./middleware/admin");
 
-// size => Frets
-// app.post("/api/product/size", auth, admin, (req, res) => {
-//   const size = new Size(req.body);
-//   size.save((err, doc) => {
-//     if (err)
-//       return res.json({
-//         success: false,
-//         err
-//       });
-//     res.status(200).json({
-//       success: true,
-//       size: doc
-//     });
-//   });
-// });
-
-// app.get("/api/product/sizes", (req, res) => {
-//   Size.find({}, (err, sizes) => {
-//     if (err) return res.status(400).send(err);
-//     res.status(200).send(sizes);
-//   });
-// });
-
-colors => Woods;
+//colors => Woods;
 app.post("/api/product/color", auth, admin, (req, res) => {
   const color = new Color(req.body);
   color.save((err, doc) => {

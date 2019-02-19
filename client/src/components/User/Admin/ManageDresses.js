@@ -98,7 +98,7 @@ class ManageDresses extends Component {
   render() {
     return (
       <div className="admin_category_wrapper">
-        <h1>Dress Types</h1>
+        <h3>Dress Types</h3>
         <div className="admin_two_column">
           <div className="left">
             <div className="brands_container">{this.renderCategories()}</div>
@@ -116,9 +116,12 @@ class ManageDresses extends Component {
               {this.state.formError ? (
                 <div className="error_label">Please check your data</div>
               ) : null}
-              <button onClick={event => this.submitForm(event)}>
+              <div
+                className="link_default"
+                onClick={event => this.submitForm(event)}
+              >
                 Add dress
-              </button>
+              </div>
             </form>
           </div>
         </div>

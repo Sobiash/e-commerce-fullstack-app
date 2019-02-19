@@ -135,7 +135,7 @@ class Register extends Component {
           <div className="register_login_container">
             <div className="left">
               <form onSubmit={event => this.submitForm(event)}>
-                <h2>Personal information</h2>
+                <h3>Personal information</h3>
                 <div className="form_block_two">
                   <div className="block">
                     <FormField
@@ -161,7 +161,7 @@ class Register extends Component {
                     />
                   </div>
                 </div>
-                <h2>Verify password</h2>
+                <h3>Verify password</h3>
                 <div className="form_block_two">
                   <div className="block">
                     <FormField
@@ -182,9 +182,12 @@ class Register extends Component {
                   {this.state.formError ? (
                     <div className="error_label">Please check your data</div>
                   ) : null}
-                  <button onClick={event => this.submitForm(event)}>
+                  <div
+                    className="link_default"
+                    onClick={event => this.submitForm(event)}
+                  >
                     Create an account
-                  </button>
+                  </div>
                 </div>
               </form>
             </div>

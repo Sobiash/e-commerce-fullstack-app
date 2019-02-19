@@ -276,7 +276,7 @@ class AddProduct extends Component {
     return (
       <UserLayout>
         <div>
-          <h1>Add Products</h1>
+          <h3>Add Products</h3>
           <form onSubmit={event => this.submitForm(event)}>
             <ImageUpload
               imagesHandler={images => this.imagesHandler(images)}
@@ -336,9 +336,12 @@ class AddProduct extends Component {
             {this.state.formError ? (
               <div className="error_label">Please check your data</div>
             ) : null}
-            <button onClick={event => this.submitForm(event)}>
+            <div
+              className="link_default"
+              onClick={event => this.submitForm(event)}
+            >
               Add product
-            </button>
+            </div>
           </form>
         </div>
       </UserLayout>

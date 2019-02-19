@@ -1,20 +1,25 @@
 import React from "react";
 
-const CartBlock = ({ user, removeItem, type }) => {
-  const renderCartImages = images => {
+class CartBlock extends React.Component {
+  renderCartImages = images => {
     if (images.length > 0) {
       return images[0].url;
     } else {
       return "/images/img1.jpeg";
     }
   };
-  const renderCartItems = () =>
-    user.cartDetail
-      ? user.cartDetail.map(item => (
+
+  renderCartItems = () =>
+    this.props.user.cartDetail
+      ? this.props.user.cartDetail.map(item => (
           <tr className="table-row" key={item._id}>
             <td className="column-1">
               <div className="cart-img-product">
-                <img src={renderCartImages(item.images)} className="image" />
+                <img
+                  src={this.renderCartImages(item.images)}
+                  alt="item image"
+                  className="image"
+                />
               </div>
             </td>
             <td className="column-2">{item.name}</td>
@@ -24,7 +29,7 @@ const CartBlock = ({ user, removeItem, type }) => {
               <div className="item btn">
                 <div
                   className="cart_remove_btn"
-                  onClick={() => removeItem(item._id)}
+                  onClick={() => this.props.removeItem(item._id)}
                 >
                   Remove
                 </div>
@@ -33,7 +38,9 @@ const CartBlock = ({ user, removeItem, type }) => {
           </tr>
         ))
       : null;
-  return <React.Fragment>{renderCartItems()}</React.Fragment>;
-};
+  render() {
+    return <React.Fragment>{this.renderCartItems()}</React.Fragment>;
+  }
+}
 
 export default CartBlock;

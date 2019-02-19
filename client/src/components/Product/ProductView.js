@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ShopHeader from "../utils/ShopHeader";
 import { connect } from "react-redux";
 import {
   getProductDetail,
@@ -29,7 +28,6 @@ class ProductView extends Component {
   render() {
     return (
       <div>
-        <ShopHeader title="Product detail" />
         <div className="container">
           {this.props.products.productDetail ? (
             <div className="product_detail_wrapper">

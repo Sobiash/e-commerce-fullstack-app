@@ -119,7 +119,7 @@ class UpdateInfo extends Component {
     return (
       <div>
         <form onSubmit={event => this.submitForm(event)}>
-          <h2>Personal information</h2>
+          <h4>Personal information</h4>
           <div className="form_block_two">
             <div className="block">
               <FormField
@@ -150,9 +150,12 @@ class UpdateInfo extends Component {
             {this.state.formError ? (
               <div className="error_label">Please check your data</div>
             ) : null}
-            <button onClick={event => this.submitForm(event)}>
+            <div
+              className="link_default"
+              onClick={event => this.submitForm(event)}
+            >
               Update personal info
-            </button>
+            </div>
           </div>
         </form>
       </div>

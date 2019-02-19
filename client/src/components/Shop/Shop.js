@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import ShopHeader from "../utils/ShopHeader";
 import {
   getDresses,
@@ -95,8 +96,7 @@ class Shop extends Component {
     return (
       <div>
         <ShopHeader title="Browse Products" />
-
-        <div className="container">
+        <div>
           <div className="shop_wrapper">
             <div className="left">
               <CollapseList
@@ -108,13 +108,13 @@ class Shop extends Component {
                 }
               />
               <CollapseList
-                initState={false}
+                initState={true}
                 title="Dresses"
                 list={products.dresses}
                 handleFilters={filters => this.handleFilters(filters, "dress")}
               />
               <CollapseList
-                initState={false}
+                initState={true}
                 title="Colors"
                 list={products.colors}
                 handleFilters={filters => this.handleFilters(filters, "color")}
@@ -128,6 +128,23 @@ class Shop extends Component {
               />
             </div>
             <div className="right">
+              <div
+                className="shop-title-page"
+                style={{
+                  background: "url(images/img2.jpeg)"
+                }}
+              >
+                <h2>Free Shipping</h2>
+                <p>For Fashe Club members</p>
+                <div className="shop_span">
+                  <span>
+                    <Link to="/register">Sign up</Link>
+                  </span>
+                  <span>
+                    <Link to="/register_login">Sign in</Link>
+                  </span>
+                </div>
+              </div>
               <div className="shop_options">
                 <div className="shop_grids clear">
                   <div

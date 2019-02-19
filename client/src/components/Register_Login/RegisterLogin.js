@@ -8,7 +8,7 @@ const RegisterLogin = () => {
       <div className="container">
         <div className="register_login_container">
           <div className="left">
-            <h1>New Customers</h1>
+            <h3>New Customers</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt
               non facilis perferendis, optio rerum cum dolorem in nemo atque
@@ -25,7 +25,7 @@ const RegisterLogin = () => {
             />
           </div>
           <div className="right">
-            <h2>Registered Customers</h2>
+            <h3>Registered Customers</h3>
             <p>If you have an account, please login.</p>
             <Login />
           </div>

@@ -14,6 +14,7 @@ class Card extends React.Component {
   };
   render() {
     const props = this.props;
+    console.log(props);
     return (
       <div className={`card_item_wrapper ${props.grid}`}>
         <Link to={`/product_detail/${props._id}`}>
@@ -38,18 +39,11 @@ class Card extends React.Component {
             }}
           />
         </div>
-
         <div className="action_container">
           <div className="tags">
             <div className="name">{props.name}</div>
             <div className="price">${props.price}</div>
           </div>
-
-          {props.grid ? (
-            <div className="description">
-              <p>{props.description}</p>
-            </div>
-          ) : null}
         </div>
       </div>
     );

@@ -13,8 +13,7 @@ const ProductInfo = props => {
             <FontAwesomeIcon icon="truck" />
           </div>
           <div className="tag_text">
-            <div>Free Shipping</div>
-            <div>and return</div>
+            <div>Free Shipping and return</div>
           </div>
         </div>
       ) : null}
@@ -24,8 +23,7 @@ const ProductInfo = props => {
             <FontAwesomeIcon icon="check" />
           </div>
           <div className="tag_text">
-            <div>Available</div>
-            <div>In store</div>
+            <div>Available in store</div>
           </div>
         </div>
       ) : (
@@ -44,7 +42,6 @@ const ProductInfo = props => {
 
   const showProductActions = detail => (
     <div className="product_actions">
-      <div className="price"> ${detail.price}</div>
       <div className="cart">
         <MyButton
           type="add_to_cart_link"
@@ -55,25 +52,24 @@ const ProductInfo = props => {
   );
 
   const showProductSpecs = detail => (
-    <div>
-      <h2>Specs:</h2>
+    <div className="specs">
+      <h5>Specs:</h5>
       <div className="item">
-        <strong>Colors:</strong> {detail.color.name ? detail.color.name : null}
+        {detail.color.name ? <p>Colors: {detail.color.name}</p> : null}
       </div>
       <div className="item">
-        <strong>Dress Type:</strong> {detail.dress.name}
+        <p>Dress category: {detail.dress.name}</p>
       </div>
     </div>
   );
 
   return (
-    <div>
-      <h2>{detail.name}</h2>
-      <p>
-        <strong>Item details:</strong> {detail.description}
-      </p>
-      {showProductTags(detail)}
+    <div className="product_info">
+      <h5>{detail.name}</h5>
+      <span>{detail.price} $</span>
+      <p>{detail.description}</p>
       {showProductSpecs(detail)}
+      {showProductTags(detail)}
       {showProductActions(detail)}
     </div>
   );

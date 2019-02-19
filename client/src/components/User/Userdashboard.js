@@ -7,7 +7,7 @@ const Userdashboard = ({ user }) => {
     <UserLayout>
       <div>
         <div className="user_nfo_panel">
-          <h1>User information</h1>
+          <h3>User information</h3>
           <div>
             <span>{user.userData.name}</span>
             <span>{user.userData.lastname}</span>
@@ -15,12 +15,12 @@ const Userdashboard = ({ user }) => {
           </div>
           <MyButton
             type="default"
-            title="Edit account info"
+            title="Edit info"
             linkTo="/user/user_profile"
           />
         </div>
         <div className="user_nfo_panel">
-          <h1>History Purchases</h1>
+          <h3>History Purchases</h3>
           <div className="user_product_block_wrapper">history</div>
         </div>
       </div>

@@ -61,50 +61,62 @@ class UserCart extends Component {
   };
   render() {
     return (
-      <div class="container-table-cart">
-        <div className="container">
-          <h1>Cart</h1>
-          <div className="wrap-table-shopping-cart ">
-            <table className="table-shopping-cart">
-              <tr className="table-head">
-                <th className="column-1" />
-                <th className="column-2">Product</th>
-                <th className="column-3">Price</th>
-                <th className="column-4 padding">Quantity</th>
-                <th className="column-5" />
-              </tr>
-              <CartBlock
-                user={this.props.user}
-                type="cart"
-                removeItem={id => this.removeFromCart(id)}
-              />
-            </table>
-          </div>
-          {this.state.showTotal ? (
-            <div>
-              <div className="user_cart_sum">
-                <h4>Cart Totals</h4>
-                <div>
-                  <span>Subtotal:</span>
-                  <span>${this.state.total}</span>
-                </div>
-                <div className="payment">
-                  <div className="link_default">Proceed to Checkout</div>
+      <div>
+        <div
+          className="bg-title-page"
+          style={{
+            background: "url(/images/img4.jpeg)",
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat"
+          }}
+        >
+          <h2 className="l-text2 t-center">Cart</h2>
+        </div>
+        <div className="container-table-cart">
+          <div className="container">
+            <div className="wrap-table-shopping-cart ">
+              <table className="table-shopping-cart">
+                <tr className="table-head">
+                  <th className="column-1" />
+                  <th className="column-2">Product</th>
+                  <th className="column-3">Price</th>
+                  <th className="column-4 padding">Quantity</th>
+                  <th className="column-5" />
+                </tr>
+                <CartBlock
+                  user={this.props.user}
+                  type="cart"
+                  removeItem={id => this.removeFromCart(id)}
+                />
+              </table>
+            </div>
+            {this.state.showTotal ? (
+              <div>
+                <div className="user_cart_sum">
+                  <h4>Cart Totals</h4>
+                  <div>
+                    <span>Subtotal:</span>
+                    <span>${this.state.total}</span>
+                  </div>
+                  <div className="payment">
+                    <div className="link_default">Proceed to Checkout</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ) : this.state.showSuccess ? (
-            <div className="cart_success">
-              <FontAwesomeIcon icon="smile" />
-              <div>Thankyou for your purchases.</div>
-            </div>
-          ) : (
-            this.showNotItems()
-          )}
+            ) : this.state.showSuccess ? (
+              <div className="cart_success">
+                <FontAwesomeIcon icon="smile" />
+                <div>Thankyou for your purchases.</div>
+              </div>
+            ) : (
+              this.showNotItems()
+            )}
 
-          {this.state.showTotal ? (
-            <div className="payment_button_container">pay</div>
-          ) : null}
+            {this.state.showTotal ? (
+              <div className="payment_button_container">pay</div>
+            ) : null}
+          </div>
         </div>
       </div>
     );
