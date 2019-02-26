@@ -1,1 +1,0 @@
-{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"e-commerce-fullstack-app.dresses"},{"v":2,"unique":true,"key":{"name":1},"name":"name_1","ns":"e-commerce-fullstack-app.dresses","background":true}],"uuid":"e80f66bd4c9545d696f1da1828a78f4a"}
