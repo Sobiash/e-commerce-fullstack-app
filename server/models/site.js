@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 
-const siteSchema = mongoose.Schema({
+const Schema = mongoose.Schema;
+
+const siteSchema = new Schema({
   featured: {
     required: true,
     type: Array,

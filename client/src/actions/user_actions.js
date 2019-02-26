@@ -57,7 +57,7 @@ export const logoutUser = () => {
 
 export const addToCart = _id => {
   const request = axios
-    .post(`${USER_SERVER}/addToCart?productId=${_id}`)
+    .post(`${USER_SERVER}/add-to-cart?productId=${_id}`)
     .then(response => response.data);
   return {
     type: ADD_TO_CART,
@@ -86,7 +86,7 @@ export const cartItems = (cartItems, userCart) => {
 
 export const removeCartItems = id => {
   const request = axios
-    .get(`${USER_SERVER}/removeFromCart?_id=${id}`)
+    .get(`${USER_SERVER}/remove-from-cart?_id=${id}`)
     .then(response => {
       response.data.cart.forEach(item => {
         response.data.cartDetail.forEach((k, i) => {
@@ -105,7 +105,7 @@ export const removeCartItems = id => {
 
 export const updateUserData = dataToSubmit => {
   const request = axios
-    .post(`${USER_SERVER}/update_profile`, dataToSubmit)
+    .post(`${USER_SERVER}/update-profile`, dataToSubmit)
     .then(response => {
       return response.data;
     });
@@ -125,7 +125,7 @@ export const clearUpdateUserData = () => {
 
 export const resetUser = dataToSubmit => {
   const request = axios
-    .post(`${USER_SERVER}/resetUser`, dataToSubmit)
+    .post(`${USER_SERVER}/reset-user`, dataToSubmit)
     .then(response => response.data);
   return {
     type: RESET_USER,

@@ -18,7 +18,7 @@ class ImageUpload extends Component {
       header: { "content-type": "multipart/form-data" }
     };
     formData.append("file", files[0]);
-    axios.post("/api/users/uploadimage", formData, config).then(response => {
+    axios.post("/api/users/upload-image", formData, config).then(response => {
       this.setState(
         {
           uploading: false,
@@ -32,7 +32,7 @@ class ImageUpload extends Component {
   };
 
   onRemove = id => {
-    axios.get(`/api/users/removeimage?public_id=${id}`).then(response => {
+    axios.get(`/api/users/remove-image?public_id=${id}`).then(response => {
       let images = this.state.uploadedFiles.filter(item => {
         return item.public_id !== id;
       });

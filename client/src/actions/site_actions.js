@@ -4,7 +4,7 @@ import { GET_SITE_DATA, UPDATE_SITE_DATA } from "./types";
 
 export const getSiteData = () => {
   const request = axios
-    .get(`${SITE_SERVER}/site_data`)
+    .get(`${SITE_SERVER}/site-data`)
     .then(response => response.data);
 
   return {
@@ -15,7 +15,7 @@ export const getSiteData = () => {
 
 export const updateSiteData = dataToSubmit => {
   const request = axios
-    .post(`${SITE_SERVER}/site_data`, dataToSubmit)
+    .post(`${SITE_SERVER}/site-data`, dataToSubmit)
     .then(response => response.data);
 
   return {

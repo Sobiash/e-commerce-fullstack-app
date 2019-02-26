@@ -6,7 +6,8 @@ const moment = require("moment");
 const SALT_I = 10;
 require("dotenv").config();
 
-const userSchema = mongoose.Schema({
+const Schema = mongoose.Schema;
+const userSchema = new Schema({
   email: {
     type: String,
     required: true,

@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const formidable = require("express-formidable");
 const cloudinary = require("cloudinary");
+const path = require("path");
 
 const app = express();
 const mongoose = require("mongoose");
@@ -20,6 +21,7 @@ mongoose.connection.on("error", err => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+// app.use(express.static(path.join(__dirname,"client", "build")));
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -245,7 +247,7 @@ app.get("/api/users/logout", auth, (req, res) => {
   );
 });
 
-app.post("/api/users/uploadimage", auth, admin, formidable(), (req, res) => {
+app.post("/api/users/upload-image", auth, admin, formidable(), (req, res) => {
   cloudinary.uploader.upload(
     req.files.file.path,
     result => {
@@ -261,7 +263,7 @@ app.post("/api/users/uploadimage", auth, admin, formidable(), (req, res) => {
   );
 });
 
-app.get("/api/users/removeimage", auth, admin, (req, res) => {
+app.get("/api/users/remove-image", auth, admin, (req, res) => {
   let public_id = req.query.public_id;
   cloudinary.uploader.destroy(public_id, (error, result) => {
     if (error) return res.json({ success: false, error });
@@ -269,7 +271,7 @@ app.get("/api/users/removeimage", auth, admin, (req, res) => {
   });
 });
 
-app.post("/api/users/addToCart", auth, (req, res) => {
+app.post("/api/users/add-to-cart", auth, (req, res) => {
   User.findOne({ _id: req.user._id }, (err, doc) => {
     let duplicate = false;
 
@@ -314,7 +316,7 @@ app.post("/api/users/addToCart", auth, (req, res) => {
   });
 });
 
-app.get("/api/users/removeFromCart", auth, (req, res) => {
+app.get("/api/users/remove-from-cart", auth, (req, res) => {
   User.findOneAndUpdate(
     { _id: req.user._id },
     { $pull: { cart: { id: mongoose.Types.ObjectId(req.query._id) } } },
@@ -338,7 +340,7 @@ app.get("/api/users/removeFromCart", auth, (req, res) => {
   );
 });
 
-app.post("/api/users/resetUser", (req, res) => {
+app.post("/api/users/reset-user", (req, res) => {
   User.findOne(
     {
       email: req.body.email
@@ -357,7 +359,7 @@ app.post("/api/users/resetUser", (req, res) => {
 
 // })
 
-app.post("/api/users/update_profile", auth, (req, res) => {
+app.post("/api/users/update-profile", auth, (req, res) => {
   User.findOneAndUpdate(
     { _id: req.user._id },
     {
@@ -375,14 +377,14 @@ app.post("/api/users/update_profile", auth, (req, res) => {
 
 //site
 
-app.get("/api/site/site_data", (req, res) => {
+app.get("/api/site/site-data", (req, res) => {
   Site.find({}, (err, site) => {
     if (err) return res.status(400).send(err);
     res.status(200).send(site[0].siteInfo);
   });
 });
 
-app.post("/api/site/site_data", auth, admin, (req, res) => {
+app.post("/api/site/site-data", auth, admin, (req, res) => {
   Site.findOneAndUpdate(
     { name: "Site" },
     { $set: { siteInfo: req.body } },
@@ -396,6 +398,8 @@ app.post("/api/site/site_data", auth, admin, (req, res) => {
     }
   );
 });
+
+// res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"))
 
 const port = process.env.PORT || 3002;
 

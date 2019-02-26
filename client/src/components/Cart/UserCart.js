@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import CartBlock from "./CartBlock";
 import { connect } from "react-redux";
 import { cartItems, removeCartItems } from "../../actions/user_actions";
+import Payment from "./Payment";
 
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 
@@ -32,6 +33,7 @@ class UserCart extends Component {
       }
     }
   }
+
   calculateTotal = cartDetail => {
     let total = 0;
     cartDetail.forEach(item => {
@@ -57,6 +59,15 @@ class UserCart extends Component {
       } else {
         this.calculateTotal(this.props.user.cartDetail);
       }
+    });
+  };
+
+  transacrtionError = () => {};
+  transactionCanceled = () => {};
+  onTransactionSuccess = data => {
+    this.setState({
+      showTotal: false,
+      showSuccess: true
     });
   };
   render() {
@@ -100,7 +111,17 @@ class UserCart extends Component {
                     <span>${this.state.total}</span>
                   </div>
                   <div className="payment">
-                    <div className="link_default">Proceed to Checkout</div>
+                    <Payment
+                      amount={this.state.total}
+                      email={this.props.user.userData.email}
+                      transacrtionError={data => this.transacrtionError(data)}
+                      transactionCanceled={data =>
+                        this.transactionCanceled(data)
+                      }
+                      onSuccess={data => this.onTransactionSuccess(data)}
+                    >
+                      <div className="link_default">Proceed to Checkout</div>
+                    </Payment>
                   </div>
                 </div>
               </div>
@@ -112,10 +133,6 @@ class UserCart extends Component {
             ) : (
               this.showNotItems()
             )}
-
-            {this.state.showTotal ? (
-              <div className="payment_button_container">pay</div>
-            ) : null}
           </div>
         </div>
       </div>
