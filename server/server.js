@@ -355,9 +355,10 @@ app.post("/api/users/reset-user", (req, res) => {
   );
 });
 
-// app.post("/api/users/successBuy",auth,(req,res)=>{
-
-// })
+app.post("/api/users/successBuy", auth, (req, res) => {
+  let history = [];
+  let transactionData = {};
+});
 
 app.post("/api/users/update-profile", auth, (req, res) => {
   User.findOneAndUpdate(
