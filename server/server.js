@@ -22,7 +22,8 @@ mongoose.connection.on("error", err => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname,"client", "build")));
+app.use(express.static(path.join(__dirname, "client", "build")));
+// app.use(express.static(path.join(__dirname, "client", "public")));
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -474,7 +475,11 @@ app.post("/api/site/site-data", auth, admin, (req, res) => {
   );
 });
 
-// res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"))
+if (process.env.NODE_ENV === "production") {
+  app.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
+  });
+}
 
 const port = process.env.PORT || 3002;
 
