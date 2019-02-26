@@ -10,7 +10,8 @@ import {
   REMOVE_CART_ITEMS,
   UPDATE_USER_DATA,
   CLEAR_UPDATE_USER_DATA,
-  RESET_USER
+  RESET_USER,
+  ON_SUCCESS_BUY_USER
 } from "./types";
 
 export const registerUser = dataToSubmit => {
@@ -129,6 +130,15 @@ export const resetUser = dataToSubmit => {
     .then(response => response.data);
   return {
     type: RESET_USER,
+    payload: request
+  };
+};
+export const onSuccessBuy = data => {
+  const request = axios
+    .post(`${USER_SERVER}/success-buy`, data)
+    .then(response => response.data);
+  return {
+    type: ON_SUCCESS_BUY_USER,
     payload: request
   };
 };

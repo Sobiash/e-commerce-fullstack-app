@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import CartBlock from "./CartBlock";
 import { connect } from "react-redux";
-import { cartItems, removeCartItems } from "../../actions/user_actions";
+import {
+  cartItems,
+  removeCartItems,
+  onSuccessBuy
+} from "../../actions/user_actions";
 import Payment from "./Payment";
 
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
@@ -65,10 +69,21 @@ class UserCart extends Component {
   transacrtionError = () => {};
   transactionCanceled = () => {};
   onTransactionSuccess = data => {
-    this.setState({
-      showTotal: false,
-      showSuccess: true
-    });
+    this.props
+      .dispatch(
+        onSuccessBuy({
+          cartDetail: this.props.user.cartDetail,
+          paymentData: data
+        })
+      )
+      .then(() => {
+        if (this.props.user.successBuy) {
+          this.setState({
+            showTotal: false,
+            showSuccess: true
+          });
+        }
+      });
   };
   render() {
     return (
@@ -84,24 +99,29 @@ class UserCart extends Component {
         >
           <h2 className="l-text2 t-center">Cart</h2>
         </div>
+
         <div className="container-table-cart">
           <div className="container">
-            <div className="wrap-table-shopping-cart ">
-              <table className="table-shopping-cart">
-                <tr className="table-head">
-                  <th className="column-1" />
-                  <th className="column-2">Product</th>
-                  <th className="column-3">Price</th>
-                  <th className="column-4 padding">Quantity</th>
-                  <th className="column-5" />
-                </tr>
-                <CartBlock
-                  user={this.props.user}
-                  type="cart"
-                  removeItem={id => this.removeFromCart(id)}
-                />
-              </table>
-            </div>
+            {this.props.user.cartDetail &&
+            this.props.user.cartDetail.length > 0 ? (
+              <div className="wrap-table-shopping-cart ">
+                <table className="table-shopping-cart">
+                  <tr className="table-head">
+                    <th className="column-1" />
+                    <th className="column-2">Product</th>
+                    <th className="column-3">Price</th>
+                    <th className="column-4 padding">Quantity</th>
+                    <th className="column-5" />
+                  </tr>
+                  <CartBlock
+                    user={this.props.user}
+                    type="cart"
+                    removeItem={id => this.removeFromCart(id)}
+                  />
+                </table>
+              </div>
+            ) : null}
+
             {this.state.showTotal ? (
               <div>
                 <div className="user_cart_sum">

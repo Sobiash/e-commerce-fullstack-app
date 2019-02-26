@@ -216,7 +216,6 @@ select {
 }
 
 .payment {
-  margin-top: 20px;
   margin-left: 100px;
 }
 
@@ -737,6 +736,11 @@ div.tag.low_title {
   margin-left: 50px;
 }
 
+.cart_no_items,
+.cart_success {
+  margin-top: 50px;
+}
+
 .cart_no_items svg,
 .cart_success svg {
   font-size: 130px;
@@ -745,7 +749,7 @@ div.tag.low_title {
 .cart_no_items,
 .cart_success {
   text-align: center;
-  font-size: 28px;
+  font-size: 20px;
   color: #999592;
 }
 
@@ -796,10 +800,6 @@ div.tag.low_title {
   float: left;
   border: 2px solid #222222;
   margin-right: 7px;
-}
-
-.payment_button_container {
-  margin: 10px 0px;
 }
 
 .register_login_container {
@@ -1113,4 +1113,21 @@ p {
 
 .register_login_container p {
   text-align: start;
+}
+
+.history_blocks table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.history_blocks td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.history_blocks tr:nth-child(even) {
+  background-color: #dddddd;
 }

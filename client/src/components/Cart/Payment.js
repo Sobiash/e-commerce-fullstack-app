@@ -6,21 +6,6 @@ class Payment extends Component {
     this.props.onSuccess(res);
   };
   render() {
-    // const onSuccess = payment => {
-    //       {id: "tok_1E7xiyEimJtvIv1Ic7oi6UoH", object: "token", card: {…}, client_ip: "185.75.39.114", created: 1551155964, …}
-    // card: {id: "card_1E7xiyEimJtvIv1INl1ZIutJ", object: "card", address_city: null, address_country: null, address_line1: null, …}
-    // client_ip: "185.75.39.114"
-    // created: 1551155964
-    // email: "sik1@gmail.com"
-    // id: "tok_1E7xiyEimJtvIv1Ic7oi6UoH"
-    // livemode: false
-    // object: "token"
-    // type: "card"
-    // used: false
-
-    //   console.log(payment);
-    // };
-
     return (
       <StripeCheckout
         amount={this.props.amount * 100}
