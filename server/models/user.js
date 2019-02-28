@@ -37,6 +37,7 @@ const userSchema = new Schema({
     type: Array,
     default: []
   },
+
   role: {
     type: Number,
     default: 0

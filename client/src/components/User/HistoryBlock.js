@@ -12,7 +12,7 @@ const HistoryBlock = props => {
           </tr>
         ))
       : null;
-  return (
+  return props.products && props.products.length > 0 ? (
     <div className="history_blocks">
       <table>
         <thead>
@@ -26,6 +26,8 @@ const HistoryBlock = props => {
         <tbody>{renderHistory()}</tbody>
       </table>
     </div>
+  ) : (
+    "You have no history of purchases."
   );
 };
 
