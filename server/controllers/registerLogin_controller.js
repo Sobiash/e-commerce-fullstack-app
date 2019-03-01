@@ -1,4 +1,5 @@
 const { User } = require("../models/user");
+const { sendEmail } = require("../utils/mail/mail");
 
 const registerLoginController = {};
 
@@ -20,7 +21,8 @@ registerLoginController.registerUser = (req, res) => {
 
   user.save((err, doc) => {
     if (err) return res.json({ success: false, err });
-    res.status(200).json({
+    sendEmail(doc.email, doc.name, null, "welcome");
+    return res.status(200).json({
       success: true,
       userdata: doc
     });

@@ -1,9 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-
-const cloudinary = require("cloudinary");
 const path = require("path");
+const cloudinary = require("cloudinary");
 
 const app = express();
 const mongoose = require("mongoose");
