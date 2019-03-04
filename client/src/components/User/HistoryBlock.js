@@ -1,11 +1,11 @@
 import React from "react";
-import moment from "moment";
+
 const HistoryBlock = props => {
   const renderHistory = () =>
     props.products
       ? props.products.map((product, i) => (
           <tr key={i}>
-            <td>{moment(product.dateOfPurchase).format("MM-DD-YYYY")}</td>
+            <td>{product.purchaseOrder}</td>
             <td>{product.name}</td>
             <td>$ {product.price * product.quantity}</td>
             <td>{product.quantity}</td>
@@ -17,7 +17,7 @@ const HistoryBlock = props => {
       <table>
         <thead>
           <tr>
-            <th>Date of Purchase</th>
+            <th>Order Number</th>
             <th>Product name</th>
             <th>Price paid</th>
             <th>Quantity</th>

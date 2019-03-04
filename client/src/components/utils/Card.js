@@ -14,7 +14,6 @@ class Card extends React.Component {
   };
   render() {
     const props = this.props;
-    console.log(props);
     return (
       <div className={`card_item_wrapper ${props.grid}`}>
         <Link to={`/product_detail/${props._id}`}>

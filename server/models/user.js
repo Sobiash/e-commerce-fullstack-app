@@ -87,8 +87,10 @@ userSchema.methods.generateToken = function(cb) {
     cb(null, user);
   });
 };
+
 userSchema.methods.generateResetToken = function(cb) {
   var user = this;
+
   crypto.randomBytes(20, function(err, buffer) {
     var token = buffer.toString("hex");
     var today = moment()
@@ -100,7 +102,6 @@ userSchema.methods.generateResetToken = function(cb) {
 
     user.resetToken = token;
     user.resetTokenExpiration = tomorrow;
-
     user.save(function(err, user) {
       if (err) return cb(err);
       cb(null, user);

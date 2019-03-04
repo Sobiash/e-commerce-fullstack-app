@@ -20,8 +20,8 @@ mongoose.connection.on("error", err => {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "client", "build", "static")));
-app.use(express.static(path.join(__dirname, "client", "public")));
+// app.use(express.static(path.join(__dirname, "client", "build", "static")));
+// app.use(express.static(path.join(__dirname, "client", "public")));
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -49,11 +49,11 @@ app.use(cartRoutes);
 app.use(paymentRoutes);
 app.use(siteRoutes);
 
-if (process.env.NODE_ENV === "production") {
-  app.get("/*", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
-  });
-}
+// if (process.env.NODE_ENV === "production") {
+//   app.get("/*", (req, res) => {
+//     res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
+//   });
+// }
 
 const port = process.env.PORT || 3002;
 

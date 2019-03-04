@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import FormField from "../utils/Form/FormField";
 import { update, generateData, isFormValid } from "../utils/Form/FormActions";
-import { connect } from "react-redux";
-import { resetUser } from "../../actions/user_actions";
+import axios from "axios";
 
 class ResetUser extends Component {
   state = {
@@ -34,6 +33,15 @@ class ResetUser extends Component {
       formData: newFormData
     });
   };
+
+  updateForm = element => {
+    const newFormData = update(element, this.state.formData, "reset_email");
+    this.setState({
+      formError: false,
+      formData: newFormData
+    });
+  };
+
   submitForm = event => {
     event.preventDefault();
 
@@ -41,24 +49,17 @@ class ResetUser extends Component {
     let formIsValid = isFormValid(this.state.formData, "reset_email");
 
     if (formIsValid) {
-      this.props
-        .dispatch(resetUser(dataToSubmit))
-        .then(response => {
-          if (response.payload.success) {
-            this.setState({
-              formError: false,
-              formSuccess: true
-            });
-            setTimeout(() => {
-              this.props.history.push("/register_login");
-            }, 3000);
-          } else {
-            this.setState({ formError: true });
-          }
-        })
-        .catch(e => {
-          this.setState({ formError: true });
-        });
+      axios.post("/api/users/reset-user", dataToSubmit).then(response => {
+        if (response.data.success) {
+          this.setState({
+            formSuccess: true
+          });
+        }
+      });
+    } else {
+      this.setState({
+        formError: true
+      });
     }
   };
   render() {
@@ -72,7 +73,7 @@ class ResetUser extends Component {
             change={element => this.updateForm(element)}
           />
           {this.state.formSuccess ? (
-            <div className="from_success">Done, check your email</div>
+            <div className="form_success">Done, check your email</div>
           ) : null}
           {this.state.formError ? (
             <div className="error_label">Please check your data</div>
@@ -81,7 +82,7 @@ class ResetUser extends Component {
             className="link_default"
             onClick={event => this.submitForm(event)}
           >
-            Send email
+            Reset Password
           </div>
         </form>
       </div>
@@ -89,4 +90,4 @@ class ResetUser extends Component {
   }
 }
 
-export default connect()(ResetUser);
+export default ResetUser;

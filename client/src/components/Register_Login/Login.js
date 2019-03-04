@@ -61,7 +61,7 @@ class Login extends React.Component {
     if (formIsValid) {
       this.props.dispatch(loginUser(dataToSubmit)).then(response => {
         if (response.payload.loginSuccess) {
-          this.props.history.push("/user/dashboard");
+          this.props.history.push("/shop");
         } else {
           this.setState({
             formError: true
@@ -92,11 +92,20 @@ class Login extends React.Component {
           {this.state.formError ? (
             <div className="error_label">Please check your data</div>
           ) : null}
-          <div
-            className="link_default"
-            onClick={event => this.submitForm(event)}
-          >
-            Log in
+          <div className="login_buttons">
+            <div
+              className="link_default"
+              onClick={event => this.submitForm(event)}
+            >
+              Log in
+            </div>
+            <div
+              style={{ marginLeft: "10px" }}
+              className="link_default"
+              onClick={() => this.props.history.push("/reset-user")}
+            >
+              Forgot Password
+            </div>
           </div>
         </form>
       </div>

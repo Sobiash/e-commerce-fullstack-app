@@ -124,15 +124,15 @@ export const clearUpdateUserData = () => {
   };
 };
 
-export const resetUser = dataToSubmit => {
-  const request = axios
-    .post(`${USER_SERVER}/reset-user`, dataToSubmit)
-    .then(response => response.data);
-  return {
-    type: RESET_USER,
-    payload: request
-  };
-};
+// export const resetUser = dataToSubmit => {
+//   const request = axios
+//     .post(`${USER_SERVER}/reset-user`, dataToSubmit)
+//     .then(response => response.data);
+//   return {
+//     type: RESET_USER,
+//     payload: request
+//   };
+// };
 export const onSuccessBuy = data => {
   const request = axios
     .post(`${USER_SERVER}/success-buy`, data)

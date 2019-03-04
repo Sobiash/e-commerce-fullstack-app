@@ -2,12 +2,20 @@ const { Payment } = require("../models/payment");
 const { Product } = require("../models/product");
 const { User } = require("../models/user");
 const async = require("async");
+const SHA1 = require("crypto-js/sha1");
+const { sendEmail } = require("../utils/mail/mail");
 
 const paymentController = {};
 
 paymentController.successBuy = (req, res) => {
   let history = [];
   let transactionData = {};
+  const date = new Date();
+  const purchaseOrder = `PO-${date.getSeconds()}${date.getMilliseconds()}-${SHA1(
+    req.user._id
+  )
+    .toString()
+    .substring(0, 8)}`;
   req.body.cartDetail.forEach(item => {
     history.push({
       dateOfPurchase: Date.now(),
@@ -15,7 +23,8 @@ paymentController.successBuy = (req, res) => {
       id: item._id,
       price: item.price,
       quantity: item.quantity,
-      paymentId: req.body.paymentData.id
+      paymentId: req.body.paymentData.id,
+      purchaseOrder
     });
   });
 
@@ -27,7 +36,7 @@ paymentController.successBuy = (req, res) => {
     cart: req.user.cart
   };
 
-  transactionData.data = req.body.paymentData;
+  transactionData.data = { ...req.body.paymentData, purchaseOrder };
   transactionData.product = history;
 
   User.findByIdAndUpdate(
@@ -71,6 +80,7 @@ paymentController.successBuy = (req, res) => {
           },
           err => {
             if (err) return res.json({ success: false, err });
+            sendEmail(user.email, user.name, null, "purchase", transactionData);
             res.status(200).json({
               success: true,
               cart: user.cart,
