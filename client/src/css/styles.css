@@ -340,6 +340,9 @@ footer .flex-w {
   font-size: 12px;
   padding-bottom: 70px;
 }
+footer a:hover {
+  color: #ffffff;
+}
 footer .wrapper h4 {
   color: #ffffff;
   font-size: 12px;
@@ -356,8 +359,18 @@ footer li {
   display: flex;
   flex-wrap: wrap;
 }
+.flex-w .link_default {
+  background: #ffffff;
+  color: rgb(17, 17, 17);
+  margin-top: 10px;
+  padding: 5px 15px;
+  font-size: 12px;
+  font-weight: 600;
+}
 .copyright {
-  margin-bottom: 30px;
+  width: 60%;
+  margin: 0 auto 30px auto;
+  /* margin-bottom: 30px; */
   text-align: center;
   color: #ffffff;
   opacity: 0.9;

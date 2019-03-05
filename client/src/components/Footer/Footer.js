@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import MyButton from "../utils/button";
 
 const Footer = ({ data }) => {
   return data.siteData ? (
@@ -10,7 +12,9 @@ const Footer = ({ data }) => {
               <h4 className="newsletter">SHOP</h4>
               <div>
                 <div>
-                  <div>All</div>
+                  <Link to="/shop">
+                    <div>All</div>
+                  </Link>
                   <div>Men</div>
                   <div>Women</div>
                   <div>Kids</div>
@@ -28,11 +32,17 @@ const Footer = ({ data }) => {
               <h4 className="newsletter">Join the Fashe Club</h4>
               <div>
                 <div>Get all the information on events, sales and offers.</div>
+                <Link className="link_default" to="/">
+                  <div>Read More</div>
+                </Link>
               </div>
             </div>
           </div>
           <div className="copyright">
-            Get all the information on events, sales and offers.
+            Get all the information on events, sales and offers. Get all the
+            information on events, sales and offers. Get all the information on
+            events, sales and offers. Get all the information on events, sales
+            and offers.
           </div>
         </div>
       </div>
