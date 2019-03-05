@@ -8,8 +8,8 @@ class Home extends React.Component {
     return (
       <div>
         <HomeSlider />
-        <PopularCategories />
         <Promotions />
+        <PopularCategories />
       </div>
     );
   }

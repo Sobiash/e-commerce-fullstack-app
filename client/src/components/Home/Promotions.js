@@ -32,7 +32,11 @@ const Promotions = props => {
       </div>
     ) : null;
 
-  return <div className="home_promotion">{renderPromotion()}</div>;
+  return (
+    <div className="container">
+      <div className="home_promotion">{renderPromotion()}</div>
+    </div>
+  );
 };
 
 export default Promotions;

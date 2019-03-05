@@ -66,18 +66,16 @@ body {
   margin-top: 80px;
   min-height: 100vh;
 }
-.carrousel_wrapper {
-  overflow: hidden;
-}
 
-.carrousel_image {
+.wrapper_image {
   min-height: 88vh;
+  position: relative;
 }
 
-.main_loader {
+/* /* .main_loader {
   text-align: center;
   margin-top: 100px;
-}
+}  */
 
 .page_wrapper {
   padding-top: 85px;
@@ -216,6 +214,11 @@ select {
   cursor: pointer;
 }
 
+.link_default:hover {
+  background: #fff;
+  color: #222222;
+}
+
 .card_link,
 .bag_link,
 .add_to_cart_link {
@@ -315,100 +318,89 @@ header .log_out_link {
 
 footer .wrapper {
   padding: 45px;
-  background-color: #f0f0f0;
+  background-color: #1a1a1a;
+  text-align: justify;
 }
 
 footer .left {
-  width: 33%;
+  width: 22%;
+  padding: 0 0px 0 50px;
 }
 footer .middle {
-  width: 39%;
+  width: 22%;
+  padding: 0 0px 0 50px;
 }
 footer .right {
-  width: 28%;
+  width: 22%;
+  padding: 0 0px 0 50px;
 }
 footer .flex-w {
   display: flex;
-  color: #212529;
-  opacity: 0.9;
+  color: #cccccc;
   font-size: 12px;
-  padding-bottom: 90px;
+  padding-bottom: 70px;
 }
-
+footer .wrapper h4 {
+  color: #ffffff;
+  font-size: 12px;
+}
 footer .newsletter {
   font-size: 15px;
-  color: #222222;
-  line-height: 1.5;
-  text-transform: uppercase;
-  padding-bottom: 15px;
+}
+footer li {
+  list-style: none;
+  padding-right: 0%;
 }
 
 .flex-w {
   display: flex;
   flex-wrap: wrap;
-  padding-bottom: 90px;
 }
-
-footer .business_nfo {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-footer .business_nfo .tag {
-  flex-grow: 1;
-  position: relative;
-  width: 50%;
+.copyright {
   margin-bottom: 30px;
-}
-footer .business_nfo .icon {
-  position: absolute;
+  text-align: center;
+  color: #ffffff;
+  opacity: 0.9;
   font-size: 12px;
-  top: 10px;
-}
-footer .business_nfo .nfo {
-  padding-left: 40px;
 }
 
-.carrousel_wrapper .featured_action {
+.featured_action {
   position: absolute;
-  top: 25%;
-  left: 30%;
+  top: 75%;
+  left: 35%;
+}
+.tags {
   text-align: center;
 }
 
-.carrousel_wrapper .featured_action a {
-  position: absolute;
-  top: 90%;
-  left: 40%;
-  padding: 5px 15px;
+.featured_action a {
+  padding: 5px 25px;
   background-color: #ffff !important;
-  font-family: Montserrat-Regular;
   font-size: 15px;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.7;
   color: rgb(17, 17, 17);
   text-transform: uppercase;
-  border-radius: 23px;
   border: 1px solid #fff !important;
 }
 
 div.tag.title {
-  font-family: "Montserrat-Regular";
+  text-transform: uppercase;
   font-size: 18px;
   color: white;
   line-height: 1.5;
   letter-spacing: 2px;
 }
 div.tag.low_title {
-  /* font-family: Poppins-Bold; */
-  font-size: 60px;
+  font-size: 35px;
   color: white;
   line-height: 1.2;
   text-transform: uppercase;
+  font-weight: 600;
 }
 
 .home_promotion .home_promotion_img {
-  height: 350px;
+  height: 250px;
   background-size: cover !important;
   background-position: top center !important;
   padding: 15px;
@@ -418,7 +410,6 @@ div.tag.low_title {
 }
 
 .home_promotion .tag {
-  color: #ffffff;
   padding: 0px 20px;
   text-transform: uppercase;
   display: table;
@@ -427,18 +418,20 @@ div.tag.low_title {
 .home_promotion .tag.title {
   position: absolute;
   top: 15%;
-  left: 43%;
+  left: 38%;
   background: #82828287;
-  font-size: 50px;
+  font-size: 40px;
   font-weight: 700;
   margin: 10px auto;
 }
 
 .home_promotion .tag.low_title {
+  color: #ffffff;
+  background: #82828287;
   position: absolute;
-  top: 45%;
+  top: 50%;
   left: 25%;
-  font-size: 30px;
+  font-size: 20px;
   font-weight: 300;
   margin-top: 10px;
   margin: 0 auto;
@@ -447,7 +440,7 @@ div.tag.low_title {
 .home_promotion .my_link a {
   position: absolute;
   top: 55%;
-  left: 45%;
+  left: 38%;
 }
 
 .card_block {
