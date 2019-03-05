@@ -22,7 +22,7 @@ class Header extends React.Component {
         name: "My Cart",
         icon: "/images/icons/icon-header-02.png",
         linkTo: "/user/cart",
-        public: false
+        public: true
       },
       {
         name: "My Account",

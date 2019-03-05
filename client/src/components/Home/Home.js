@@ -1,38 +1,18 @@
 import React from "react";
 import HomeSlider from "./Slider";
 import Promotions from "./Promotions";
-import { connect } from "react-redux";
-import CardBlock from "../utils/CardBlock";
-import {
-  getProductsByArrival,
-  getProductsBySell
-} from "../../actions/products_actions";
+import PopularCategories from "../PopularCategories/PopoularCategories";
 
 class Home extends React.Component {
-  componentDidMount() {
-    this.props.dispatch(getProductsBySell());
-    this.props.dispatch(getProductsByArrival());
-  }
-
   render() {
     return (
       <div>
         <HomeSlider />
-        <CardBlock
-          list={this.props.products.bySell}
-          title="Best Selling Products"
-        />
-        <CardBlock list={this.props.products.byArrival} title="New Arrivals" />
+        <PopularCategories />
         <Promotions />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    products: state.products
-  };
-};
-
-export default connect(mapStateToProps)(Home);
+export default Home;

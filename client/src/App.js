@@ -26,7 +26,7 @@ const App = () => {
           exact
           component={Auth(Userdashboard, true)}
         />
-        <Route path="/user/cart" exact component={Auth(UserCart, true)} />
+        <Route path="/user/cart" exact component={Auth(UserCart, null)} />
         <Route
           path="/user/user_profile"
           exact
