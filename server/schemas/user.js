@@ -23,6 +23,7 @@ const password = Joi.string()
   .required()
   .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,255}$/)
   .label("Password");
+const resetToken = Joi.string();
 
 const registerUser = Joi.object().keys({
   email,
@@ -34,6 +35,22 @@ const loginUser = Joi.object().keys({
   email,
   password
 });
+const resetUser = Joi.object().keys({
+  email
+});
+const resetUserPassword = Joi.object().keys({
+  resetToken,
+  password
+});
+const updateProfile = Joi.object().keys({
+  name,
+  lastname,
+  email,
+  password
+});
 
 module.exports.registerUser = registerUser;
 module.exports.loginUser = loginUser;
+module.exports.resetUser = resetUser;
+module.exports.resetUserPassword = resetUserPassword;
+module.exports.updateProfile = updateProfile;

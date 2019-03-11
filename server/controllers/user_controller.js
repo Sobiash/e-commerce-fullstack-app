@@ -1,83 +1,99 @@
 const { User } = require("../models/user");
 const { sendEmail } = require("../utils/mail/mail");
 const moment = require("moment");
+const {
+  resetUser,
+  resetUserPassword,
+  updateProfile
+} = require("../schemas/user");
+const Joi = require("joi");
+const _ = require("lodash");
 
 const userController = {};
 
 userController.resetUser = (req, res) => {
-  User.findOne(
-    {
-      email: req.body.email
-    },
-    (err, user) => {
-      user.generateResetToken((err, user) => {
-        if (err) return res.json({ success: false, err });
-        sendEmail(user.email, user.name, null, "reset-password", user);
-        return res.json({ success: true });
-      });
-    }
-  );
+  const { error } = Joi.validate(req.body, resetUser).then(() => {
+    const body = _.pick(req.body, ["email"]);
+    User.findOne(
+      {
+        email: body.email
+      },
+      (err, user) => {
+        user.generateResetToken((err, user) => {
+          if (err) return res.json({ success: false, err });
+          sendEmail(user.email, user.name, null, "reset-password", user);
+          return res.json({ success: true });
+        });
+      }
+    );
+  });
+  if (error) return res.status(401).json({ success: false, error });
 };
 
 userController.resetUserPassword = (req, res) => {
-  var today = moment()
-    .startOf("day")
-    .valueOf();
-  User.findOne(
-    {
-      resetToken: req.body.resetToken,
-      resetTokenExpiration: {
-        $gte: today
+  const { error } = Joi.validate(req.body, resetUserPassword).then(() => {
+    const body = _.pick(req.body, ["resetToken", "password"]);
+    var today = moment()
+      .startOf("day")
+      .valueOf();
+    User.findOne(
+      {
+        resetToken: body.resetToken,
+        resetTokenExpiration: {
+          $gte: today
+        }
+      },
+      (err, user) => {
+        if (!user)
+          return res.json({
+            success: false,
+            message: "Sorry, token bad, generate a new one."
+          });
+
+        user.password = body.password;
+        user.resetToken = "";
+        user.resetTokenExpiration = "";
+
+        user.save((err, doc) => {
+          if (err) return res.json({ success: false, err });
+          return res.status(200).json({
+            success: true
+          });
+        });
       }
-    },
-    (err, user) => {
-      if (!user)
-        return res.json({
-          success: false,
-          message: "Sorry, token bad, generate a new one."
-        });
-
-      user.password = req.body.password;
-      user.resetToken = "";
-      user.resetTokenExpiration = "";
-
-      user.save((err, doc) => {
-        if (err) return res.json({ success: false, err });
-        return res.status(200).json({
-          success: true
-        });
-      });
-    }
-  );
+    );
+  });
+  if (error) return res.status(401).json({ success: false, error });
 };
 
 userController.updateProfile = (req, res) => {
-  User.findOne(
-    {
-      _id: req.user._id
-    },
-    (err, user) => {
-      if (!user)
-        return res.json({
-          success: false,
-          message: "Sorry, something went wrong."
-        });
+  const { error } = Joi.validate(req.body, updateProfile).then(() => {
+    const body = _.pick(req.body, ["name", "lastname", "email", "password"]);
+    User.findOne(
+      {
+        _id: req.user._id
+      },
+      (err, user) => {
+        if (!user)
+          return res.json({
+            success: false,
+            message: "Sorry, something went wrong."
+          });
 
-      user.name = req.body.name;
-      user.lastname = req.body.lastname;
-      user.email = req.body.email;
-      user.password = req.body.password;
+        user.name = body.name;
+        user.lastname = body.lastname;
+        user.email = body.email;
+        user.password = body.password;
 
-      user.save((err, doc) => {
-        if (err) return res.json({ success: false, err });
-        return res.status(200).json({
-          success: true
+        user.save((err, doc) => {
+          if (err) return res.json({ success: false, err });
+          return res.status(200).json({
+            success: true
+          });
         });
-      });
-      // return user;
-      console.log(user);
-    }
-  );
+      }
+    );
+  });
 };
 
 module.exports = userController;
