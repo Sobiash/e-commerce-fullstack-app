@@ -90,7 +90,7 @@ class Login extends React.Component {
             change={element => this.updateForm(element)}
           />
           {this.state.formError ? (
-            <div className="error_label">Please check your data</div>
+            <div className="error_label">Email or password must be wrong.</div>
           ) : null}
           <div className="login_buttons">
             <div

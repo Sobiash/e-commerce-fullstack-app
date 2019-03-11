@@ -7,11 +7,6 @@ class Header extends React.Component {
   state = {
     page: [
       {
-        name: "Home",
-        linkTo: "/",
-        public: true
-      },
-      {
         name: "Shop",
         linkTo: "/shop",
         public: true
@@ -25,13 +20,17 @@ class Header extends React.Component {
         public: true
       },
       {
-        name: "My Account",
+        name: "Sign Up",
+        linkTo: "/register",
+        public: true
+      },
+      {
+        name: "My Profile",
         linkTo: "/user/dashboard",
         public: false
       },
       {
-        name: "Log in",
-        icon: "/images/icons/icon-header-01.png",
+        name: "Log In",
         linkTo: "/register_login",
         public: true
       },
@@ -62,7 +61,7 @@ class Header extends React.Component {
       </div>
     ) : (
       <Link to={item.linkTo} key={i} className="icon-login">
-        {item.icon ? <img src={item.icon} alt="LOG_IN" /> : item.name}
+        {item.name}
       </Link>
     );
 
@@ -87,7 +86,7 @@ class Header extends React.Component {
             list.push(item);
           }
         } else {
-          if (item.name !== "Log in") {
+          if (item.name !== "Log In" && item.name !== "Sign Up") {
             list.push(item);
           }
         }

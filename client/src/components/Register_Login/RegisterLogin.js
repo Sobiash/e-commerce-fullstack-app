@@ -25,7 +25,7 @@ const RegisterLogin = () => {
             />
           </div>
           <div className="right">
-            <h3>Registered Customers</h3>
+            <h3>Returning Customers</h3>
             <p>If you have an account, please login.</p>
             <Login />
           </div>
