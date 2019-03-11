@@ -12,21 +12,26 @@ const userSchema = new Schema({
     type: String,
     required: true,
     trim: true,
-    unique: 1
+    unique: 1,
+    minlength: 5,
+    maxlength: 255
   },
   password: {
     type: String,
     required: true,
-    minlength: 5
+    minlength: 5,
+    maxlength: 255
   },
   name: {
     type: String,
     required: true,
+    minlength: 5,
     maxlength: 50
   },
   lastname: {
     type: String,
     required: true,
+    minlength: 5,
     maxlength: 50
   },
   cart: {
@@ -37,7 +42,6 @@ const userSchema = new Schema({
     type: Array,
     default: []
   },
-
   role: {
     type: Number,
     default: 0
@@ -50,13 +54,18 @@ const userSchema = new Schema({
   },
   resetTokenExpiration: {
     type: Number
-  }
+  },
+  seller: {
+    type: Boolean,
+    default: false
+  },
+  stripe_seller: {},
+  stripe_customer: {}
 });
 
 userSchema.pre("save", function(next) {
-  var user = this;
-
-  if (user.isModified("password")) {
+  const user = this;
+  if (this.isModified("password") || this.isNew) {
     bcrypt.genSalt(SALT_I, function(err, salt) {
       if (err) return next(err);
       bcrypt.hash(user.password, salt, function(err, hash) {
@@ -66,7 +75,7 @@ userSchema.pre("save", function(next) {
       });
     });
   } else {
-    next();
+    return next();
   }
 });
 
@@ -78,8 +87,8 @@ userSchema.methods.comparePassword = function(candidatePassword, cb) {
 };
 
 userSchema.methods.generateToken = function(cb) {
-  var user = this;
-  var token = jwt.sign(user._id.toHexString(), process.env.SECRET);
+  const user = this;
+  const token = jwt.sign(user._id.toHexString(), process.env.SECRET);
 
   user.token = token;
   user.save(function(err, user) {
@@ -89,14 +98,14 @@ userSchema.methods.generateToken = function(cb) {
 };
 
 userSchema.methods.generateResetToken = function(cb) {
-  var user = this;
+  const user = this;
 
   crypto.randomBytes(20, function(err, buffer) {
-    var token = buffer.toString("hex");
-    var today = moment()
+    const token = buffer.toString("hex");
+    const today = moment()
       .startOf("day")
       .valueOf();
-    var tomorrow = moment(today)
+    const tomorrow = moment(today)
       .endOf("day")
       .valueOf();
 
@@ -110,7 +119,7 @@ userSchema.methods.generateResetToken = function(cb) {
 };
 
 userSchema.statics.findByToken = function(token, cb) {
-  var user = this;
+  const user = this;
   jwt.verify(token, process.env.SECRET, function(err, decode) {
     user.findOne({ _id: decode, token: token }, function(err, user) {
       if (err) return cb(err);

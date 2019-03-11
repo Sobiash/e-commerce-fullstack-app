@@ -5,24 +5,25 @@ const Schema = mongoose.Schema;
 const productSchema = new Schema(
   {
     name: {
-      required: true,
       type: String,
+      required: true,
+      trim: true,
       unique: 1,
       maxlength: 100
     },
     category: {
-      required: true,
       type: String,
+      required: true,
       maxlength: 100
     },
     description: {
-      required: true,
       type: String,
+      required: true,
       maxlength: 10000000
     },
     price: {
-      required: true,
       type: Number,
+      required: true,
       maxlength: 255
     },
     dress: {
@@ -36,12 +37,12 @@ const productSchema = new Schema(
       required: true
     },
     shipping: {
-      required: true,
-      type: Boolean
+      type: Boolean,
+      required: true
     },
     available: {
-      required: true,
-      type: Boolean
+      type: Boolean,
+      required: true
     },
     sold: {
       type: Number,
@@ -49,8 +50,8 @@ const productSchema = new Schema(
       default: 0
     },
     publish: {
-      required: true,
-      type: Boolean
+      type: Boolean,
+      required: true
     },
     images: {
       type: Array,

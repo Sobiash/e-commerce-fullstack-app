@@ -16,10 +16,13 @@ class PopularCategories extends React.Component {
     return (
       <div>
         <CardBlock
-          list={this.props.products.bySell}
+          productList={this.props.products.bySell}
           title="Best Selling Products"
         />
-        <CardBlock list={this.props.products.byArrival} title="New Arrivals" />
+        <CardBlock
+          productList={this.props.products.byArrival}
+          title="New Arrivals"
+        />
       </div>
     );
   }

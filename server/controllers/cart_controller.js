@@ -7,9 +7,8 @@ const cartController = {};
 cartController.addToCart = (req, res) => {
   User.findOne({ _id: req.user._id }, (err, doc) => {
     let duplicate = false;
-
     doc.cart.forEach(item => {
-      if (item.id == req.query.productId) {
+      if (item.id === req.query.productId) {
         duplicate = true;
       }
     });
@@ -28,7 +27,6 @@ cartController.addToCart = (req, res) => {
         }
       );
     } else {
-      console.log(req.query);
       User.findOneAndUpdate(
         { _id: req.user._id },
         {

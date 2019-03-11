@@ -1,5 +1,7 @@
 const { User } = require("../models/user");
 const { sendEmail } = require("../utils/mail/mail");
+const { registerUser, loginUser } = require("../schemas/user");
+const Joi = require("joi");
 
 const registerLoginController = {};
 
@@ -17,6 +19,8 @@ registerLoginController.authUser = (req, res) => {
 };
 
 registerLoginController.registerUser = (req, res) => {
+  const { error } = Joi.validate(req.body, registerUser);
+  if (error) return res.status(401).json({ success: false, error });
   const user = new User(req.body);
 
   user.save((err, doc) => {
@@ -30,6 +34,8 @@ registerLoginController.registerUser = (req, res) => {
 };
 
 registerLoginController.loginUser = (req, res) => {
+  const { error } = Joi.validate(req.body, loginUser);
+  if (error) return res.status(401).json({ success: false, error });
   User.findOne({ email: req.body.email }, (err, user) => {
     if (!user)
       return res.json({

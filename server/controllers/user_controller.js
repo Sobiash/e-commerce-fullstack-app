@@ -52,17 +52,30 @@ userController.resetUserPassword = (req, res) => {
 };
 
 userController.updateProfile = (req, res) => {
-  User.findOneAndUpdate(
-    { _id: req.user._id },
+  User.findOne(
     {
-      $set: req.body
+      _id: req.user._id
     },
-    { new: true },
-    (err, doc) => {
-      if (err) return res.json({ success: false, err });
-      return res.status(200).send({
-        success: true
+    (err, user) => {
+      if (!user)
+        return res.json({
+          success: false,
+          message: "Sorry, something went wrong."
+        });
+
+      user.name = req.body.name;
+      user.lastname = req.body.lastname;
+      user.email = req.body.email;
+      user.password = req.body.password;
+
+      user.save((err, doc) => {
+        if (err) return res.json({ success: false, err });
+        return res.status(200).json({
+          success: true
+        });
       });
+      // return user;
+      console.log(user);
     }
   );
 };

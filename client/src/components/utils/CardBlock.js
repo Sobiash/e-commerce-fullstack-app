@@ -3,7 +3,9 @@ import Card from "./Card";
 
 const CardBlock = props => {
   const renderCards = () =>
-    props.list ? props.list.map((card, i) => <Card key={i} {...card} />) : null;
+    props.productList
+      ? props.productList.map((card, i) => <Card key={i} {...card} />)
+      : null;
 
   return (
     <div className="card_block">
@@ -15,7 +17,7 @@ const CardBlock = props => {
             flexWrap: "wrap"
           }}
         >
-          {renderCards(props.list)}
+          {renderCards(props.productList)}
         </div>
       </div>
     </div>

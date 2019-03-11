@@ -23,7 +23,6 @@ class Card extends React.Component {
               background: `url(${this.renderCardImage(props.images)}) no-repeat`
             }}
           />
-
           <div className="overlay" />
         </Link>
         <div>

@@ -14,9 +14,11 @@ import {
   CLEAR_PRODUCT_DETAIL
 } from "./types";
 
+//?sortBy=sold&order=desc&limit=10
+
 export const getProductsByArrival = () => {
   const request = axios
-    .get(`${PRODUCT_SERVER}/articles?sortBy=sold&order=desc&limit=4`)
+    .get(`${PRODUCT_SERVER}/articles?sortBy=createdAt&order=desc&limit=4`)
     .then(response => response.data);
   return {
     type: GET_PRODUCTS_BY_ARRIVAL,
@@ -25,7 +27,6 @@ export const getProductsByArrival = () => {
 };
 
 export const getProductsBySell = () => {
-  //?sortBy=sold&order=desc&limit=10
   const request = axios
     .get(`${PRODUCT_SERVER}/articles?sortBy=sold&order=desc&limit=4`)
     .then(response => response.data);

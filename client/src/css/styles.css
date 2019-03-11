@@ -370,7 +370,6 @@ footer li {
 .copyright {
   width: 60%;
   margin: 0 auto 30px auto;
-  /* margin-bottom: 30px; */
   text-align: center;
   color: #ffffff;
   opacity: 0.9;
@@ -472,7 +471,12 @@ div.tag.low_title {
 .card_block_shop {
   margin: 40px 0;
 }
-.card_block_shop .card_item_wrapper {
+.card_item_wrapper {
+  flex-grow: 1;
+  padding: 0 10px;
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
   float: left;
   width: 25%;
   margin-top: 20px;
@@ -508,14 +512,14 @@ div.tag.low_title {
   background: transparent;
 }
 
-.card_item_wrapper {
+/* .card_item_wrapper {
   flex-grow: 1;
   width: 25%;
   padding: 0 10px;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
-}
+} */
 
 .overlay {
   position: absolute;
@@ -549,10 +553,6 @@ div.tag.low_title {
 .card_button:hover {
   background-color: #ff6900;
   border: none;
-}
-
-.card_item_wrapper {
-  position: relative;
 }
 
 .card_item_wrapper .image {
