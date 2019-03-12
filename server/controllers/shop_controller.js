@@ -27,6 +27,7 @@ shopController.shopItems = (req, res) => {
   Product.find(findArgs)
     .populate("dress")
     .populate("color")
+
     .sort([[sortBy, order]])
     .skip(skip)
     .limit(limit)

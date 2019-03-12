@@ -10,4 +10,6 @@ router.get("/api/product/articles_by_id", productController.getArticles);
 
 router.get("/api/product/articles", productController.filterItems);
 
+// router.get("/api/products/categories", productController.listCategories);
+
 module.exports = router;

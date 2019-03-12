@@ -8,7 +8,6 @@ const productSchema = new Schema(
       type: String,
       required: true,
       trim: true,
-      unique: 1,
       maxlength: 100
     },
     category: {
@@ -18,14 +17,21 @@ const productSchema = new Schema(
     },
     description: {
       type: String,
+      trim: true,
       required: true,
       maxlength: 10000000
     },
     price: {
       type: Number,
       required: true,
-      maxlength: 255
+      maxlength: 255,
+      required: true
     },
+    // shop: {
+    //   type: mongoose.Schema.ObjectId,
+    //   ref: "Shop",
+    //   required: true
+    // },
     dress: {
       type: Schema.Types.ObjectId,
       ref: "Dress",
@@ -37,8 +43,9 @@ const productSchema = new Schema(
       required: true
     },
     shipping: {
-      type: Boolean,
-      required: true
+      type: Number,
+      required: true,
+      maxlength: 255
     },
     available: {
       type: Boolean,
@@ -46,7 +53,7 @@ const productSchema = new Schema(
     },
     sold: {
       type: Number,
-      maxlength: 100,
+      maxlength: 150,
       default: 0
     },
     publish: {

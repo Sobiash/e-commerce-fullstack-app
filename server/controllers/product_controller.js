@@ -1,10 +1,24 @@
 const { Product } = require("../models/product");
 const mongoose = require("mongoose");
+const Joi = require("joi");
+const _ = require("lodash");
 
 const productController = {};
 
 productController.postArticle = (req, res) => {
-  const product = new Product(req.body);
+  const body = _.pick(req.body, [
+    "name",
+    "description",
+    "price",
+    "shipping",
+    "available",
+    "publish",
+    "images",
+    "category",
+    "color",
+    "dress"
+  ]);
+  const product = new Product(body);
   product.save((err, doc) => {
     if (err) return res.json({ success: false, err });
     res.status(200).json({
@@ -48,6 +62,7 @@ productController.filterItems = (req, res) => {
   Product.find()
     .populate("dress")
     .populate("color")
+
     .sort([[sortBy, order]])
     .limit(limit)
     .exec((err, articles) => {
@@ -55,5 +70,12 @@ productController.filterItems = (req, res) => {
       res.send(articles);
     });
 };
+
+// productController.listCategories = (req, res) => {
+//   Product.distinct("category", {}, (err, products) => {
+//     if (err) return res.status(400).send(err);
+//     res.json(products);
+//   });
+// };
 
 module.exports = productController;

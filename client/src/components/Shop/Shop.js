@@ -45,7 +45,9 @@ class Shop extends Component {
   };
 
   handleFilters = (filters, category) => {
+    console.log(filters);
     const newFilters = { ...this.state.filters };
+    console.log(newFilters);
     newFilters[category] = filters;
 
     if (category === "price") {
@@ -93,9 +95,13 @@ class Shop extends Component {
 
   render() {
     const products = this.props.products;
+
     return (
       <div>
-        <ShopHeader title="Browse Products" />
+        <ShopHeader
+          list={category}
+          handleFilters={filters => this.handleFilters(filters, "category")}
+        />
         <div>
           <div className="shop_wrapper">
             <div className="left">
@@ -114,7 +120,7 @@ class Shop extends Component {
                 handleFilters={filters => this.handleFilters(filters, "dress")}
               />
               <CollapseList
-                initState={true}
+                initState={false}
                 title="Colors"
                 list={products.colors}
                 handleFilters={filters => this.handleFilters(filters, "color")}
@@ -134,7 +140,7 @@ class Shop extends Component {
                   background: "url(images/img2.jpeg)"
                 }}
               >
-                <h2>Free Shipping</h2>
+                <h3>Free Shipping</h3>
                 <p>For Fashe Club members</p>
                 <div className="shop_span">
                   <span>

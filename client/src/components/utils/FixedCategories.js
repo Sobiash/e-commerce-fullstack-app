@@ -9,7 +9,7 @@ const category = [
   },
   {
     _id: 3,
-    name: "Child"
+    name: "Kids"
   }
 ];
 

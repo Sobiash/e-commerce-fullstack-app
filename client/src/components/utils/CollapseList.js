@@ -27,10 +27,11 @@ class CollapseList extends Component {
   renderList = () =>
     this.props.list
       ? this.props.list.map(product => (
-          <ListItem key={product._id} style={{ padding: "10px 0" }}>
-            <ListItemText primary={product.name} />
+          <ListItem key={product._id} style={{ padding: "0px 0px 0 0" }}>
+            <ListItemText primary={product.name} style={{ fontSize: "5px" }} />
             <ListItemSecondaryAction>
               <Checkbox
+                style={{ fontSize: "5px" }}
                 color="primary"
                 onChange={this.handleToggle(product._id)}
                 checked={this.state.checked.indexOf(product._id) !== -1}
@@ -71,7 +72,7 @@ class CollapseList extends Component {
         <List style={{ borderBottom: "1px solid #dbdbdb" }}>
           <ListItem
             onClick={this.handleClick}
-            style={{ padding: "10px 23px 10px 0" }}
+            style={{ padding: "5px 23px 10px 0" }}
           >
             <ListItemText
               primary={this.props.title}

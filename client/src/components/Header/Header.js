@@ -107,9 +107,6 @@ class Header extends React.Component {
           <Link to="/" className="logo">
             <img src="/images/icons/logo.png" alt="IMG-LOGO" />
           </Link>
-          <div className="main_menu">
-            <nav className="menu">middle nav</nav>
-          </div>
           <div className="header-icons">
             <div>{this.showLinks(this.state.user)}</div>
             <div>{this.showLinks(this.state.page)}</div>

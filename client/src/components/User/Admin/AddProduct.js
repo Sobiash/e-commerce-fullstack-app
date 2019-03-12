@@ -106,12 +106,13 @@ class AddProduct extends Component {
         showLabel: true
       },
       shipping: {
-        element: "select",
+        element: "input",
         value: "",
         config: {
-          lable: "Shipping",
-          name: "shipping_input",
-          options: [{ key: true, value: "Yes" }, { key: false, value: "No" }]
+          lable: "Shipping price",
+          name: "price_input",
+          type: "number",
+          placeholder: "Enter price"
         },
         validation: {
           required: true

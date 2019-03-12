@@ -8,7 +8,7 @@ const RegisterLogin = () => {
       <div className="container">
         <div className="register_login_container">
           <div className="left">
-            <h3>New Customers</h3>
+            <h3>New Customer</h3>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt
               non facilis perferendis, optio rerum cum dolorem in nemo atque
