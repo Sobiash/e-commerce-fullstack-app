@@ -9,7 +9,7 @@ const { mongoConf } = require("./config/config");
 const routes = require("./routes/index");
 require("dotenv").config();
 
-// if (app.get('env') == 'development') app.use(morgan('tiny'));
+// if (app.get("env") == "development") app.use(morgan("tiny"));
 
 const { uri } = mongoConf;
 

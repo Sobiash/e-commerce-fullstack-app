@@ -120,7 +120,7 @@ userSchema.methods.generateResetToken = function(cb) {
 
 userSchema.statics.findByToken = function(token, cb) {
   const user = this;
-  jwt.verify(token, process.env.SECRET, function(err, decode) {
+  jwt.verify(token, process.env.TOKEN_SECRET, function(err, decode) {
     user.findOne({ _id: decode, token: token }, function(err, user) {
       if (err) return cb(err);
       cb(null, user);
