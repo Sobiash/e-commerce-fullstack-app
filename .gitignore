@@ -2,6 +2,9 @@
 /build
 /client/node_modules
 
+
+/server/config
+
 .DS_Store
 .env
 

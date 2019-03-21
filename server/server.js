@@ -1,15 +1,20 @@
-const express = require("express");
+const { app, logger, mongoose } = require("./utils/logger");
 const bodyParser = require("body-parser");
+const { expressConf } = require("./config/config");
+const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
-const path = require("path");
+// const path = require("path");
 const cloudinary = require("cloudinary");
-
-const app = express();
-const mongoose = require("mongoose");
+const { mongoConf } = require("./config/config");
+const routes = require("./routes/index");
 require("dotenv").config();
 
+// if (app.get('env') == 'development') app.use(morgan('tiny'));
+
+const { uri } = mongoConf;
+
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect(uri, {
   useNewUrlParser: true,
   useCreateIndex: true
 });
@@ -17,11 +22,9 @@ mongoose.connection.on("error", err => {
   console.error(`${err.message}`);
 });
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-// app.use(express.static(path.join(__dirname, "client", "build", "static")));
-// app.use(express.static(path.join(__dirname, "client", "public")));
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -29,34 +32,16 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET
 });
 
-const productRoutes = require("./routes/product_route");
-const shopRoutes = require("./routes/shop_route");
-const categoriesRoutes = require("./routes/categories_route");
-const userRoutes = require("./routes/user_route");
-const adminRoutes = require("./routes/admin_route");
-const registerLoginRoutes = require("./routes/registerLogin_route");
-const cartRoutes = require("./routes/cart_route");
-const paymentRoutes = require("./routes/payment_route");
-const siteRoutes = require("./routes/site_route");
+(async function() {
+  try {
+    for (let route in routes) {
+      logger.info(`Attaching route: ${route}`);
+      app.use(routes[route]);
+    }
 
-app.use(productRoutes);
-app.use(categoriesRoutes);
-app.use(shopRoutes);
-app.use(userRoutes);
-app.use(adminRoutes);
-app.use(registerLoginRoutes);
-app.use(cartRoutes);
-app.use(paymentRoutes);
-app.use(siteRoutes);
-
-// if (process.env.NODE_ENV === "production") {
-//   app.get("/*", (req, res) => {
-//     res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
-//   });
-// }
-
-const port = process.env.PORT || 3002;
-
-app.listen(port, () => {
-  console.log(`server running at ${port}`);
-});
+    const listener = app.listen(expressConf.port);
+    logger.info(`listening on port ${listener.address().port}`);
+  } catch (error) {
+    throw new Error(error);
+  }
+})();

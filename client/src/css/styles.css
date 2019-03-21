@@ -92,7 +92,7 @@ a {
 
 .dialog_alert {
   padding: 51px;
-  font-size: 30px;
+  font-size: 20px;
 }
 
 .load_more_container {
@@ -142,8 +142,10 @@ input {
 }
 
 .error_label {
-  color: #f44336;
+  color: #c42115;
   display: block;
+  margin-top: 5px;
+  background: rgb(229, 149, 149);
   font-size: 15px;
 }
 

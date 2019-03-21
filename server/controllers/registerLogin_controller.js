@@ -19,21 +19,26 @@ registerLoginController.authUser = (req, res) => {
   });
 };
 
-registerLoginController.registerUser = (req, res) => {
-  const { error } = Joi.validate(req.body, registerUser).then(() => {
-    const body = _.pick(req.body, ["name", "lastname", "email", "password"]);
+registerLoginController.registerUser = async (req, res) => {
+  const { error } = await Joi.validate(req.body, registerUser);
+  const body = await _.pick(req.body, [
+    "name",
+    "lastname",
+    "email",
+    "password"
+  ]);
 
-    const user = new User(body);
+  const user = await new User(body);
 
-    user.save((err, doc) => {
-      if (err) return res.json({ success: false, err });
-      sendEmail(doc.email, doc.name, null, "welcome");
-      return res.status(200).json({
-        success: true,
-        userdata: doc
-      });
+  user.save((err, doc) => {
+    if (err) return res.json({ success: false, err });
+    sendEmail(doc.email, doc.name, null, "welcome");
+    return res.status(200).json({
+      success: true,
+      userdata: doc
     });
   });
+
   if (error) return res.status(401).json({ success: false, error });
 };
 

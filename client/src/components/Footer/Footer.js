@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import MyButton from "../utils/button";
 
 const Footer = ({ data }) => {
   return data.siteData ? (

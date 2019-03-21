@@ -8,6 +8,7 @@ const {
 } = require("../schemas/user");
 const Joi = require("joi");
 const _ = require("lodash");
+const { logger } = require("../utils/logger");
 
 const userController = {};
 
@@ -94,6 +95,7 @@ userController.updateProfile = (req, res) => {
       }
     );
   });
+  if (error) return res.status(401).json({ success: false, error });
 };
 
 module.exports = userController;
