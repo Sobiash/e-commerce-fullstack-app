@@ -3,8 +3,16 @@ const router = express.Router();
 const productController = require("../controllers/product_controller");
 const { auth } = require("../middleware/auth");
 const { admin } = require("../middleware/admin");
+const { validateBody } = require("../joi_schemas/product");
 
-router.post("/api/product/article", auth, admin, productController.postArticle);
+router
+  .route("/api/product/article")
+  .post(
+    validateBody("postArticle"),
+    auth,
+    admin,
+    productController.postArticle
+  );
 
 router.get("/api/product/articles_by_id", productController.getArticles);
 

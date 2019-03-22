@@ -37,37 +37,35 @@ registerLoginController.registerUser = async (req, res) => {
   });
 };
 
-registerLoginController.loginUser = (req, res) => {
-  const { error } = Joi.validate(req.body, loginUser).then(() => {
-    const body = _.pick(req.body, ["email", "password"]);
+registerLoginController.loginUser = async (req, res) => {
+  const body = await _.pick(req.body, ["email", "password"]);
 
-    User.findOne({ email: body.email }, (err, user) => {
-      if (!user)
-        return res.json({
-          loginSuccess: false,
-          message: "Auth failed, email not found"
-        });
-      user.comparePassword(body.password, (err, isMatch) => {
-        if (!isMatch)
-          return res.json({ loginSuccess: false, message: "Wrong Password" });
+  await User.findOne({ email: body.email }, (err, user) => {
+    if (!user)
+      return res.json({
+        loginSuccess: false,
+        message: "Auth failed, email not found"
+      });
 
-        user.generateToken((err, user) => {
-          if (err) return res.status(400).send(err);
-          res
-            .cookie("w_auth", user.token)
-            .status(200)
-            .json({
-              loginSuccess: true
-            });
-        });
+    user.comparePassword(body.password, (err, isMatch) => {
+      if (!isMatch)
+        return res.json({ loginSuccess: false, message: "Wrong Password" });
+
+      user.generateToken((err, user) => {
+        if (err) return res.status(400).send(err);
+        res
+          .cookie("w_auth", user.token)
+          .status(200)
+          .json({
+            loginSuccess: true
+          });
       });
     });
   });
-  if (error) return res.status(401).json({ success: false, error });
 };
 
-registerLoginController.logoutUser = (req, res) => {
-  User.findOneAndUpdate(
+registerLoginController.logoutUser = async (req, res) => {
+  await User.findOneAndUpdate(
     {
       _id: req.user._id
     },

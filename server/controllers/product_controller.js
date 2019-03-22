@@ -4,8 +4,8 @@ const _ = require("lodash");
 
 const productController = {};
 
-productController.postArticle = (req, res) => {
-  const body = _.pick(req.body, [
+productController.postArticle = async (req, res) => {
+  const body = await _.pick(req.body, [
     "name",
     "description",
     "price",
@@ -17,7 +17,7 @@ productController.postArticle = (req, res) => {
     "color",
     "dress"
   ]);
-  const product = new Product(body);
+  const product = await new Product(body);
   product.save((err, doc) => {
     if (err) return res.json({ success: false, err });
     res.status(200).json({
@@ -27,7 +27,7 @@ productController.postArticle = (req, res) => {
   });
 };
 
-productController.getArticles = (req, res) => {
+productController.getArticles = async (req, res) => {
   let type = req.query.type;
   let items = req.query.id;
 
@@ -38,7 +38,7 @@ productController.getArticles = (req, res) => {
       return mongoose.Types.ObjectId(item);
     });
   }
-  Product.find({ _id: { $in: items } })
+  await Product.find({ _id: { $in: items } })
     .populate("dress")
     .populate("color")
 
@@ -61,12 +61,12 @@ productController.getArticles = (req, res) => {
 // by sold
 // /api/product/articles?sortBy=sold&order=desc&limit=10
 
-productController.filterItems = (req, res) => {
+productController.filterItems = async (req, res) => {
   let order = req.query.order ? req.query.order : "asc";
   let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
   let limit = req.query.limit ? parseInt(req.query.limit) : 100;
 
-  Product.find()
+  await Product.find()
     .populate("dress")
     .populate("color")
     .sort([[sortBy, order]])
@@ -76,12 +76,5 @@ productController.filterItems = (req, res) => {
       res.send(articles);
     });
 };
-
-// productController.listCategories = (req, res) => {
-//   Product.distinct("category", {}, (err, products) => {
-//     if (err) return res.status(400).send(err);
-//     res.json(products);
-//   });
-// };
 
 module.exports = productController;

@@ -1,19 +1,18 @@
 const Joi = require("joi");
-Joi.objectId = require("joi-objectid")(Joi);
 
 const name = Joi.string()
   .trim()
   .error(new Error("Name required"));
-const description = Joi.string().error(new Error("Description required"));
 
+const description = Joi.string().error(new Error("Description required"));
 const price = Joi.number();
-const category = Joi.objectId();
-const dress = Joi.objectId();
-const color = Joi.objectId();
+const category = Joi.string();
+const dress = Joi.string();
+const color = Joi.string();
 const shipping = Joi.number();
 const available = Joi.bool();
 const publish = Joi.bool();
-const images = Joi.array().items(Joi.string());
+const images = Joi.array();
 
 const schemas = {
   postArticle: Joi.object()

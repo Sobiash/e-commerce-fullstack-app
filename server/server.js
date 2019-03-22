@@ -3,13 +3,12 @@ const bodyParser = require("body-parser");
 const { expressConf } = require("./config/config");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
-// const path = require("path");
 const cloudinary = require("cloudinary");
 const { mongoConf } = require("./config/config");
 const routes = require("./routes/index");
 require("dotenv").config();
 
-// if (app.get("env") == "development") app.use(morgan("tiny"));
+if (app.get("env") == "development") app.use(morgan("tiny"));
 
 const { uri } = mongoConf;
 

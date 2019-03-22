@@ -44,7 +44,10 @@ const schemas = {
 
   updateProfile: Joi.object()
     .keys({
-      email: email.required()
+      name: name.required(),
+      lastname: lastname.required(),
+      email: email.required(),
+      password: password.required()
     })
     .required(),
 
