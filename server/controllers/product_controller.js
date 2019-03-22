@@ -1,6 +1,5 @@
 const { Product } = require("../models/product");
 const mongoose = require("mongoose");
-const Joi = require("joi");
 const _ = require("lodash");
 
 const productController = {};
@@ -44,7 +43,15 @@ productController.getArticles = (req, res) => {
     .populate("color")
 
     .exec((err, docs) => {
-      return res.status(200).send(docs);
+      if (err)
+        return res.status(422).send({
+          errors: [
+            {
+              detail: `Could not find any item matching with ${req.query.id}!`
+            }
+          ]
+        });
+      res.status(200).send(docs);
     });
 };
 
@@ -62,7 +69,6 @@ productController.filterItems = (req, res) => {
   Product.find()
     .populate("dress")
     .populate("color")
-
     .sort([[sortBy, order]])
     .limit(limit)
     .exec((err, articles) => {

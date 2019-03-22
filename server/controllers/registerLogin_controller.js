@@ -1,9 +1,7 @@
 const { User } = require("../models/user");
 const { sendEmail } = require("../utils/mail/mail");
-const { registerUser, loginUser } = require("../schemas/user");
-const Joi = require("joi");
 const _ = require("lodash");
-
+const Joi = require("joi");
 const registerLoginController = {};
 
 registerLoginController.authUser = (req, res) => {
@@ -20,7 +18,6 @@ registerLoginController.authUser = (req, res) => {
 };
 
 registerLoginController.registerUser = async (req, res) => {
-  const { error } = await Joi.validate(req.body, registerUser);
   const body = await _.pick(req.body, [
     "name",
     "lastname",
@@ -38,8 +35,6 @@ registerLoginController.registerUser = async (req, res) => {
       userdata: doc
     });
   });
-
-  if (error) return res.status(401).json({ success: false, error });
 };
 
 registerLoginController.loginUser = (req, res) => {

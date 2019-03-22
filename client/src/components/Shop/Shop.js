@@ -45,9 +45,8 @@ class Shop extends Component {
   };
 
   handleFilters = (filters, category) => {
-    console.log(filters);
     const newFilters = { ...this.state.filters };
-    console.log(newFilters);
+
     newFilters[category] = filters;
 
     if (category === "price") {

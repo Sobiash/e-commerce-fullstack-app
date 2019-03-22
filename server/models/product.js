@@ -7,31 +7,24 @@ const productSchema = new Schema(
     name: {
       type: String,
       required: true,
-      trim: true,
-      maxlength: 100
-    },
-    category: {
-      type: String,
-      required: true,
-      maxlength: 100
+      reqired: true,
+      maxlength: [100, "Too long, maximum 100 characters are allowed."]
     },
     description: {
       type: String,
       trim: true,
       required: true,
-      maxlength: 10000000
+      maxlength: [10000, "Too long, maximum 10000 characters are allowed."]
     },
     price: {
       type: Number,
-      required: true,
-      maxlength: 255,
       required: true
     },
-    // shop: {
-    //   type: mongoose.Schema.ObjectId,
-    //   ref: "Shop",
-    //   required: true
-    // },
+    category: {
+      type: Schema.Types.ObjectId,
+      ref: "Category",
+      required: true
+    },
     dress: {
       type: Schema.Types.ObjectId,
       ref: "Dress",
@@ -43,9 +36,7 @@ const productSchema = new Schema(
       required: true
     },
     shipping: {
-      type: Number,
-      required: true,
-      maxlength: 255
+      type: Number
     },
     available: {
       type: Boolean,
@@ -53,7 +44,7 @@ const productSchema = new Schema(
     },
     sold: {
       type: Number,
-      maxlength: 150,
+      maxlength: 250,
       default: 0
     },
     publish: {

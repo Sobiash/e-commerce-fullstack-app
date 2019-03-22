@@ -12,6 +12,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
     trim: true,
+    lowercase: true,
     unique: 1,
     minlength: 5,
     maxlength: 255
@@ -19,19 +20,19 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
-    minlength: 5,
+    minlength: [5, "Too short, minimum 5 characters are required"],
     maxlength: 255
   },
   name: {
     type: String,
     required: true,
-    minlength: 5,
+    minlength: [5, "Too short, minimum 5 characters are required"],
     maxlength: 50
   },
   lastname: {
     type: String,
     required: true,
-    minlength: 5,
+    minlength: [5, "Too short, minimum 5 characters are required"],
     maxlength: 50
   },
   cart: {

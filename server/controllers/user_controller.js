@@ -1,12 +1,6 @@
 const { User } = require("../models/user");
 const { sendEmail } = require("../utils/mail/mail");
 const moment = require("moment");
-const {
-  resetUser,
-  resetUserPassword,
-  updateProfile
-} = require("../schemas/user");
-const Joi = require("joi");
 const _ = require("lodash");
 const { logger } = require("../utils/logger");
 
