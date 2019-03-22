@@ -16,19 +16,20 @@
   },
   "author": "sobia",
   "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^3.6.0"
+  },
   "dependencies": {
     "@google-cloud/logging-winston": "^0.11.0",
     "bcrypt": "3.0.3",
     "body-parser": "^1.18.3",
     "cloudinary": "^1.11.0",
-    "concurrently": "^3.6.0",
     "cookie-parser": "^1.4.3",
     "crypto-js": "^3.1.9-1",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-formidable": "^1.0.0",
     "joi": "^14.3.1",
-    "joi-objectid": "^2.0.0",
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
     "moment": "^2.22.2",

@@ -98,32 +98,36 @@ a {
 .load_more_container {
   clear: both;
   margin-bottom: 50px;
-  border-top: 5px solid #f5f5f5;
-  padding-top: 20px;
 }
 
 .load_more_container span {
   cursor: pointer;
-  background: #2196f3;
-  color: #ffffff;
-  font-size: 27px;
-  padding: 10px 60px;
+  background: #ffffff;
+  color: #222222;
+  font-size: 16px;
+  padding: 8px 35px;
   display: table;
   margin: 0 auto;
+  border: solid 1px #222222;
+}
+
+.load_more_container span:hover {
+  background: #222222;
+  color: #ffffff;
 }
 
 .no_result {
-  font-size: 40px;
-  color: #999592;
+  font-size: 20px;
+  color: #222222;
   text-align: center;
   padding-top: 40px;
 }
 
 .not_found_container {
-  font-size: 70px;
+  font-size: 30px;
   text-align: center;
   padding-top: 70px;
-  color: #dddddd;
+  color: #222222;
 }
 
 .clear:after {
