@@ -13,6 +13,12 @@ router.post(
   adminController.uploadImage
 );
 
-router.get("/api/users/remove-image", auth, admin, adminController.removeImage);
+router.get(
+  "/api/users/remove-image",
+  auth,
+  admin,
+
+  adminController.removeImage
+);
 
 module.exports = router;
