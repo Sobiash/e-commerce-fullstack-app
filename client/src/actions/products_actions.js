@@ -56,6 +56,7 @@ export const getColors = () => {
     payload: request
   };
 };
+
 export const getProducts = (skip, limit, filters = [], previousState = []) => {
   const data = {
     limit,
@@ -87,6 +88,7 @@ export const addProduct = dataToSubmit => {
     payload: request
   };
 };
+
 export const clearProductInState = () => {
   return {
     type: CLEAR_PRODUCT,
@@ -136,6 +138,7 @@ export const getProductDetail = id => {
     payload: request
   };
 };
+
 export const clearProductDetail = () => {
   return {
     type: CLEAR_PRODUCT_DETAIL,

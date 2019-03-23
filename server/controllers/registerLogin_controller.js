@@ -1,7 +1,6 @@
 const { User } = require("../models/user");
 const { sendEmail } = require("../utils/mail/mail");
 const _ = require("lodash");
-const Joi = require("joi");
 const registerLoginController = {};
 
 registerLoginController.authUser = (req, res) => {
