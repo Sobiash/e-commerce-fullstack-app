@@ -69,6 +69,7 @@ productController.filterItems = async (req, res) => {
   await Product.find()
     .populate("dress")
     .populate("color")
+
     .sort([[sortBy, order]])
     .limit(limit)
     .exec((err, articles) => {

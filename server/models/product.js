@@ -20,6 +20,11 @@ const productSchema = new Schema(
       type: Number,
       required: true
     },
+    category: {
+      type: String,
+      required: true,
+      maxlength: [100, "Too long, maximum 100 characters are allowed."]
+    },
     dress: {
       type: Schema.Types.ObjectId,
       ref: "Dress",
