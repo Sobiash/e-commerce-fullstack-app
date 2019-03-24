@@ -56,29 +56,17 @@ const userSchema = new Schema({
   resetTokenExpiration: {
     type: Number
   },
-  seller: {
-    type: Boolean,
-    default: false
-  },
-  stripe_seller: {},
   stripe_customer: {}
 });
 
-userSchema.pre("save", function(next) {
-  const user = this;
-  if (this.isModified("password") || this.isNew) {
-    bcrypt.genSalt(SALT_I, function(err, salt) {
-      if (err) return next(err);
-      bcrypt.hash(user.password, salt, function(err, hash) {
-        if (err) return next(err);
-        user.password = hash;
-        next();
-      });
-    });
-  } else {
-    return next();
+const hashPassword = async password => {
+  try {
+    const salt = await bcrypt.genSalt(SALT_I);
+    return await bcrypt.hash(password, salt);
+  } catch (error) {
+    throw new Error("Hashing failed", error);
   }
-});
+};
 
 userSchema.methods.comparePassword = function(candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
@@ -131,4 +119,4 @@ userSchema.statics.findByToken = function(token, cb) {
 
 const User = mongoose.model("User", userSchema);
 
-module.exports = { User };
+module.exports = { User, hashPassword };

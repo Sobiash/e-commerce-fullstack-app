@@ -1,7 +1,7 @@
-const { User } = require("../models/user");
+const { User, hashPassword } = require("../models/user");
 const { sendEmail } = require("../utils/mail/mail");
 const _ = require("lodash");
-const Joi = require("joi");
+
 const registerLoginController = {};
 
 registerLoginController.authUser = (req, res) => {
@@ -25,16 +25,24 @@ registerLoginController.registerUser = async (req, res) => {
     "password"
   ]);
 
-  const user = await new User(body);
-
-  user.save((err, doc) => {
-    if (err) return res.json({ success: false, err });
-    sendEmail(doc.email, doc.name, null, "welcome");
-    return res.status(200).json({
-      success: true,
-      userdata: doc
+  const exists = await User.findOne({ email: body.email });
+  if (exists) {
+    res.json({
+      loginSuccess: false,
+      message: "Email is already in use."
     });
-  });
+    res.redirect("/api/users/register");
+    return;
+  }
+
+  const hash = await hashPassword(body.password);
+
+  body.password = hash;
+
+  const user = await new User(body);
+  await user.save();
+
+  sendEmail(body.email, body.name, null, "welcome");
 };
 
 registerLoginController.loginUser = async (req, res) => {
