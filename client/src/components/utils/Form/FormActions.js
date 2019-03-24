@@ -15,6 +15,15 @@ export const validate = (element, data = []) => {
     const message = `${!valid ? "Password do not match" : ""}`;
     ValidInput = !valid ? [valid, message] : ValidInput;
   }
+  if (element.validation.characterLength) {
+    const valid = parseInt(element.value.trim(), 10) === 8;
+    const message = `${
+      !valid
+        ? "Password must be 8 characters long and atleast one non-alphabetic character required"
+        : ""
+    }`;
+    ValidInput = !valid ? [valid, message] : ValidInput;
+  }
 
   if (element.validation.required) {
     const valid = element.value.trim() !== "";

@@ -65,7 +65,8 @@ class Register extends Component {
           placeholder: "Enter your password"
         },
         validation: {
-          required: true
+          required: true,
+          characterLength: 8
         },
         valid: false,
         touched: false,
@@ -180,7 +181,9 @@ class Register extends Component {
                 </div>
                 <div>
                   {this.state.formError ? (
-                    <div className="error_label">Please check your data</div>
+                    <div className="error_label">
+                      Please check if all fields are valid.
+                    </div>
                   ) : null}
                   <div
                     className="link_default"
