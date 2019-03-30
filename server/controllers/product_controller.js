@@ -17,42 +17,29 @@ productController.postArticle = async (req, res) => {
     "color",
     "dress"
   ]);
+
+  if (typeof req.body.color !== undefined) {
+    body.color = req.body.color.split(",");
+  }
+
   const product = await new Product(body);
-  product.save((err, doc) => {
-    if (err) return res.json({ success: false, err });
+  product.save((err, product) => {
+    if (err) return res.json(err);
     res.status(200).json({
-      success: true,
-      article: doc
+      article: product
     });
   });
 };
 
 productController.getArticles = async (req, res) => {
-  let type = req.query.type;
-  let items = req.query.id;
-
-  if (type === "array") {
-    let ids = req.query.id.split(",");
-    items = [];
-    items = ids.map(item => {
-      return mongoose.Types.ObjectId(item);
+  const productDetail = await Product.findOne({ _id: req.query.id });
+  if (productDetail) {
+    return res.status(200).send(productDetail);
+  } else {
+    return res.status(422).send({
+      error: `Could not find any item matching with ${req.query.id}!`
     });
   }
-  await Product.find({ _id: { $in: items } })
-    .populate("dress")
-    .populate("color")
-
-    .exec((err, docs) => {
-      if (err)
-        return res.status(422).send({
-          errors: [
-            {
-              detail: `Could not find any item matching with ${req.query.id}!`
-            }
-          ]
-        });
-      res.status(200).send(docs);
-    });
 };
 
 //get products
@@ -67,8 +54,6 @@ productController.filterItems = async (req, res) => {
   let limit = req.query.limit ? parseInt(req.query.limit) : 100;
 
   await Product.find()
-    .populate("dress")
-    .populate("color")
 
     .sort([[sortBy, order]])
     .limit(limit)

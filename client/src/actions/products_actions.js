@@ -36,26 +36,6 @@ export const getProductsBySell = () => {
   };
 };
 
-export const getDresses = () => {
-  const request = axios
-    .get(`${PRODUCT_SERVER}/dresses`)
-    .then(response => response.data);
-
-  return {
-    type: GET_DRESSES,
-    payload: request
-  };
-};
-export const getColors = () => {
-  const request = axios
-    .get(`${PRODUCT_SERVER}/colors`)
-    .then(response => response.data);
-
-  return {
-    type: GET_COLORS,
-    payload: request
-  };
-};
 export const getProducts = (skip, limit, filters = [], previousState = []) => {
   const data = {
     limit,
@@ -91,37 +71,6 @@ export const clearProductInState = () => {
   return {
     type: CLEAR_PRODUCT,
     payload: ""
-  };
-};
-
-export const addDressType = (dataToSubmit, existingDressType) => {
-  const request = axios
-    .post(`${PRODUCT_SERVER}/dress`, dataToSubmit)
-    .then(response => {
-      let dresses = [...existingDressType, response.data.dress];
-      return {
-        success: response.data.success,
-        dresses
-      };
-    });
-  return {
-    type: ADD_DRESS,
-    payload: request
-  };
-};
-export const addColorType = (dataToSubmit, existingColorType) => {
-  const request = axios
-    .post(`${PRODUCT_SERVER}/color`, dataToSubmit)
-    .then(response => {
-      let colors = [...existingColorType, response.data.color];
-      return {
-        success: response.data.success,
-        colors
-      };
-    });
-  return {
-    type: ADD_COLOR,
-    payload: request
   };
 };
 

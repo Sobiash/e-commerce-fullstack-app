@@ -1,15 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const productController = require("../controllers/product_controller");
-const { auth } = require("../middleware/auth");
+// const { auth } = require("../middleware/auth");
 const { admin } = require("../middleware/admin");
 const { validateBody } = require("../joi_schemas/product");
+const passport = require("passport");
 
 router
   .route("/api/product/article")
   .post(
     validateBody("postArticle"),
-    auth,
+    passport.authenticate("jwt", { session: false }),
     admin,
     productController.postArticle
   );

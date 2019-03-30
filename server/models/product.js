@@ -8,13 +8,14 @@ const productSchema = new Schema(
       type: String,
       required: true,
       reqired: true,
-      maxlength: [100, "Too long, maximum 100 characters are allowed."]
+      maxlength: 100,
+      trim: true
     },
     description: {
       type: String,
       trim: true,
       required: true,
-      maxlength: [10000, "Too long, maximum 10000 characters are allowed."]
+      maxlength: 10000
     },
     price: {
       type: Number,
@@ -22,17 +23,18 @@ const productSchema = new Schema(
     },
     category: {
       type: String,
+      trim: true,
       required: true,
-      maxlength: [100, "Too long, maximum 100 characters are allowed."]
+      unique: 1
     },
     dress: {
-      type: Schema.Types.ObjectId,
-      ref: "Dress",
-      required: true
+      type: String,
+      trim: true,
+      required: true,
+      unique: 1
     },
     color: {
-      type: Schema.Types.ObjectId,
-      ref: "Color",
+      type: [String],
       required: true
     },
     shipping: {

@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/user_controller");
-const { auth } = require("../middleware/auth");
 const { validateBody } = require("../joi_schemas/user");
+const { validateUserData } = require("../joi_schemas/register");
+const passport = require("passport");
 
 router
   .route("/api/users/reset-user")
@@ -14,6 +15,10 @@ router
 
 router
   .route("/api/users/update-profile")
-  .post(validateBody("updateProfile"), auth, userController.updateProfile);
+  .post(
+    validateUserData("updateProfile"),
+    passport.authenticate("jwt", { session: false }),
+    userController.updateProfile
+  );
 
 module.exports = router;

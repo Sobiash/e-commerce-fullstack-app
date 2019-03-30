@@ -38,11 +38,20 @@ const schemas = {
       password: password.required(),
       confirmPassword: confirmPassword.required()
     })
+    .required(),
+
+  updateProfile: Joi.object()
+    .keys({
+      name: name.required(),
+      lastname: lastname.required(),
+      email: email.required(),
+      password: password.required()
+    })
     .required()
 };
 
 module.exports = {
-  validateRegistration: schemaType => (req, res, next) => {
+  validateUserData: schemaType => (req, res, next) => {
     const result = Joi.validate(req.body, schemas[schemaType]);
     if (result.error)
       return res.status(400).json({

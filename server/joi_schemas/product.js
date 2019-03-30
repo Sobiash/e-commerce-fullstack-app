@@ -10,7 +10,9 @@ const description = Joi.string().error(
 const price = Joi.number();
 const category = Joi.string();
 const dress = Joi.string();
-const color = Joi.string();
+const color = Joi.array()
+  .items(Joi.string())
+  .single();
 const shipping = Joi.number();
 const available = Joi.bool();
 const publish = Joi.bool();

@@ -6,81 +6,80 @@ const { logger } = require("../utils/logger");
 
 const userController = {};
 
-userController.resetUser = (req, res) => {
-  const body = _.pick(req.body, ["email"]);
-  User.findOne(
-    {
-      email: body.email
-    },
-    (err, user) => {
-      user.generateResetToken((err, user) => {
-        if (err) return res.json({ success: false, err });
-        sendEmail(user.email, user.name, null, "reset-password", user);
-        return res.json({ success: true });
+userController.resetUser = async (req, res) => {
+  const body = await _.pick(req.body, ["email"]);
+  const user = User.findOne({
+    email: body.email
+  });
+
+  if (user) {
+    user.generateResetToken((err, user) => {
+      if (err) return res.json({ err });
+      sendEmail(user.email, user.name, null, "reset-password", user);
+      return res.status(200).json({
+        success: true
       });
-    }
-  );
+    });
+  }
 };
 
-userController.resetUserPassword = (req, res) => {
-  const body = _.pick(req.body, ["resetToken", "password"]);
-  var today = moment()
+userController.resetUserPassword = async (req, res) => {
+  const body = await _.pick(req.body, ["resetToken", "password"]);
+  const today = moment()
     .startOf("day")
     .valueOf();
-  User.findOne(
-    {
-      resetToken: body.resetToken,
-      resetTokenExpiration: {
-        $gte: today
-      }
-    },
-    (err, user) => {
-      if (!user)
-        return res.json({
-          success: false,
-          message: "Sorry, token bad, generate a new one."
-        });
 
-      user.password = body.password;
-      user.resetToken = "";
-      user.resetTokenExpiration = "";
-
-      user.save((err, doc) => {
-        if (err) return res.json({ success: false, err });
-        return res.status(200).json({
-          success: true
-        });
-      });
+  const user = await User.findOne({
+    resetToken: body.resetToken,
+    resetTokenExpiration: {
+      $gte: today
     }
-  );
+  });
+
+  if (!user) {
+    return res.json({
+      message: "Sorry, bad token, generate a new one."
+    });
+  } else {
+    user.password = body.password;
+    user.resetToken = "";
+    user.resetTokenExpiration = "";
+
+    user.save((err, doc) => {
+      if (err) return res.json({ err });
+      return res.status(200).json({
+        success: true
+      });
+    });
+  }
 };
 
-userController.updateProfile = (req, res) => {
-  const body = _.pick(req.body, ["name", "lastname", "email", "password"]);
-  User.findOne(
-    {
-      _id: req.user._id
-    },
-    (err, user) => {
-      if (!user)
-        return res.json({
-          success: false,
-          message: "Sorry, something went wrong."
-        });
+userController.updateProfile = async (req, res) => {
+  const body = await _.pick(req.body, [
+    "name",
+    "lastname",
+    "email",
+    "password"
+  ]);
 
-      user.name = body.name;
-      user.lastname = body.lastname;
-      user.email = body.email;
-      user.password = body.password;
+  const user = await User.findOne({ _id: req.user._id });
+  if (!user) {
+    return res.json({
+      message: "Sorry, something went wrong."
+    });
+  } else {
+    user.name = body.name;
+    user.lastname = body.lastname;
+    user.email = body.email;
+    user.password = body.password;
 
-      user.save((err, doc) => {
-        if (err) return res.json({ success: false, err });
-        return res.status(200).json({
-          success: true
-        });
+    user.save((err, doc) => {
+      if (err) return res.json({ err });
+      return res.status(200).json({
+        success: true
       });
-    }
-  );
+    });
+  }
 };
 
 module.exports = userController;
