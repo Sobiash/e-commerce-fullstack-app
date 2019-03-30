@@ -4,6 +4,7 @@ const { sendEmail } = require("../utils/mail/mail");
 const bcrypt = require("bcrypt");
 const _ = require("lodash");
 require("dotenv").config();
+const logger = require("../utils/logger");
 
 const registerLoginController = {};
 
