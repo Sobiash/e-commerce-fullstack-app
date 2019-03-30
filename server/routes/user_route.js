@@ -7,7 +7,7 @@ const passport = require("passport");
 
 router
   .route("/api/users/reset-user")
-  .post(validateBody("resetUser"), userController.resetUser);
+  .post(validateBody("requestReset"), userController.requestReset);
 
 router
   .route("/api/users/reset-password")

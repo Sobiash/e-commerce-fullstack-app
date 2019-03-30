@@ -3,13 +3,9 @@ import { PRODUCT_SERVER } from "../components/utils/config";
 import {
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_BY_SELL,
-  GET_DRESSES,
-  GET_COLORS,
   GET_PRODUCTS,
   ADD_PRODUCT,
   CLEAR_PRODUCT,
-  ADD_DRESS,
-  ADD_COLOR,
   GET_PRODUCT_DETAIL,
   CLEAR_PRODUCT_DETAIL
 } from "./types";

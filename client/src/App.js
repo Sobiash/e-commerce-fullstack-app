@@ -13,7 +13,7 @@ import UserCart from "./components/Cart/UserCart";
 import UpdateUserProfile from "./components/User/UpdateUserProfile";
 import ManageSite from "./components/User/Admin/ManageSite";
 import NotFound from "./components/utils/NotFound";
-import ResetUser from "./components/ResetPassword/index";
+import RequestReset from "./components/ResetPassword/index";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
 
 const App = () => {
@@ -46,7 +46,7 @@ const App = () => {
           exact
           component={Auth(ResetPassword, false)}
         />
-        <Route path="/reset-user" exact component={Auth(ResetUser, false)} />
+        <Route path="/reset-user" exact component={Auth(RequestReset, false)} />
 
         <Route path="/register" exact component={Auth(Register, false)} />
         <Route

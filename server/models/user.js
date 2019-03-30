@@ -2,9 +2,11 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
+const { promisify } = require("util");
 const moment = require("moment");
 const SALT_I = 10;
 require("dotenv").config();
+const { logger } = require("../utils/logger");
 
 const Schema = mongoose.Schema;
 const userSchema = new Schema({
@@ -51,29 +53,33 @@ const hashPassword = async password => {
     const salt = await bcrypt.genSalt(SALT_I);
     return await bcrypt.hash(password, salt);
   } catch (error) {
-    throw new Error("Hashing failed", error);
+    logger.error(error);
+    res.status(400).json(error);
   }
 };
 
-userSchema.methods.generateResetToken = function(cb) {
-  const user = this;
+const generateResetToken = async user => {
+  try {
+    const resetToken = (await promisify(crypto.randomBytes)(20)).toString(
+      "hex"
+    );
 
-  crypto.randomBytes(20, function(err, buffer) {
-    const token = buffer.toString("hex");
     const today = moment()
       .startOf("day")
       .valueOf();
+
     const tomorrow = moment(today)
       .endOf("day")
       .valueOf();
 
-    user.resetToken = token;
+    user.resetToken = resetToken;
     user.resetTokenExpiration = tomorrow;
-    user.save(function(err, user) {
-      if (err) return cb(err);
-      cb(null, user);
-    });
-  });
+    user.save();
+    console.log(user);
+  } catch (error) {
+    logger.error(error);
+    res.status(400).json(error);
+  }
 };
 
 userSchema.statics.findByToken = function(token, cb) {
@@ -88,4 +94,4 @@ userSchema.statics.findByToken = function(token, cb) {
 
 const User = mongoose.model("User", userSchema);
 
-module.exports = { User, hashPassword };
+module.exports = { User, hashPassword, generateResetToken };

@@ -3,7 +3,7 @@ import FormField from "../utils/Form/FormField";
 import { update, generateData, isFormValid } from "../utils/Form/FormActions";
 import axios from "axios";
 
-class ResetUser extends Component {
+class RequestReset extends Component {
   state = {
     formError: false,
     formSuccess: false,
@@ -90,4 +90,4 @@ class ResetUser extends Component {
   }
 }
 
-export default ResetUser;
+export default RequestReset;

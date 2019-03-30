@@ -1,25 +1,28 @@
-const { User } = require("../models/user");
+const { User, hashPassword, generateResetToken } = require("../models/user");
 const { sendEmail } = require("../utils/mail/mail");
 const moment = require("moment");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const _ = require("lodash");
 const { logger } = require("../utils/logger");
 
 const userController = {};
 
-userController.resetUser = async (req, res) => {
+userController.requestReset = async (req, res) => {
   try {
     const body = await _.pick(req.body, ["email"]);
-    const user = User.findOne({ email: body.email });
+    const user = await User.findOne({ email: body.email });
 
-    if (user) {
-      user.generateResetToken((err, user) => {
-        if (err) return res.json({ err });
-        sendEmail(user.email, user.name, null, "reset-password", user);
-        return res.status(200).json({
-          success: true
-        });
-      });
+    if (!user) {
+      return res.json({ error: `No such user found for email ${body.email}` });
     }
+
+    await generateResetToken(user);
+
+    sendEmail(user.email, user.name, null, "reset-password", user);
+    return res.status(200).json({
+      message: "successful"
+    });
   } catch (error) {
     logger.error(error);
     res.status(400).json(error);
@@ -28,7 +31,12 @@ userController.resetUser = async (req, res) => {
 
 userController.resetUserPassword = async (req, res) => {
   try {
-    const body = await _.pick(req.body, ["resetToken", "password"]);
+    const body = await _.pick(req.body, [
+      "resetToken",
+      "password",
+      "confirmPassword"
+    ]);
+
     const today = moment()
       .startOf("day")
       .valueOf();
@@ -42,19 +50,29 @@ userController.resetUserPassword = async (req, res) => {
 
     if (!user) {
       return res.json({
-        message: "Sorry, bad token, generate a new one."
+        message: "This token is invalid or expired, generate a new one."
       });
     } else {
       user.password = body.password;
       user.resetToken = "";
       user.resetTokenExpiration = "";
 
-      user.save((err, doc) => {
-        if (err) return res.json({ err });
-        return res.status(200).json({
-          success: true
-        });
-      });
+      const hash = await hashPassword(user.password);
+      user.password = hash;
+
+      const payload = { id: user._id, name: user.name };
+      jwt.sign(
+        payload,
+        process.env.TOKEN_SECRET,
+        { expiresIn: 7200 },
+        (err, token) => {
+          res.json({
+            success: true,
+            token: "Bearer " + token
+          });
+        }
+      );
+      return user;
     }
   } catch (error) {
     logger.error(error);

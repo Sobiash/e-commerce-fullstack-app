@@ -27,7 +27,8 @@ registerLoginController.registerUser = async (req, res) => {
       "name",
       "lastname",
       "email",
-      "password"
+      "password",
+      "confirmPassword"
     ]);
 
     const exists = await User.findOne({ email: body.email });
