@@ -1,5 +1,4 @@
 require("dotenv").config();
-const mongoose = require("mongoose");
 const { env } = require("../config/config");
 const express = require("express");
 
@@ -26,6 +25,5 @@ if (!env.isProd) {
 
 module.exports = {
   app,
-  mongoose,
   logger
 };

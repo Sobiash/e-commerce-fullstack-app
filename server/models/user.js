@@ -11,29 +11,19 @@ const userSchema = new Schema({
   email: {
     type: String,
     required: true,
-    trim: true,
-    lowercase: true,
-    unique: 1,
-    minlength: 5,
-    maxlength: 255
+    unique: 1
   },
   password: {
     type: String,
-    required: true,
-    minlength: [5, "Too short, minimum 5 characters are required"],
-    maxlength: 255
+    required: true
   },
   name: {
     type: String,
-    required: true,
-    minlength: [5, "Too short, minimum 5 characters are required"],
-    maxlength: 50
+    required: true
   },
   lastname: {
     type: String,
-    required: true,
-    minlength: [5, "Too short, minimum 5 characters are required"],
-    maxlength: 50
+    required: true
   },
   cart: {
     type: Array,
@@ -46,9 +36,6 @@ const userSchema = new Schema({
   role: {
     type: Number,
     default: 0
-  },
-  token: {
-    type: String
   },
   resetToken: {
     type: String
@@ -66,24 +53,6 @@ const hashPassword = async password => {
   } catch (error) {
     throw new Error("Hashing failed", error);
   }
-};
-
-userSchema.methods.comparePassword = function(candidatePassword, cb) {
-  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-    if (err) return cb(err);
-    cb(null, isMatch);
-  });
-};
-
-userSchema.methods.generateToken = function(cb) {
-  const user = this;
-  const token = jwt.sign(user._id.toHexString(), process.env.TOKEN_SECRET);
-
-  user.token = token;
-  user.save(function(err, user) {
-    if (err) return cb(err);
-    cb(null, user);
-  });
 };
 
 userSchema.methods.generateResetToken = function(cb) {

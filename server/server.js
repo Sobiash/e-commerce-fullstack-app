@@ -1,9 +1,12 @@
-const { app, logger, mongoose } = require("./utils/logger");
+const { app, logger } = require("./utils/logger");
 const bodyParser = require("body-parser");
 const { expressConf } = require("./config/config");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const cloudinary = require("cloudinary");
+const passport = require("passport");
+const mongoose = require("mongoose");
+
 const { mongoConf } = require("./config/config");
 const routes = require("./routes/index");
 require("dotenv").config();
@@ -24,6 +27,9 @@ mongoose.connection.on("error", err => {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+app.use(passport.initialize());
+require("./config/passport")(passport);
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,

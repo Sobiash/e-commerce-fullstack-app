@@ -2,9 +2,11 @@ const Joi = require("joi");
 
 const name = Joi.string()
   .trim()
-  .error(new Error("Name required"));
+  .error(new Error("Product name is required."));
 
-const description = Joi.string().error(new Error("Description required"));
+const description = Joi.string().error(
+  new Error("Product description is required.")
+);
 const price = Joi.number();
 const category = Joi.string();
 const dress = Joi.string();

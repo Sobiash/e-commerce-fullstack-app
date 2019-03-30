@@ -1,6 +1,7 @@
 import {
   LOGIN_USER,
   REGISTER_USER,
+  REGISTER_USER_ERROR,
   AUTH_USER,
   LOGOUT_USER,
   ADD_TO_CART,
@@ -12,12 +13,22 @@ import {
   ON_SUCCESS_BUY_USER
 } from "../actions/types";
 
-const initialState = {};
+const initialState = {
+  // formError: false,
+  // formSuccess: false
+};
 
 const UserReducer = (state = initialState, action) => {
   switch (action.type) {
     case REGISTER_USER:
-      return { ...state, register: action.payload };
+      return {
+        ...state,
+        register: action.payload
+      };
+    case REGISTER_USER_ERROR:
+      return {
+        ...state
+      };
     case LOGIN_USER:
       return { ...state, loginSuccess: action.payload };
     case AUTH_USER:
@@ -56,8 +67,8 @@ const UserReducer = (state = initialState, action) => {
         ...state,
         updateUserData: action.payload
       };
-    // case RESET_USER:
-    //   return { ...state, resetUser: action.payload };
+    case RESET_USER:
+      return { ...state, resetUser: action.payload };
     case ON_SUCCESS_BUY_USER:
       return {
         ...state,

@@ -3,6 +3,7 @@ import { USER_SERVER, PRODUCT_SERVER } from "../components/utils/config";
 import {
   LOGIN_USER,
   REGISTER_USER,
+  REGISTER_USER_ERROR,
   AUTH_USER,
   LOGOUT_USER,
   ADD_TO_CART,
@@ -14,14 +15,32 @@ import {
   ON_SUCCESS_BUY_USER
 } from "./types";
 
-export const registerUser = dataToSubmit => {
-  const request = axios
-    .post(`${USER_SERVER}/register`, dataToSubmit)
-    .then(response => response.data);
-
+const registerUserSuccess = response => {
   return {
     type: REGISTER_USER,
-    payload: request
+    payload: response
+  };
+};
+
+const registerUserFailure = error => {
+  return {
+    type: REGISTER_USER_ERROR,
+    payload: error
+  };
+};
+
+export const registerUser = dataToSubmit => {
+  return dispatch => {
+    const registerUrl = `${USER_SERVER}/register`;
+    return axios
+      .post(registerUrl, dataToSubmit)
+      .then(response => {
+        dispatch(registerUserSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(registerUserFailure(error.response.data));
+        console.log(error);
+      });
   };
 };
 

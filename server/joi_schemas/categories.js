@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 const name = Joi.string()
   .trim()
-  .error(new Error("Title required"));
+  .error(new Error("Title is required"));
 
 const schemas = {
   postColor: Joi.object()

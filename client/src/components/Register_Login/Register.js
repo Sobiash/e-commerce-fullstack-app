@@ -7,8 +7,6 @@ import { registerUser } from "../../actions/user_actions";
 
 class Register extends Component {
   state = {
-    formError: false,
-    formSuccess: false,
     formData: {
       name: {
         element: "input",
@@ -94,7 +92,7 @@ class Register extends Component {
   updateForm = element => {
     const newFormData = update(element, this.state.formData, "register");
     this.setState({
-      formError: false,
+      // formError: false,
       formData: newFormData
     });
   };
@@ -105,28 +103,7 @@ class Register extends Component {
     let formIsValid = isFormValid(this.state.formData, "register");
 
     if (formIsValid) {
-      this.props
-        .dispatch(registerUser(dataToSubmit))
-        .then(response => {
-          if (response.payload.success) {
-            this.setState({
-              formError: false,
-              formSuccess: true
-            });
-            setTimeout(() => {
-              this.props.history.push("/register_login");
-            }, 3000);
-          } else {
-            this.setState({ formError: true });
-          }
-        })
-        .catch(e => {
-          this.setState({ formError: true });
-        });
-    } else {
-      this.setState({
-        formError: true
-      });
+      this.props.registerUser(dataToSubmit);
     }
   };
   render() {
@@ -180,7 +157,7 @@ class Register extends Component {
                   </div>
                 </div>
                 <div>
-                  {this.state.formError ? (
+                  {this.props.user.userData.formError ? (
                     <div className="error_label">
                       Please check if all fields are valid.
                     </div>
@@ -196,7 +173,7 @@ class Register extends Component {
             </div>
           </div>
         </div>
-        <Dialog open={this.state.formSuccess}>
+        <Dialog open={this.props.user.userData.formSuccess}>
           <div className="dialog_alert">
             <div>
               Congratulations!! You will be redirected to the login in a few
@@ -209,4 +186,18 @@ class Register extends Component {
   }
 }
 
-export default connect()(Register);
+const mapStateToProps = state => {
+  return {
+    user: state.user
+    // formSuccess: state.user.formSuccess
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return { registerUser: dataToSubmit => dispatch(registerUser(dataToSubmit)) };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Register);

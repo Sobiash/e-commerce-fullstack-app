@@ -1,6 +1,9 @@
 const { User, hashPassword } = require("../models/user");
+const jwt = require("jsonwebtoken");
 const { sendEmail } = require("../utils/mail/mail");
+const bcrypt = require("bcrypt");
 const _ = require("lodash");
+require("dotenv").config();
 
 const registerLoginController = {};
 
@@ -18,58 +21,65 @@ registerLoginController.authUser = (req, res) => {
 };
 
 registerLoginController.registerUser = async (req, res) => {
-  const body = await _.pick(req.body, [
-    "name",
-    "lastname",
-    "email",
-    "password"
-  ]);
+  try {
+    const body = await _.pick(req.body, [
+      "name",
+      "lastname",
+      "email",
+      "password"
+    ]);
 
-  const exists = await User.findOne({ email: body.email });
-  if (exists) {
-    res.json({
-      loginSuccess: false,
-      message: "Email is already in use."
-    });
-    res.redirect("/api/users/register");
-    return;
+    const exists = await User.findOne({ email: body.email });
+    if (exists) {
+      res.json({
+        message: "Email is already in use."
+      });
+      res.redirect("/api/users/register");
+      return;
+    }
+
+    const hash = await hashPassword(body.password);
+
+    body.password = hash;
+
+    const user = await new User(body);
+    await user.save();
+
+    sendEmail(body.email, body.name, null, "welcome");
+  } catch (error) {
+    logger.error(error);
+    res.status(400).json({ message: "Something went wrong." });
   }
-
-  const hash = await hashPassword(body.password);
-
-  body.password = hash;
-
-  const user = await new User(body);
-  await user.save();
-
-  sendEmail(body.email, body.name, null, "welcome");
 };
 
 registerLoginController.loginUser = async (req, res) => {
   const body = await _.pick(req.body, ["email", "password"]);
 
-  await User.findOne({ email: body.email }, (err, user) => {
-    if (!user)
-      return res.json({
-        loginSuccess: false,
-        message: "Auth failed, email not found"
-      });
+  const user = await User.findOne({ email: body.email });
 
-    user.comparePassword(body.password, (err, isMatch) => {
-      if (!isMatch)
-        return res.json({ loginSuccess: false, message: "Wrong Password" });
-
-      user.generateToken((err, user) => {
-        if (err) return res.status(400).send(err);
-        res
-          .cookie("w_auth", user.token)
-          .status(200)
-          .json({
-            loginSuccess: true
-          });
-      });
+  if (!user) {
+    return res.status(404).json({
+      message: "User not found."
     });
-  });
+  }
+
+  const isMatch = await bcrypt.compare(body.password, user.password);
+  if (!isMatch) {
+    return res.json({ message: "Password Incorrect" });
+  } else {
+    const payload = { id: user._id, name: user.name };
+    jwt.sign(
+      payload,
+      process.env.TOKEN_SECRET,
+      { expiresIn: 7200 },
+      (err, token) => {
+        res.json({
+          success: true,
+          token: "Bearer " + token
+        });
+      }
+    );
+  }
 };
 
 registerLoginController.logoutUser = async (req, res) => {
