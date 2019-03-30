@@ -8,7 +8,6 @@ import Register from "./components/Register_Login/Register";
 import Userdashboard from "./components/User/Userdashboard";
 import Shop from "./components/Shop/Shop";
 import AddProduct from "./components/User/Admin/AddProduct";
-import ManageCategories from "./components/User/Admin/ManageCategories";
 import ProductView from "./components/Product/ProductView";
 import UserCart from "./components/Cart/UserCart";
 import UpdateUserProfile from "./components/User/UpdateUserProfile";
@@ -36,11 +35,6 @@ const App = () => {
           path="/admin/add_products"
           exact
           component={Auth(AddProduct, true)}
-        />
-        <Route
-          path="/admin/manage_categories"
-          exact
-          component={Auth(ManageCategories, true)}
         />
         <Route
           path="/admin/site_info"

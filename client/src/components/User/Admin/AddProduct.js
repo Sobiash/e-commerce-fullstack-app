@@ -6,13 +6,10 @@ import {
   update,
   generateData,
   isFormValid,
-  populateOptionFields,
   resetFields
 } from "../../utils/Form/FormActions";
 import { connect } from "react-redux";
 import {
-  getDresses,
-  getColors,
   addProduct,
   clearProductInState
 } from "../../../actions/products_actions";
@@ -252,26 +249,6 @@ class AddProduct extends Component {
       });
     }
   };
-
-  componentDidMount() {
-    const formData = this.state.formData;
-    this.props.dispatch(getDresses()).then(response => {
-      const newFormData = populateOptionFields(
-        formData,
-        this.props.products.dresses,
-        "dress"
-      );
-      this.updateFields(newFormData);
-    });
-    this.props.dispatch(getColors()).then(response => {
-      const newFormData = populateOptionFields(
-        formData,
-        this.props.products.colors,
-        "color"
-      );
-      this.updateFields(newFormData);
-    });
-  }
 
   render() {
     return (

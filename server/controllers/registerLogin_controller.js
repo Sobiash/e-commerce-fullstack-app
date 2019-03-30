@@ -33,7 +33,7 @@ registerLoginController.registerUser = async (req, res) => {
     const exists = await User.findOne({ email: body.email });
     if (exists) {
       res.json({
-        message: "Email is already in use."
+        error: "Email is already in use."
       });
       res.redirect("/api/users/register");
       return;
@@ -49,53 +49,63 @@ registerLoginController.registerUser = async (req, res) => {
     sendEmail(body.email, body.name, null, "welcome");
   } catch (error) {
     logger.error(error);
-    res.status(400).json({ message: "Something went wrong." });
+    res.status(400).json(error);
   }
 };
 
 registerLoginController.loginUser = async (req, res) => {
-  const body = await _.pick(req.body, ["email", "password"]);
+  try {
+    const body = await _.pick(req.body, ["email", "password"]);
 
-  const user = await User.findOne({ email: body.email });
+    const user = await User.findOne({ email: body.email });
 
-  if (!user) {
-    return res.status(404).json({
-      message: "User not found."
-    });
-  }
+    if (!user) {
+      return res.status(404).json({
+        error: "User not found."
+      });
+    }
 
-  const isMatch = await bcrypt.compare(body.password, user.password);
-  if (!isMatch) {
-    return res.json({ message: "Password Incorrect" });
-  } else {
-    const payload = { id: user._id, name: user.name };
-    jwt.sign(
-      payload,
-      process.env.TOKEN_SECRET,
-      { expiresIn: 7200 },
-      (err, token) => {
-        res.json({
-          success: true,
-          token: "Bearer " + token
-        });
-      }
-    );
+    const isMatch = await bcrypt.compare(body.password, user.password);
+    if (!isMatch) {
+      return res.json({ error: "Password Incorrect" });
+    } else {
+      const payload = { id: user._id, name: user.name };
+      jwt.sign(
+        payload,
+        process.env.TOKEN_SECRET,
+        { expiresIn: 7200 },
+        (err, token) => {
+          res.json({
+            success: true,
+            token: "Bearer " + token
+          });
+        }
+      );
+    }
+  } catch (error) {
+    logger.error(error);
+    res.status(400).json(error);
   }
 };
 
 registerLoginController.logoutUser = async (req, res) => {
-  await User.findOneAndUpdate(
-    {
-      _id: req.user._id
-    },
-    { token: "" },
-    (err, doc) => {
-      if (err) return res.json({ success: false, err });
-      return res.status(200).send({
-        success: true
-      });
-    }
-  );
+  try {
+    await User.findOneAndUpdate(
+      {
+        _id: req.user._id
+      },
+      { token: "" },
+      (err, doc) => {
+        if (err) return res.json(err);
+        return res.status(200).send({
+          success: true
+        });
+      }
+    );
+  } catch (error) {
+    logger.error(error);
+    res.status(400).json(error);
+  }
 };
 
 module.exports = registerLoginController;

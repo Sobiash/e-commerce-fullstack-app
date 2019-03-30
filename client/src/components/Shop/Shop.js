@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import ShopHeader from "../utils/ShopHeader";
-import {
-  getDresses,
-  getProducts,
-  getColors
-} from "../../actions/products_actions";
+import { getProducts } from "../../actions/products_actions";
 import { category, price } from "../utils/FixedCategories";
 import CollapseList from "../utils/CollapseList";
 import CollapseRadio from "../utils/CollapseRadio";
@@ -26,8 +22,6 @@ class Shop extends Component {
     }
   };
   componentDidMount() {
-    this.props.dispatch(getDresses());
-    this.props.dispatch(getColors());
     this.props.dispatch(
       getProducts(this.state.skip, this.state.limit, this.state.filters)
     );

@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const registerLoginController = require("../controllers/registerLogin_controller");
-const { auth } = require("../middleware/auth");
 const { validateUserData } = require("../joi_schemas/register");
 const { validateLogin } = require("../joi_schemas/login");
 const passport = require("passport");

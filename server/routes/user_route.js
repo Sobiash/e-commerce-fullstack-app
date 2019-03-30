@@ -21,4 +21,11 @@ router
     userController.updateProfile
   );
 
+router
+  .route("/api/users/login")
+  .delete(
+    passport.authenticate("jwt", { session: false }),
+    userController.deleteProfile
+  );
+
 module.exports = router;
