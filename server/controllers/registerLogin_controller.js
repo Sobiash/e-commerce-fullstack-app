@@ -33,8 +33,8 @@ registerLoginController.registerUser = async (req, res) => {
 
     const exists = await User.findOne({ email: body.email });
     if (exists) {
-      res.json({
-        error: "Email is already in use."
+      res.status(400).json({
+        error: "This email is already in use."
       });
       res.redirect("/api/users/register");
       return;
@@ -46,6 +46,7 @@ registerLoginController.registerUser = async (req, res) => {
 
     const user = await new User(body);
     await user.save();
+    res.json(user);
 
     sendEmail(body.email, body.name, null, "welcome");
   } catch (error) {
@@ -68,7 +69,7 @@ registerLoginController.loginUser = async (req, res) => {
 
     const isMatch = await bcrypt.compare(body.password, user.password);
     if (!isMatch) {
-      return res.json({ error: "Password Incorrect" });
+      return res.status(404).json({ error: "Incorrect password" });
     } else {
       const payload = { id: user._id, name: user.name };
       jwt.sign(
@@ -83,26 +84,6 @@ registerLoginController.loginUser = async (req, res) => {
         }
       );
     }
-  } catch (error) {
-    logger.error(error);
-    res.status(400).json(error);
-  }
-};
-
-registerLoginController.logoutUser = async (req, res) => {
-  try {
-    await User.findOneAndUpdate(
-      {
-        _id: req.user._id
-      },
-      { token: "" },
-      (err, doc) => {
-        if (err) return res.json(err);
-        return res.status(200).send({
-          success: true
-        });
-      }
-    );
   } catch (error) {
     logger.error(error);
     res.status(400).json(error);

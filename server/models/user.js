@@ -75,7 +75,6 @@ const generateResetToken = async user => {
     user.resetToken = resetToken;
     user.resetTokenExpiration = tomorrow;
     user.save();
-    console.log(user);
   } catch (error) {
     logger.error(error);
     res.status(400).json(error);

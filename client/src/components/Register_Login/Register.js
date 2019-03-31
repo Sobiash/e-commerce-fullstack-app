@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import FormField from "../utils/Form/FormField";
 import { update, generateData, isFormValid } from "../utils/Form/FormActions";
-import Dialog from "@material-ui/core/Dialog";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/user_actions";
+import { withRouter } from "react-router-dom";
 
 class Register extends Component {
   state = {
+    formError: {},
     formData: {
       name: {
         element: "input",
@@ -92,7 +94,6 @@ class Register extends Component {
   updateForm = element => {
     const newFormData = update(element, this.state.formData, "register");
     this.setState({
-      // formError: false,
       formData: newFormData
     });
   };
@@ -100,12 +101,25 @@ class Register extends Component {
     event.preventDefault();
 
     let dataToSubmit = generateData(this.state.formData, "register");
+
     let formIsValid = isFormValid(this.state.formData, "register");
 
     if (formIsValid) {
-      this.props.registerUser(dataToSubmit);
+      this.props.registerUser(dataToSubmit, this.props.history);
     }
   };
+
+  componentDidMount() {
+    if (this.props.user.isAuthenticated) {
+      this.props.history.push("/user/dashboard");
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ formError: nextProps.errors });
+    }
+  }
   render() {
     return (
       <div className="page_wrapper">
@@ -157,11 +171,12 @@ class Register extends Component {
                   </div>
                 </div>
                 <div>
-                  {this.props.user.userData.formError ? (
+                  {this.state.formError ? (
                     <div className="error_label">
-                      Please check if all fields are valid.
+                      {this.state.formError.error}
                     </div>
                   ) : null}
+
                   <div
                     className="link_default"
                     onClick={event => this.submitForm(event)}
@@ -173,31 +188,25 @@ class Register extends Component {
             </div>
           </div>
         </div>
-        <Dialog open={this.props.user.userData.formSuccess}>
-          <div className="dialog_alert">
-            <div>
-              Congratulations!! You will be redirected to the login in a few
-              seconds...
-            </div>
-          </div>
-        </Dialog>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.user
-    // formSuccess: state.user.formSuccess
-  };
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
-const mapDispatchToProps = dispatch => {
-  return { registerUser: dataToSubmit => dispatch(registerUser(dataToSubmit)) };
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    errors: state.errors
+  };
 };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(Register);
+  { registerUser }
+)(withRouter(Register));

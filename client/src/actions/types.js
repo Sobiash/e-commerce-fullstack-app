@@ -1,8 +1,4 @@
-export const LOGIN_USER = "login_user";
-export const REGISTER_USER = "register_user";
-export const REGISTER_USER_ERROR = "register_user_error";
-export const AUTH_USER = "auth_user";
-export const LOGOUT_USER = "logout_user";
+export const SET_CURRENT_USER = "set_current_user";
 export const GET_PRODUCTS_BY_SELL = "get_products_by_sell";
 export const GET_PRODUCTS_BY_ARRIVAL = "get_products_by_arrival";
 export const GET_DRESSES = "get_dresses";
@@ -23,3 +19,4 @@ export const GET_SITE_DATA = "get_site_data";
 export const UPDATE_SITE_DATA = "update_site_data";
 export const RESET_USER = "reset_user";
 export const ON_SUCCESS_BUY_USER = "on_success_buy_user";
+export const GET_ERRORS = "get_errors";

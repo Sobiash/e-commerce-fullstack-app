@@ -4,13 +4,13 @@ const email = Joi.string()
   .email()
   .trim()
   .lowercase()
-  .error(new Error("Invalid email"));
+  .error(new Error("Email not found!"));
 
 const password = Joi.string()
   .min(6)
   .max(255)
   .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,255}$/)
-  .error(new Error(" Invalid passowrd. "));
+  .error(new Error("Password is incorrect!"));
 
 const schemas = {
   loginUser: Joi.object()

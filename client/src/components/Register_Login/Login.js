@@ -4,6 +4,7 @@ import { update, generateData, isFormValid } from "../utils/Form/FormActions";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/user_actions";
+import PropTypes from "prop-types";
 
 class Login extends React.Component {
   state = {
@@ -47,7 +48,6 @@ class Login extends React.Component {
   updateForm = element => {
     const newFormData = update(element, this.state.formData, "login");
     this.setState({
-      formError: false,
       formData: newFormData
     });
   };
@@ -59,21 +59,25 @@ class Login extends React.Component {
     let formIsValid = isFormValid(this.state.formData, "login");
 
     if (formIsValid) {
-      this.props.dispatch(loginUser(dataToSubmit)).then(response => {
-        if (response.payload.loginSuccess) {
-          this.props.history.push("/shop");
-        } else {
-          this.setState({
-            formError: true
-          });
-        }
-      });
-    } else {
-      this.setState({
-        formError: true
-      });
+      this.props.loginUser(dataToSubmit);
     }
   };
+
+  componentDidMount() {
+    if (this.props.user.isAuthenticated) {
+      this.props.history.push("/user/dashboard");
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.user.isAuthenticated) {
+      this.props.history.push("/user/dashboard");
+    }
+
+    if (nextProps.errors) {
+      this.setState({ formError: nextProps.errors });
+    }
+  }
 
   render() {
     return (
@@ -90,7 +94,7 @@ class Login extends React.Component {
             change={element => this.updateForm(element)}
           />
           {this.state.formError ? (
-            <div className="error_label">Email or password must be wrong.</div>
+            <div className="error_label"> {this.state.formError.error}</div>
           ) : null}
           <div className="login_buttons">
             <div
@@ -113,4 +117,20 @@ class Login extends React.Component {
   }
 }
 
-export default connect()(withRouter(Login));
+Login.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    errors: state.errors
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(withRouter(Login));

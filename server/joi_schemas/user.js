@@ -21,7 +21,7 @@ const confirmPassword = Joi.string()
   .valid(Joi.ref("password"))
   .error(new Error("Passowrd does not match."));
 
-const resetToken = Joi.string().error(new Error("Must be a valid token"));
+const resetToken = Joi.string().error(new Error("Must be a valid token!"));
 
 const schemas = {
   requestReset: Joi.object()

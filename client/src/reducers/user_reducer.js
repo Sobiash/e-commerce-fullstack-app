@@ -1,9 +1,6 @@
+import isEmpty from "../components/validation/is_empty";
 import {
-  LOGIN_USER,
-  REGISTER_USER,
-  REGISTER_USER_ERROR,
-  AUTH_USER,
-  LOGOUT_USER,
+  SET_CURRENT_USER,
   ADD_TO_CART,
   CART_ITEMS,
   REMOVE_CART_ITEMS,
@@ -13,28 +10,16 @@ import {
   ON_SUCCESS_BUY_USER
 } from "../actions/types";
 
-const initialState = {
-  // formError: false,
-  // formSuccess: false
-};
+const initialState = { isAuthenticated: false, user: {} };
 
 const UserReducer = (state = initialState, action) => {
   switch (action.type) {
-    case REGISTER_USER:
+    case SET_CURRENT_USER:
       return {
         ...state,
-        register: action.payload
+        isAuthenticated: !isEmpty(action.payload),
+        user: action.payload
       };
-    case REGISTER_USER_ERROR:
-      return {
-        ...state
-      };
-    case LOGIN_USER:
-      return { ...state, loginSuccess: action.payload };
-    case AUTH_USER:
-      return { ...state, userData: action.payload };
-    case LOGOUT_USER:
-      return { ...state };
     case ADD_TO_CART:
       return {
         ...state,

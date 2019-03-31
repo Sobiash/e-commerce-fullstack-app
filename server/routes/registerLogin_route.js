@@ -19,10 +19,4 @@ router
   .route("/api/users/login")
   .post(validateLogin("loginUser"), registerLoginController.loginUser);
 
-router.get(
-  "/api/users/logout",
-  passport.authenticate("jwt", { session: false }),
-  registerLoginController.logoutUser
-);
-
 module.exports = router;
