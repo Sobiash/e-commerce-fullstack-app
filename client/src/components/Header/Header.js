@@ -1,7 +1,9 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/user_actions";
+import { logoutUser } from "../../actions/auth_actions";
+import { clearCurrentProfile } from "../../actions/user_actions";
+
 import PropTypes from "prop-types";
 
 class Header extends React.Component {
@@ -45,7 +47,8 @@ class Header extends React.Component {
 
   logoutHandler = () => {
     this.props.logoutUser();
-    this.props.history.push("/");
+    this.props.clearCurrentProfile();
+    this.props.history.push("/register_login");
   };
 
   defaultLink = (item, i) =>
@@ -64,7 +67,7 @@ class Header extends React.Component {
     );
 
   cartLink = (item, i) => {
-    const user = this.props.user.isAuthenticated;
+    const user = this.props.auth.isAuthenticated;
     return (
       <div className="cart_link" key={i}>
         <span>{user.cart ? user.cart.length : 0}</span>
@@ -77,9 +80,9 @@ class Header extends React.Component {
 
   showLinks = type => {
     let list = [];
-    if (this.props.user) {
+    if (this.props.auth) {
       type.forEach(item => {
-        if (!this.props.user.isAuthenticated) {
+        if (!this.props.auth.isAuthenticated) {
           if (item.public === true) {
             list.push(item);
           }
@@ -118,17 +121,17 @@ class Header extends React.Component {
 
 Header.propTypes = {
   logoutUser: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
-    user: state.user
+    auth: state.auth
   };
-}
+};
 
 export default connect(
   mapStateToProps,
-  { logoutUser }
+  { logoutUser, clearCurrentProfile }
 )(withRouter(Header));

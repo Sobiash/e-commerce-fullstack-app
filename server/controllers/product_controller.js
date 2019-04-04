@@ -25,7 +25,7 @@ productController.postArticle = async (req, res) => {
 
     const product = await new Product(body);
     product.save((err, product) => {
-      if (err) return res.json(err);
+      if (err) return res.status(404).json(err);
       res.status(200).json({
         article: product
       });

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 const links = [
   {
@@ -32,30 +33,38 @@ const admin = [
   }
 ];
 
-const UserLayout = props => {
-  const generateLinks = links =>
-    links.map((link, i) => (
-      <Link to={link.linkTo} key={i}>
-        {link.name}
-      </Link>
-    ));
-  return (
-    <div className="container">
-      <div className="user_container">
-        <div className="user_left_nav">
-          <h3>My account</h3>
-          <div className="links">{generateLinks(links)}</div>
-          {props.user.userData.isAdmin ? (
-            <div>
-              <h3>Admin</h3>
-              <div className="links">{generateLinks(admin)}</div>
-            </div>
-          ) : null}
+class UserLayout extends React.Component {
+  render() {
+    const { profile } = this.props.user;
+
+    const generateLinks = links =>
+      links.map((link, i) => (
+        <Link to={link.linkTo} key={i}>
+          {link.name}
+        </Link>
+      ));
+    return (
+      <div className="container">
+        <div className="user_container">
+          <div className="user_left_nav">
+            <h3>My account</h3>
+            <div className="links">{generateLinks(links)}</div>
+            {profile && profile.isAdmin ? (
+              <div>
+                <h3>Admin</h3>
+                <div className="links">{generateLinks(admin)}</div>
+              </div>
+            ) : null}
+          </div>
+          <div className="user_right">{this.props.children}</div>
         </div>
-        <div className="user_right">{props.children}</div>
       </div>
-    </div>
-  );
+    );
+  }
+}
+
+UserLayout.propTypes = {
+  user: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {

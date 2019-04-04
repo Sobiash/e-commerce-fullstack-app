@@ -4,10 +4,9 @@ import {
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_BY_SELL,
   GET_PRODUCTS,
-  ADD_PRODUCT,
-  CLEAR_PRODUCT,
   GET_PRODUCT_DETAIL,
-  CLEAR_PRODUCT_DETAIL
+  CLEAR_PRODUCT_DETAIL,
+  GET_ERRORS
 } from "./types";
 
 //?sortBy=sold&order=desc&limit=10
@@ -53,21 +52,16 @@ export const getProducts = (skip, limit, filters = [], previousState = []) => {
   };
 };
 
-export const addProduct = dataToSubmit => {
-  const request = axios
+export const addProduct = dataToSubmit => dispatch => {
+  axios
     .post(`${PRODUCT_SERVER}/article`, dataToSubmit)
-    .then(response => response.data);
-
-  return {
-    type: ADD_PRODUCT,
-    payload: request
-  };
-};
-export const clearProductInState = () => {
-  return {
-    type: CLEAR_PRODUCT,
-    payload: ""
-  };
+    .then(res => res.data)
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data
+      });
+    });
 };
 
 export const getProductDetail = id => {

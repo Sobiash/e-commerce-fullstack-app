@@ -1,22 +1,21 @@
 const express = require("express");
 const router = express.Router();
 const adminController = require("../controllers/admin_controller");
-const { auth } = require("../middleware/auth");
-const { admin } = require("../middleware/admin");
 const formidable = require("express-formidable");
+const passport = require("passport");
+const { admin } = require("../middleware/admin");
 
-router.post(
-  "/api/users/upload-image",
-  auth,
-  admin,
-  formidable(),
-  adminController.uploadImage
-);
+router
+  .route("/api/users/upload-image")
+  .post(
+    passport.authenticate("jwt", { session: false }),
+    admin,
+    formidable(),
+    adminController.uploadImage
+  );
 
 router.get(
   "/api/users/remove-image",
-  auth,
-  admin,
 
   adminController.removeImage
 );

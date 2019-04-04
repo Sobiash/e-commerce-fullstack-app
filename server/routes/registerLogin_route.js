@@ -9,12 +9,6 @@ router
   .route("/api/users/register")
   .post(validateUserData("registerUser"), registerLoginController.registerUser);
 
-router.get(
-  "/api/users/auth",
-  passport.authenticate("jwt", { session: false }),
-  registerLoginController.authUser
-);
-
 router
   .route("/api/users/login")
   .post(validateLogin("loginUser"), registerLoginController.loginUser);

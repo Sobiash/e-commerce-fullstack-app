@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import UserLayout from "../../Hoc/UserLayout";
+import { getUserProfile } from "../../../actions/user_actions";
 import FormField from "../../utils/Form/FormField";
 import ImageUpload from "../../utils/ImageUpload";
 import {
@@ -8,16 +9,13 @@ import {
   isFormValid,
   resetFields
 } from "../../utils/Form/FormActions";
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {
-  addProduct,
-  clearProductInState
-} from "../../../actions/products_actions";
+import { addProduct } from "../../../actions/products_actions";
 
 class AddProduct extends Component {
   state = {
     formError: false,
-    formSuccess: false,
     formData: {
       name: {
         element: "input",
@@ -76,7 +74,11 @@ class AddProduct extends Component {
         config: {
           lable: "Dress Type",
           name: "dress_input",
-          options: []
+          options: [
+            { key: 1, value: "Jackets" },
+            { key: 2, value: "Trousers" },
+            { key: 3, value: "Shirts" }
+          ]
         },
         validation: {
           required: true
@@ -92,7 +94,11 @@ class AddProduct extends Component {
         config: {
           lable: "Color Type",
           name: "color_input",
-          options: []
+          options: [
+            { key: 1, value: "Green" },
+            { key: 2, value: "Red" },
+            { key: 3, value: "Blue" }
+          ]
         },
         validation: {
           required: true
@@ -187,6 +193,16 @@ class AddProduct extends Component {
     }
   };
 
+  componentDidMount() {
+    this.props.getUserProfile();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ formError: nextProps.errors });
+    }
+  }
+
   imagesHandler = images => {
     const newFormData = {
       ...this.state.formData
@@ -200,20 +216,11 @@ class AddProduct extends Component {
 
   resetFieldHandler = () => {
     const newFormData = resetFields(this.state.formData, "products");
-    this.setState({
-      formData: newFormData,
-      formSuccess: true
-    });
     setTimeout(() => {
-      this.setState(
-        {
-          formSuccess: false
-        },
-        () => {
-          this.props.dispatch(clearProductInState());
-        }
-      );
-    }, 3000);
+      this.setState({
+        formData: newFormData
+      });
+    }, 500);
   };
 
   updateFields = newFormData => {
@@ -225,7 +232,6 @@ class AddProduct extends Component {
   updateForm = element => {
     const newFormData = update(element, this.state.formData, "products");
     this.setState({
-      formError: false,
       formData: newFormData
     });
   };
@@ -236,17 +242,8 @@ class AddProduct extends Component {
     let formIsValid = isFormValid(this.state.formData, "products");
 
     if (formIsValid) {
-      this.props.dispatch(addProduct(dataToSubmit)).then(() => {
-        if (this.props.products.addProduct.success) {
-          this.resetFieldHandler();
-        } else {
-          this.setState({ formError: true });
-        }
-      });
-    } else {
-      this.setState({
-        formError: true
-      });
+      this.props.addProduct(dataToSubmit);
+      this.resetFieldHandler();
     }
   };
 
@@ -256,6 +253,9 @@ class AddProduct extends Component {
         <div>
           <h3>Add Products</h3>
           <form onSubmit={event => this.submitForm(event)}>
+            {this.state.formError ? (
+              <div className="error_label">{this.state.formError.error}</div>
+            ) : null}
             <ImageUpload
               imagesHandler={images => this.imagesHandler(images)}
               reset={this.state.formSuccess}
@@ -308,12 +308,6 @@ class AddProduct extends Component {
               data={this.state.formData.shipping}
               change={element => this.updateForm(element)}
             />
-            {this.state.formSuccess ? (
-              <div className="form_success">Product added successfully!</div>
-            ) : null}
-            {this.state.formError ? (
-              <div className="error_label">Please check your data</div>
-            ) : null}
             <div
               className="link_default"
               onClick={event => this.submitForm(event)}
@@ -327,10 +321,20 @@ class AddProduct extends Component {
   }
 }
 
+AddProduct.propTypes = {
+  addProduct: PropTypes.func.isRequired,
+  products: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
 const mapStateToProps = state => {
   return {
-    products: state.products
+    products: state.products,
+    errors: state.errors
   };
 };
 
-export default connect(mapStateToProps)(AddProduct);
+export default connect(
+  mapStateToProps,
+  { addProduct, getUserProfile }
+)(AddProduct);

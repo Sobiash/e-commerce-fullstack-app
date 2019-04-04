@@ -5,6 +5,12 @@ const { validateBody } = require("../joi_schemas/user");
 const { validateUserData } = require("../joi_schemas/register");
 const passport = require("passport");
 
+router.get(
+  "/api/user/dashboard",
+  passport.authenticate("jwt", { session: false }),
+  userController.getUserProfile
+);
+
 router
   .route("/api/users/reset-user")
   .post(validateBody("requestReset"), userController.requestReset);

@@ -1,9 +1,8 @@
 import axios from "axios";
 import setAuthToken from "../components/utils/AuthToken";
-import jwt_decode from "jwt-decode";
+
 import { USER_SERVER, PRODUCT_SERVER } from "../components/utils/config";
 import {
-  SET_CURRENT_USER,
   ADD_TO_CART,
   CART_ITEMS,
   REMOVE_CART_ITEMS,
@@ -11,68 +10,55 @@ import {
   CLEAR_UPDATE_USER_DATA,
   RESET_USER,
   ON_SUCCESS_BUY_USER,
+  GET_USER_PROFILE,
+  PROFILE_LOADING,
+  CLEAR_CURRENT_PROFILE,
+  SET_CURRENT_USER,
   GET_ERRORS
 } from "./types";
 
-export const registerUser = (dataToSubmit, history) => dispatch => {
-  const registerUrl = `${USER_SERVER}/register`;
-  axios
-    .post(registerUrl, dataToSubmit)
-    .then(res => history.push("/register_login"))
-    .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response.data
-      });
-    });
-};
-
-export const loginUser = dataToSubmit => dispatch => {
-  const loginUrl = `${USER_SERVER}/login`;
-  axios
-    .post(loginUrl, dataToSubmit)
-    .then(res => {
-      const token = res.data.token;
-      localStorage.setItem("jwtToken", token);
-
-      setAuthToken(token);
-      const decoded = jwt_decode(token);
-      dispatch(setCurrentUser(decoded));
+export const getUserProfile = () => dispatch => {
+  dispatch(setProfileLoading());
+  axios.get(`${USER_SERVER}/dashboard`).then(res =>
+    dispatch({
+      type: GET_USER_PROFILE,
+      payload: res.data
     })
-    .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response.data
-      });
-    });
+  );
 };
 
-export const setCurrentUser = decoded => {
+export const setProfileLoading = () => {
   return {
-    type: SET_CURRENT_USER,
-    payload: decoded
+    type: PROFILE_LOADING
   };
 };
 
-// export const auth = () => {
-//   const request = axios
-//     .get(`${USER_SERVER}/auth`)
-//     .then(response => response.data);
-//   return {
-//     type: AUTH_USER,
-//     payload: request
-//   };
-// };
-
-export const logoutUser = () => dispatch => {
-  localStorage.removeItem("jwtToken");
-
-  setAuthToken(false);
-
-  dispatch(setCurrentUser({}));
+export const clearCurrentProfile = () => {
+  return {
+    type: CLEAR_CURRENT_PROFILE
+  };
 };
 
-export const clearCurrentProfile = () => {};
+export const deleteProfile = () => dispatch => {
+  if (window.confirm("Are you sure? This can NOT be undone!")) {
+    localStorage.removeItem("jwtToken");
+    axios
+
+      .delete(`${USER_SERVER}/login`)
+      .then(res =>
+        dispatch({
+          type: SET_CURRENT_USER,
+          payload: {}
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+  }
+};
 
 export const addToCart = _id => {
   const request = axios
@@ -122,17 +108,17 @@ export const removeCartItems = id => {
   };
 };
 
-export const updateUserData = dataToSubmit => {
-  const request = axios
-    .post(`${USER_SERVER}/update-profile`, dataToSubmit)
-    .then(response => {
-      return response.data;
-    });
+export const updateUserData = (dataToSubmit, history) => dispatch => {
+  axios
 
-  return {
-    type: UPDATE_USER_DATA,
-    payload: request
-  };
+    .post(`${USER_SERVER}/update-profile`, dataToSubmit)
+    .then(res => history.push("/user/dashboard"))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
 };
 
 export const clearUpdateUserData = () => {

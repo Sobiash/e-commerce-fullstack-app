@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const FormField = ({ data, change, id }) => {
   const showError = () => {
@@ -72,10 +73,21 @@ const FormField = ({ data, change, id }) => {
 
         break;
       default:
-        formTemplate = null;
+        formTemplate = "input";
     }
     return formTemplate;
   };
   return <div>{renderFormTemplate()}</div>;
 };
+
+FormField.propTypes = {
+  id: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
+  change: PropTypes.func.isRequired
+};
+
+FormField.defaultProps = {
+  id: "input"
+};
+
 export default FormField;

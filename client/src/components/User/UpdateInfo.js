@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import FormField from "../utils/Form/FormField";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
+
 import {
   update,
   generateData,
@@ -10,13 +13,13 @@ import {
 
 import {
   updateUserData,
-  clearUpdateUserData
+  clearUpdateUserData,
+  getUserProfile
 } from "../../actions/user_actions";
 
 class UpdateInfo extends Component {
   state = {
     formError: false,
-    formSuccess: false,
     formData: {
       name: {
         element: "input",
@@ -63,29 +66,28 @@ class UpdateInfo extends Component {
         valid: false,
         touched: false,
         validationMessage: ""
-      },
-      password: {
-        element: "input",
-        value: "",
-        config: {
-          name: "password_input",
-          type: "password",
-          placeholder: "Enter your password"
-        },
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false,
-        validationMessage: ""
       }
+      // password: {
+      //   element: "input",
+      //   value: "",
+      //   config: {
+      //     name: "password_input",
+      //     type: "password",
+      //     placeholder: "Enter your password"
+      //   },
+      //   validation: {
+      //     required: true
+      //   },
+      //   valid: false,
+      //   touched: false,
+      //   validationMessage: ""
+      // }
     }
   };
 
   updateForm = element => {
     const newFormData = update(element, this.state.formData, "update_user");
     this.setState({
-      formError: false,
       formData: newFormData
     });
   };
@@ -96,39 +98,28 @@ class UpdateInfo extends Component {
     let formIsValid = isFormValid(this.state.formData, "update_user");
 
     if (formIsValid) {
-      this.props.dispatch(updateUserData(dataToSubmit)).then(() => {
-        if (this.props.user.updateUserData.success) {
-          this.setState(
-            {
-              formSuccess: true
-            },
-            () => {
-              setTimeout(() => {
-                this.props.dispatch(clearUpdateUserData());
-                this.setState({
-                  formSuccess: false
-                });
-              }, 2000);
-            }
-          );
-        }
-      });
-    } else {
-      this.setState({
-        formError: true
-      });
+      this.props.updateUserData(dataToSubmit, this.props.history);
+      console.log(dataToSubmit);
     }
   };
 
   componentDidMount = () => {
-    const newFormData = populateFields(
-      this.state.formData,
-      this.props.user.userData
-    );
-    this.setState({
-      formData: newFormData
-    });
+    this.props.getUserProfile();
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ formError: nextProps.errors });
+    }
+    if (nextProps.user.profile) {
+      const profile = nextProps.user.profile;
+
+      const newFormData = populateFields(this.state.formData, profile);
+      this.setState({
+        formData: newFormData
+      });
+    }
+  }
 
   render() {
     return (
@@ -158,19 +149,16 @@ class UpdateInfo extends Component {
               change={element => this.updateForm(element)}
             />
           </div>
-          <div>
+          {/* <div>
             <FormField
               id={"password"}
               data={this.state.formData.password}
               change={element => this.updateForm(element)}
             />
-          </div>
+          </div> */}
           <div>
-            {this.state.formSuccess ? (
-              <div className="form_success">Success</div>
-            ) : null}
             {this.state.formError ? (
-              <div className="error_label">Please check your data</div>
+              <div className="error_label">{this.state.formError.error}</div>
             ) : null}
             <div
               className="link_default"
@@ -185,10 +173,19 @@ class UpdateInfo extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.user
-  };
+UpdateInfo.propTypes = {
+  updateUserData: PropTypes.func.isRequired,
+  getUserProfile: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
-export default connect(mapStateToProps)(UpdateInfo);
+const mapStateToProps = state => ({
+  user: state.user,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { updateUserData, getUserProfile }
+)(withRouter(UpdateInfo));

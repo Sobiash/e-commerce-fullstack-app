@@ -3,7 +3,7 @@ import FormField from "../utils/Form/FormField";
 import { update, generateData, isFormValid } from "../utils/Form/FormActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { registerUser } from "../../actions/user_actions";
+import { registerUser } from "../../actions/auth_actions";
 import { withRouter } from "react-router-dom";
 
 class Register extends Component {
@@ -110,8 +110,8 @@ class Register extends Component {
   };
 
   componentDidMount() {
-    if (this.props.user.isAuthenticated) {
-      this.props.history.push("/user/dashboard");
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/users/user_profile");
     }
   }
 
@@ -195,13 +195,13 @@ class Register extends Component {
 
 Register.propTypes = {
   registerUser: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
+    auth: state.auth,
     errors: state.errors
   };
 };

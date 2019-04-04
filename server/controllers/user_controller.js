@@ -8,13 +8,32 @@ const { logger } = require("../utils/logger");
 
 const userController = {};
 
+userController.getUserProfile = async (req, res) => {
+  try {
+    return res.status(200).json({
+      isAdmin: req.user.role === 0 ? false : true,
+      email: req.user.email,
+      name: req.user.name,
+      lastname: req.user.lastname,
+      role: req.user.role,
+      cart: req.user.cart,
+      history: req.user.history
+    });
+  } catch (error) {
+    logger.error(error);
+    res.status(400).json(error);
+  }
+};
+
 userController.requestReset = async (req, res) => {
   try {
     const body = await _.pick(req.body, ["email"]);
     const user = await User.findOne({ email: body.email });
 
     if (!user) {
-      return res.json({ error: `No such user found for email ${body.email}` });
+      return res
+        .status(409)
+        .json({ error: `No such user found for email ${body.email}` });
     }
 
     await generateResetToken(user);
@@ -82,12 +101,7 @@ userController.resetUserPassword = async (req, res) => {
 
 userController.updateProfile = async (req, res) => {
   try {
-    const body = await _.pick(req.body, [
-      "name",
-      "lastname",
-      "email",
-      "password"
-    ]);
+    const body = await _.pick(req.body, ["name", "lastname", "email"]);
 
     const user = await User.findOne({ _id: req.user._id });
     if (!user) {
@@ -98,7 +112,6 @@ userController.updateProfile = async (req, res) => {
       user.name = body.name;
       user.lastname = body.lastname;
       user.email = body.email;
-      user.password = body.password;
 
       user.save((err, doc) => {
         if (err) return res.json({ err });

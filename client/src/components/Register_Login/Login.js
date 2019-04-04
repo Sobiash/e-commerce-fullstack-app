@@ -3,13 +3,12 @@ import FormField from "../utils/Form/FormField";
 import { update, generateData, isFormValid } from "../utils/Form/FormActions";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { loginUser } from "../../actions/user_actions";
+import { loginUser } from "../../actions/auth_actions";
 import PropTypes from "prop-types";
 
 class Login extends React.Component {
   state = {
     formError: false,
-    formSuccess: "",
     formData: {
       email: {
         element: "input",
@@ -64,13 +63,13 @@ class Login extends React.Component {
   };
 
   componentDidMount() {
-    if (this.props.user.isAuthenticated) {
+    if (this.props.auth.isAuthenticated) {
       this.props.history.push("/user/dashboard");
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.user.isAuthenticated) {
+    if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/user/dashboard");
     }
 
@@ -119,13 +118,13 @@ class Login extends React.Component {
 
 Login.propTypes = {
   loginUser: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
+    auth: state.auth,
     errors: state.errors
   };
 };

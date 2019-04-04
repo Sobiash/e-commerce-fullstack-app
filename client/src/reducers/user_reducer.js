@@ -1,24 +1,37 @@
-import isEmpty from "../components/validation/is_empty";
 import {
-  SET_CURRENT_USER,
   ADD_TO_CART,
   CART_ITEMS,
   REMOVE_CART_ITEMS,
   UPDATE_USER_DATA,
   CLEAR_UPDATE_USER_DATA,
   RESET_USER,
-  ON_SUCCESS_BUY_USER
+  ON_SUCCESS_BUY_USER,
+  GET_USER_PROFILE,
+  PROFILE_LOADING,
+  CLEAR_CURRENT_PROFILE
 } from "../actions/types";
 
-const initialState = { isAuthenticated: false, user: {} };
+const initialState = { profile: null, loading: false };
 
 const UserReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_CURRENT_USER:
+    case PROFILE_LOADING:
       return {
         ...state,
-        isAuthenticated: !isEmpty(action.payload),
-        user: action.payload
+        loading: true,
+        profile: null
+      };
+    case GET_USER_PROFILE:
+      return {
+        ...state,
+        profile: action.payload,
+        loading: false
+      };
+    case CLEAR_CURRENT_PROFILE:
+      return {
+        ...state,
+        profile: null,
+        loading: false
       };
     case ADD_TO_CART:
       return {
@@ -41,11 +54,6 @@ const UserReducer = (state = initialState, action) => {
           ...state.userData,
           cart: action.payload.cart
         }
-      };
-    case UPDATE_USER_DATA:
-      return {
-        ...state,
-        updateUserData: action.payload
       };
     case CLEAR_UPDATE_USER_DATA:
       return {

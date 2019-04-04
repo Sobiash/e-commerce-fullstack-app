@@ -2,7 +2,7 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Layout from "./components/Hoc/Layout";
-// import Auth from "./components/Hoc/Auth";
+import PrivateRoute from "./components/Hoc/PrivateRout";
 import RegisterLogin from "./components/Register_Login/RegisterLogin";
 import Register from "./components/Register_Login/Register";
 import Userdashboard from "./components/User/Userdashboard";
@@ -17,11 +17,8 @@ import RequestReset from "./components/ResetPassword/index";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./components/utils/AuthToken";
-import {
-  setCurrentUser,
-  logoutUser,
-  clearCurrentProfile
-} from "./actions/user_actions";
+import { setCurrentUser, logoutUser } from "./actions/auth_actions";
+import { clearCurrentProfile } from "./actions/user_actions";
 import store from "./store";
 
 if (localStorage.jwtToken) {
@@ -44,10 +41,14 @@ const App = () => {
   return (
     <Layout>
       <Switch>
-        <Route path="/user/dashboard" exact component={Userdashboard} />
+        <PrivateRoute path="/user/dashboard" exact component={Userdashboard} />
         {/* <Route path="/user/cart" exact component={UserCart} /> */}
-        <Route path="/user/user_profile" exact component={UpdateUserProfile} />
-        <Route path="/admin/add_products" exact component={AddProduct} />
+        <PrivateRoute
+          path="/user/user_profile"
+          exact
+          component={UpdateUserProfile}
+        />
+        <PrivateRoute path="/admin/add_products" exact component={AddProduct} />
         <Route path="/admin/site_info" exact component={ManageSite} />
         <Route path="/reset-password/:token" exact component={ResetPassword} />
         <Route path="/reset-user" exact component={RequestReset} />
