@@ -44,7 +44,7 @@ export const deleteProfile = () => dispatch => {
     localStorage.removeItem("jwtToken");
     axios
 
-      .delete(`${USER_SERVER}/login`)
+      .delete(`${USER_SERVER}`)
       .then(res =>
         dispatch({
           type: SET_CURRENT_USER,

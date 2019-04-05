@@ -6,7 +6,7 @@ const { validateUserData } = require("../joi_schemas/register");
 const passport = require("passport");
 
 router.get(
-  "/api/user/dashboard",
+  "/api/users/dashboard",
   passport.authenticate("jwt", { session: false }),
   userController.getUserProfile
 );
@@ -28,7 +28,7 @@ router
   );
 
 router
-  .route("/api/users/login")
+  .route("/api/users")
   .delete(
     passport.authenticate("jwt", { session: false }),
     userController.deleteProfile

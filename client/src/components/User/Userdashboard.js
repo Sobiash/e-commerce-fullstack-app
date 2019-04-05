@@ -29,45 +29,43 @@ class Userdashboard extends React.Component {
 
     let dashboardContent;
 
-    if (profile === null || loading) {
+    if (loading) {
       dashboardContent = <Spinner />;
     } else {
-      if (Object.keys(profile).length > 0) {
-        dashboardContent = (
-          <div>
-            <div className="user_nfo_panel">
-              <h3>User information</h3>
-              <div>
-                <span>{profile.name}</span>
-                <span>{profile.lastname}</span>
-                <span>{profile.email}</span>
-              </div>
-
-              <MyButton
-                type="default"
-                title="Edit info"
-                linkTo="/user/user_profile"
-              />
-              <div
-                style={{ marginTop: "10px", padding: "10px 12px" }}
-                className="link_default"
-                onClick={event => this.deleteProfile(event)}
-              >
-                Delete my account
-              </div>
+      dashboardContent = (
+        <div>
+          <div className="user_nfo_panel">
+            <h3>User information</h3>
+            <div>
+              <span>{profile.name}</span>
+              <span>{profile.lastname}</span>
+              <span>{profile.email}</span>
             </div>
 
-            {profile.history ? (
-              <div className="user_nfo_panel">
-                <h3>History Purchases</h3>
-                <div className="user_product_block_wrapper">
-                  <HistoryBlock products={profile.history} />
-                </div>
-              </div>
-            ) : null}
+            <MyButton
+              type="default"
+              title="Edit info"
+              linkTo="/user/user_profile"
+            />
+            <div
+              style={{ marginTop: "10px", padding: "10px 12px" }}
+              className="link_default"
+              onClick={event => this.deleteProfile(event)}
+            >
+              Delete my account
+            </div>
           </div>
-        );
-      }
+
+          {profile.history ? (
+            <div className="user_nfo_panel">
+              <h3>History Purchases</h3>
+              <div className="user_product_block_wrapper">
+                <HistoryBlock products={profile.history} />
+              </div>
+            </div>
+          ) : null}
+        </div>
+      );
     }
 
     return (

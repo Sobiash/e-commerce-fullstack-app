@@ -114,7 +114,7 @@ userController.updateProfile = async (req, res) => {
       user.email = body.email;
 
       user.save((err, doc) => {
-        if (err) return res.json({ err });
+        if (err) return res.status(400).json({ err });
         return res.status(200).json({
           success: true
         });

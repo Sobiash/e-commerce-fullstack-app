@@ -11,15 +11,14 @@ import {
   CLEAR_CURRENT_PROFILE
 } from "../actions/types";
 
-const initialState = { profile: null, loading: false };
+const initialState = { profile: {}, loading: false };
 
 const UserReducer = (state = initialState, action) => {
   switch (action.type) {
     case PROFILE_LOADING:
       return {
         ...state,
-        loading: true,
-        profile: null
+        loading: true
       };
     case GET_USER_PROFILE:
       return {
@@ -30,8 +29,7 @@ const UserReducer = (state = initialState, action) => {
     case CLEAR_CURRENT_PROFILE:
       return {
         ...state,
-        profile: null,
-        loading: false
+        profile: {}
       };
     case ADD_TO_CART:
       return {
