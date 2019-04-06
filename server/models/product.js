@@ -28,13 +28,13 @@ const productSchema = new Schema(
       unique: 1
     },
     dress: {
-      type: String,
-      trim: true,
-      required: true,
-      unique: 1
+      type: Schema.Types.ObjectId,
+      ref: "Dress",
+      required: true
     },
     color: {
-      type: [String],
+      type: Schema.Types.ObjectId,
+      ref: "Color",
       required: true
     },
     shipping: {

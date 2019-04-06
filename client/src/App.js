@@ -6,6 +6,7 @@ import PrivateRoute from "./components/Hoc/PrivateRout";
 import RegisterLogin from "./components/Register_Login/RegisterLogin";
 import Register from "./components/Register_Login/Register";
 import Userdashboard from "./components/User/Userdashboard";
+import ManageCategories from "./components/User/Admin/ManageCategories";
 // import Shop from "./components/Shop/Shop";
 import AddProduct from "./components/User/Admin/AddProduct";
 import ProductView from "./components/Product/ProductView";
@@ -49,6 +50,11 @@ const App = () => {
           component={UpdateUserProfile}
         />
         <PrivateRoute path="/admin/add_products" exact component={AddProduct} />
+        <PrivateRoute
+          path="/admin/manage_categories"
+          exact
+          component={ManageCategories}
+        />
         <Route path="/admin/site_info" exact component={ManageSite} />
         <Route path="/reset-password/:token" exact component={ResetPassword} />
         <Route path="/reset-user" exact component={RequestReset} />

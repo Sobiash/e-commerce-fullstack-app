@@ -1,4 +1,6 @@
 const { Product } = require("../models/product");
+const { Dress } = require("../models/dress");
+const { Color } = require("../models/color");
 
 const _ = require("lodash");
 
@@ -18,10 +20,6 @@ productController.postArticle = async (req, res) => {
       "color",
       "dress"
     ]);
-
-    if (typeof req.body.color !== undefined) {
-      body.color = req.body.color.split(",");
-    }
 
     const product = await new Product(body);
     product.save((err, product) => {
@@ -72,6 +70,74 @@ productController.filterItems = async (req, res) => {
         if (err) return res.status(400).send(err);
         res.send(articles);
       });
+  } catch (error) {
+    logger.error(error);
+    res.status(400).json(error);
+  }
+};
+
+productController.addDress = async (req, res) => {
+  try {
+    const dress = await new Dress(req.body);
+    dress.save(err => {
+      if (err)
+        return res.json({
+          err
+        });
+      res.status(200).json({
+        dress
+      });
+    });
+  } catch (error) {
+    logger.error(error);
+    res.status(400).json(error);
+  }
+};
+
+productController.getDresses = async (req, res) => {
+  try {
+    const dresses = await Dress.find({});
+    if (dresses) {
+      res.status(200).send(dresses);
+    } else {
+      return res.status(422).send({
+        error: "Could not find any dress!"
+      });
+    }
+  } catch (error) {
+    logger.error(error);
+    res.status(400).json(error);
+  }
+};
+
+productController.addColor = async (req, res) => {
+  try {
+    const color = await new Color(req.body);
+    color.save(err => {
+      if (err)
+        return res.json({
+          err
+        });
+      res.status(200).json({
+        color
+      });
+    });
+  } catch (error) {
+    logger.error(error);
+    res.status(400).json(error);
+  }
+};
+
+productController.getColors = async (req, res) => {
+  try {
+    const colors = await Color.find({});
+    if (colors) {
+      res.status(200).send(colors);
+    } else {
+      return res.status(422).send({
+        error: "Could not find any color!"
+      });
+    }
   } catch (error) {
     logger.error(error);
     res.status(400).json(error);

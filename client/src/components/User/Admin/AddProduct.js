@@ -7,11 +7,16 @@ import {
   update,
   generateData,
   isFormValid,
-  resetFields
+  resetFields,
+  populateOptionFields
 } from "../../utils/Form/FormActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { addProduct } from "../../../actions/products_actions";
+import {
+  addProduct,
+  getDresses,
+  getColors
+} from "../../../actions/products_actions";
 
 class AddProduct extends Component {
   state = {
@@ -38,7 +43,7 @@ class AddProduct extends Component {
         element: "textarea",
         value: "",
         config: {
-          lable: "Product description",
+          lable: "Description price",
           name: "description_input",
           type: "text",
           placeholder: "Enter description"
@@ -74,11 +79,7 @@ class AddProduct extends Component {
         config: {
           lable: "Dress Type",
           name: "dress_input",
-          options: [
-            { key: 1, value: "Jackets" },
-            { key: 2, value: "Trousers" },
-            { key: 3, value: "Shirts" }
-          ]
+          options: []
         },
         validation: {
           required: true
@@ -94,11 +95,7 @@ class AddProduct extends Component {
         config: {
           lable: "Color Type",
           name: "color_input",
-          options: [
-            { key: 1, value: "Green" },
-            { key: 2, value: "Red" },
-            { key: 3, value: "Blue" }
-          ]
+          options: []
         },
         validation: {
           required: true
@@ -167,9 +164,9 @@ class AddProduct extends Component {
           lable: "Category",
           name: "category_input",
           options: [
-            { key: 1, value: "Men" },
-            { key: 2, value: "Women" },
-            { key: 3, value: "Child" }
+            { label: "Men", value: "Men" },
+            { label: "Women", value: "Women" },
+            { label: "Child", value: "Child" }
           ]
         },
         validation: {
@@ -195,11 +192,30 @@ class AddProduct extends Component {
 
   componentDidMount() {
     this.props.getUserProfile();
+    this.props.getDresses();
+    this.props.getColors();
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ formError: nextProps.errors });
+    }
+    const formData = this.state.formData;
+    if (nextProps.products.dresses) {
+      const newFormData = populateOptionFields(
+        formData,
+        nextProps.products.dresses,
+        "dress"
+      );
+      this.updateFields(newFormData);
+    }
+    if (nextProps.products.colors) {
+      const newFormData = populateOptionFields(
+        formData,
+        nextProps.products.colors,
+        "color"
+      );
+      this.updateFields(newFormData);
     }
   }
 
@@ -235,6 +251,7 @@ class AddProduct extends Component {
       formData: newFormData
     });
   };
+
   submitForm = event => {
     event.preventDefault();
 
@@ -243,7 +260,10 @@ class AddProduct extends Component {
 
     if (formIsValid) {
       this.props.addProduct(dataToSubmit);
-      this.resetFieldHandler();
+      console.log(dataToSubmit);
+      setTimeout(() => {
+        this.resetFieldHandler();
+      }, 500);
     }
   };
 
@@ -258,7 +278,7 @@ class AddProduct extends Component {
             ) : null}
             <ImageUpload
               imagesHandler={images => this.imagesHandler(images)}
-              reset={this.state.formSuccess}
+              // reset={this.resetFieldHandler}
             />
             <FormField
               id={"name"}
@@ -323,6 +343,8 @@ class AddProduct extends Component {
 
 AddProduct.propTypes = {
   addProduct: PropTypes.func.isRequired,
+  getDresses: PropTypes.func.isRequired,
+  getColors: PropTypes.func.isRequired,
   products: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -336,5 +358,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { addProduct, getUserProfile }
+  { addProduct, getUserProfile, getDresses, getColors }
 )(AddProduct);

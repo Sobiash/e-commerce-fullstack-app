@@ -4,9 +4,11 @@ import {
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_BY_SELL,
   GET_PRODUCTS,
+  GET_DRESSES,
   GET_PRODUCT_DETAIL,
   CLEAR_PRODUCT_DETAIL,
-  GET_ERRORS
+  GET_ERRORS,
+  GET_COLORS
 } from "./types";
 
 //?sortBy=sold&order=desc&limit=10
@@ -80,4 +82,50 @@ export const clearProductDetail = () => {
     type: CLEAR_PRODUCT_DETAIL,
     payload: ""
   };
+};
+
+export const addDressType = dataToSubmit => dispatch => {
+  axios
+    .post(`${PRODUCT_SERVER}/dress`, dataToSubmit)
+    .then(response => response.data)
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data
+      });
+    });
+};
+
+// export const getDresses = () => dispatch => {
+//   axios.get(`${PRODUCT_SERVER}/dresses`).then(response => response.data);
+// };
+
+export const getDresses = () => dispatch => {
+  axios.get(`${PRODUCT_SERVER}/dresses`).then(res =>
+    dispatch({
+      type: GET_DRESSES,
+      payload: res.data
+    })
+  );
+};
+
+export const addColor = dataToSubmit => dispatch => {
+  axios
+    .post(`${PRODUCT_SERVER}/color`, dataToSubmit)
+    .then(response => response.data)
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data
+      });
+    });
+};
+
+export const getColors = () => dispatch => {
+  axios.get(`${PRODUCT_SERVER}/colors`).then(res =>
+    dispatch({
+      type: GET_COLORS,
+      payload: res.data
+    })
+  );
 };

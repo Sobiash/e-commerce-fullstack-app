@@ -10,9 +10,7 @@ const description = Joi.string().error(
 const price = Joi.number();
 const category = Joi.string();
 const dress = Joi.string();
-const color = Joi.array()
-  .items(Joi.string())
-  .single();
+const color = Joi.string();
 const shipping = Joi.number();
 const available = Joi.bool();
 const publish = Joi.bool();
@@ -31,6 +29,17 @@ const schemas = {
       publish: publish.required(),
       images: images.required(),
       shipping
+    })
+    .required(),
+
+  addDress: Joi.object()
+    .keys({
+      name: name.required()
+    })
+    .required(),
+  addColor: Joi.object()
+    .keys({
+      name: name.required()
     })
     .required()
 };

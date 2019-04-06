@@ -2,13 +2,21 @@ import {
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_BY_SELL,
   GET_PRODUCTS,
+  GET_DRESSES,
+  GET_COLORS,
   ADD_PRODUCT,
   CLEAR_PRODUCT,
   GET_PRODUCT_DETAIL,
   CLEAR_PRODUCT_DETAIL
 } from "../actions/types";
 
-const initialState = { product: null, products: null, loading: false };
+const initialState = {
+  product: {},
+  products: {},
+  colors: [],
+  dresses: [],
+  loading: false
+};
 
 const ProductReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -21,6 +29,16 @@ const ProductReducer = (state = initialState, action) => {
         ...state,
         articles: action.payload.articles,
         size: action.payload.size
+      };
+    case GET_DRESSES:
+      return {
+        ...state,
+        dresses: action.payload
+      };
+    case GET_COLORS:
+      return {
+        ...state,
+        colors: action.payload
       };
     case GET_PRODUCT_DETAIL:
       return {
