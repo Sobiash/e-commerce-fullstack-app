@@ -2,7 +2,10 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/auth_actions";
-import { clearCurrentProfile } from "../../actions/user_actions";
+import {
+  clearCurrentProfile,
+  getUserProfile
+} from "../../actions/user_actions";
 
 import PropTypes from "prop-types";
 
@@ -45,6 +48,10 @@ class Header extends React.Component {
     ]
   };
 
+  componentDidMount() {
+    this.props.getUserProfile();
+  }
+
   logoutHandler = () => {
     this.props.logoutUser();
     this.props.clearCurrentProfile();
@@ -67,7 +74,7 @@ class Header extends React.Component {
     );
 
   cartLink = (item, i) => {
-    const user = this.props.auth.isAuthenticated;
+    const user = this.props.user.profile;
     return (
       <div className="cart_link" key={i}>
         <span>{user.cart ? user.cart.length : 0}</span>
@@ -121,17 +128,21 @@ class Header extends React.Component {
 
 Header.propTypes = {
   logoutUser: PropTypes.func.isRequired,
+  getUserProfile: PropTypes.func.isRequired,
+  clearCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   errors: PropTypes.object
 };
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth
+    auth: state.auth,
+    user: state.user
   };
 };
 
 export default connect(
   mapStateToProps,
-  { logoutUser, clearCurrentProfile }
+  { logoutUser, clearCurrentProfile, getUserProfile }
 )(withRouter(Header));

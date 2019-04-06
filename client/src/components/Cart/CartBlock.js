@@ -1,6 +1,13 @@
 import React from "react";
+import { getUserProfile } from "../../actions/user_actions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
 class CartBlock extends React.Component {
+  componentDidMount() {
+    this.props.getUserProfile();
+  }
+
   renderCartImages = images => {
     if (images.length > 0) {
       return images[0].url;
@@ -43,4 +50,20 @@ class CartBlock extends React.Component {
   }
 }
 
-export default CartBlock;
+CartBlock.propTypes = {
+  getUserProfile: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => {
+  return {
+    user: state.user,
+    errors: state.errors
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getUserProfile }
+)(CartBlock);

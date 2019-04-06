@@ -179,13 +179,11 @@ class Shop extends Component {
 }
 
 Shop.propTypes = {
-  getProducts: PropTypes.func.isRequired,
-  shop: PropTypes.object.isRequired
+  getProducts: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    shop: state.shop,
     products: state.products
   };
 };

@@ -3,6 +3,7 @@ import CartBlock from "./CartBlock";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import {
+  getUserProfile,
   cartItems,
   removeCartItems,
   onSuccessBuy
@@ -21,21 +22,22 @@ class UserCart extends Component {
   };
 
   componentDidMount() {
+    this.props.getUserProfile();
     let cartItem = [];
     let user = this.props.user;
-    if (user.userData.cart) {
-      if (user.userData.cart.length > 0) {
-        user.userData.cart.forEach(item => {
+    if (user.profile.cart) {
+      if (user.profile.cart.length > 0) {
+        user.profile.cart.forEach(item => {
           cartItem.push(item.id);
         });
-        this.props
-          .dispatch(cartItems(cartItem, user.userData.cart))
-          .then(() => {
-            if (this.props.user.cartDetail.length > 0) {
-              this.calculateTotal(this.props.user.cartDetail);
-            }
-          });
+
+        this.props.cartItems(cartItem, user.profile.cart);
+
+        if (this.props.user.cartDetail.length > 0) {
+          this.calculateTotal(this.props.user.cartDetail);
+        }
       } else {
+        console.log("error");
       }
     }
   }
@@ -57,38 +59,34 @@ class UserCart extends Component {
     </div>
   );
   removeFromCart = id => {
-    this.props.dispatch(removeCartItems(id)).then(() => {
-      if (this.props.user.cartDetail.length <= 0) {
-        this.setState({
-          showTotal: false
-        });
-      } else {
-        this.calculateTotal(this.props.user.cartDetail);
-      }
-    });
+    this.props.removeCartItems(id);
+    if (this.props.user.cartDetail.length <= 0) {
+      this.setState({
+        showTotal: false
+      });
+    } else {
+      this.calculateTotal(this.props.user.cartDetail);
+    }
   };
 
   onTransactionSuccess = data => {
-    this.props
-      .dispatch(
-        onSuccessBuy({
-          cartDetail: this.props.user.cartDetail,
-          paymentData: data
-        })
-      )
-      .then(() => {
-        if (this.props.user.successBuy) {
-          this.setState({
-            showTotal: false,
-            showSuccess: true
-          });
-        }
+    this.props.onSuccessBuy({
+      cartDetail: this.props.user.cartDetail,
+      paymentData: data
+    });
+
+    if (this.props.user.successBuy) {
+      this.setState({
+        showTotal: false,
+        showSuccess: true
       });
+    }
   };
+
   render() {
     return (
       <div>
-        {this.props.user.userData.isAuth === false ? (
+        {!this.props.auth.isAuthenticated ? (
           <div className="container">
             <div className="shopping_cart">
               <h1>Shopping Bag</h1>
@@ -180,7 +178,7 @@ class UserCart extends Component {
                         <div className="payment">
                           <Payment
                             amount={this.state.total}
-                            email={this.props.user.userData.email}
+                            email={this.props.user.profile.email}
                             onSuccess={data => this.onTransactionSuccess(data)}
                           >
                             <div className="link_default cart_link">
@@ -215,8 +213,12 @@ class UserCart extends Component {
 
 const mapStateToProps = state => {
   return {
+    auth: state.auth,
     user: state.user
   };
 };
 
-export default connect(mapStateToProps)(UserCart);
+export default connect(
+  mapStateToProps,
+  { cartItems, onSuccessBuy, removeCartItems, getUserProfile }
+)(UserCart);

@@ -2,14 +2,14 @@ import React from "react";
 import Card from "./Card";
 
 const CardBlock = props => {
-  // const renderCards = () =>
-  //   props.productList
-  //     ? props.productList.map((card, i) => <Card key={i} {...card} />)
-  //     : null;
+  const renderCards = () =>
+    props.productList
+      ? props.productList.map((card, i) => <Card key={i} {...card} />)
+      : null;
 
   return (
     <div className="card_block">
-      {/* <div className="container">
+      <div className="container">
         {props.title ? <div className="title">{props.title}</div> : null}
         <div
           style={{
@@ -19,7 +19,7 @@ const CardBlock = props => {
         >
           {renderCards(props.productList)}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

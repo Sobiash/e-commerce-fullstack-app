@@ -58,17 +58,16 @@ export const deleteProfile = () => dispatch => {
   }
 };
 
-export const addToCart = _id => {
-  const request = axios
-    .post(`${USER_SERVER}/add-to-cart?productId=${_id}`)
-    .then(response => response.data);
-  return {
-    type: ADD_TO_CART,
-    payload: request
-  };
+export const addToCart = _id => dispatch => {
+  axios.post(`${USER_SERVER}/add-to-cart?productId=${_id}`).then(res =>
+    dispatch({
+      type: ADD_TO_CART,
+      payload: res.data
+    })
+  );
 };
 
-export const cartItems = (cartItems, userCart) => {
+export const cartItems = (cartItems, userCart) => dispatch => {
   const request = axios
     .get(`${PRODUCT_SERVER}/articles_by_id?id=${cartItems}&type=array`)
     .then(response => {
@@ -81,13 +80,14 @@ export const cartItems = (cartItems, userCart) => {
       });
       return response.data;
     });
-  return {
+
+  dispatch({
     type: CART_ITEMS,
     payload: request
-  };
+  });
 };
 
-export const removeCartItems = id => {
+export const removeCartItems = id => dispatch => {
   const request = axios
     .get(`${USER_SERVER}/remove-from-cart?_id=${id}`)
     .then(response => {
@@ -100,10 +100,10 @@ export const removeCartItems = id => {
       });
       return response.data;
     });
-  return {
+  dispatch({
     type: REMOVE_CART_ITEMS,
     payload: request
-  };
+  });
 };
 
 export const updateUserData = (dataToSubmit, history) => dispatch => {
@@ -126,21 +126,19 @@ export const clearUpdateUserData = () => {
   };
 };
 
-export const requestReset = dataToSubmit => {
-  const request = axios
-    .post(`${USER_SERVER}/reset-user`, dataToSubmit)
-    .then(response => response.data);
-  return {
-    type: RESET_USER,
-    payload: request
-  };
+export const requestReset = dataToSubmit => dispatch => {
+  axios.post(`${USER_SERVER}/reset-user`, dataToSubmit).then(res =>
+    dispatch({
+      type: RESET_USER,
+      payload: res.data
+    })
+  );
 };
-export const onSuccessBuy = data => {
-  const request = axios
-    .post(`${USER_SERVER}/success-buy`, data)
-    .then(response => response.data);
-  return {
-    type: ON_SUCCESS_BUY_USER,
-    payload: request
-  };
+export const onSuccessBuy = data => dispatch => {
+  axios.post(`${USER_SERVER}/success-buy`, data).then(res =>
+    dispatch({
+      type: ON_SUCCESS_BUY_USER,
+      payload: res.data
+    })
+  );
 };

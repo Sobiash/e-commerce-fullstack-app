@@ -59,11 +59,12 @@ productController.getArticleDetail = async (req, res) => {
 productController.filterItems = async (req, res) => {
   try {
     let order = req.query.order ? req.query.order : "asc";
-    let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+    let sortBy = req.query.sortBy ? req.query.sortBy : "createdAt";
     let limit = req.query.limit ? parseInt(req.query.limit) : 100;
 
     await Product.find()
-
+      .populate("dress")
+      .populate("color")
       .sort([[sortBy, order]])
       .limit(limit)
       .exec((err, articles) => {

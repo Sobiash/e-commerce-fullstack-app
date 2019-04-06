@@ -276,10 +276,7 @@ class AddProduct extends Component {
             {this.state.formError ? (
               <div className="error_label">{this.state.formError.error}</div>
             ) : null}
-            <ImageUpload
-              imagesHandler={images => this.imagesHandler(images)}
-              // reset={this.resetFieldHandler}
-            />
+            <ImageUpload imagesHandler={images => this.imagesHandler(images)} />
             <FormField
               id={"name"}
               data={this.state.formData.name}

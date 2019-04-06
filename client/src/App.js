@@ -10,7 +10,7 @@ import ManageCategories from "./components/User/Admin/ManageCategories";
 import Shop from "./components/Shop/Shop";
 import AddProduct from "./components/User/Admin/AddProduct";
 import ProductView from "./components/Product/ProductView";
-// import UserCart from "./components/Cart/UserCart";
+import UserCart from "./components/Cart/UserCart";
 import UpdateUserProfile from "./components/User/UpdateUserProfile";
 import ManageSite from "./components/User/Admin/ManageSite";
 import NotFound from "./components/utils/NotFound";
@@ -43,7 +43,7 @@ const App = () => {
     <Layout>
       <Switch>
         <PrivateRoute path="/user/dashboard" exact component={Userdashboard} />
-        {/* <Route path="/user/cart" exact component={UserCart} /> */}
+        <Route path="/user/cart" exact component={UserCart} />
         <PrivateRoute
           path="/user/user_profile"
           exact

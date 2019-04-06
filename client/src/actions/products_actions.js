@@ -14,24 +14,26 @@ import {
 
 //?sortBy=sold&order=desc&limit=10
 
-export const getProductsByArrival = () => {
-  const request = axios
+export const getProductsByArrival = () => dispatch => {
+  axios
     .get(`${PRODUCT_SERVER}/articles?sortBy=createdAt&order=desc&limit=4`)
-    .then(response => response.data);
-  return {
-    type: GET_PRODUCTS_BY_ARRIVAL,
-    payload: request
-  };
+    .then(res =>
+      dispatch({
+        type: GET_PRODUCTS_BY_ARRIVAL,
+        payload: res.data
+      })
+    );
 };
 
-export const getProductsBySell = () => {
-  const request = axios
+export const getProductsBySell = () => dispatch => {
+  axios
     .get(`${PRODUCT_SERVER}/articles?sortBy=sold&order=desc&limit=4`)
-    .then(response => response.data);
-  return {
-    type: GET_PRODUCTS_BY_SELL,
-    payload: request
-  };
+    .then(res =>
+      dispatch({
+        type: GET_PRODUCTS_BY_SELL,
+        payload: res.data
+      })
+    );
 };
 
 export const getProducts = (

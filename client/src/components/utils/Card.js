@@ -31,8 +31,8 @@ class Card extends React.Component {
             title="Add to cart"
             altClass="card_button"
             runAction={() => {
-              props.user.userData.isAuth
-                ? this.props.dispatch(addToCart(props._id))
+              props.auth.isAuthenticated
+                ? this.props.addToCart(props._id)
                 : console.log("you need to login");
             }}
           />
@@ -50,8 +50,12 @@ class Card extends React.Component {
 
 const mapStateToProps = state => {
   return {
+    auth: state.auth,
     user: state.user
   };
 };
 
-export default connect(mapStateToProps)(Card);
+export default connect(
+  mapStateToProps,
+  { addToCart }
+)(Card);

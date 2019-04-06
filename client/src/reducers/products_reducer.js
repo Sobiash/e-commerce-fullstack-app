@@ -13,6 +13,8 @@ const initialState = {
   products: {},
   colors: [],
   dresses: [],
+  bySell: [],
+  byArrival: [],
   loading: false
 };
 

@@ -10,7 +10,7 @@ import {
   CLEAR_CURRENT_PROFILE
 } from "../actions/types";
 
-const initialState = { profile: {}, loading: false };
+const initialState = { profile: {}, cartDetail: {}, loading: false };
 
 const UserReducer = (state = initialState, action) => {
   switch (action.type) {
