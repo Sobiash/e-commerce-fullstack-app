@@ -7,6 +7,7 @@ export const ADD_DRESS = "add_dress";
 export const GET_DRESSES = "get_dresses";
 export const GET_PRODUCTS = "get_products";
 export const ADD_PRODUCT = "add_product";
+export const LOAD_MORE_PRODUCTS = "load_more_products";
 export const CLEAR_PRODUCT = "clear_product";
 export const GET_PRODUCT_DETAIL = "get_product_detail";
 export const CLEAR_PRODUCT_DETAIL = "clear_product_detail";

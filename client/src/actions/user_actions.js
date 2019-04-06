@@ -1,12 +1,10 @@
 import axios from "axios";
-import setAuthToken from "../components/utils/AuthToken";
 
 import { USER_SERVER, PRODUCT_SERVER } from "../components/utils/config";
 import {
   ADD_TO_CART,
   CART_ITEMS,
   REMOVE_CART_ITEMS,
-  UPDATE_USER_DATA,
   CLEAR_UPDATE_USER_DATA,
   RESET_USER,
   ON_SUCCESS_BUY_USER,

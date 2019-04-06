@@ -4,6 +4,7 @@ import {
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_BY_SELL,
   GET_PRODUCTS,
+  LOAD_MORE_PRODUCTS,
   GET_DRESSES,
   GET_PRODUCT_DETAIL,
   CLEAR_PRODUCT_DETAIL,
@@ -33,7 +34,12 @@ export const getProductsBySell = () => {
   };
 };
 
-export const getProducts = (skip, limit, filters = [], previousState = []) => {
+export const getProducts = (
+  skip,
+  limit,
+  filters = [],
+  previousState = []
+) => dispatch => {
   const data = {
     limit,
     skip,
@@ -47,11 +53,10 @@ export const getProducts = (skip, limit, filters = [], previousState = []) => {
       articles: newState
     };
   });
-
-  return {
+  dispatch({
     type: GET_PRODUCTS,
     payload: request
-  };
+  });
 };
 
 export const addProduct = dataToSubmit => dispatch => {

@@ -7,7 +7,7 @@ import {
   resetFields
 } from "../../utils/Form/FormActions";
 import { connect } from "react-redux";
-import { getDresses, addDressType } from "../../../actions/products_actions";
+import { addDressType } from "../../../actions/products_actions";
 import PropTypes from "prop-types";
 
 class ManageDresses extends Component {
@@ -31,6 +31,13 @@ class ManageDresses extends Component {
       }
     }
   };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ formError: nextProps.errors });
+    }
+  }
+
   resetFieldsHandler = () => {
     const newFormData = resetFields(this.state.formData, "dresses");
     this.setState({
@@ -55,27 +62,12 @@ class ManageDresses extends Component {
       this.resetFieldsHandler();
     }
   };
-
-  // renderCategories = () => {
-  //   this.props.products.dresses
-  //     ? this.props.products.dresses.map((item, i) => (
-  //         <div className="category_item" key={item._id}>
-  //           {item.name}
-  //         </div>
-  //       ))
-  //     : null;
-  // };
-  // componentDidMount() {
-  //   this.props.getDresses();
-  // }
   render() {
     return (
       <div className="admin_category_wrapper">
         <h3>Dress Types</h3>
         <div className="admin_two_column">
-          <div className="left">
-            {/* <div className="brands_container">{this.renderCategories()}</div> */}
-          </div>
+          <div className="left" />
           <div className="right">
             <form onSubmit={event => this.submitForm(event)}>
               <FormField

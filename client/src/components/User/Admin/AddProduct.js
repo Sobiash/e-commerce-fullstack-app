@@ -43,7 +43,7 @@ class AddProduct extends Component {
         element: "textarea",
         value: "",
         config: {
-          lable: "Description price",
+          lable: "Description",
           name: "description_input",
           type: "text",
           placeholder: "Enter description"

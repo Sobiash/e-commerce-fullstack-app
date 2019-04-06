@@ -7,7 +7,7 @@ import RegisterLogin from "./components/Register_Login/RegisterLogin";
 import Register from "./components/Register_Login/Register";
 import Userdashboard from "./components/User/Userdashboard";
 import ManageCategories from "./components/User/Admin/ManageCategories";
-// import Shop from "./components/Shop/Shop";
+import Shop from "./components/Shop/Shop";
 import AddProduct from "./components/User/Admin/AddProduct";
 import ProductView from "./components/Product/ProductView";
 // import UserCart from "./components/Cart/UserCart";
@@ -63,7 +63,7 @@ const App = () => {
         <Route path="/register_login" exact component={RegisterLogin} />
         <Route path="/product_detail/:id" exact component={ProductView} />
         <Route path="/" exact component={Home} />
-        {/* <Route path="/shop" exact component={Shop} /> */}
+        <Route path="/shop" exact component={Shop} />
         <Route component={NotFound} />
       </Switch>
     </Layout>

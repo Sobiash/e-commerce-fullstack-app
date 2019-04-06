@@ -11,11 +11,7 @@ import {
   populateFields
 } from "../utils/Form/FormActions";
 
-import {
-  updateUserData,
-  clearUpdateUserData,
-  getUserProfile
-} from "../../actions/user_actions";
+import { updateUserData, getUserProfile } from "../../actions/user_actions";
 
 class UpdateInfo extends Component {
   state = {

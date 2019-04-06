@@ -4,8 +4,6 @@ import {
   GET_PRODUCTS,
   GET_DRESSES,
   GET_COLORS,
-  ADD_PRODUCT,
-  CLEAR_PRODUCT,
   GET_PRODUCT_DETAIL,
   CLEAR_PRODUCT_DETAIL
 } from "../actions/types";

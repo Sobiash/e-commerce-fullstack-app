@@ -2,12 +2,17 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import ShopHeader from "../utils/ShopHeader";
-import { getProducts } from "../../actions/products_actions";
+import {
+  getProducts,
+  getDresses,
+  getColors
+} from "../../actions/products_actions";
 import { category, price } from "../utils/FixedCategories";
 import CollapseList from "../utils/CollapseList";
 import CollapseRadio from "../utils/CollapseRadio";
 import LoadMore from "./LoadMore";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
 
 class Shop extends Component {
   state = {
@@ -22,9 +27,13 @@ class Shop extends Component {
     }
   };
   componentDidMount() {
-    this.props.dispatch(
-      getProducts(this.state.skip, this.state.limit, this.state.filters)
+    this.props.getProducts(
+      this.state.skip,
+      this.state.limit,
+      this.state.filters
     );
+    this.props.getDresses();
+    this.props.getColors();
   }
 
   handlePrice = value => {
@@ -55,29 +64,23 @@ class Shop extends Component {
   };
 
   showFilterResults = filters => {
-    this.props.dispatch(getProducts(0, this.state.limit, filters)).then(() => {
-      this.setState({
-        skip: 0
-      });
+    this.props.getProducts(0, this.state.limit, filters);
+    this.setState({
+      skip: 0
     });
   };
 
   loadMoreCards = () => {
     let skip = this.state.skip + this.state.limit;
-    this.props
-      .dispatch(
-        getProducts(
-          skip,
-          this.state.limit,
-          this.state.filters,
-          this.props.products.articles
-        )
-      )
-      .then(() => {
-        this.setState({
-          skip
-        });
-      });
+    this.props.getProducts(
+      skip,
+      this.state.limit,
+      this.state.filters,
+      this.props.products.articles
+    );
+    this.setState({
+      skip
+    });
   };
 
   handleGrid = () => {
@@ -175,10 +178,19 @@ class Shop extends Component {
   }
 }
 
+Shop.propTypes = {
+  getProducts: PropTypes.func.isRequired,
+  shop: PropTypes.object.isRequired
+};
+
 const mapStateToProps = state => {
   return {
+    shop: state.shop,
     products: state.products
   };
 };
 
-export default connect(mapStateToProps)(Shop);
+export default connect(
+  mapStateToProps,
+  { getProducts, getDresses, getColors }
+)(Shop);

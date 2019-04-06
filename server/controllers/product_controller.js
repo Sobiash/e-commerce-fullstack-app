@@ -78,7 +78,8 @@ productController.filterItems = async (req, res) => {
 
 productController.addDress = async (req, res) => {
   try {
-    const dress = await new Dress(req.body);
+    const body = await _.pick(req.body, ["name"]);
+    const dress = await new Dress(body);
     dress.save(err => {
       if (err)
         return res.json({
@@ -112,7 +113,8 @@ productController.getDresses = async (req, res) => {
 
 productController.addColor = async (req, res) => {
   try {
-    const color = await new Color(req.body);
+    const body = await _.pick(req.body, ["name"]);
+    const color = await new Color(body);
     color.save(err => {
       if (err)
         return res.json({

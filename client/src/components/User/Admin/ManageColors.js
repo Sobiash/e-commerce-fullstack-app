@@ -57,26 +57,18 @@ class ManageDresses extends Component {
     }
   };
 
-  // renderCategories = () => {
-  //   this.props.products.dresses
-  //     ? this.props.products.dresses.map((item, i) => (
-  //         <div className="category_item" key={item._id}>
-  //           {item.name}
-  //         </div>
-  //       ))
-  //     : null;
-  // };
-  // componentDidMount() {
-  //   this.props.getDresses();
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ formError: nextProps.errors });
+    }
+  }
+
   render() {
     return (
       <div className="admin_category_wrapper">
         <h3>Color Types</h3>
         <div className="admin_two_column">
-          <div className="left">
-            {/* <div className="brands_container">{this.renderCategories()}</div> */}
-          </div>
+          <div className="left" />
           <div className="right">
             <form onSubmit={event => this.submitForm(event)}>
               <FormField
