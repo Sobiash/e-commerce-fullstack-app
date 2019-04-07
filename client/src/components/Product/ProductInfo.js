@@ -55,10 +55,10 @@ const ProductInfo = props => {
     <div className="specs">
       <h5>Specs:</h5>
       <div className="item">
-        {detail.color.name ? <p>Colors: {detail.color.name}</p> : null}
+        {detail.color ? <p>Colors: {detail.color.name}</p> : null}
       </div>
       <div className="item">
-        <p>Dress category: {detail.dress.name}</p>
+        <p>Dress type: {detail.dress ? detail.dress.name : null}</p>
       </div>
     </div>
   );

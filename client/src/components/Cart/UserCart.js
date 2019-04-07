@@ -23,23 +23,24 @@ class UserCart extends Component {
 
   componentDidMount() {
     this.props.getUserProfile();
-    let cartItem = [];
-    let user = this.props.user;
-    if (user.profile.cart) {
-      if (user.profile.cart.length > 0) {
-        user.profile.cart.forEach(item => {
-          cartItem.push(item.id);
-        });
+    console.log(this.props.user);
+  }
 
-        this.props.cartItems(cartItem, user.profile.cart);
-
-        if (this.props.user.cartDetail.length > 0) {
-          this.calculateTotal(this.props.user.cartDetail);
-        }
-      } else {
-        console.log("error");
-      }
-    }
+  componentWillReceiveProps(nextProps) {
+    // if (nextProps.user.profile.cart) {
+    //   let cartItem = [];
+    //   if (nextProps.user.profile.cart.length > 0) {
+    //     nextProps.user.profile.cart.forEach(item => {
+    //       cartItem.push(item.id);
+    //     });
+    //     this.props.cartItems(cartItem, nextProps.user.profile.cart);
+    //     if (nextProps.user.cartDetail.length > 0) {
+    //       this.calculateTotal(nextProps.user.cartDetail);
+    //     }
+    //   } else {
+    //     console.log("error");
+    //   }
+    // }
   }
 
   calculateTotal = cartDetail => {
@@ -84,6 +85,27 @@ class UserCart extends Component {
   };
 
   render() {
+    console.log(this.props.user.profile.cartDetail);
+    if (this.props.user.profile.cart) {
+      let cartItem = [];
+
+      if (this.props.user.profile.cart) {
+        if (this.props.user.profile.cart.length > 0) {
+          this.props.user.profile.cart.forEach(item => {
+            cartItem.push(item.id);
+          });
+
+          // this.props.cartItems(cartItem, this.props.user.profile.cart);
+
+          if (this.props.user.cartDetail.length > 0) {
+            this.calculateTotal(this.props.user.cartDetail);
+          }
+        } else {
+          console.log("error");
+        }
+      }
+    }
+
     return (
       <div>
         {!this.props.auth.isAuthenticated ? (

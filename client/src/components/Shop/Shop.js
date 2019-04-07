@@ -17,7 +17,7 @@ import PropTypes from "prop-types";
 class Shop extends Component {
   state = {
     grid: "",
-    limit: 9,
+    limit: 8,
     skip: 0,
     filters: {
       category: [],

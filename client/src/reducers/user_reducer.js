@@ -33,8 +33,8 @@ const UserReducer = (state = initialState, action) => {
     case ADD_TO_CART:
       return {
         ...state,
-        userData: {
-          ...state.userData,
+        profile: {
+          ...state.profile,
           cart: action.payload
         }
       };

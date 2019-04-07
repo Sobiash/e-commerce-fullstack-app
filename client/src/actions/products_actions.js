@@ -73,21 +73,21 @@ export const addProduct = dataToSubmit => dispatch => {
     });
 };
 
-export const getProductDetail = id => {
+export const getProductDetail = id => dispatch => {
   const request = axios
     .get(`${PRODUCT_SERVER}/articles_by_id?id=${id}&type=single`)
-    .then(response => {
-      return response.data[0];
+    .then(res => {
+      return res.data;
     });
-  return {
+  dispatch({
     type: GET_PRODUCT_DETAIL,
     payload: request
-  };
+  });
 };
 export const clearProductDetail = () => {
   return {
     type: CLEAR_PRODUCT_DETAIL,
-    payload: ""
+    payload: {}
   };
 };
 

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import ImageLightBox from "../utils/ImageLightBox";
+import { connect } from "react-redux";
+import { getProducts } from "../../actions/products_actions";
 
 class ProductImages extends Component {
   state = {
@@ -54,9 +56,11 @@ class ProductImages extends Component {
       ) : null
     );
   render() {
-    const { detail } = this.props;
+    const detail = this.props.detail;
+
     return (
       <div className="product_image_container">
+        party
         <div className="main_pic">
           <div
             style={{
@@ -81,4 +85,7 @@ class ProductImages extends Component {
   }
 }
 
-export default ProductImages;
+export default connect(
+  null,
+  { getProducts }
+)(ProductImages);

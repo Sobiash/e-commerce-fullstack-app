@@ -68,23 +68,22 @@ export const addToCart = _id => dispatch => {
 };
 
 export const cartItems = (cartItems, userCart) => dispatch => {
-  const request = axios
+  axios
     .get(`${PRODUCT_SERVER}/articles_by_id?id=${cartItems}&type=array`)
     .then(response => {
-      userCart.forEach(item => {
-        response.data.forEach((k, i) => {
-          if (item.id === k._id) {
-            response.data[i].quantity = item.quantity;
-          }
-        });
-      });
-      return response.data;
-    });
+      // userCart.forEach(item => {
+      //   response.data.forEach((k, i) => {
+      //     if (item.id === k._id) {
+      //       response.data[i].quantity = item.quantity;
+      //     }
+      //   });
+      // });
 
-  dispatch({
-    type: CART_ITEMS,
-    payload: request
-  });
+      dispatch({
+        type: CART_ITEMS,
+        payload: response.data
+      });
+    });
 };
 
 export const removeCartItems = id => dispatch => {

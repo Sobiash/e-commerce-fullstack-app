@@ -11,34 +11,36 @@ import ProductImages from "./ProductImages";
 class ProductView extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
-    this.props.dispatch(getProductDetail(id)).then(response => {
-      if (!this.props.products.productDetail) {
-        this.props.history.push("/");
-      }
-    });
+    this.props.getProductDetail(id);
+    if (!this.props.products.productDetail) {
+      this.props.history.push("/");
+    }
   }
+
   componentWillUnmount() {
-    this.props.dispatch(clearProductDetail());
+    this.props.clearProductDetail();
   }
 
   addToCartHandler = id => {
-    this.props.dispatch(addToCart(id));
+    this.props.addToCart(id);
   };
 
   render() {
+    const props = this.props.products;
+    console.log(props);
     return (
       <div>
         <div className="container">
-          {this.props.products.productDetail ? (
+          {props.productDetail ? (
             <div className="product_detail_wrapper">
               <div className="left">
-                <div style={{ width: "500px" }}>
-                  <ProductImages detail={this.props.products.productDetail} />
-                </div>
+                {/* <div style={{ width: "500px" }}>
+                  <ProductImages detail={props.productDetail} />
+                </div> */}
               </div>
               <div className="right">
                 <ProductInfo
-                  detail={this.props.products.productDetail}
+                  detail={props.productDetail}
                   addToCart={id => this.addToCartHandler(id)}
                 />
               </div>
@@ -57,4 +59,7 @@ const mapStateToProps = state => {
     products: state.products
   };
 };
-export default connect(mapStateToProps)(ProductView);
+export default connect(
+  mapStateToProps,
+  { addToCart, getProductDetail, clearProductDetail }
+)(ProductView);

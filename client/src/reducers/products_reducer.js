@@ -8,15 +8,7 @@ import {
   CLEAR_PRODUCT_DETAIL
 } from "../actions/types";
 
-const initialState = {
-  product: {},
-  products: {},
-  colors: [],
-  dresses: [],
-  bySell: [],
-  byArrival: [],
-  loading: false
-};
+const initialState = { productDetail: {} };
 
 const ProductReducer = (state = initialState, action) => {
   switch (action.type) {

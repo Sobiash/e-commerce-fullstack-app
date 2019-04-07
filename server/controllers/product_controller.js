@@ -1,6 +1,7 @@
 const { Product } = require("../models/product");
 const { Dress } = require("../models/dress");
 const { Color } = require("../models/color");
+const { logger } = require("../utils/logger");
 
 const _ = require("lodash");
 
@@ -36,14 +37,22 @@ productController.postArticle = async (req, res) => {
 
 productController.getArticleDetail = async (req, res) => {
   try {
-    const productDetail = await Product.findOne({ _id: req.query.id });
-    if (productDetail) {
-      return res.status(200).send(productDetail);
-    } else {
-      return res.status(422).send({
-        error: `Could not find any item matching with ${req.query.id}!`
+    // let type = req.body.type;
+    // let items = req.query.id;
+    // if (type === "array") {
+    //   let ids = req.query.id.split(",");
+    //   items = [];
+    //   items = ids.map(item => {
+    //     return mongoose.Types.objectId(item);
+    //   });
+    // }
+
+    await Product.findOne({ _id: req.query.id })
+      .populate("color")
+      .populate("dress")
+      .exec((err, doc) => {
+        return res.status(200).send(doc);
       });
-    }
   } catch (error) {
     logger.error(error);
     res.status(400).json(error);
