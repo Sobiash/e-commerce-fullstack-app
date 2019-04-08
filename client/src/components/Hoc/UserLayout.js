@@ -9,11 +9,11 @@ const links = [
     linkTo: "/user/dashboard"
   },
   {
-    name: "User information",
-    linkTo: "/user/user_profile"
+    name: "Order history",
+    linkTo: "/user/order_history"
   },
   {
-    name: "My Cart",
+    name: "My cart",
     linkTo: "/user/cart"
   }
 ];

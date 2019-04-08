@@ -3,6 +3,7 @@ import MyButton from "../utils/button";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { addToCart } from "../../actions/user_actions";
+import PropTypes from "prop-types";
 
 class Card extends React.Component {
   renderCardImage = images => {
@@ -14,6 +15,7 @@ class Card extends React.Component {
   };
   render() {
     const props = this.props;
+
     return (
       <div className={`card_item_wrapper ${props.grid}`}>
         <Link to={`/product_detail/${props._id}`}>
@@ -47,6 +49,12 @@ class Card extends React.Component {
     );
   }
 }
+
+Card.propTypes = {
+  addToCart: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired
+};
 
 const mapStateToProps = state => {
   return {

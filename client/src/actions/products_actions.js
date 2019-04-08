@@ -9,7 +9,8 @@ import {
   GET_PRODUCT_DETAIL,
   CLEAR_PRODUCT_DETAIL,
   GET_ERRORS,
-  GET_COLORS
+  GET_COLORS,
+  EDIT_PRODUCT
 } from "./types";
 
 //?sortBy=sold&order=desc&limit=10
@@ -74,15 +75,14 @@ export const addProduct = dataToSubmit => dispatch => {
 };
 
 export const getProductDetail = id => dispatch => {
-  const request = axios
+  axios
     .get(`${PRODUCT_SERVER}/articles_by_id?id=${id}&type=single`)
     .then(res => {
-      return res.data;
+      dispatch({
+        type: GET_PRODUCT_DETAIL,
+        payload: res.data
+      });
     });
-  dispatch({
-    type: GET_PRODUCT_DETAIL,
-    payload: request
-  });
 };
 export const clearProductDetail = () => {
   return {
@@ -102,10 +102,6 @@ export const addDressType = dataToSubmit => dispatch => {
       });
     });
 };
-
-// export const getDresses = () => dispatch => {
-//   axios.get(`${PRODUCT_SERVER}/dresses`).then(response => response.data);
-// };
 
 export const getDresses = () => dispatch => {
   axios.get(`${PRODUCT_SERVER}/dresses`).then(res =>
@@ -135,4 +131,16 @@ export const getColors = () => dispatch => {
       payload: res.data
     })
   );
+};
+
+export const editProduct = (id, dataToSubmit, history) => dispatch => {
+  axios
+    .post(`${PRODUCT_SERVER}/update-product?id=${id}`, dataToSubmit)
+    .then(res => history.push("/shop"))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
 };

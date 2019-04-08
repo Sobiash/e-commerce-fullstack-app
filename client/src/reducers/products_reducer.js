@@ -5,17 +5,24 @@ import {
   GET_DRESSES,
   GET_COLORS,
   GET_PRODUCT_DETAIL,
-  CLEAR_PRODUCT_DETAIL
+  CLEAR_PRODUCT_DETAIL,
+  EDIT_PRODUCT
 } from "../actions/types";
 
-const initialState = { productDetail: {} };
+const initialState = {};
 
 const ProductReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_PRODUCTS_BY_SELL:
-      return { ...state, bySell: action.payload };
+      return {
+        ...state,
+        bySell: action.payload
+      };
     case GET_PRODUCTS_BY_ARRIVAL:
-      return { ...state, byArrival: action.payload };
+      return {
+        ...state,
+        byArrival: action.payload
+      };
     case GET_PRODUCTS:
       return {
         ...state,
@@ -41,6 +48,10 @@ const ProductReducer = (state = initialState, action) => {
       return {
         ...state,
         productDetail: action.payload
+      };
+    case EDIT_PRODUCT:
+      return {
+        ...state
       };
     default:
       return state;

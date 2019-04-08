@@ -4,15 +4,19 @@ import {
   getProductDetail,
   clearProductDetail
 } from "../../actions/products_actions";
-import { addToCart } from "../../actions/user_actions";
+import { addToCart, getUserProfile } from "../../actions/user_actions";
 import ProductInfo from "./ProductInfo";
+import PropTypes from "prop-types";
 import ProductImages from "./ProductImages";
 
 class ProductView extends Component {
   componentDidMount() {
+    this.props.getUserProfile();
+
     const id = this.props.match.params.id;
+
     this.props.getProductDetail(id);
-    if (!this.props.products.productDetail) {
+    if (!this.props.products) {
       this.props.history.push("/");
     }
   }
@@ -26,22 +30,22 @@ class ProductView extends Component {
   };
 
   render() {
-    const props = this.props.products;
-    console.log(props);
+    const props = this.props.products.productDetail;
     return (
       <div>
         <div className="container">
-          {props.productDetail ? (
+          {props ? (
             <div className="product_detail_wrapper">
               <div className="left">
-                {/* <div style={{ width: "500px" }}>
-                  <ProductImages detail={props.productDetail} />
-                </div> */}
+                <div style={{ width: "500px" }}>
+                  <ProductImages detail={props} />
+                </div>
               </div>
               <div className="right">
                 <ProductInfo
-                  detail={props.productDetail}
+                  detail={props}
                   addToCart={id => this.addToCartHandler(id)}
+                  user={this.props.user.profile}
                 />
               </div>
             </div>
@@ -54,12 +58,23 @@ class ProductView extends Component {
   }
 }
 
+ProductView.propTypes = {
+  addToCart: PropTypes.func.isRequired,
+  getProductDetail: PropTypes.func.isRequired,
+  clearProductDetail: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
+  products: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
 const mapStateToProps = state => {
   return {
-    products: state.products
+    products: state.products,
+    user: state.user,
+    errors: state.errors
   };
 };
 export default connect(
   mapStateToProps,
-  { addToCart, getProductDetail, clearProductDetail }
+  { getUserProfile, addToCart, getProductDetail, clearProductDetail }
 )(ProductView);

@@ -3,6 +3,8 @@ import axios from "axios";
 import { USER_SERVER, PRODUCT_SERVER } from "../components/utils/config";
 import {
   ADD_TO_CART,
+  INC_ITEM,
+  DEC_ITEM,
   CART_ITEMS,
   REMOVE_CART_ITEMS,
   CLEAR_UPDATE_USER_DATA,
@@ -86,16 +88,33 @@ export const cartItems = (cartItems, userCart) => dispatch => {
     });
 };
 
+// export const removeCartItems = (_id, quantity) => {
+//   // axios.post(`${USER_SERVER}/add-to-cart?productId=${_id}`).then(res =>
+//   //   dispatch({
+//   //     type: DEC_ITEM,
+//   //     payload: res.data
+//   //   })
+//   // );
+//   const data = {
+//     _id,
+//     quantity
+//   };
+//   return {
+//     type: DEC_ITEM,
+//     payload: data
+//   };
+// };
+
 export const removeCartItems = id => dispatch => {
   const request = axios
     .get(`${USER_SERVER}/remove-from-cart?_id=${id}`)
     .then(response => {
-      response.data.cart.forEach(item => {
-        response.data.cartDetail.forEach((k, i) => {
-          if (item.id === k._id) {
-            response.data.cartDetail[i].quantity = item.quantity;
-          }
-        });
+      response.data.profile.cart.forEach((item, i) => {
+        // response.data.profile.cart.forEach((k, i) => {
+        if (item.id === id) {
+          response.data.profile.cart[i].quantity = item.quantity;
+        }
+        // });
       });
       return response.data;
     });
@@ -107,7 +126,6 @@ export const removeCartItems = id => dispatch => {
 
 export const updateUserData = (dataToSubmit, history) => dispatch => {
   axios
-
     .post(`${USER_SERVER}/update-profile`, dataToSubmit)
     .then(res => history.push("/user/dashboard"))
     .catch(err =>

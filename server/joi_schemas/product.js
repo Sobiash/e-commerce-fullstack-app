@@ -41,6 +41,20 @@ const schemas = {
     .keys({
       name: name.required()
     })
+    .required(),
+  updateProduct: Joi.object()
+    .keys({
+      name: name.required(),
+      description: description.required(),
+      price: price.required(),
+      category: category.required(),
+      dress: dress.required(),
+      color: color.required(),
+      shipping: shipping.required(),
+      available: available.required(),
+      publish: publish.required(),
+      images: images.required()
+    })
     .required()
 };
 

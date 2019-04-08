@@ -12,6 +12,8 @@ import AddProduct from "./components/User/Admin/AddProduct";
 import ProductView from "./components/Product/ProductView";
 import UserCart from "./components/Cart/UserCart";
 import UpdateUserProfile from "./components/User/UpdateUserProfile";
+import EditProduct from "./components/Product/EditProduct";
+import HistoryBlock from "./components/User/HistoryBlock";
 import ManageSite from "./components/User/Admin/ManageSite";
 import NotFound from "./components/utils/NotFound";
 import RequestReset from "./components/ResetPassword/index";
@@ -49,11 +51,21 @@ const App = () => {
           exact
           component={UpdateUserProfile}
         />
+        <PrivateRoute
+          path="/user/order_history"
+          exact
+          component={HistoryBlock}
+        />
         <PrivateRoute path="/admin/add_products" exact component={AddProduct} />
         <PrivateRoute
           path="/admin/manage_categories"
           exact
           component={ManageCategories}
+        />
+        <PrivateRoute
+          path="/admin/edit_product/:id"
+          exact
+          component={EditProduct}
         />
         <Route path="/admin/site_info" exact component={ManageSite} />
         <Route path="/reset-password/:token" exact component={ResetPassword} />

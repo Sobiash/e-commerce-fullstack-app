@@ -39,4 +39,20 @@ router
     productController.addColor
   );
 
+router
+  .route("/api/product/articles_by_id")
+  .delete(
+    passport.authenticate("jwt", { session: false }),
+    admin,
+    productController.deleteArticle
+  );
+
+router
+  .route("/api/product/update-product")
+  .post(
+    validateBody("updateProduct"),
+    passport.authenticate("jwt", { session: false }),
+    productController.updateProduct
+  );
+
 module.exports = router;

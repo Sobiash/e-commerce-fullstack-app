@@ -1,5 +1,7 @@
 import {
   ADD_TO_CART,
+  INC_ITEM,
+  DEC_ITEM,
   CART_ITEMS,
   REMOVE_CART_ITEMS,
   CLEAR_UPDATE_USER_DATA,
@@ -10,7 +12,14 @@ import {
   CLEAR_CURRENT_PROFILE
 } from "../actions/types";
 
-const initialState = { profile: {}, cartDetail: {}, loading: false };
+const initialState = {
+  profile: {
+    cart: [],
+    history: []
+  },
+  cartDetail: [],
+  loading: false
+};
 
 const UserReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -35,7 +44,7 @@ const UserReducer = (state = initialState, action) => {
         ...state,
         profile: {
           ...state.profile,
-          cart: action.payload
+          cart: [...state.profile.cart, action.payload]
         }
       };
     case CART_ITEMS:
@@ -46,10 +55,10 @@ const UserReducer = (state = initialState, action) => {
     case REMOVE_CART_ITEMS:
       return {
         ...state,
-        cartDetail: action.payload.cartDetail,
-        userData: {
-          ...state.userData,
-          cart: action.payload.cart
+        // cartDetail: action.payload.cartDetail,
+        profile: {
+          ...state.profile,
+          cart: [...state.profile.cart, action.payload]
         }
       };
     case CLEAR_UPDATE_USER_DATA:

@@ -128,7 +128,7 @@ userController.updateProfile = async (req, res) => {
 
 userController.deleteProfile = async (req, res) => {
   try {
-    await User.findOneAndRemove({ _id: req.user._id });
+    await User.findOneAndDelete({ _id: req.user._id });
     return res.json({ success: true });
   } catch (error) {
     logger.error(error);

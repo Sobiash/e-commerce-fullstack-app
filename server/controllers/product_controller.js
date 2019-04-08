@@ -37,22 +37,15 @@ productController.postArticle = async (req, res) => {
 
 productController.getArticleDetail = async (req, res) => {
   try {
-    // let type = req.body.type;
-    // let items = req.query.id;
-    // if (type === "array") {
-    //   let ids = req.query.id.split(",");
-    //   items = [];
-    //   items = ids.map(item => {
-    //     return mongoose.Types.objectId(item);
-    //   });
-    // }
-
-    await Product.findOne({ _id: req.query.id })
+    const product = await Product.findOne({ _id: req.query.id })
       .populate("color")
-      .populate("dress")
-      .exec((err, doc) => {
-        return res.status(200).send(doc);
-      });
+      .populate("dress");
+
+    if (!product) {
+      return res.status(404).json({ error: "No item was found!" });
+    } else {
+      res.status(200).json(product);
+    }
   } catch (error) {
     logger.error(error);
     res.status(400).json(error);
@@ -68,7 +61,7 @@ productController.getArticleDetail = async (req, res) => {
 productController.filterItems = async (req, res) => {
   try {
     let order = req.query.order ? req.query.order : "asc";
-    let sortBy = req.query.sortBy ? req.query.sortBy : "createdAt";
+    let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
     let limit = req.query.limit ? parseInt(req.query.limit) : 100;
 
     await Product.find()
@@ -148,6 +141,77 @@ productController.getColors = async (req, res) => {
     } else {
       return res.status(422).send({
         error: "Could not find any color!"
+      });
+    }
+  } catch (error) {
+    logger.error(error);
+    res.status(400).json(error);
+  }
+};
+
+productController.deleteArticle = async (req, res) => {
+  try {
+    await Product.findOneAndDelete({ _id: req.query.id });
+    return res.json({ success: true });
+  } catch (error) {
+    logger.error(error);
+    res.status(400).json(error);
+  }
+};
+
+productController.updateProduct = async (req, res) => {
+  try {
+    // const body = await _.pick(req.body, ["name", "lastname", "email"]);
+
+    const product = await Product.findOne({ _id: req.query.id });
+    const body = req.body;
+
+    // await Product.findOne({ _id: req.query.id }, (err, doc) => {
+    //   Product.findOneAndUpdate(
+    //     { _id: req.query.id },
+    //     {
+    //       $set: {
+    //         name: req.body.name,
+    //         description: req.body.description,
+    //         price: req.body.price,
+    //         category: req.body.category,
+    //         dress: req.body.dress,
+    //         color: req.body.color,
+    //         shipping: req.body.shipping,
+    //         available: req.body.available,
+    //         publish: req.body.publish,
+    //         images: req.body.images
+    //       }
+    //     },
+    //     { new: true },
+    //     (err, doc) => {
+    //       if (err) return res.json(err);
+    //       res.status(200).json(doc);
+    //     }
+    //   );
+    // });
+
+    if (!product) {
+      return res.json({
+        message: "Sorry, something went wrong."
+      });
+    } else {
+      product.name = body.name;
+      product.description = body.description;
+      product.price = body.price;
+      product.category = body.category;
+      product.dress = body.dress;
+      product.color = body.color;
+      product.shipping = body.shipping;
+      product.available = body.available;
+      product.publish = body.publish;
+      product.images = body.images;
+
+      product.save((err, doc) => {
+        if (err) return res.status(400).json({ err });
+        return res.status(200).json({
+          success: true
+        });
       });
     }
   } catch (error) {

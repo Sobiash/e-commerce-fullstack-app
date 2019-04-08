@@ -1,21 +1,33 @@
 import React from "react";
 import { connect } from "react-redux";
 import CardBlock from "../utils/CardBlock";
-import { getProductsBySell } from "../../actions/products_actions";
+import {
+  getProductsBySell,
+  getProductsByArrival
+} from "../../actions/products_actions";
 import PropTypes from "prop-types";
 
 class PopularCategories extends React.Component {
   componentDidMount() {
     this.props.getProductsBySell();
+    this.props.getProductsByArrival();
   }
 
   render() {
     return (
       <div>
-        <CardBlock
-          productList={this.props.products.bySell}
-          title="Best Selling Products"
-        />
+        <div>
+          <CardBlock
+            productList={this.props.products.byArrival}
+            title="New Arrivals"
+          />
+        </div>
+        <div>
+          <CardBlock
+            productList={this.props.products.bySell}
+            title="Best Selling Products"
+          />
+        </div>
       </div>
     );
   }
@@ -36,5 +48,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getProductsBySell }
+  { getProductsBySell, getProductsByArrival }
 )(PopularCategories);

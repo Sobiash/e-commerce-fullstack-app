@@ -1,4 +1,5 @@
 import React from "react";
+import UserLayout from "../Hoc/UserLayout";
 
 const HistoryBlock = props => {
   const renderHistory = () =>
@@ -13,21 +14,35 @@ const HistoryBlock = props => {
         ))
       : null;
   return props.products && props.products.length > 0 ? (
-    <div className="history_blocks">
-      <table>
-        <thead>
-          <tr>
-            <th>Order Number</th>
-            <th>Product name</th>
-            <th>Price paid</th>
-            <th>Quantity</th>
-          </tr>
-        </thead>
-        <tbody>{renderHistory()}</tbody>
-      </table>
-    </div>
+    <UserLayout>
+      <div className="user_nfo_panel">
+        <div className="user_product_block_wrapper">
+          <h3>History Purchases</h3>
+          <div className="history_blocks">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order Number</th>
+                  <th>Product name</th>
+                  <th>Price paid</th>
+                  <th>Quantity</th>
+                </tr>
+              </thead>
+              <tbody>{renderHistory()}</tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </UserLayout>
   ) : (
-    "You have no history of purchases."
+    <UserLayout>
+      <div className="user_nfo_panel">
+        <div className="user_product_block_wrapper">
+          <h3>History Purchases</h3>
+          You have no history of purchases.
+        </div>
+      </div>
+    </UserLayout>
   );
 };
 

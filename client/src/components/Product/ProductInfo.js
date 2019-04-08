@@ -41,13 +41,35 @@ const ProductInfo = props => {
   );
 
   const showProductActions = detail => (
-    <div className="product_actions">
-      <div className="cart">
+    <div className="product_actions" style={{ display: "block" }}>
+      <div
+        className="cart"
+        style={{ display: "inline-block", marginRight: "10px" }}
+      >
         <MyButton
           type="add_to_cart_link"
           runAction={() => props.addToCart(detail._id)}
         />
       </div>
+      {props.user.isAdmin && (
+        <div style={{ display: "inline-block" }}>
+          <div style={{ display: "inline-block", marginRight: "10px" }}>
+            <MyButton
+              type="default"
+              linkTo={`/admin/edit_product/${detail._id}`}
+              title="EDIT PRODUCT"
+            />
+          </div>
+          <div style={{ display: "inline-block" }}>
+            <MyButton
+              type="default"
+              linkTo="/admin/edit_product"
+              title="DELETE PRODUCT"
+              runAction={() => props.deleteProduct(detail._id)}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 

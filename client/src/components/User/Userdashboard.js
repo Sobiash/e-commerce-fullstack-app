@@ -41,39 +41,30 @@ class Userdashboard extends React.Component {
               <span>{profile.lastname}</span>
               <span>{profile.email}</span>
             </div>
-
-            <MyButton
-              type="default"
-              title="Edit info"
-              linkTo="/user/user_profile"
-            />
-            <div
-              style={{ marginTop: "10px", padding: "10px 12px" }}
-              className="link_default"
-              onClick={event => this.deleteProfile(event)}
-            >
-              Delete my account
-            </div>
-          </div>
-
-          {profile.history ? (
-            <div className="user_nfo_panel">
-              <h3>History Purchases</h3>
-              <div className="user_product_block_wrapper">
-                <HistoryBlock products={profile.history} />
+            <div style={{ display: "block" }}>
+              <div style={{ display: "inline-block", marginRight: "20px" }}>
+                <MyButton
+                  type="default"
+                  title="Edit info"
+                  linkTo="/user/user_profile"
+                />
+              </div>
+              <div style={{ display: "inline-block" }}>
+                <div
+                  style={{ marginTop: "10px" }}
+                  className="link_default"
+                  onClick={event => this.deleteProfile(event)}
+                >
+                  Delete my account
+                </div>
               </div>
             </div>
-          ) : null}
+          </div>
         </div>
       );
     }
 
-    return (
-      <UserLayout>
-        <h3>Dashboard</h3>
-        {dashboardContent}
-      </UserLayout>
-    );
+    return <UserLayout>{dashboardContent}</UserLayout>;
   }
 }
 

@@ -8,37 +8,61 @@ class CartBlock extends React.Component {
     this.props.getUserProfile();
   }
 
-  renderCartImages = images => {
-    if (images.length > 0) {
-      return images[0].url;
-    } else {
-      return "/images/img1.jpeg";
-    }
-  };
+  // renderCartImages = images => {
+  //   if (images.length > 0) {
+  //     return images[0].url;
+  //   } else {
+  //     return "/images/img1.jpeg";
+  //   }
+  // };
 
   renderCartItems = () =>
-    this.props.user.cartDetail
-      ? this.props.user.cartDetail.map(item => (
+    this.props.cart
+      ? this.props.cart.map(item => (
           <tr className="table-row" key={item._id}>
             <td className="column-1">
-              <div className="cart-img-product">
+              {/* <div className="cart-img-product">
                 <img
                   src={this.renderCartImages(item.images)}
                   alt="item"
                   className="image"
                 />
-              </div>
+              </div> */}
             </td>
-            <td className="column-2">{item.name}</td>
-            <td className="column-3">{item.price}</td>
+            {/* <td className="column-2">{item.name}</td>
+            <td className="column-3">{item.price}</td> */}
             <td class="column-4">{item.quantity}</td>
             <td class="column-5">
-              <div className="item btn">
+              <div style={{ display: "block" }}>
                 <div
-                  className="cart_remove_btn"
-                  onClick={() => this.props.removeItem(item._id)}
+                  className="link_default"
+                  style={{
+                    display: "inline-block",
+                    padding: "6px",
+                    marginRight: "5px"
+                  }}
+                  // onClick={() => this.props.removeItem(item._id, item.quantity)}
                 >
-                  Remove
+                  -
+                </div>
+                <div
+                  className="link_default"
+                  style={{ display: "inline-block", padding: "5px" }}
+                >
+                  +
+                </div>
+
+                <div
+                  className="item btn "
+                  style={{ display: "inline-block", padding: "5px" }}
+                >
+                  <div
+                    className="cart_remove_btn link_default"
+                    style={{ padding: "5px" }}
+                    onClick={() => this.props.removeItem(item._id)}
+                  >
+                    Remove
+                  </div>
                 </div>
               </div>
             </td>
@@ -58,7 +82,6 @@ CartBlock.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    user: state.user,
     errors: state.errors
   };
 };

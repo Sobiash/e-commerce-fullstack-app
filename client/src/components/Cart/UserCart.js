@@ -26,23 +26,6 @@ class UserCart extends Component {
     console.log(this.props.user);
   }
 
-  componentWillReceiveProps(nextProps) {
-    // if (nextProps.user.profile.cart) {
-    //   let cartItem = [];
-    //   if (nextProps.user.profile.cart.length > 0) {
-    //     nextProps.user.profile.cart.forEach(item => {
-    //       cartItem.push(item.id);
-    //     });
-    //     this.props.cartItems(cartItem, nextProps.user.profile.cart);
-    //     if (nextProps.user.cartDetail.length > 0) {
-    //       this.calculateTotal(nextProps.user.cartDetail);
-    //     }
-    //   } else {
-    //     console.log("error");
-    //   }
-    // }
-  }
-
   calculateTotal = cartDetail => {
     let total = 0;
     cartDetail.forEach(item => {
@@ -61,18 +44,19 @@ class UserCart extends Component {
   );
   removeFromCart = id => {
     this.props.removeCartItems(id);
-    if (this.props.user.cartDetail.length <= 0) {
-      this.setState({
-        showTotal: false
-      });
-    } else {
-      this.calculateTotal(this.props.user.cartDetail);
-    }
+    // if (this.props.user.profile.cart.length <= 0) {
+    //   this.setState({
+    //     showTotal: false
+    //   });
   };
+  // else {
+  // this.calculateTotal(this.props.user.profile.cart);
+  // }
+  // };
 
   onTransactionSuccess = data => {
     this.props.onSuccessBuy({
-      cartDetail: this.props.user.cartDetail,
+      cartDetail: this.props.user.profile.cart,
       paymentData: data
     });
 
@@ -85,26 +69,47 @@ class UserCart extends Component {
   };
 
   render() {
-    console.log(this.props.user.profile.cartDetail);
-    if (this.props.user.profile.cart) {
-      let cartItem = [];
+    // console.log(this.props.user.profile.cart.length);
+    // if (this.props.user.profile.cart) {
+    //   let cartItem = [];
 
-      if (this.props.user.profile.cart) {
-        if (this.props.user.profile.cart.length > 0) {
-          this.props.user.profile.cart.forEach(item => {
-            cartItem.push(item.id);
-          });
+    //   if (this.props.user.profile.cart) {
+    //     if (this.props.user.profile.cart.length > 0) {
+    //       this.props.user.profile.cart.forEach(item => {
+    //         cartItem.push(item.id);
+    //       });
 
-          // this.props.cartItems(cartItem, this.props.user.profile.cart);
+    //       this.props.cartItems(cartItem, this.props.user.profile.cart);
 
-          if (this.props.user.cartDetail.length > 0) {
-            this.calculateTotal(this.props.user.cartDetail);
-          }
-        } else {
-          console.log("error");
-        }
-      }
-    }
+    //       if (this.props.user.cartDetail.length > 0) {
+    //         this.calculateTotal(this.props.user.cartDetail);
+    //       }
+    //     } else {
+    //       console.log("error");
+    //     }
+    //   }
+    // }
+    // const cart = this.props.user.profile.cart;
+    // // const cartI = [];
+
+    // const cartItme = cart.map(item => {
+    //   return      <div className="wrap-table-shopping-cart ">
+    //                 <table className="table-shopping-cart">
+    //                   <tr className="table-head">
+    //                     <th className="column-1" />
+    //                     <th className="column-2">Product</th>
+    //                     <th className="column-3">Price</th>
+    //                     <th className="column-4 padding">Quantity</th>
+    //                     <th className="column-5" />
+    //                   </tr>
+    //                     <CartBlock
+    //                     user={this.props.user}
+    //                     type="cart"
+    //                     removeItem={id => this.removeFromCart(id)}
+    //                   />
+    //                   </table>
+    //                   </div>
+    // });
 
     return (
       <div>
@@ -166,27 +171,28 @@ class UserCart extends Component {
 
             <div className="container-table-cart">
               <div className="container">
-                {this.props.user.cartDetail &&
-                this.props.user.cartDetail.length > 0 ? (
-                  <div className="wrap-table-shopping-cart ">
-                    <table className="table-shopping-cart">
-                      <tr className="table-head">
-                        <th className="column-1" />
-                        <th className="column-2">Product</th>
-                        <th className="column-3">Price</th>
-                        <th className="column-4 padding">Quantity</th>
-                        <th className="column-5" />
-                      </tr>
-                      <CartBlock
-                        user={this.props.user}
-                        type="cart"
-                        removeItem={id => this.removeFromCart(id)}
-                      />
-                    </table>
-                  </div>
-                ) : null}
+                {/* {cartItme} */}
+                {/* {this.props.user.cartDetail &&
+                this.props.user.cartDetail.length > 0 ? ( */}
+                <div className="wrap-table-shopping-cart ">
+                  <table className="table-shopping-cart">
+                    <tr className="table-head">
+                      <th className="column-1" />
+                      <th className="column-2">Product</th>
+                      <th className="column-3">Price</th>
+                      <th className="column-4 padding">Quantity</th>
+                      <th className="column-5" />
+                    </tr>
+                    <CartBlock
+                      cart={this.props.user.profile.cart}
+                      type="cart"
+                      removeItem={id => this.removeFromCart(id)}
+                    />
+                  </table>
+                </div>
+                {/* ) : null} */}
 
-                {this.state.showTotal ? (
+                {/* {this.state.showTotal ? (
                   <div>
                     <div className="user_cart_sum">
                       <h2>Shopping Bag, Sum</h2>
@@ -222,7 +228,7 @@ class UserCart extends Component {
                   </div>
                 ) : (
                   this.showNotItems()
-                )}
+                )} */}
               </div>
             </div>
           </div>

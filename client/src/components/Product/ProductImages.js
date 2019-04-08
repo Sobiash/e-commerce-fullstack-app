@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import ImageLightBox from "../utils/ImageLightBox";
 import { connect } from "react-redux";
 import { getProducts } from "../../actions/products_actions";
+import { getUserProfile } from "../../actions/user_actions";
+import PropTypes from "prop-types";
 
 class ProductImages extends Component {
   state = {
@@ -11,7 +13,7 @@ class ProductImages extends Component {
   };
 
   componentDidMount() {
-    if (this.props.detail.images.length > 0) {
+    if (this.props.detail.images) {
       let lightboxImages = [];
       this.props.detail.images.forEach(item => {
         lightboxImages.push(item.url);
@@ -23,7 +25,7 @@ class ProductImages extends Component {
   }
 
   renderImages = images => {
-    if (images.length > 0) {
+    if (images) {
       return images[0].url;
     } else {
       return "/images/img1.jpeg";
@@ -60,7 +62,6 @@ class ProductImages extends Component {
 
     return (
       <div className="product_image_container">
-        party
         <div className="main_pic">
           <div
             style={{
@@ -85,7 +86,4 @@ class ProductImages extends Component {
   }
 }
 
-export default connect(
-  null,
-  { getProducts }
-)(ProductImages);
+export default ProductImages;
