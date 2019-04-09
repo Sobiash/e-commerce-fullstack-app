@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const ShopHeader = props => {
   const renderList = () =>
@@ -20,14 +21,19 @@ const ShopHeader = props => {
     <div className="page_top">
       <div className="container">
         <div className="menu">
-          <Link to="/shop">
+          <a href="/shop">
             <div className="main_menu">All</div>
-          </Link>
+          </a>
           {renderList()}
         </div>
       </div>
     </div>
   );
+};
+
+ShopHeader.propTypes = {
+  list: PropTypes.array.isRequired,
+  handleFilters: PropTypes.func.isRequired
 };
 
 export default ShopHeader;

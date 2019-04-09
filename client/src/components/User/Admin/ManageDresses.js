@@ -94,13 +94,11 @@ class ManageDresses extends Component {
 
 ManageDresses.propTypes = {
   addDressType: PropTypes.func.isRequired,
-  products: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    products: state.products,
     errors: state.errors
   };
 };

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import ShopHeader from "../utils/ShopHeader";
+import ShopHeader from "./ShopHeader";
 import {
   getProducts,
   getDresses,
@@ -72,12 +72,7 @@ class Shop extends Component {
 
   loadMoreCards = () => {
     let skip = this.state.skip + this.state.limit;
-    this.props.getProducts(
-      skip,
-      this.state.limit,
-      this.state.filters,
-      this.props.products.articles
-    );
+    this.props.getProducts(skip, this.state.limit, this.state.filters);
     this.setState({
       skip
     });
@@ -90,7 +85,7 @@ class Shop extends Component {
   };
 
   render() {
-    const products = this.props.products;
+    const products = this.props.products.articles;
 
     return (
       <div>
@@ -167,7 +162,7 @@ class Shop extends Component {
                 grid={this.state.grid}
                 limit={this.state.limit}
                 size={products.size}
-                products={products.articles}
+                products={products}
                 loadMore={() => this.loadMoreCards()}
               />
             </div>

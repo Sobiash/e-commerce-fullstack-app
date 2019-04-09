@@ -7,6 +7,7 @@ import {
   populateFields
 } from "../../utils/Form/FormActions";
 
+import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getSiteData, updateSiteData } from "../../../actions/site_actions";
 
@@ -99,7 +100,7 @@ class UpdateSiteInfo extends Component {
     let formIsValid = isFormValid(this.state.formData, "site_info");
 
     if (formIsValid) {
-      this.props.dispatch(updateSiteData(dataToSubmit)).then(() => {
+      this.props.updateSiteData(dataToSubmit).then(() => {
         this.setState(
           {
             formSuccess: true
@@ -120,16 +121,23 @@ class UpdateSiteInfo extends Component {
     }
   };
   componentDidMount() {
-    this.props.dispatch(getSiteData()).then(() => {
-      const newFormData = populateFields(
-        this.state.formData,
-        this.props.site.siteData[0]
-      );
+    this.props.getSiteData();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ formError: nextProps.errors });
+    }
+    if (nextProps.site.siteData) {
+      const siteData = nextProps.site.siteData;
+
+      const newFormData = populateFields(this.state.formData, siteData);
       this.setState({
         formData: newFormData
       });
-    });
+    }
   }
+
   render() {
     return (
       <div>
@@ -164,7 +172,11 @@ class UpdateSiteInfo extends Component {
               <div className="form_success">Success</div>
             ) : null}
             {this.state.formError ? (
-              <div className="error_label">Please check your data</div>
+              <div className="error_label">
+                {this.state.formError.error
+                  ? "please check if all fields are filled properly!"
+                  : null}
+              </div>
             ) : null}
             <div
               className="link_default"
@@ -179,10 +191,21 @@ class UpdateSiteInfo extends Component {
   }
 }
 
+UpdateSiteInfo.propTypes = {
+  site: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+  getSiteData: PropTypes.func.isRequired,
+  updateSiteData: PropTypes.func.isRequired
+};
+
 const mapStateToProps = state => {
   return {
-    site: state.site
+    site: state.site,
+    errors: state.errors
   };
 };
 
-export default connect(mapStateToProps)(UpdateSiteInfo);
+export default connect(
+  mapStateToProps,
+  { getSiteData, updateSiteData }
+)(UpdateSiteInfo);

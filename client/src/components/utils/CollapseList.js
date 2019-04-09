@@ -6,6 +6,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Collapse from "@material-ui/core/Collapse";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
 
 class CollapseList extends Component {
   state = {
@@ -90,5 +91,13 @@ class CollapseList extends Component {
     );
   }
 }
+
+CollapseList.propTypes = {
+  title: PropTypes.string.isRequired,
+  open: PropTypes.bool.isRequired,
+  initState: PropTypes.bool.isRequired,
+  list: PropTypes.array.isRequired,
+  handleFilters: PropTypes.func.isRequired
+};
 
 export default CollapseList;

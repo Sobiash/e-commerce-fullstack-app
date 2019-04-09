@@ -1,6 +1,7 @@
 import React from "react";
 import MyButton from "../utils/button";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
 
 const ProductInfo = props => {
   const detail = props.detail;
@@ -61,12 +62,12 @@ const ProductInfo = props => {
             />
           </div>
           <div style={{ display: "inline-block" }}>
-            <MyButton
-              type="default"
-              linkTo="/admin/edit_product"
-              title="DELETE PRODUCT"
-              runAction={() => props.deleteProduct(detail._id)}
-            />
+            <div
+              className="link_default"
+              onClick={() => props.deleteProduct(detail._id)}
+            >
+              DELETE PRODUCT
+            </div>
           </div>
         </div>
       )}
@@ -95,6 +96,13 @@ const ProductInfo = props => {
       {showProductActions(detail)}
     </div>
   );
+};
+
+ProductInfo.propTypes = {
+  detail: PropTypes.object.isRequired,
+  addToCart: PropTypes.func.isRequired,
+  deleteProduct: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired
 };
 
 export default ProductInfo;

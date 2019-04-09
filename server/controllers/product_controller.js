@@ -24,31 +24,50 @@ productController.postArticle = async (req, res) => {
 
     const product = await new Product(body);
     product.save((err, product) => {
-      if (err) return res.status(404).json(err);
+      if (err) return res.status(404).json(err.message);
       res.status(200).json({
         article: product
       });
     });
   } catch (error) {
     logger.error(error);
-    res.status(400).json(error);
+    res.status(400).json({ error: error.message });
   }
 };
 
 productController.getArticleDetail = async (req, res) => {
   try {
-    const product = await Product.findOne({ _id: req.query.id })
+    const product = await Product.findById(req.params.id)
       .populate("color")
       .populate("dress");
-
-    if (!product) {
-      return res.status(404).json({ error: "No item was found!" });
+    if (product) {
+      res.status(200).send(product);
     } else {
-      res.status(200).json(product);
+      return res.status(404).json({
+        error: "Could not find any product!"
+      });
     }
   } catch (error) {
     logger.error(error);
-    res.status(400).json(error);
+    res.status(404).json({ error: "Could not find any product!" });
+  }
+};
+
+productController.getAllArticles = async (req, res) => {
+  try {
+    const products = await Product.find({})
+      .populate("color")
+      .populate("dress");
+    if (products) {
+      res.status(200).send(products);
+    } else {
+      return res.status(422).send({
+        error: "Could not find any product!"
+      });
+    }
+  } catch (error) {
+    logger.error(error);
+    res.status(404).json(error);
   }
 };
 
@@ -64,18 +83,22 @@ productController.filterItems = async (req, res) => {
     let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
     let limit = req.query.limit ? parseInt(req.query.limit) : 100;
 
-    await Product.find()
+    const articles = await Product.find()
       .populate("dress")
       .populate("color")
       .sort([[sortBy, order]])
       .limit(limit)
-      .exec((err, articles) => {
-        if (err) return res.status(400).send(err);
-        res.send(articles);
+      .exec();
+    if (articles) {
+      res.status(200).send(articles);
+    } else {
+      return res.status(404).send({
+        error: "Could not find any product!"
       });
+    }
   } catch (error) {
     logger.error(error);
-    res.status(400).json(error);
+    res.status(404).json({ error: "Could not find any product!" });
   }
 };
 
@@ -104,13 +127,13 @@ productController.getDresses = async (req, res) => {
     if (dresses) {
       res.status(200).send(dresses);
     } else {
-      return res.status(422).send({
+      return res.status(404).send({
         error: "Could not find any dress!"
       });
     }
   } catch (error) {
     logger.error(error);
-    res.status(400).json(error);
+    res.status(404).json({ error: "Could not find any dress!" });
   }
 };
 
@@ -151,11 +174,16 @@ productController.getColors = async (req, res) => {
 
 productController.deleteArticle = async (req, res) => {
   try {
-    await Product.findOneAndDelete({ _id: req.query.id });
-    return res.json({ success: true });
+    const article = await Product.findById(req.params.id);
+    if (article) {
+      await article.remove();
+      res.json({ success: true });
+    } else {
+      return res.status(404).json({ error: "Could not find any product!" });
+    }
   } catch (error) {
     logger.error(error);
-    res.status(400).json(error);
+    res.status(404).json({ error: "Could not find any product!" });
   }
 };
 

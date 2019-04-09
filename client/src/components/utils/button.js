@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const MyButton = props => {
   const buttons = () => {
@@ -48,4 +49,14 @@ const MyButton = props => {
   };
   return <div className="my_link">{buttons()}</div>;
 };
+
+MyButton.propTypes = {
+  altClass: PropTypes.string.isRequired,
+  runAction: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  linkTo: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  addStyles: PropTypes.object.isRequired
+};
+
 export default MyButton;

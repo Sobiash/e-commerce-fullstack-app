@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Lightbox from "react-images";
+import PropTypes from "prop-types";
 
 class ImageLightBox extends Component {
   state = {
@@ -51,5 +52,13 @@ class ImageLightBox extends Component {
     );
   }
 }
+
+ImageLightBox.propTypes = {
+  key: PropTypes.string.isRequired,
+  images: PropTypes.array.isRequired,
+  open: PropTypes.func.isRequired,
+  position: PropTypes.number.isRequired,
+  onClose: PropTypes.func.isRequired
+};
 
 export default ImageLightBox;

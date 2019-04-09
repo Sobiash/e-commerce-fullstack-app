@@ -22,17 +22,10 @@ class ManageCategories extends React.Component {
 }
 
 ManageCategories.propTypes = {
-  getUserProfile: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => {
-  return {
-    user: state.user
-  };
+  getUserProfile: PropTypes.func.isRequired
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   { getUserProfile }
 )(withRouter(ManageCategories));

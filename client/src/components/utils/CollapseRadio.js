@@ -7,6 +7,7 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
 
 export class CollapseRadio extends Component {
   state = {
@@ -77,5 +78,12 @@ export class CollapseRadio extends Component {
     );
   }
 }
+
+CollapseRadio.propTypes = {
+  title: PropTypes.string.isRequired,
+  initState: PropTypes.bool.isRequired,
+  list: PropTypes.array.isRequired,
+  handleFilters: PropTypes.func.isRequired
+};
 
 export default CollapseRadio;

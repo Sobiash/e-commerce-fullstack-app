@@ -10,14 +10,16 @@ import {
   CLEAR_PRODUCT_DETAIL,
   GET_ERRORS,
   GET_COLORS,
-  EDIT_PRODUCT
+  DELETE_PRODUCT,
+  EDIT_PRODUCT,
+  ADD_PRODUCT
 } from "./types";
 
 //?sortBy=sold&order=desc&limit=10
 
 export const getProductsByArrival = () => dispatch => {
   axios
-    .get(`${PRODUCT_SERVER}/articles?sortBy=createdAt&order=desc&limit=4`)
+    .get(`${PRODUCT_SERVER}/filter_items?sortBy=createdAt&order=desc&limit=4`)
     .then(res =>
       dispatch({
         type: GET_PRODUCTS_BY_ARRIVAL,
@@ -28,7 +30,7 @@ export const getProductsByArrival = () => dispatch => {
 
 export const getProductsBySell = () => dispatch => {
   axios
-    .get(`${PRODUCT_SERVER}/articles?sortBy=sold&order=desc&limit=4`)
+    .get(`${PRODUCT_SERVER}/filter_items?sortBy=sold&order=desc&limit=4`)
     .then(res =>
       dispatch({
         type: GET_PRODUCTS_BY_SELL,
@@ -37,35 +39,38 @@ export const getProductsBySell = () => dispatch => {
     );
 };
 
-export const getProducts = (
-  skip,
-  limit,
-  filters = [],
-  previousState = []
-) => dispatch => {
+export const getProducts = (skip, limit, filters = []) => dispatch => {
   const data = {
     limit,
     skip,
     filters
   };
 
-  const request = axios.post(`${PRODUCT_SERVER}/shop`, data).then(response => {
-    let newState = [...previousState, ...response.data.articles];
-    return {
-      size: response.data.size,
-      articles: newState
-    };
-  });
-  dispatch({
-    type: GET_PRODUCTS,
-    payload: request
-  });
+  axios
+    .post(`${PRODUCT_SERVER}/shop`, data)
+    .then(res => {
+      dispatch({
+        type: GET_PRODUCTS,
+        payload: res.data
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data
+      });
+    });
 };
 
 export const addProduct = dataToSubmit => dispatch => {
   axios
     .post(`${PRODUCT_SERVER}/article`, dataToSubmit)
-    .then(res => res.data)
+    .then(res =>
+      dispatch({
+        type: ADD_PRODUCT,
+        payload: res.data
+      })
+    )
     .catch(error => {
       dispatch({
         type: GET_ERRORS,
@@ -76,19 +81,45 @@ export const addProduct = dataToSubmit => dispatch => {
 
 export const getProductDetail = id => dispatch => {
   axios
-    .get(`${PRODUCT_SERVER}/articles_by_id?id=${id}&type=single`)
+    .get(`${PRODUCT_SERVER}/articles_by_id/${id}`)
     .then(res => {
       dispatch({
         type: GET_PRODUCT_DETAIL,
         payload: res.data
       });
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data
+      });
     });
 };
+
 export const clearProductDetail = () => {
   return {
     type: CLEAR_PRODUCT_DETAIL,
     payload: {}
   };
+};
+
+export const deleteProduct = id => dispatch => {
+  if (window.confirm("Are you sure? This can NOT be undone!")) {
+    axios
+      .delete(`${PRODUCT_SERVER}/articles_by_id/${id}`)
+      .then(res => {
+        dispatch({
+          type: DELETE_PRODUCT,
+          payload: id
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: GET_ERRORS,
+          payload: error.response.data
+        });
+      });
+  }
 };
 
 export const addDressType = dataToSubmit => dispatch => {

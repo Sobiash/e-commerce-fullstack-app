@@ -1,7 +1,8 @@
 import React from "react";
 import MyButton from "../utils/button";
+import PropTypes from "prop-types";
 
-const Promotions = props => {
+const Promotions = () => {
   const promotion = {
     img: "/images/img4.jpeg",
     lineOne: "Sale",

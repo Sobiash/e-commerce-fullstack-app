@@ -19,19 +19,19 @@ class ManageSite extends React.Component {
 }
 
 ManageSite.propTypes = {
-  getUserProfile: PropTypes.func.isRequired,
-  site: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  getUserProfile: PropTypes.func.isRequired
+  // site: PropTypes.object.isRequired,
+  // errors: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => {
-  return {
-    site: state.site,
-    errors: state.errors
-  };
-};
+// const mapStateToProps = state => {
+//   return {
+//     site: state.site,
+//     errors: state.errors
+//   };
+// };
 
 export default connect(
-  mapStateToProps,
+  null,
   { getUserProfile }
 )(ManageSite);

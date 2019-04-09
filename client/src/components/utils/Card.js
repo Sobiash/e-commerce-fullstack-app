@@ -14,15 +14,15 @@ class Card extends React.Component {
     }
   };
   render() {
-    const props = this.props;
+    const { card, grid, auth } = this.props;
 
     return (
-      <div className={`card_item_wrapper ${props.grid}`}>
-        <Link to={`/product_detail/${props._id}`}>
+      <div className={`card_item_wrapper ${grid}`}>
+        <Link to={`/product_detail/${card._id}`}>
           <div
             className="image"
             style={{
-              background: `url(${this.renderCardImage(props.images)}) no-repeat`
+              background: `url(${this.renderCardImage(card.images)}) no-repeat`
             }}
           />
           <div className="overlay" />
@@ -33,16 +33,16 @@ class Card extends React.Component {
             title="Add to cart"
             altClass="card_button"
             runAction={() => {
-              props.auth.isAuthenticated
-                ? this.props.addToCart(props._id)
+              auth.isAuthenticated
+                ? this.props.addToCart(card._id)
                 : console.log("you need to login");
             }}
           />
         </div>
         <div className="action_container">
           <div className="tags">
-            <div className="name">{props.name}</div>
-            <div className="price">${props.price}</div>
+            <div className="name">{card.name}</div>
+            <div className="price">${card.price}</div>
           </div>
         </div>
       </div>
@@ -51,15 +51,13 @@ class Card extends React.Component {
 }
 
 Card.propTypes = {
-  addToCart: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired
+  card: PropTypes.object.isRequired,
+  addToCart: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    auth: state.auth,
-    user: state.user
+    auth: state.auth
   };
 };
 

@@ -14,9 +14,13 @@ router
     productController.postArticle
   );
 
-router.get("/api/product/articles_by_id", productController.getArticleDetail);
+router.get(
+  "/api/product/articles_by_id/:id",
+  productController.getArticleDetail
+);
+router.get("/api/product/articles", productController.getAllArticles);
 
-router.get("/api/product/articles", productController.filterItems);
+router.get("/api/product/filter_items", productController.filterItems);
 
 router.get("/api/product/dresses", productController.getDresses);
 
@@ -40,7 +44,7 @@ router
   );
 
 router
-  .route("/api/product/articles_by_id")
+  .route("/api/product/articles_by_id/:id")
   .delete(
     passport.authenticate("jwt", { session: false }),
     admin,

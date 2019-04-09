@@ -95,13 +95,11 @@ class ManageDresses extends Component {
 
 ManageDresses.propTypes = {
   addColor: PropTypes.func.isRequired,
-  products: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    products: state.products,
     errors: state.errors
   };
 };

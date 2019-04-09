@@ -71,6 +71,7 @@ class Userdashboard extends React.Component {
 Userdashboard.propTypes = {
   getUserProfile: PropTypes.func.isRequired,
   deleteProfile: PropTypes.func.isRequired,
+  clearCurrentProfile: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 };
 

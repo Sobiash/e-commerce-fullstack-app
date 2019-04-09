@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import ImageLightBox from "../utils/ImageLightBox";
-import { connect } from "react-redux";
-import { getProducts } from "../../actions/products_actions";
-import { getUserProfile } from "../../actions/user_actions";
+import ImageLightBox from "./ImageLightBox";
 import PropTypes from "prop-types";
 
 class ProductImages extends Component {
@@ -13,9 +10,10 @@ class ProductImages extends Component {
   };
 
   componentDidMount() {
-    if (this.props.detail.images) {
+    const images = this.props.detail.images;
+    if (images) {
       let lightboxImages = [];
-      this.props.detail.images.forEach(item => {
+      images.forEach(item => {
         lightboxImages.push(item.url);
       });
       this.setState({
@@ -46,8 +44,8 @@ class ProductImages extends Component {
       lightbox: false
     });
   };
-  showThumbs = () =>
-    this.state.lightboxImages.map((item, i) =>
+  showThumbs = lightboxImages =>
+    lightboxImages.map((item, i) =>
       i > 0 ? (
         <div
           key={i}
@@ -58,8 +56,7 @@ class ProductImages extends Component {
       ) : null
     );
   render() {
-    const detail = this.props.detail;
-
+    const { detail } = this.props;
     return (
       <div className="product_image_container">
         <div className="main_pic">
@@ -71,10 +68,12 @@ class ProductImages extends Component {
             onClick={() => this.handleLightBox(0)}
           />
         </div>
-        <div className="main_thumbs">{this.showThumbs(detail)}</div>
+        <div className="main_thumbs">
+          {this.showThumbs(this.state.lightboxImages)}
+        </div>
         {this.state.lightbox ? (
           <ImageLightBox
-            id={detail.id}
+            key={detail._id}
             images={this.state.lightboxImages}
             open={this.state.open}
             position={this.state.imagePosition}
@@ -85,5 +84,9 @@ class ProductImages extends Component {
     );
   }
 }
+
+ProductImages.propTypes = {
+  detail: PropTypes.object.isRequired
+};
 
 export default ProductImages;

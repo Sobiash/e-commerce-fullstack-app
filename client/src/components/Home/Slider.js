@@ -1,7 +1,7 @@
 import React from "react";
 import MyButton from "../utils/button";
 
-const HomeSlider = props => {
+const HomeSlider = () => {
   const slides = [
     {
       img: "/images/img1.jpeg",

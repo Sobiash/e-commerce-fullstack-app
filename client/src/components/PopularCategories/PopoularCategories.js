@@ -18,14 +18,18 @@ class PopularCategories extends React.Component {
       <div>
         <div>
           <CardBlock
-            productList={this.props.products.byArrival}
+            list={this.props.products.byArrival}
             title="New Arrivals"
+            class="card_block"
+            grid=""
           />
         </div>
         <div>
           <CardBlock
-            productList={this.props.products.bySell}
+            list={this.props.products.bySell}
             title="Best Selling Products"
+            class="card_block"
+            grid=""
           />
         </div>
       </div>
@@ -35,14 +39,13 @@ class PopularCategories extends React.Component {
 
 PopularCategories.propTypes = {
   getProductsBySell: PropTypes.func.isRequired,
-  products: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  getProductsByArrival: PropTypes.func.isRequired,
+  products: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    products: state.products,
-    errors: state.errors
+    products: state.products
   };
 };
 

@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   getProductDetail,
-  clearProductDetail
+  clearProductDetail,
+  deleteProduct
 } from "../../actions/products_actions";
 import { addToCart, getUserProfile } from "../../actions/user_actions";
 import ProductInfo from "./ProductInfo";
@@ -16,6 +17,7 @@ class ProductView extends Component {
     const id = this.props.match.params.id;
 
     this.props.getProductDetail(id);
+
     if (!this.props.products) {
       this.props.history.push("/");
     }
@@ -27,6 +29,11 @@ class ProductView extends Component {
 
   addToCartHandler = id => {
     this.props.addToCart(id);
+  };
+
+  deleteProduct = id => {
+    this.props.deleteProduct(id);
+    this.props.history.push("/shop");
   };
 
   render() {
@@ -46,6 +53,7 @@ class ProductView extends Component {
                   detail={props}
                   addToCart={id => this.addToCartHandler(id)}
                   user={this.props.user.profile}
+                  deleteProduct={id => this.deleteProduct(id)}
                 />
               </div>
             </div>
@@ -63,18 +71,22 @@ ProductView.propTypes = {
   getProductDetail: PropTypes.func.isRequired,
   clearProductDetail: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  products: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  products: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
     products: state.products,
-    user: state.user,
-    errors: state.errors
+    user: state.user
   };
 };
 export default connect(
   mapStateToProps,
-  { getUserProfile, addToCart, getProductDetail, clearProductDetail }
+  {
+    getUserProfile,
+    addToCart,
+    getProductDetail,
+    clearProductDetail,
+    deleteProduct
+  }
 )(ProductView);

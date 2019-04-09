@@ -4,15 +4,22 @@ import {
   GET_PRODUCTS,
   GET_DRESSES,
   GET_COLORS,
+  ADD_PRODUCT,
   GET_PRODUCT_DETAIL,
   CLEAR_PRODUCT_DETAIL,
+  DELETE_PRODUCT,
   EDIT_PRODUCT
 } from "../actions/types";
 
-const initialState = {};
+const initialState = { articles: [], product: {} };
 
 const ProductReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ADD_PRODUCT:
+      return {
+        ...state,
+        articles: [action.payload, ...state.articles]
+      };
     case GET_PRODUCTS_BY_SELL:
       return {
         ...state,
@@ -48,6 +55,13 @@ const ProductReducer = (state = initialState, action) => {
       return {
         ...state,
         productDetail: action.payload
+      };
+    case DELETE_PRODUCT:
+      return {
+        ...state,
+        articles: state.articles.filter(
+          article => article._id !== action.payload
+        )
       };
     case EDIT_PRODUCT:
       return {

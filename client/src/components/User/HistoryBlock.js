@@ -1,5 +1,6 @@
 import React from "react";
 import UserLayout from "../Hoc/UserLayout";
+import PropTypes from "prop-types";
 
 const HistoryBlock = props => {
   const renderHistory = () =>
@@ -44,6 +45,10 @@ const HistoryBlock = props => {
       </div>
     </UserLayout>
   );
+};
+
+HistoryBlock.propTypes = {
+  products: PropTypes.array.isRequired
 };
 
 export default HistoryBlock;
