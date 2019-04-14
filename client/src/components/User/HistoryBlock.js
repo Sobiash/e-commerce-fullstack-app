@@ -4,16 +4,15 @@ import PropTypes from "prop-types";
 
 const HistoryBlock = props => {
   const renderHistory = () =>
-    props.products
-      ? props.products.map((product, i) => (
-          <tr key={i}>
-            <td>{product.purchaseOrder}</td>
-            <td>{product.name}</td>
-            <td>$ {product.price * product.quantity}</td>
-            <td>{product.quantity}</td>
-          </tr>
-        ))
-      : null;
+    props.products &&
+    props.products.map((product, i) => (
+      <tr key={i}>
+        <td>{product.purchaseOrder}</td>
+        <td>{product.name}</td>
+        <td>$ {product.price * product.quantity}</td>
+        <td>{product.quantity}</td>
+      </tr>
+    ));
   return props.products && props.products.length > 0 ? (
     <UserLayout>
       <div className="user_nfo_panel">

@@ -53,24 +53,6 @@ productController.getArticleDetail = async (req, res) => {
   }
 };
 
-productController.getAllArticles = async (req, res) => {
-  try {
-    const products = await Product.find({})
-      .populate("color")
-      .populate("dress");
-    if (products) {
-      res.status(200).send(products);
-    } else {
-      return res.status(422).send({
-        error: "Could not find any product!"
-      });
-    }
-  } catch (error) {
-    logger.error(error);
-    res.status(404).json(error);
-  }
-};
-
 //get products
 // by arrival
 // /api/product/articles?sortBy=createdAt&order=desc&limit=4
@@ -184,67 +166,6 @@ productController.deleteArticle = async (req, res) => {
   } catch (error) {
     logger.error(error);
     res.status(404).json({ error: "Could not find any product!" });
-  }
-};
-
-productController.updateProduct = async (req, res) => {
-  try {
-    // const body = await _.pick(req.body, ["name", "lastname", "email"]);
-
-    const product = await Product.findOne({ _id: req.query.id });
-    const body = req.body;
-
-    // await Product.findOne({ _id: req.query.id }, (err, doc) => {
-    //   Product.findOneAndUpdate(
-    //     { _id: req.query.id },
-    //     {
-    //       $set: {
-    //         name: req.body.name,
-    //         description: req.body.description,
-    //         price: req.body.price,
-    //         category: req.body.category,
-    //         dress: req.body.dress,
-    //         color: req.body.color,
-    //         shipping: req.body.shipping,
-    //         available: req.body.available,
-    //         publish: req.body.publish,
-    //         images: req.body.images
-    //       }
-    //     },
-    //     { new: true },
-    //     (err, doc) => {
-    //       if (err) return res.json(err);
-    //       res.status(200).json(doc);
-    //     }
-    //   );
-    // });
-
-    if (!product) {
-      return res.json({
-        message: "Sorry, something went wrong."
-      });
-    } else {
-      product.name = body.name;
-      product.description = body.description;
-      product.price = body.price;
-      product.category = body.category;
-      product.dress = body.dress;
-      product.color = body.color;
-      product.shipping = body.shipping;
-      product.available = body.available;
-      product.publish = body.publish;
-      product.images = body.images;
-
-      product.save((err, doc) => {
-        if (err) return res.status(400).json({ err });
-        return res.status(200).json({
-          success: true
-        });
-      });
-    }
-  } catch (error) {
-    logger.error(error);
-    res.status(400).json(error);
   }
 };
 

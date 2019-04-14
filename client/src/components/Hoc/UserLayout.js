@@ -49,12 +49,12 @@ class UserLayout extends React.Component {
           <div className="user_left_nav">
             <h3>My account</h3>
             <div className="links">{generateLinks(links)}</div>
-            {profile && profile.isAdmin ? (
+            {profile && profile.isAdmin && (
               <div>
                 <h3>Admin</h3>
                 <div className="links">{generateLinks(admin)}</div>
               </div>
-            ) : null}
+            )}
           </div>
           <div className="user_right">{this.props.children}</div>
         </div>

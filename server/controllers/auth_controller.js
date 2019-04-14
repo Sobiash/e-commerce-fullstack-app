@@ -6,9 +6,9 @@ const _ = require("lodash");
 require("dotenv").config();
 const logger = require("../utils/logger");
 
-const registerLoginController = {};
+const authController = {};
 
-registerLoginController.registerUser = async (req, res) => {
+authController.registerUser = async (req, res) => {
   try {
     const body = await _.pick(req.body, [
       "name",
@@ -42,7 +42,7 @@ registerLoginController.registerUser = async (req, res) => {
   }
 };
 
-registerLoginController.loginUser = async (req, res) => {
+authController.loginUser = async (req, res) => {
   try {
     const body = await _.pick(req.body, ["email", "password"]);
 
@@ -77,4 +77,4 @@ registerLoginController.loginUser = async (req, res) => {
   }
 };
 
-module.exports = registerLoginController;
+module.exports = authController;

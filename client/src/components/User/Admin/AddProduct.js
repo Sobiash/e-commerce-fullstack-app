@@ -260,7 +260,6 @@ class AddProduct extends Component {
 
     if (formIsValid) {
       this.props.addProduct(dataToSubmit);
-      console.log(dataToSubmit);
       setTimeout(() => {
         this.resetFieldHandler();
       }, 500);
@@ -273,9 +272,9 @@ class AddProduct extends Component {
         <div>
           <h3>Add Products</h3>
           <form onSubmit={event => this.submitForm(event)}>
-            {this.state.formError ? (
+            {this.state.formError && (
               <div className="error_label">{this.state.formError.error}</div>
-            ) : null}
+            )}
             <ImageUpload imagesHandler={images => this.imagesHandler(images)} />
             <FormField
               id={"name"}

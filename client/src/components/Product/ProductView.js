@@ -7,6 +7,7 @@ import {
 } from "../../actions/products_actions";
 import { addToCart, getUserProfile } from "../../actions/user_actions";
 import ProductInfo from "./ProductInfo";
+import Spinner from "../utils/spinner";
 import PropTypes from "prop-types";
 import ProductImages from "./ProductImages";
 
@@ -27,8 +28,8 @@ class ProductView extends Component {
     this.props.clearProductDetail();
   }
 
-  addToCartHandler = id => {
-    this.props.addToCart(id);
+  addToCartHandler = (id, name, price) => {
+    this.props.addToCart(id, name, price);
   };
 
   deleteProduct = id => {
@@ -51,14 +52,16 @@ class ProductView extends Component {
               <div className="right">
                 <ProductInfo
                   detail={props}
-                  addToCart={id => this.addToCartHandler(id)}
+                  addToCart={id =>
+                    this.addToCartHandler(id, props.name, props.price)
+                  }
                   user={this.props.user.profile}
                   deleteProduct={id => this.deleteProduct(id)}
                 />
               </div>
             </div>
           ) : (
-            "Loading"
+            <Spinner />
           )}
         </div>
       </div>

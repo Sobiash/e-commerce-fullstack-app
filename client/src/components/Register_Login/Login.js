@@ -92,9 +92,9 @@ class Login extends React.Component {
             data={this.state.formData.password}
             change={element => this.updateForm(element)}
           />
-          {this.state.formError ? (
+          {this.state.formError && (
             <div className="error_label"> {this.state.formError.error}</div>
-          ) : null}
+          )}
           <div className="login_buttons">
             <div
               className="link_default"

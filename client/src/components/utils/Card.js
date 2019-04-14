@@ -34,7 +34,12 @@ class Card extends React.Component {
             altClass="card_button"
             runAction={() => {
               auth.isAuthenticated
-                ? this.props.addToCart(card._id)
+                ? this.props.addToCart(
+                    card._id,
+                    card.name,
+                    card.price,
+                    card.images
+                  )
                 : console.log("you need to login");
             }}
           />

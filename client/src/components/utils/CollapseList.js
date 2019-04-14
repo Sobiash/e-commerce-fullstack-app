@@ -26,21 +26,20 @@ class CollapseList extends Component {
   };
 
   renderList = () =>
-    this.props.list
-      ? this.props.list.map(product => (
-          <ListItem key={product._id} style={{ padding: "0px 0px 0 0" }}>
-            <ListItemText primary={product.name} style={{ fontSize: "5px" }} />
-            <ListItemSecondaryAction>
-              <Checkbox
-                style={{ fontSize: "5px" }}
-                color="primary"
-                onChange={this.handleToggle(product._id)}
-                checked={this.state.checked.indexOf(product._id) !== -1}
-              />
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))
-      : null;
+    this.props.list &&
+    this.props.list.map(product => (
+      <ListItem key={product._id} style={{ padding: "0px 0px 0 0" }}>
+        <ListItemText primary={product.name} style={{ fontSize: "5px" }} />
+        <ListItemSecondaryAction>
+          <Checkbox
+            style={{ fontSize: "5px" }}
+            color="primary"
+            onChange={this.handleToggle(product._id)}
+            checked={this.state.checked.indexOf(product._id) !== -1}
+          />
+        </ListItemSecondaryAction>
+      </ListItem>
+    ));
 
   handleToggle = value => () => {
     const checked = this.state.checked;
@@ -94,7 +93,7 @@ class CollapseList extends Component {
 
 CollapseList.propTypes = {
   title: PropTypes.string.isRequired,
-  open: PropTypes.bool.isRequired,
+  // open: PropTypes.bool.isRequired,
   initState: PropTypes.bool.isRequired,
   list: PropTypes.array.isRequired,
   handleFilters: PropTypes.func.isRequired

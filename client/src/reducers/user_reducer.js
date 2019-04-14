@@ -3,6 +3,7 @@ import {
   INC_ITEM,
   DEC_ITEM,
   CART_ITEMS,
+  GET_CART_DETAIL,
   REMOVE_CART_ITEMS,
   CLEAR_UPDATE_USER_DATA,
   RESET_USER,
@@ -13,11 +14,11 @@ import {
 } from "../actions/types";
 
 const initialState = {
+  cart: [],
+  cartDetail: [],
   profile: {
-    cart: [],
     history: []
   },
-  cartDetail: [],
   loading: false
 };
 
@@ -42,24 +43,12 @@ const UserReducer = (state = initialState, action) => {
     case ADD_TO_CART:
       return {
         ...state,
-        profile: {
-          ...state.profile,
-          cart: [...state.profile.cart, action.payload]
-        }
+        cart: [...state.cart, action.payload]
       };
-    case CART_ITEMS:
+    case GET_CART_DETAIL:
       return {
         ...state,
         cartDetail: action.payload
-      };
-    case REMOVE_CART_ITEMS:
-      return {
-        ...state,
-        // cartDetail: action.payload.cartDetail,
-        profile: {
-          ...state.profile,
-          cart: [...state.profile.cart, action.payload]
-        }
       };
     case CLEAR_UPDATE_USER_DATA:
       return {

@@ -31,16 +31,15 @@ export class CollapseRadio extends Component {
       <FontAwesomeIcon icon="angle-down" className="icon" />
     );
   renderList = () =>
-    this.props.list
-      ? this.props.list.map(value => (
-          <FormControlLabel
-            key={value._id}
-            value={`${value._id}`}
-            control={<Radio />}
-            label={value.name}
-          />
-        ))
-      : null;
+    this.props.list &&
+    this.props.list.map(value => (
+      <FormControlLabel
+        key={value._id}
+        value={`${value._id}`}
+        control={<Radio />}
+        label={value.name}
+      />
+    ));
   handleChange = event => {
     this.props.handleFilters(event.target.value);
     this.setState({

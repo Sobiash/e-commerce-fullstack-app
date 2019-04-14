@@ -45,15 +45,16 @@ class ProductImages extends Component {
     });
   };
   showThumbs = lightboxImages =>
-    lightboxImages.map((item, i) =>
-      i > 0 ? (
-        <div
-          key={i}
-          onClick={() => this.handleLightBox(i)}
-          className="thumb"
-          style={{ background: `url(${item}) no-repeat` }}
-        />
-      ) : null
+    lightboxImages.map(
+      (item, i) =>
+        i > 0 && (
+          <div
+            key={i}
+            onClick={() => this.handleLightBox(i)}
+            className="thumb"
+            style={{ background: `url(${item}) no-repeat` }}
+          />
+        )
     );
   render() {
     const { detail } = this.props;
@@ -71,7 +72,7 @@ class ProductImages extends Component {
         <div className="main_thumbs">
           {this.showThumbs(this.state.lightboxImages)}
         </div>
-        {this.state.lightbox ? (
+        {this.state.lightbox && (
           <ImageLightBox
             key={detail._id}
             images={this.state.lightboxImages}
@@ -79,7 +80,7 @@ class ProductImages extends Component {
             position={this.state.imagePosition}
             onClose={() => this.handleLightBoxClose()}
           />
-        ) : null}
+        )}
       </div>
     );
   }

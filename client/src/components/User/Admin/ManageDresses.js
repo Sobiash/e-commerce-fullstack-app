@@ -75,9 +75,9 @@ class ManageDresses extends Component {
                 data={this.state.formData.name}
                 change={element => this.updateForm(element)}
               />
-              {this.state.formError ? (
+              {this.state.formError && (
                 <div className="error_label">{this.state.formError.error}</div>
-              ) : null}
+              )}
               <button
                 className="link_default"
                 onClick={event => this.submitForm(event)}

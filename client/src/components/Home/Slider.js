@@ -26,40 +26,38 @@ const HomeSlider = () => {
     }
   ];
   const generateSlider = () =>
-    slides
-      ? slides.map((item, i) => (
-          <div key={i}>
-            <div
-              className="wrapper_image"
-              style={{
-                background: `url(${item.img})`,
-                backgroundPosition: "center",
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                marginTop: "25px"
-              }}
-            >
-              <div className="featured_action">
-                <div className="tags">
-                  <div className="tag title">{item.lineOne}</div>
-                  <div className="tag low_title">{item.lineTwo}</div>
-                  <div>
-                    <MyButton
-                      type="default"
-                      title={item.linkTitle}
-                      linkTo={item.linkTo}
-                      addStyles={{
-                        margin: "10px 0 0 0"
-                      }}
-                    />
-                  </div>
-                </div>
+    slides &&
+    slides.map((item, i) => (
+      <div key={i}>
+        <div
+          className="wrapper_image"
+          style={{
+            background: `url(${item.img})`,
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            marginTop: "25px"
+          }}
+        >
+          <div className="featured_action">
+            <div className="tags">
+              <div className="tag title">{item.lineOne}</div>
+              <div className="tag low_title">{item.lineTwo}</div>
+              <div>
+                <MyButton
+                  type="default"
+                  title={item.linkTitle}
+                  linkTo={item.linkTo}
+                  addStyles={{
+                    margin: "10px 0 0 0"
+                  }}
+                />
               </div>
             </div>
           </div>
-        ))
-      : null;
-
+        </div>
+      </div>
+    ));
   return (
     <div
       style={{

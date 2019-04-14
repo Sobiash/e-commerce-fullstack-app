@@ -85,7 +85,7 @@ class Shop extends Component {
   };
 
   render() {
-    const products = this.props.products.articles;
+    const products = this.props.products;
 
     return (
       <div>
@@ -105,7 +105,7 @@ class Shop extends Component {
                 }
               />
               <CollapseList
-                initState={true}
+                initState={false}
                 title="Dresses"
                 list={products.dresses}
                 handleFilters={filters => this.handleFilters(filters, "dress")}
@@ -125,23 +125,26 @@ class Shop extends Component {
               />
             </div>
             <div className="right">
-              <div
-                className="shop-title-page"
-                style={{
-                  background: "url(images/img2.jpeg)"
-                }}
-              >
-                <h3>Free Shipping</h3>
-                <p>For Fashe Club members</p>
-                <div className="shop_span">
-                  <span>
-                    <Link to="/register">Sign up</Link>
-                  </span>
-                  <span>
-                    <Link to="/register_login">Sign in</Link>
-                  </span>
+              {!this.props.auth.isAuthenticated && (
+                <div
+                  className="shop-title-page"
+                  style={{
+                    background: "url(images/img2.jpeg)"
+                  }}
+                >
+                  <h3>Free Shipping</h3>
+                  <p>For Fashe Club members</p>
+                  <div className="shop_span">
+                    <span>
+                      <Link to="/register">Sign up</Link>
+                    </span>
+                    <span>
+                      <Link to="/register_login">Sign in</Link>
+                    </span>
+                  </div>
                 </div>
-              </div>
+              )}
+
               <div className="shop_options">
                 <div className="shop_grids clear">
                   <div
@@ -162,7 +165,7 @@ class Shop extends Component {
                 grid={this.state.grid}
                 limit={this.state.limit}
                 size={products.size}
-                products={products}
+                products={products.articles}
                 loadMore={() => this.loadMoreCards()}
               />
             </div>
@@ -177,11 +180,13 @@ Shop.propTypes = {
   getProducts: PropTypes.func.isRequired,
   getDresses: PropTypes.func.isRequired,
   getColors: PropTypes.func.isRequired,
-  products: PropTypes.object.isRequired
+  products: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
+    auth: state.auth,
     products: state.products
   };
 };

@@ -18,7 +18,6 @@ router.get(
   "/api/product/articles_by_id/:id",
   productController.getArticleDetail
 );
-router.get("/api/product/articles", productController.getAllArticles);
 
 router.get("/api/product/filter_items", productController.filterItems);
 
@@ -51,12 +50,12 @@ router
     productController.deleteArticle
   );
 
-router
-  .route("/api/product/update-product")
-  .post(
-    validateBody("updateProduct"),
-    passport.authenticate("jwt", { session: false }),
-    productController.updateProduct
-  );
+// router
+//   .route("/api/product/update-product")
+//   .post(
+//     validateBody("updateProduct"),
+//     passport.authenticate("jwt", { session: false }),
+//     productController.updateProduct
+//   );
 
 module.exports = router;

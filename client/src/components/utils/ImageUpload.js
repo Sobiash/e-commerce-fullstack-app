@@ -87,11 +87,11 @@ class ImageUpload extends Component {
               )}
             </Dropzone>
 
-            {this.state.uploading ? (
+            {this.state.uploading && (
               <div className="dropzone_box">
                 <CircularProgress style={{ color: "#00bcd4" }} thickness={5} />
               </div>
-            ) : null}
+            )}
           </div>
         </section>
         <div />

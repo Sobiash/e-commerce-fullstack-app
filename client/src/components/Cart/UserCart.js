@@ -2,10 +2,13 @@ import React, { Component } from "react";
 import CartBlock from "./CartBlock";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { generateData } from "../utils/Form/FormActions";
 import {
   getUserProfile,
-  cartItems,
+  getCartDetail,
   removeCartItems,
+  increaseItem,
+  decreaseItem,
   onSuccessBuy
 } from "../../actions/user_actions";
 import Payment from "./Payment";
@@ -23,40 +26,29 @@ class UserCart extends Component {
 
   componentDidMount() {
     this.props.getUserProfile();
-    console.log(this.props.user);
+    this.props.getCartDetail();
   }
 
-  calculateTotal = cartDetail => {
-    let total = 0;
-    cartDetail.forEach(item => {
-      total += parseInt(item.price, 10) * item.quantity;
-    });
-    this.setState({
-      total,
-      showTotal: true
-    });
-  };
   showNotItems = () => (
     <div className="cart_no_items">
       <FontAwesomeIcon icon="frown" />
       <div>You have no items</div>
     </div>
   );
+
   removeFromCart = id => {
     this.props.removeCartItems(id);
-    // if (this.props.user.profile.cart.length <= 0) {
-    //   this.setState({
-    //     showTotal: false
-    //   });
   };
-  // else {
-  // this.calculateTotal(this.props.user.profile.cart);
-  // }
-  // };
+  increaseItem = id => {
+    this.props.increaseItem(id);
+  };
+  decreaseItem = id => {
+    this.props.decreaseItem(id);
+  };
 
   onTransactionSuccess = data => {
     this.props.onSuccessBuy({
-      cartDetail: this.props.user.profile.cart,
+      cartDetail: this.props.user.cartDetail,
       paymentData: data
     });
 
@@ -69,47 +61,19 @@ class UserCart extends Component {
   };
 
   render() {
-    // console.log(this.props.user.profile.cart.length);
-    // if (this.props.user.profile.cart) {
-    //   let cartItem = [];
-
-    //   if (this.props.user.profile.cart) {
-    //     if (this.props.user.profile.cart.length > 0) {
-    //       this.props.user.profile.cart.forEach(item => {
-    //         cartItem.push(item.id);
-    //       });
-
-    //       this.props.cartItems(cartItem, this.props.user.profile.cart);
-
-    //       if (this.props.user.cartDetail.length > 0) {
-    //         this.calculateTotal(this.props.user.cartDetail);
-    //       }
-    //     } else {
-    //       console.log("error");
-    //     }
-    //   }
-    // }
-    // const cart = this.props.user.profile.cart;
-    // // const cartI = [];
-
-    // const cartItme = cart.map(item => {
-    //   return      <div className="wrap-table-shopping-cart ">
-    //                 <table className="table-shopping-cart">
-    //                   <tr className="table-head">
-    //                     <th className="column-1" />
-    //                     <th className="column-2">Product</th>
-    //                     <th className="column-3">Price</th>
-    //                     <th className="column-4 padding">Quantity</th>
-    //                     <th className="column-5" />
-    //                   </tr>
-    //                     <CartBlock
-    //                     user={this.props.user}
-    //                     type="cart"
-    //                     removeItem={id => this.removeFromCart(id)}
-    //                   />
-    //                   </table>
-    //                   </div>
-    // });
+    const cart = this.props.user.cartDetail;
+    const CartItem = cart.map(item => {
+      return (
+        <CartBlock
+          key={item._id}
+          cart={item}
+          type="cart"
+          removeItem={id => this.removeFromCart(id)}
+          increaseItem={id => this.increaseItem(id)}
+          decreaseItem={id => this.decreaseItem(id)}
+        />
+      );
+    });
 
     return (
       <div>
@@ -171,69 +135,28 @@ class UserCart extends Component {
 
             <div className="container-table-cart">
               <div className="container">
-                {/* {cartItme} */}
-                {/* {this.props.user.cartDetail &&
-                this.props.user.cartDetail.length > 0 ? ( */}
-                <div className="wrap-table-shopping-cart ">
-                  <table className="table-shopping-cart">
-                    <tr className="table-head">
-                      <th className="column-1" />
-                      <th className="column-2">Product</th>
-                      <th className="column-3">Price</th>
-                      <th className="column-4 padding">Quantity</th>
-                      <th className="column-5" />
-                    </tr>
-                    <CartBlock
-                      cart={this.props.user.profile.cart}
-                      type="cart"
-                      removeItem={id => this.removeFromCart(id)}
-                    />
-                  </table>
-                </div>
-                {/* ) : null} */}
-
-                {/* {this.state.showTotal ? (
-                  <div>
-                    <div className="user_cart_sum">
-                      <h2>Shopping Bag, Sum</h2>
-                      <div className="user_cart_info">
-                        <p>
-                          Proceed to the checkout - log in to use your Club
-                          offers in the next step
-                        </p>
-                        <p>ORDER VALUE : $ {this.state.total}</p>
-                        <p>ORDER SUM: : $ {this.state.total}</p>
-                        <div className="payment">
-                          <Payment
-                            amount={this.state.total}
-                            email={this.props.user.profile.email}
-                            onSuccess={data => this.onTransactionSuccess(data)}
-                          >
-                            <div className="link_default cart_link">
-                              Proceed to checkout
-                            </div>
-                          </Payment>
-                        </div>
-                        <p>
-                          Prices and delivery costs are not confirmed until you
-                          have reached the checkout.
-                        </p>
-                      </div>
+                {this.props.user.cartDetail &&
+                  this.props.user.cartDetail.length > 0 && (
+                    <div className="wrap-table-shopping-cart ">
+                      <table className="table-shopping-cart">
+                        <tbody>
+                          <tr className="table-head">
+                            <th className="column-1" />
+                            <th className="column-2">Product</th>
+                            <th className="column-3">Price</th>
+                            <th className="column-4 padding">Quantity</th>
+                            <th className="column-5" />
+                          </tr>
+                        </tbody>
+                        {CartItem}
+                      </table>
                     </div>
-                  </div>
-                ) : this.state.showSuccess ? (
-                  <div className="cart_success">
-                    <FontAwesomeIcon icon="smile" />
-                    <div>Thankyou for your purchases.</div>
-                  </div>
-                ) : (
-                  this.showNotItems()
-                )} */}
+                  )}
               </div>
             </div>
           </div>
         )}
-        <PopularCategories />
+        {!this.props.auth.isAuthenticated && <PopularCategories />}
       </div>
     );
   }
@@ -248,5 +171,12 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { cartItems, onSuccessBuy, removeCartItems, getUserProfile }
+  {
+    onSuccessBuy,
+    removeCartItems,
+    getCartDetail,
+    increaseItem,
+    decreaseItem,
+    getUserProfile
+  }
 )(UserCart);

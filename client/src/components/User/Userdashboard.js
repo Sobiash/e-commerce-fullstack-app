@@ -1,6 +1,5 @@
 import React from "react";
 import UserLayout from "../Hoc/UserLayout";
-import HistoryBlock from "./HistoryBlock";
 import MyButton from "../utils/button";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";

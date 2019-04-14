@@ -1,6 +1,5 @@
 import React from "react";
 import MyButton from "../utils/button";
-import PropTypes from "prop-types";
 
 const Promotions = () => {
   const promotion = {
@@ -11,7 +10,7 @@ const Promotions = () => {
     linkTo: "/shop"
   };
   const renderPromotion = () =>
-    promotion ? (
+    promotion && (
       <div
         className="home_promotion_img"
         style={{
@@ -31,7 +30,7 @@ const Promotions = () => {
           />
         </div>
       </div>
-    ) : null;
+    );
 
   return (
     <div className="container">

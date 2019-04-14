@@ -4,14 +4,12 @@ import PropTypes from "prop-types";
 
 const ShopHeader = props => {
   const renderList = () =>
-    props.list
-      ? props.list.map(category => (
-          <div key={category._id} className="main_menu">
-            <nav onClick={filters(category._id)}>{category.name}</nav>
-          </div>
-        ))
-      : null;
-
+    props.list &&
+    props.list.map(category => (
+      <div key={category._id} className="main_menu">
+        <nav onClick={filters(category._id)}>{category.name}</nav>
+      </div>
+    ));
   const filters = value => () => {
     const filters = [value];
     props.handleFilters(filters);

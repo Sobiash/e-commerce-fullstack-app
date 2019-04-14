@@ -26,3 +26,4 @@ export const PROFILE_LOADING = "profile_loading";
 export const CLEAR_CURRENT_PROFILE = "clear_current_profile";
 export const EDIT_PRODUCT = "edit_product";
 export const DELETE_PRODUCT = "delete_product";
+export const GET_CART_DETAIL = "get_cart_detail";

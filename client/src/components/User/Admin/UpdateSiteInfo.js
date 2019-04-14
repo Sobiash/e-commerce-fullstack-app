@@ -168,16 +168,15 @@ class UpdateSiteInfo extends Component {
           />
 
           <div>
-            {this.state.formSuccess ? (
+            {this.state.formSuccess && (
               <div className="form_success">Success</div>
-            ) : null}
-            {this.state.formError ? (
+            )}
+            {this.state.formError && (
               <div className="error_label">
-                {this.state.formError.error
-                  ? "please check if all fields are filled properly!"
-                  : null}
+                {this.state.formError.error &&
+                  "please check if all fields are filled properly!"}
               </div>
-            ) : null}
+            )}
             <div
               className="link_default"
               onClick={event => this.submitForm(event)}

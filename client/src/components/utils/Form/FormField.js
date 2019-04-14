@@ -19,9 +19,9 @@ const FormField = ({ data, change, id }) => {
       case "input":
         formTemplate = (
           <div className="formBlock">
-            {data.showLabel ? (
+            {data.showLabel && (
               <div className="label_inputs">{data.config.lable}</div>
-            ) : null}
+            )}
             <input
               {...data.config}
               value={data.value}
@@ -35,9 +35,9 @@ const FormField = ({ data, change, id }) => {
       case "select":
         formTemplate = (
           <div className="formBlock">
-            {data.showLabel ? (
+            {data.showLabel && (
               <div className="label_inputs">{data.config.lable}</div>
-            ) : null}
+            )}
             <select
               value={data.value}
               onBlur={event => change({ event, id, blur: true })}
@@ -58,9 +58,9 @@ const FormField = ({ data, change, id }) => {
       case "textarea":
         formTemplate = (
           <div className="formBlock">
-            {data.showLabel ? (
+            {data.showLabel && (
               <div className="label_inputs">{data.config.lable}</div>
-            ) : null}
+            )}
             <textarea
               {...data.config}
               value={data.value}

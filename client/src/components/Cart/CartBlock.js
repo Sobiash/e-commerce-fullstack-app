@@ -8,85 +8,86 @@ class CartBlock extends React.Component {
     this.props.getUserProfile();
   }
 
-  // renderCartImages = images => {
-  //   if (images.length > 0) {
-  //     return images[0].url;
-  //   } else {
-  //     return "/images/img1.jpeg";
-  //   }
-  // };
+  renderCartImages = images => {
+    if (images.length > 0) {
+      return images[0].url;
+    } else {
+      return "/images/img1.jpeg";
+    }
+  };
 
-  renderCartItems = () =>
-    this.props.cart
-      ? this.props.cart.map(item => (
-          <tr className="table-row" key={item._id}>
-            <td className="column-1">
-              {/* <div className="cart-img-product">
-                <img
-                  src={this.renderCartImages(item.images)}
-                  alt="item"
-                  className="image"
-                />
-              </div> */}
-            </td>
-            {/* <td className="column-2">{item.name}</td>
-            <td className="column-3">{item.price}</td> */}
-            <td class="column-4">{item.quantity}</td>
-            <td class="column-5">
-              <div style={{ display: "block" }}>
-                <div
-                  className="link_default"
-                  style={{
-                    display: "inline-block",
-                    padding: "6px",
-                    marginRight: "5px"
-                  }}
-                  // onClick={() => this.props.removeItem(item._id, item.quantity)}
-                >
-                  -
-                </div>
-                <div
-                  className="link_default"
-                  style={{ display: "inline-block", padding: "5px" }}
-                >
-                  +
-                </div>
+  renderCartItems = cart => {
+    return (
+      <tbody>
+        <tr className="table-row" key={cart._id}>
+          <td className="column-1">
+            <div className="cart-img-product">
+              <img
+                src={this.renderCartImages(cart.images)}
+                alt="item"
+                className="image"
+              />
+            </div>
+          </td>
+          <td className="column-2">{cart.name}</td>
+          <td className="column-3">{cart.price}</td>
+          <td className="column-4">{cart.quantity}</td>
+          <td className="column-5">
+            <div style={{ display: "block" }}>
+              <div
+                className="link_default"
+                style={{
+                  display: "inline-block",
+                  padding: "5px",
+                  marginRight: "5px"
+                }}
+                onClick={() => this.props.decreaseItem(cart.product)}
+              >
+                -
+              </div>
+              <div
+                className="link_default"
+                style={{ display: "inline-block", padding: "4px" }}
+                onClick={() => this.props.increaseItem(cart.product)}
+              >
+                +
+              </div>
 
+              <div
+                className="item btn "
+                style={{ display: "inline-block", padding: "4px" }}
+              >
                 <div
-                  className="item btn "
-                  style={{ display: "inline-block", padding: "5px" }}
+                  className="cart_remove_btn link_default"
+                  style={{ padding: "4px" }}
+                  onClick={() => this.props.removeItem(cart.product)}
                 >
-                  <div
-                    className="cart_remove_btn link_default"
-                    style={{ padding: "5px" }}
-                    onClick={() => this.props.removeItem(item._id)}
-                  >
-                    Remove
-                  </div>
+                  Remove
                 </div>
               </div>
-            </td>
-          </tr>
-        ))
-      : null;
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    );
+  };
+
   render() {
-    return <React.Fragment>{this.renderCartItems()}</React.Fragment>;
+    return (
+      <React.Fragment>{this.renderCartItems(this.props.cart)}</React.Fragment>
+    );
   }
 }
 
 CartBlock.propTypes = {
+  cart: PropTypes.object.isRequired,
   getUserProfile: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => {
-  return {
-    errors: state.errors
-  };
+  increaseItem: PropTypes.func.isRequired,
+  decreaseItem: PropTypes.func.isRequired,
+  removeItem: PropTypes.func.isRequired
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   { getUserProfile }
 )(CartBlock);

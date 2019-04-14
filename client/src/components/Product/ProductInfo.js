@@ -8,7 +8,7 @@ const ProductInfo = props => {
 
   const showProductTags = detail => (
     <div className="product_tags">
-      {detail.shipping ? (
+      {detail.shipping && (
         <div className="tag">
           <div>
             <FontAwesomeIcon icon="truck" />
@@ -17,7 +17,7 @@ const ProductInfo = props => {
             <div>Free Shipping and return</div>
           </div>
         </div>
-      ) : null}
+      )}
       {detail.available ? (
         <div className="tag">
           <div>
@@ -49,7 +49,9 @@ const ProductInfo = props => {
       >
         <MyButton
           type="add_to_cart_link"
-          runAction={() => props.addToCart(detail._id)}
+          runAction={() =>
+            props.addToCart(detail._id, detail.name, detail.price)
+          }
         />
       </div>
       {props.user.isAdmin && (
@@ -78,10 +80,10 @@ const ProductInfo = props => {
     <div className="specs">
       <h5>Specs:</h5>
       <div className="item">
-        {detail.color ? <p>Colors: {detail.color.name}</p> : null}
+        {detail.color && <p>Colors: {detail.color.name}</p>}
       </div>
       <div className="item">
-        <p>Dress type: {detail.dress ? detail.dress.name : null}</p>
+        <p>Dress type: {detail.dress && detail.dress.name}</p>
       </div>
     </div>
   );

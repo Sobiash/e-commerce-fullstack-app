@@ -72,12 +72,12 @@ class RequestReset extends Component {
             data={this.state.formData.email}
             change={element => this.updateForm(element)}
           />
-          {this.state.formSuccess ? (
+          {this.state.formSuccess && (
             <div className="form_success">Done, check your email</div>
-          ) : null}
-          {this.state.formError ? (
+          )}
+          {this.state.formError && (
             <div className="error_label">Please check your data</div>
-          ) : null}
+          )}
           <div
             className="link_default"
             onClick={event => this.submitForm(event)}
