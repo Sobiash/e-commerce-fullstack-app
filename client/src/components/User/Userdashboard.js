@@ -6,7 +6,8 @@ import { connect } from "react-redux";
 import {
   getUserProfile,
   deleteProfile,
-  clearCurrentProfile
+  clearCurrentProfile,
+  getCartDetail
 } from "../../actions/user_actions";
 import Spinner from "../utils/spinner";
 import PropTypes from "prop-types";
@@ -14,6 +15,7 @@ import PropTypes from "prop-types";
 class Userdashboard extends React.Component {
   componentDidMount() {
     this.props.getUserProfile();
+    this.props.getCartDetail();
   }
 
   deleteProfile = e => {
@@ -82,5 +84,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getUserProfile, deleteProfile, clearCurrentProfile }
+  { getUserProfile, deleteProfile, clearCurrentProfile, getCartDetail }
 )(withRouter(Userdashboard));

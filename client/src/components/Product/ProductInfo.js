@@ -50,7 +50,12 @@ const ProductInfo = props => {
         <MyButton
           type="add_to_cart_link"
           runAction={() =>
-            props.addToCart(detail._id, detail.name, detail.price)
+            props.addToCart(
+              detail._id,
+              detail.name,
+              detail.price,
+              detail.images
+            )
           }
         />
       </div>

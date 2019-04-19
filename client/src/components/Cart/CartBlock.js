@@ -1,11 +1,12 @@
 import React from "react";
-import { getUserProfile } from "../../actions/user_actions";
+import { getUserProfile, getCartDetail } from "../../actions/user_actions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 class CartBlock extends React.Component {
   componentDidMount() {
     this.props.getUserProfile();
+    this.props.getCartDetail();
   }
 
   renderCartImages = images => {
@@ -31,7 +32,9 @@ class CartBlock extends React.Component {
           </td>
           <td className="column-2">{cart.name}</td>
           <td className="column-3">{cart.price}</td>
-          <td className="column-4">{cart.quantity}</td>
+          <td className="column-4">
+            {cart.quantity >= 0 ? cart.quantity : (cart.quantity = 0)}
+          </td>
           <td className="column-5">
             <div style={{ display: "block" }}>
               <div
@@ -89,5 +92,5 @@ CartBlock.propTypes = {
 
 export default connect(
   null,
-  { getUserProfile }
+  { getUserProfile, getCartDetail }
 )(CartBlock);

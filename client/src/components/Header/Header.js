@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../actions/auth_actions";
 import {
   clearCurrentProfile,
-  getUserProfile
+  getUserProfile,
+  getCartDetail
 } from "../../actions/user_actions";
 
 import PropTypes from "prop-types";
@@ -50,6 +51,13 @@ class Header extends React.Component {
 
   componentDidMount() {
     this.props.getUserProfile();
+    this.props.getCartDetail();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.getCartDetail();
+    }
   }
 
   logoutHandler = () => {
@@ -74,10 +82,13 @@ class Header extends React.Component {
     );
 
   cartLink = (item, i) => {
-    const user = this.props.user.profile;
+    const auth = this.props.auth;
+    const user = this.props.user;
     return (
       <div className="cart_link" key={i}>
-        <span>{user.cart ? user.cart.length : 0}</span>
+        <span>
+          {auth.isAuthenticated && user.cartDetail ? user.cartDetail.length : 0}
+        </span>
         <Link to={item.linkTo} className="icon-cart">
           <img src={item.icon} alt="MY_CART" />
         </Link>
@@ -144,5 +155,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { logoutUser, clearCurrentProfile, getUserProfile }
+  { logoutUser, clearCurrentProfile, getUserProfile, getCartDetail }
 )(withRouter(Header));

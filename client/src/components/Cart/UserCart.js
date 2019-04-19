@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import CartBlock from "./CartBlock";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { generateData } from "../utils/Form/FormActions";
+import PropTypes from "prop-types";
 import {
   getUserProfile,
   getCartDetail,
@@ -161,6 +161,16 @@ class UserCart extends Component {
     );
   }
 }
+
+UserCart.propTypes = {
+  auth: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+  getUserProfile: PropTypes.func.isRequired,
+  increaseItem: PropTypes.func.isRequired,
+  decreaseItem: PropTypes.func.isRequired,
+  removeCartItems: PropTypes.func.isRequired,
+  onSuccessBuy: PropTypes.func.isRequired
+};
 
 const mapStateToProps = state => {
   return {

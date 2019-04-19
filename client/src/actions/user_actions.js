@@ -11,6 +11,7 @@ import {
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   SET_CURRENT_USER,
+  CREATE_CART,
   GET_ERRORS
 } from "./types";
 
@@ -57,13 +58,25 @@ export const deleteProfile = () => dispatch => {
   }
 };
 
-export const addToCart = (_id, name, price, images) => dispatch => {
+export const createCart = user => dispatch => {
+  let data = {
+    user
+  };
+  axios.post(`${USER_SERVER}/create-cart`, data).then(res =>
+    dispatch({
+      type: CREATE_CART,
+      payload: res.data
+    })
+  );
+};
+
+export const addToCart = (id, name, price, images) => dispatch => {
   let data = {
     name,
     price,
     images
   };
-  axios.post(`${USER_SERVER}/add-to-cart/${_id}`, data).then(res =>
+  axios.post(`${USER_SERVER}/add-to-cart/${id}`, data).then(res =>
     dispatch({
       type: ADD_TO_CART,
       payload: res.data
@@ -72,7 +85,7 @@ export const addToCart = (_id, name, price, images) => dispatch => {
 };
 
 export const getCartDetail = () => dispatch => {
-  axios.get(`${USER_SERVER}/get-cart/`).then(res =>
+  axios.get(`${USER_SERVER}/get-cart`).then(res =>
     dispatch({
       type: GET_CART_DETAIL,
       payload: res.data

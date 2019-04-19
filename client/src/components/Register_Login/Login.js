@@ -4,6 +4,7 @@ import { update, generateData, isFormValid } from "../utils/Form/FormActions";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/auth_actions";
+import { createCart } from "../../actions/user_actions";
 import PropTypes from "prop-types";
 
 class Login extends React.Component {
@@ -71,6 +72,7 @@ class Login extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/user/dashboard");
+      this.props.createCart(nextProps.auth.user.id);
     }
 
     if (nextProps.errors) {
@@ -125,11 +127,12 @@ Login.propTypes = {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
+    user: state.user,
     errors: state.errors
   };
 };
 
 export default connect(
   mapStateToProps,
-  { loginUser }
+  { loginUser, createCart }
 )(withRouter(Login));

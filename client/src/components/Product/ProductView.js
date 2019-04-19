@@ -28,8 +28,8 @@ class ProductView extends Component {
     this.props.clearProductDetail();
   }
 
-  addToCartHandler = (id, name, price) => {
-    this.props.addToCart(id, name, price);
+  addToCartHandler = (id, name, price, images) => {
+    this.props.addToCart(id, name, price, images);
   };
 
   deleteProduct = id => {
@@ -53,7 +53,12 @@ class ProductView extends Component {
                 <ProductInfo
                   detail={props}
                   addToCart={id =>
-                    this.addToCartHandler(id, props.name, props.price)
+                    this.addToCartHandler(
+                      id,
+                      props.name,
+                      props.price,
+                      props.images
+                    )
                   }
                   user={this.props.user.profile}
                   deleteProduct={id => this.deleteProduct(id)}

@@ -10,7 +10,7 @@ const store = createStore(
   rootReducer,
   initialState,
   compose(
-    applyMiddleware(logger, promiseMiddleware, ReduxThunk),
+    applyMiddleware(promiseMiddleware, ReduxThunk),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 );

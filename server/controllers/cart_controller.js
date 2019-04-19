@@ -1,21 +1,22 @@
-const { User } = require("../models/user");
-const { Product } = require("../models/product");
 const { Cart } = require("../models/cartItem");
 const mongoose = require("mongoose");
+const _ = require("lodash");
 const { logger } = require("../utils/logger");
 const cartController = {};
 
 cartController.createCart = async (req, res) => {
   try {
-    const { user } = req.body;
-    const cart = await new Cart(req.body);
-    cart.save(err => {
-      if (err)
-        return res.json({
-          err
-        });
-    });
-    res.json(cart);
+    const body = await _.pick(req.body, ["user"]);
+    const exists = await Cart.findOne({ user: body.user });
+    if (exists) {
+      res.json(exists);
+      return;
+    } else {
+      const { user } = body;
+      const cart = await new Cart(body);
+      await cart.save();
+      res.json(cart);
+    }
   } catch (error) {
     logger.error(error);
     res.status(404).json({ error: "No cart" });
@@ -119,48 +120,50 @@ cartController.removeFromCart = async (req, res) => {
 cartController.increaseItem = async (req, res) => {
   try {
     await Cart.findOne({ user: req.user._id }, (err, doc) => {
-      let duplicate = false;
       doc.cartItem.forEach(item => {
         if (item.product == req.params.id) {
-          duplicate = true;
+          Cart.findOneAndUpdate(
+            {
+              user: req.user._id,
+              "cartItem.product": mongoose.Types.ObjectId(req.params.id)
+            },
+            { $inc: { "cartItem.$.quantity": 1 } },
+            { new: true },
+            () => {
+              if (err) return res.json({ success: false, err });
+              res.status(200).json(doc.cartItem);
+            }
+          );
         }
       });
-
-      if (duplicate) {
-        Cart.findOneAndUpdate(
-          {
-            user: req.user._id,
-            "cartItem.product": mongoose.Types.ObjectId(req.params.id)
-          },
-          { $inc: { "cartItem.$.quantity": 1 } },
-          { new: true },
-          () => {
-            if (err) return res.json({ success: false, err });
-            res.status(200).json(doc.cartItem);
-          }
-        );
-      }
     });
   } catch (error) {
     logger.error(error);
     res.status(404).json({ error: "No cart" });
   }
 };
+
 cartController.decreaseItem = async (req, res) => {
   try {
     await Cart.findOne({ user: req.user._id }, (err, doc) => {
-      Cart.findOneAndUpdate(
-        {
-          user: req.user._id,
-          "cartItem.product": mongoose.Types.ObjectId(req.params.id)
-        },
-        { $inc: { "cartItem.$.quantity": -1 } },
-        { new: true },
-        () => {
-          if (err) return res.json({ success: false, err });
-          res.status(200).json(doc.cartItem);
+      doc.cartItem.forEach(item => {
+        if (item.product == req.params.id) {
+          if (item.quantity > 0) {
+            Cart.findOneAndUpdate(
+              {
+                user: req.user._id,
+                "cartItem.product": mongoose.Types.ObjectId(req.params.id)
+              },
+              { $inc: { "cartItem.$.quantity": -1 } },
+              { new: true },
+              () => {
+                if (err) return res.json({ success: false, err });
+                res.status(200).json(doc.cartItem);
+              }
+            );
+          }
         }
-      );
+      });
     });
   } catch (error) {
     logger.error(error);

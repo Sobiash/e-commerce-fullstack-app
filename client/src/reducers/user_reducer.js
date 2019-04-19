@@ -1,8 +1,6 @@
 import {
   ADD_TO_CART,
-  INC_ITEM,
-  DEC_ITEM,
-  CART_ITEMS,
+  CREATE_CART,
   GET_CART_DETAIL,
   REMOVE_CART_ITEMS,
   CLEAR_UPDATE_USER_DATA,
@@ -39,6 +37,11 @@ const UserReducer = (state = initialState, action) => {
       return {
         ...state,
         profile: {}
+      };
+    case CREATE_CART:
+      return {
+        ...state,
+        createCart: action.payload
       };
     case ADD_TO_CART:
       return {

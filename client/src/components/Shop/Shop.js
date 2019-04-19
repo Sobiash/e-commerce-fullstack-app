@@ -7,6 +7,7 @@ import {
   getDresses,
   getColors
 } from "../../actions/products_actions";
+import { getCartDetail } from "../../actions/user_actions";
 import { category, price } from "../utils/FixedCategories";
 import CollapseList from "../utils/CollapseList";
 import CollapseRadio from "../utils/CollapseRadio";
@@ -34,6 +35,9 @@ class Shop extends Component {
     );
     this.props.getDresses();
     this.props.getColors();
+    if (this.props.auth.isAuthenticated) {
+      this.props.getCartDetail();
+    }
   }
 
   handlePrice = value => {
@@ -193,5 +197,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getProducts, getDresses, getColors }
+  { getProducts, getDresses, getColors, getCartDetail }
 )(Shop);
