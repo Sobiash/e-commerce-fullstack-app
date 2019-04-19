@@ -1,6 +1,6 @@
-const { app, logger } = require("./utils/logger");
+const { app, logger } = require("./server/utils/logger");
 const bodyParser = require("body-parser");
-const { expressConf } = require("./config/config");
+const { expressConf } = require("./server/config/config");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const cloudinary = require("cloudinary");
@@ -9,11 +9,11 @@ const mongoose = require("mongoose");
 const express = require("express");
 const path = require("path");
 
-const { mongoConf } = require("./config/config");
-const routes = require("./routes/index");
+const { mongoConf } = require("./server/config/config");
+const routes = require("./server/routes/index");
 require("dotenv").config();
 
-if (app.get("env") === "development") app.use(morgan("tiny"));
+// if (app.get("env") === "development") app.use(morgan("tiny"));
 
 const { uri } = mongoConf;
 
@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use(passport.initialize());
-require("./config/passport")(passport);
+require("./server/config/passport")(passport);
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
