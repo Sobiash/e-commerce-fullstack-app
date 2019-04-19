@@ -14,8 +14,6 @@ import {
 import Payment from "./Payment";
 import PopularCategories from "../PopularCategories/PopoularCategories";
 
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
-
 class UserCart extends Component {
   state = {
     loading: true,
@@ -27,12 +25,27 @@ class UserCart extends Component {
   componentDidMount() {
     this.props.getUserProfile();
     this.props.getCartDetail();
+    if (this.props.user.cartDetail.length > 0) {
+      this.calculateTotal(this.props.user.cartDetail);
+    }
   }
 
+  calculateTotal = cartDetail => {
+    let total = 0;
+    cartDetail.forEach(item => {
+      total += parseInt(item.price, 10) * item.quantity;
+    });
+    this.setState({
+      total,
+      showTotal: true
+    });
+  };
+
   showNotItems = () => (
-    <div className="cart_no_items">
-      <FontAwesomeIcon icon="frown" />
-      <div>You have no items</div>
+    <div className="container">
+      <div style={{ marginTop: "40px", marginLeft: "350px" }}>
+        You have no items!!
+      </div>
     </div>
   );
 
@@ -136,23 +149,43 @@ class UserCart extends Component {
             <div className="container-table-cart">
               <div className="container">
                 {this.props.user.cartDetail &&
-                  this.props.user.cartDetail.length > 0 && (
-                    <div className="wrap-table-shopping-cart ">
-                      <table className="table-shopping-cart">
-                        <tbody>
-                          <tr className="table-head">
-                            <th className="column-1" />
-                            <th className="column-2">Product</th>
-                            <th className="column-3">Price</th>
-                            <th className="column-4 padding">Quantity</th>
-                            <th className="column-5" />
-                          </tr>
-                        </tbody>
-                        {CartItem}
-                      </table>
-                    </div>
-                  )}
+                this.props.user.cartDetail.length > 0 ? (
+                  <div className="wrap-table-shopping-cart ">
+                    <table className="table-shopping-cart">
+                      <tbody>
+                        <tr className="table-head">
+                          <th className="column-1" />
+                          <th className="column-2">Product</th>
+                          <th className="column-3">Price</th>
+                          <th className="column-4 padding">Quantity</th>
+                          <th className="column-5" />
+                        </tr>
+                      </tbody>
+                      {CartItem}
+                    </table>
+                  </div>
+                ) : (
+                  this.showNotItems()
+                )}
               </div>
+              {this.state.total && (
+                <div
+                  className="user_cart_sum"
+                  style={{ width: "350px", marginRight: "250px" }}
+                >
+                  <h2>Shopping Bag, Sum</h2>
+                  <div className="user_cart_info">
+                    <p>ORDER VALUE : $ {this.state.total}</p>
+                    <div className="link_default cart_link ">
+                      Proceed to checkout
+                    </div>
+                    <p>
+                      Prices and delivery costs are not confirmed until you have
+                      reached the checkout.
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}

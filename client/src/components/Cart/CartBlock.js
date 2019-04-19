@@ -32,9 +32,7 @@ class CartBlock extends React.Component {
           </td>
           <td className="column-2">{cart.name}</td>
           <td className="column-3">{cart.price}</td>
-          <td className="column-4">
-            {cart.quantity >= 0 ? cart.quantity : (cart.quantity = 0)}
-          </td>
+          <td className="column-4">{cart.quantity}</td>
           <td className="column-5">
             <div style={{ display: "block" }}>
               <div

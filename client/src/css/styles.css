@@ -1051,7 +1051,7 @@ p {
 .table-shopping-cart .table-head th {
   font-family: Montserrat-Regular;
   font-size: 13px;
-  color: #555555;
+  color: #212529;
   line-height: 1.5;
   text-transform: uppercase;
   padding-top: 16px;
@@ -1066,7 +1066,7 @@ p {
 .table-shopping-cart td {
   font-family: Montserrat-Regular;
   font-size: 16px;
-  color: #555555;
+  color: #212529;
   line-height: 1.5;
   padding-top: 37px;
   padding-bottom: 30px;
