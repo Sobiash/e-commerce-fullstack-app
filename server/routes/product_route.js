@@ -50,12 +50,4 @@ router
     productController.deleteArticle
   );
 
-// router
-//   .route("/api/product/update-product")
-//   .post(
-//     validateBody("updateProduct"),
-//     passport.authenticate("jwt", { session: false }),
-//     productController.updateProduct
-//   );
-
 module.exports = router;

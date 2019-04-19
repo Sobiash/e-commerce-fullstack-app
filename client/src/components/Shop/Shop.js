@@ -181,6 +181,7 @@ class Shop extends Component {
 }
 
 Shop.propTypes = {
+  getCartDetail: PropTypes.func.isRequired,
   getProducts: PropTypes.func.isRequired,
   getDresses: PropTypes.func.isRequired,
   getColors: PropTypes.func.isRequired,

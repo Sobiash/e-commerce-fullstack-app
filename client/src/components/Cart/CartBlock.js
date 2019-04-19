@@ -83,6 +83,7 @@ class CartBlock extends React.Component {
 CartBlock.propTypes = {
   cart: PropTypes.object.isRequired,
   getUserProfile: PropTypes.func.isRequired,
+  getCartDetail: PropTypes.func.isRequired,
   increaseItem: PropTypes.func.isRequired,
   decreaseItem: PropTypes.func.isRequired,
   removeItem: PropTypes.func.isRequired

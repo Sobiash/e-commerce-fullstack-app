@@ -6,12 +6,14 @@ const cookieParser = require("cookie-parser");
 const cloudinary = require("cloudinary");
 const passport = require("passport");
 const mongoose = require("mongoose");
+const express = require("express");
+const path = require("path");
 
 const { mongoConf } = require("./config/config");
 const routes = require("./routes/index");
 require("dotenv").config();
 
-// if (app.get("env") == "development") app.use(morgan("tiny"));
+if (app.get("env") === "development") app.use(morgan("tiny"));
 
 const { uri } = mongoConf;
 
@@ -36,6 +38,14 @@ cloudinary.config({
   api_key: process.env.CLOUD_API_KEY,
   api_secret: process.env.CLOUD_API_SECRET
 });
+
+if (app.get("env") === "production") {
+  app.use(express.static("client/build"));
+
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 (async function() {
   try {

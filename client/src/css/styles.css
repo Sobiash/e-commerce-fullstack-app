@@ -957,7 +957,7 @@ div.tag.low_title {
 
 .bg-title-page {
   width: 100%;
-  min-height: 239px;
+  min-height: 139px;
   display: flex;
   flex-direction: column;
   align-items: center;

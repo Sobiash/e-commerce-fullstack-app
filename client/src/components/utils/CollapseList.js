@@ -93,7 +93,6 @@ class CollapseList extends Component {
 
 CollapseList.propTypes = {
   title: PropTypes.string.isRequired,
-  // open: PropTypes.bool.isRequired,
   initState: PropTypes.bool.isRequired,
   list: PropTypes.array.isRequired,
   handleFilters: PropTypes.func.isRequired

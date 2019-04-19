@@ -64,11 +64,8 @@ const UserReducer = (state = initialState, action) => {
       return {
         ...state,
         successBuy: action.payload.success,
-        userData: {
-          ...state.userData,
-          cart: action.payload.cart
-        },
-        cartDetail: action.payload.cartDetail
+        cart: [],
+        cartDetail: []
       };
     default:
       return state;

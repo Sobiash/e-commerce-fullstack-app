@@ -10,24 +10,21 @@ const userController = {};
 
 userController.getUserProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).populate("cart");
-
+    const user = await User.findById(req.user._id);
     if (user) {
-      res.status(200).send(user);
+      return res.status(200).json({
+        isAdmin: req.user.role === 0 ? false : true,
+        email: req.user.email,
+        name: req.user.name,
+        lastname: req.user.lastname,
+        role: req.user.role,
+        history: req.user.history
+      });
     } else {
       return res.status(404).json({
         error: "Could not find any user!"
       });
     }
-    // return res.status(200).json({
-    //   isAdmin: req.user.role === 0 ? false : true,
-    //   email: req.user.email,
-    //   name: req.user.name,
-    //   lastname: req.user.lastname,
-    //   role: req.user.role,
-    //   cart: req.user.cart,
-    //   history: req.user.history
-    // });
   } catch (error) {
     logger.error(error);
     res.status(400).json(error);
@@ -92,7 +89,7 @@ userController.resetUserPassword = async (req, res) => {
       jwt.sign(
         payload,
         process.env.TOKEN_SECRET,
-        { expiresIn: 7200 },
+        { expiresIn: 72000 },
         (err, token) => {
           res.json({
             success: true,

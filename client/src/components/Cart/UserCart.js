@@ -16,18 +16,12 @@ import PopularCategories from "../PopularCategories/PopoularCategories";
 
 class UserCart extends Component {
   state = {
-    loading: true,
-    total: 0,
-    showTotal: false,
     showSuccess: false
   };
 
   componentDidMount() {
     this.props.getUserProfile();
     this.props.getCartDetail();
-    if (this.props.user.cartDetail.length > 0) {
-      this.calculateTotal(this.props.user.cartDetail);
-    }
   }
 
   calculateTotal = cartDetail => {
@@ -35,10 +29,7 @@ class UserCart extends Component {
     cartDetail.forEach(item => {
       total += parseInt(item.price, 10) * item.quantity;
     });
-    this.setState({
-      total,
-      showTotal: true
-    });
+    return total;
   };
 
   showNotItems = () => (
@@ -60,17 +51,7 @@ class UserCart extends Component {
   };
 
   onTransactionSuccess = data => {
-    this.props.onSuccessBuy({
-      cartDetail: this.props.user.cartDetail,
-      paymentData: data
-    });
-
-    if (this.props.user.successBuy) {
-      this.setState({
-        showTotal: false,
-        showSuccess: true
-      });
-    }
+    this.props.onSuccessBuy(data);
   };
 
   render() {
@@ -119,7 +100,6 @@ class UserCart extends Component {
                       in the next step
                     </p>
                     <p>ORDER VALUE : $ 0.00</p>
-                    <p>ORDER SUM: : $ 0.00</p>
                     <div className="link_default cart_link ">
                       Proceed to checkout
                     </div>
@@ -168,16 +148,28 @@ class UserCart extends Component {
                   this.showNotItems()
                 )}
               </div>
-              {this.state.total && (
+
+              {this.props.user.cartDetail.length > 0 && (
                 <div
                   className="user_cart_sum"
                   style={{ width: "350px", marginRight: "250px" }}
                 >
                   <h2>Shopping Bag, Sum</h2>
                   <div className="user_cart_info">
-                    <p>ORDER VALUE : $ {this.state.total}</p>
-                    <div className="link_default cart_link ">
-                      Proceed to checkout
+                    <p>
+                      ORDER VALUE : ${" "}
+                      {this.calculateTotal(this.props.user.cartDetail)}
+                    </p>
+                    <div className="payment">
+                      <Payment
+                        amount={this.calculateTotal(this.props.user.cartDetail)}
+                        email={this.props.user.email}
+                        onSuccess={data => this.onTransactionSuccess(data)}
+                      >
+                        <div className="link_default cart_link">
+                          Proceed to Checkout
+                        </div>
+                      </Payment>
                     </div>
                     <p>
                       Prices and delivery costs are not confirmed until you have
@@ -199,6 +191,7 @@ UserCart.propTypes = {
   auth: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   getUserProfile: PropTypes.func.isRequired,
+  getCartDetail: PropTypes.func.isRequired,
   increaseItem: PropTypes.func.isRequired,
   decreaseItem: PropTypes.func.isRequired,
   removeCartItems: PropTypes.func.isRequired,
