@@ -55,7 +55,7 @@ class Header extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
+    if (nextProps) {
       this.props.getCartDetail();
     }
   }

@@ -51,23 +51,33 @@ class UserCart extends Component {
   };
 
   onTransactionSuccess = data => {
-    this.props.onSuccessBuy(data);
+    this.props.onSuccessBuy({
+      cartDetail: this.props.user.cartDetail,
+      paymentData: data
+    });
+    if (this.props.user.successBuy) {
+      this.setState({
+        showSuccess: true
+      });
+    }
   };
 
   render() {
     const cart = this.props.user.cartDetail;
-    const CartItem = cart.map(item => {
-      return (
-        <CartBlock
-          key={item._id}
-          cart={item}
-          type="cart"
-          removeItem={id => this.removeFromCart(id)}
-          increaseItem={id => this.increaseItem(id)}
-          decreaseItem={id => this.decreaseItem(id)}
-        />
-      );
-    });
+    const CartItem =
+      cart.length > 0 &&
+      cart.map(item => {
+        return (
+          <CartBlock
+            key={item._id}
+            cart={item}
+            type="cart"
+            removeItem={id => this.removeFromCart(id)}
+            increaseItem={id => this.increaseItem(id)}
+            decreaseItem={id => this.decreaseItem(id)}
+          />
+        );
+      });
 
     return (
       <div>
@@ -128,8 +138,7 @@ class UserCart extends Component {
 
             <div className="container-table-cart">
               <div className="container">
-                {this.props.user.cartDetail &&
-                this.props.user.cartDetail.length > 0 ? (
+                {cart.length > 0 ? (
                   <div className="wrap-table-shopping-cart ">
                     <table className="table-shopping-cart">
                       <tbody>
@@ -149,21 +158,19 @@ class UserCart extends Component {
                 )}
               </div>
 
-              {this.props.user.cartDetail.length > 0 && (
+              {cart.length > 0 && (
                 <div
                   className="user_cart_sum"
                   style={{ width: "350px", marginRight: "250px" }}
                 >
                   <h2>Shopping Bag, Sum</h2>
                   <div className="user_cart_info">
-                    <p>
-                      ORDER VALUE : ${" "}
-                      {this.calculateTotal(this.props.user.cartDetail)}
-                    </p>
+                    <p>ORDER VALUE : $ {this.calculateTotal(cart)}</p>
                     <div className="payment">
                       <Payment
-                        amount={this.calculateTotal(this.props.user.cartDetail)}
-                        email={this.props.user.email}
+                        amount={this.calculateTotal(cart)}
+                        email={this.props.user.profile.email}
+                        cart={cart[0].images[0].url}
                         onSuccess={data => this.onTransactionSuccess(data)}
                       >
                         <div className="link_default cart_link">

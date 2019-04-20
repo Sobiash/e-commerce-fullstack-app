@@ -3,11 +3,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const orderSchema = new Schema({
-  items: {
-    type: Schema.Types.ObjectId,
-    ref: "OrderItem",
-    required: true
-  },
   user: {
     type: Schema.Types.ObjectId,
     ref: "User"
@@ -17,17 +12,33 @@ const orderSchema = new Schema({
     default: 0
   },
   charge: {
-    type: String,
-    required: true
+    type: String
   },
-  createdAt: {
-    type: Date,
-    default: Date.now
+  purchaseOrder: {
+    type: String
   },
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  }
+  orderItem: [
+    {
+      product: {
+        type: Schema.Types.ObjectId,
+        ref: "Product"
+      },
+      quantity: {
+        type: Number,
+        default: 1
+      },
+      name: {
+        type: String
+      },
+      images: {
+        type: Array,
+        default: []
+      },
+      price: {
+        type: Number
+      }
+    }
+  ]
 });
 
 const Order = mongoose.model("Order", orderSchema);

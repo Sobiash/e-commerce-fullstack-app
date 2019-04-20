@@ -1,3 +1,6 @@
+const stripe = require("stripe");
+const stripeConfig = stripe(process.env.STRIPE_SECRET_KEY);
+
 const env = {
   isDev: process.env.NODE_ENV == "development",
   isTest: process.env.NODE_ENV == "test",
@@ -30,5 +33,6 @@ module.exports = {
     port: process.env.PORT || 3002
   },
   tokenSecret,
-  env
+  env,
+  stripeConfig
 };

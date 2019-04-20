@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { USER_SERVER, PRODUCT_SERVER } from "../components/utils/config";
+import { USER_SERVER } from "../components/utils/config";
 import {
   ADD_TO_CART,
   GET_CART_DETAIL,

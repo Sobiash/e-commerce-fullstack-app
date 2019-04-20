@@ -1,8 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const paymentController = require("../controllers/payment_controller");
-const { auth } = require("../middleware/auth");
+const passport = require("passport");
 
-router.post("/api/users/success-buy", auth, paymentController.successBuy);
+router
+  .route("/api/users/success-buy")
+  .post(
+    passport.authenticate("jwt", { session: false }),
+    paymentController.successBuy
+  );
 
 module.exports = router;

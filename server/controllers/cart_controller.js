@@ -1,4 +1,4 @@
-const { Cart } = require("../models/cartItem");
+const { Cart } = require("../models/cart");
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const { logger } = require("../utils/logger");
