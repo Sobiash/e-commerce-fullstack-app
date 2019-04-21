@@ -17,6 +17,8 @@ paymentController.successBuy = async (req, res) => {
     let total = 0;
     const orderItem = [];
     const date = new Date();
+    let formatted_date =
+      date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
     const purchaseOrder = `PO-${date.getSeconds()}${date.getMilliseconds()}-${SHA1(
       req.user._id
     )
@@ -25,12 +27,13 @@ paymentController.successBuy = async (req, res) => {
 
     req.body.cartDetail.forEach(item => {
       history.push({
-        dateOfPurchase: Date.now(),
+        dateOfPurchase: formatted_date,
+        product: item.product,
         name: item.name,
         id: item._id,
         price: item.price,
         quantity: item.quantity,
-        paymentId: req.body.paymentData.id,
+        images: item.images,
         purchaseOrder
       });
     });
@@ -52,9 +55,9 @@ paymentController.successBuy = async (req, res) => {
         name: item.name,
         id: item._id,
         price: item.price,
-        quantity: item.quantity,
-        images: item.images
+        quantity: item.quantity
       });
+      return orderItem;
     });
 
     transactionData.user = req.user._id;
@@ -63,7 +66,7 @@ paymentController.successBuy = async (req, res) => {
     transactionData.orderItem = orderItem;
     transactionData.purchaseOrder = purchaseOrder;
 
-    await User.findByIdAndUpdate(
+    User.findByIdAndUpdate(
       {
         _id: req.user._id
       },

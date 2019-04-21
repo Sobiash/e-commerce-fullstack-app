@@ -218,38 +218,29 @@ select {
   font-size: 0.8rem;
   margin-top: 30px;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
 .link_default:hover {
-  background: #fff;
-  color: #222222;
+  opacity: 0.8;
 }
 
 .card_link,
 .bag_link,
 .add_to_cart_link {
-  width: 100%;
   padding: 7px 10px;
-  display: block;
   box-sizing: border-box;
   text-align: center;
   font-size: 12px;
   text-transform: uppercase;
   color: #fff;
   background: #222222;
-  transition: all 200ms ease-in;
   cursor: pointer;
 }
 .card_link:hover,
 .bag_link:hover,
 .add_to_cart_link:hover {
-  background: #fff;
-  color: #222222;
-  border: 1px solid #222222;
-}
-.add_to_cart_link {
-  color: #ffff;
-  background: #222222;
+  opacity: 0.8;
 }
 
 .action_button {

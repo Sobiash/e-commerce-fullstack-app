@@ -3,12 +3,17 @@ import UserLayout from "../Hoc/UserLayout";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { getUserProfile, getCartDetail } from "../../actions/user_actions";
+import {
+  getUserProfile,
+  getCartDetail,
+  getOrderDetails
+} from "../../actions/user_actions";
 
 class HistoryBlock extends React.Component {
   componentDidMount() {
     this.props.getUserProfile();
     this.props.getCartDetail();
+    this.props.getOrderDetails();
   }
 
   render() {
@@ -17,7 +22,8 @@ class HistoryBlock extends React.Component {
       history &&
       history.map((product, i) => (
         <tr key={i}>
-          <td>{product.purchaseOrder}</td>
+          <td>{product.dateOfPurchase}</td>
+          <td>{product.purchase}</td>
           <td>{product.name}</td>
           <td>$ {product.price * product.quantity}</td>
           <td>{product.quantity}</td>
@@ -32,6 +38,7 @@ class HistoryBlock extends React.Component {
               <table>
                 <thead>
                   <tr>
+                    <th>Order Date</th>
                     <th>Order Number</th>
                     <th>Product name</th>
                     <th>Price paid</th>
@@ -54,8 +61,6 @@ class HistoryBlock extends React.Component {
         </div>
       </UserLayout>
     );
-
-    // return <div>sobia</div>;
   }
 }
 
@@ -71,5 +76,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getUserProfile, getCartDetail }
+  { getUserProfile, getCartDetail, getOrderDetails }
 )(withRouter(HistoryBlock));

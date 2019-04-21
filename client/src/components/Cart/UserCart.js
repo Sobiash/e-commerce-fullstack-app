@@ -173,7 +173,10 @@ class UserCart extends Component {
                         cart={cart[0].images[0].url}
                         onSuccess={data => this.onTransactionSuccess(data)}
                       >
-                        <div className="link_default cart_link">
+                        <div
+                          className="bag_link"
+                          style={{ margin: "30px 0px" }}
+                        >
                           Proceed to Checkout
                         </div>
                       </Payment>

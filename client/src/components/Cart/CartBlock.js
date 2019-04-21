@@ -40,7 +40,8 @@ class CartBlock extends React.Component {
                 style={{
                   display: "inline-block",
                   padding: "5px",
-                  marginRight: "5px"
+                  marginRight: "5px",
+                  marginTop: "0"
                 }}
                 onClick={() => this.props.decreaseItem(cart.product)}
               >
@@ -48,7 +49,11 @@ class CartBlock extends React.Component {
               </div>
               <div
                 className="link_default"
-                style={{ display: "inline-block", padding: "4px" }}
+                style={{
+                  display: "inline-block",
+                  padding: "4px",
+                  marginTop: "0"
+                }}
                 onClick={() => this.props.increaseItem(cart.product)}
               >
                 +
@@ -56,11 +61,15 @@ class CartBlock extends React.Component {
 
               <div
                 className="item btn "
-                style={{ display: "inline-block", padding: "4px" }}
+                style={{
+                  display: "inline-block",
+                  padding: "4px",
+                  marginTop: "0"
+                }}
               >
                 <div
                   className="cart_remove_btn link_default"
-                  style={{ padding: "4px" }}
+                  style={{ padding: "4px", marginTop: "0" }}
                   onClick={() => this.props.removeItem(cart.product)}
                 >
                   Remove

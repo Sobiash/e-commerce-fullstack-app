@@ -2,27 +2,15 @@ import React from "react";
 import MyButton from "../utils/button";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 const ProductInfo = props => {
   const detail = props.detail;
 
   const showProductTags = detail => (
     <div className="product_tags">
-      {detail.shipping && (
-        <div className="tag">
-          <div>
-            <FontAwesomeIcon icon="truck" />
-          </div>
-          <div className="tag_text">
-            <div>Free Shipping and return</div>
-          </div>
-        </div>
-      )}
       {detail.available ? (
         <div className="tag">
-          <div>
-            <FontAwesomeIcon icon="check" />
-          </div>
           <div className="tag_text">
             <div>Available in store</div>
           </div>
@@ -61,19 +49,23 @@ const ProductInfo = props => {
       </div>
       {props.user.isAdmin && (
         <div style={{ display: "inline-block" }}>
-          <div style={{ display: "inline-block", marginRight: "10px" }}>
-            <MyButton
-              type="default"
-              linkTo={`/admin/edit_product/${detail._id}`}
-              title="EDIT PRODUCT"
-            />
+          <div
+            className="link_default"
+            style={{
+              display: "inline-block",
+              marginRight: "10px"
+            }}
+          >
+            <Link to={`/admin/edit_product/${detail._id}`}>
+              <FontAwesomeIcon icon="pencil-alt" />
+            </Link>
           </div>
           <div style={{ display: "inline-block" }}>
             <div
               className="link_default"
               onClick={() => props.deleteProduct(detail._id)}
             >
-              DELETE PRODUCT
+              <FontAwesomeIcon icon="trash-alt" />
             </div>
           </div>
         </div>

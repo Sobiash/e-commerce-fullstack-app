@@ -3,6 +3,7 @@ import FormField from "../utils/Form/FormField";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
+import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 
 import {
   update,
@@ -105,7 +106,22 @@ class UpdateInfo extends Component {
     return (
       <div>
         <form onSubmit={event => this.submitForm(event)}>
-          <h4>Personal information</h4>
+          <div style={{ display: "inline-block" }}>
+            <h4>Personal information</h4>
+          </div>
+
+          <div
+            className="link_default"
+            style={{
+              display: "inline-block",
+              marginLeft: "300px",
+              color: "#222222",
+              background: "#ffffff"
+            }}
+            onClick={event => this.submitForm(event)}
+          >
+            SAVE <FontAwesomeIcon icon="save" />
+          </div>
           <div className="form_block_two">
             <div className="block">
               <FormField
@@ -133,12 +149,6 @@ class UpdateInfo extends Component {
             {this.state.formError && (
               <div className="error_label">{this.state.formError.error}</div>
             )}
-            <div
-              className="link_default"
-              onClick={event => this.submitForm(event)}
-            >
-              Update personal info
-            </div>
           </div>
         </form>
       </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 
 const MyButton = props => {
   const buttons = () => {
@@ -25,6 +26,9 @@ const MyButton = props => {
               props.runAction();
             }}
           >
+            <div>
+              <FontAwesomeIcon icon="shopping-bag" />
+            </div>
             Add to cart
           </div>
         );
@@ -35,8 +39,9 @@ const MyButton = props => {
             onClick={() => {
               props.runAction();
             }}
-            className={!props.altClass ? "link_default" : props.altClass}
+            className={!props.altClass ? "bag_link" : props.altClass}
           >
+            <FontAwesomeIcon icon="shopping-bag" /> {"  "}
             Add to cart
           </div>
         );

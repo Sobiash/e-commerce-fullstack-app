@@ -1,8 +1,9 @@
 import React from "react";
 import UserLayout from "../Hoc/UserLayout";
-import MyButton from "../utils/button";
+import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import {
   getUserProfile,
   deleteProfile,
@@ -43,12 +44,13 @@ class Userdashboard extends React.Component {
               <span>{profile.email}</span>
             </div>
             <div style={{ display: "block" }}>
-              <div style={{ display: "inline-block", marginRight: "20px" }}>
-                <MyButton
-                  type="default"
-                  title="Edit info"
-                  linkTo="/user/user_profile"
-                />
+              <div
+                className="link_default"
+                style={{ display: "inline-block", marginRight: "20px" }}
+              >
+                <Link to="/user/user_profile">
+                  <FontAwesomeIcon icon="pencil-alt" />
+                </Link>
               </div>
               <div style={{ display: "inline-block" }}>
                 <div
@@ -56,7 +58,7 @@ class Userdashboard extends React.Component {
                   className="link_default"
                   onClick={event => this.deleteProfile(event)}
                 >
-                  Delete my account
+                  <FontAwesomeIcon icon="trash-alt" />
                 </div>
               </div>
             </div>
