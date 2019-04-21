@@ -13,7 +13,6 @@ import ProductView from "./components/Product/ProductView";
 import UserCart from "./components/Cart/UserCart";
 import UpdateUserProfile from "./components/User/UpdateUserProfile";
 import HistoryBlock from "./components/User/HistoryBlock";
-import ManageSite from "./components/User/Admin/ManageSite";
 import NotFound from "./components/utils/NotFound";
 import RequestReset from "./components/ResetPassword/index";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
@@ -62,7 +61,6 @@ const App = () => {
           component={ManageCategories}
         />
 
-        <Route path="/admin/site_info" exact component={ManageSite} />
         <Route path="/reset-password/:token" exact component={ResetPassword} />
         <Route path="/reset-user" exact component={RequestReset} />
 

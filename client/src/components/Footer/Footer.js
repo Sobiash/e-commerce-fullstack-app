@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Footer = ({ data }) => {
-  return data.siteData ? (
+const Footer = () => {
+  return (
     <footer>
       <div className="wrapper">
         <div className="container">
@@ -46,7 +46,7 @@ const Footer = ({ data }) => {
         </div>
       </div>
     </footer>
-  ) : null;
+  );
 };
 
 export default Footer;

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import MiniSummary from "../Cart/MiniSummary";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/auth_actions";
 import {
@@ -46,7 +47,11 @@ class Header extends React.Component {
         linkTo: "/user/logout",
         public: false
       }
-    ]
+    ],
+    isOpen: false,
+    subMenuOpen: false,
+    subMenuCategorySelected: "",
+    openCartPreview: false
   };
 
   componentDidMount() {
@@ -89,9 +94,33 @@ class Header extends React.Component {
         <span>
           {auth.isAuthenticated && user.cartDetail ? user.cartDetail.length : 0}
         </span>
-        <Link to={item.linkTo} className="icon-cart">
-          <img src={item.icon} alt="MY_CART" />
-        </Link>
+        <img
+          src={item.icon}
+          alt="MY_CART"
+          style={{ cursor: "pointer" }}
+          onClick={() =>
+            this.setState({ openCartPreview: !this.state.openCartPreview })
+          }
+        />
+        {this.state.openCartPreview && (
+          <div
+            style={{
+              position: "fixed",
+              width: "300px",
+              minHeight: "150px",
+              right: "15",
+              top: "50",
+              border: "solid 1px #3333",
+              zIndex: "150",
+              background: "white"
+            }}
+          >
+            <MiniSummary
+              empty={user.cartDetail.length === 0 && true}
+              cart={user.cartDetail}
+            />
+          </div>
+        )}
       </div>
     );
   };

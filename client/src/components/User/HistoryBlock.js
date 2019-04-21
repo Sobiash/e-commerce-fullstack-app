@@ -3,17 +3,12 @@ import UserLayout from "../Hoc/UserLayout";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import {
-  getUserProfile,
-  getCartDetail,
-  getOrderDetails
-} from "../../actions/user_actions";
+import { getUserProfile, getCartDetail } from "../../actions/user_actions";
 
 class HistoryBlock extends React.Component {
   componentDidMount() {
     this.props.getUserProfile();
     this.props.getCartDetail();
-    this.props.getOrderDetails();
   }
 
   render() {
@@ -65,7 +60,10 @@ class HistoryBlock extends React.Component {
 }
 
 HistoryBlock.propTypes = {
-  history: PropTypes.array.isRequired
+  user: PropTypes.object.isRequired,
+  history: PropTypes.array.isRequired,
+  getUserProfile: PropTypes.func.isRequired,
+  getCartDetail: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -76,5 +74,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getUserProfile, getCartDetail, getOrderDetails }
+  { getUserProfile, getCartDetail }
 )(withRouter(HistoryBlock));
