@@ -11,6 +11,7 @@ const LoadMore = props => {
           list={props.products}
           title=""
           class="card_block_shop"
+          toggleModal={props.toggleModal}
         />
       </div>
       {props.size > 0 && props.size >= props.limit && (

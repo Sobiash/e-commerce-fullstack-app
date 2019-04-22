@@ -7,11 +7,17 @@ import {
 } from "../../actions/products_actions";
 import { addToCart, getUserProfile } from "../../actions/user_actions";
 import ProductInfo from "./ProductInfo";
-import Spinner from "../utils/spinner";
+import Spinner from "../UI/spinner";
 import PropTypes from "prop-types";
 import ProductImages from "./ProductImages";
+import CartModal from "../UI/Modal";
+import OrderSummary from "../utils/OderSummary";
 
 class ProductView extends Component {
+  state = {
+    openModal: false
+  };
+
   componentDidMount() {
     this.props.getUserProfile();
 
@@ -37,10 +43,26 @@ class ProductView extends Component {
     this.props.history.push("/shop");
   };
 
+  toggleModal = () => this.setState({ openModal: true });
+  closeModal = () => this.setState({ openModal: false });
+
   render() {
     const props = this.props.products.productDetail;
+
     return (
       <div>
+        <CartModal
+          openModal={this.state.openModal}
+          closeModal={this.closeModal}
+        >
+          <OrderSummary
+            detail={props}
+            // infoItem={infoItem}
+            // totalItemsSelectorStats={totalItemsSelectorStats}
+            // selectedSize={selectedSize}
+            // selectedColor={selectedColor}
+          />
+        </CartModal>
         <div className="container">
           {props ? (
             <div className="product_detail_wrapper">
@@ -62,6 +84,7 @@ class ProductView extends Component {
                   }
                   user={this.props.user.profile}
                   deleteProduct={id => this.deleteProduct(id)}
+                  toggleModal={this.toggleModal}
                 />
               </div>
             </div>

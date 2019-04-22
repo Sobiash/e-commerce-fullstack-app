@@ -10,7 +10,7 @@ import {
   clearCurrentProfile,
   getCartDetail
 } from "../../actions/user_actions";
-import Spinner from "../utils/spinner";
+import Spinner from "../UI/spinner";
 import PropTypes from "prop-types";
 
 class Userdashboard extends React.Component {

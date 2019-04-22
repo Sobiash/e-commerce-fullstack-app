@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 const ProductInfo = props => {
   const detail = props.detail;
+  const toggleModal = props.toggleModal;
 
   const showProductTags = detail => (
     <div className="product_tags">
@@ -37,6 +38,7 @@ const ProductInfo = props => {
       >
         <MyButton
           type="add_to_cart_link"
+          toggleModal={toggleModal}
           runAction={() =>
             props.addToCart(
               detail._id,
@@ -100,6 +102,7 @@ const ProductInfo = props => {
 ProductInfo.propTypes = {
   detail: PropTypes.object.isRequired,
   addToCart: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
   deleteProduct: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 };

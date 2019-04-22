@@ -13,10 +13,13 @@ import CollapseList from "../utils/CollapseList";
 import CollapseRadio from "../utils/CollapseRadio";
 import LoadMore from "./LoadMore";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+import CartModal from "../UI/Modal";
+import OrderSummary from "../utils/OderSummary";
 import PropTypes from "prop-types";
 
 class Shop extends Component {
   state = {
+    openModal: false,
     grid: "",
     limit: 8,
     skip: 0,
@@ -87,6 +90,9 @@ class Shop extends Component {
       grid: !this.state.grid ? "grid_bars" : ""
     });
   };
+
+  toggleModal = () => this.setState({ openModal: true });
+  closeModal = () => this.setState({ openModal: false });
 
   render() {
     const products = this.props.products;
@@ -165,12 +171,25 @@ class Shop extends Component {
                   </div>
                 </div>
               </div>
+              <CartModal
+                openModal={this.state.openModal}
+                closeModal={this.closeModal}
+              >
+                <OrderSummary
+                  detail={products.productDetail}
+                  // infoItem={infoItem}
+                  // totalItemsSelectorStats={totalItemsSelectorStats}
+                  // selectedSize={selectedSize}
+                  // selectedColor={selectedColor}
+                />
+              </CartModal>
               <LoadMore
                 grid={this.state.grid}
                 limit={this.state.limit}
                 size={products.size}
                 products={products.articles}
                 loadMore={() => this.loadMoreCards()}
+                toggleModal={this.toggleModal}
               />
             </div>
           </div>

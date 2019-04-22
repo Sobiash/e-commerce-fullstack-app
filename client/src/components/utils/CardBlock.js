@@ -6,7 +6,12 @@ const CardBlock = props => {
   const renderCards = () =>
     props.list &&
     props.list.map(card => (
-      <Card key={card._id} card={card} grid={props.grid} />
+      <Card
+        key={card._id}
+        card={card}
+        grid={props.grid}
+        toggleModal={props.toggleModal}
+      />
     ));
   return (
     <div>

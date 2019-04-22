@@ -23,6 +23,7 @@ const MyButton = props => {
           <div
             className="bag_link"
             onClick={() => {
+              props.toggleModal();
               props.runAction();
             }}
           >
@@ -37,6 +38,7 @@ const MyButton = props => {
         button = (
           <div
             onClick={() => {
+              props.toggleModal();
               props.runAction();
             }}
             className={!props.altClass ? "bag_link" : props.altClass}
@@ -56,12 +58,13 @@ const MyButton = props => {
 };
 
 MyButton.propTypes = {
-  altClass: PropTypes.string.isRequired,
+  altClass: PropTypes.string,
   runAction: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired,
-  linkTo: PropTypes.string.isRequired,
+  toggleModal: PropTypes.func,
+  title: PropTypes.string,
+  linkTo: PropTypes.string,
   type: PropTypes.string.isRequired,
-  addStyles: PropTypes.object.isRequired
+  addStyles: PropTypes.object
 };
 
 export default MyButton;

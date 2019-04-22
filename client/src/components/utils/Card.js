@@ -32,6 +32,7 @@ class Card extends React.Component {
             type="cart_link"
             title="Add to cart"
             altClass="card_button"
+            toggleModal={this.props.toggleModal}
             runAction={() => {
               auth.isAuthenticated
                 ? this.props.addToCart(

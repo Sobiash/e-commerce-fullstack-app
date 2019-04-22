@@ -12,7 +12,6 @@ import {
   CLEAR_CURRENT_PROFILE,
   SET_CURRENT_USER,
   CREATE_CART,
-  ORDER_DETAILS,
   GET_ERRORS
 } from "./types";
 

@@ -5,23 +5,46 @@ import {
   getProductsBySell,
   getProductsByArrival
 } from "../../actions/products_actions";
+
+import CartModal from "../UI/Modal";
+import OrderSummary from "../utils/OderSummary";
 import PropTypes from "prop-types";
 
 class PopularCategories extends React.Component {
+  state = {
+    openModal: false
+  };
+
   componentDidMount() {
     this.props.getProductsBySell();
     this.props.getProductsByArrival();
   }
 
+  toggleModal = () => this.setState({ openModal: true });
+  closeModal = () => this.setState({ openModal: false });
+
   render() {
     return (
       <div>
+        <CartModal
+          openModal={this.state.openModal}
+          closeModal={this.closeModal}
+        >
+          <OrderSummary
+          // detail={props}
+          // infoItem={infoItem}
+          // totalItemsSelectorStats={totalItemsSelectorStats}
+          // selectedSize={selectedSize}
+          // selectedColor={selectedColor}
+          />
+        </CartModal>
         <div>
           <CardBlock
             list={this.props.products.byArrival}
             title="New Arrivals"
             class="card_block"
             grid=""
+            toggleModal={this.toggleModal}
           />
         </div>
         <div>
@@ -30,6 +53,7 @@ class PopularCategories extends React.Component {
             title="Best Selling Products"
             class="card_block"
             grid=""
+            toggleModal={this.toggleModal}
           />
         </div>
       </div>
