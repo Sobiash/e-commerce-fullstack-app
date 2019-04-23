@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import {
   addProduct,
   getDresses,
+  getCategories,
   getColors
 } from "../../../actions/products_actions";
 
@@ -163,11 +164,7 @@ class AddProduct extends Component {
         config: {
           lable: "Category",
           name: "category_input",
-          options: [
-            { label: "Men", value: "Men" },
-            { label: "Women", value: "Women" },
-            { label: "Child", value: "Child" }
-          ]
+          options: []
         },
         validation: {
           required: true
@@ -194,6 +191,7 @@ class AddProduct extends Component {
     this.props.getUserProfile();
     this.props.getDresses();
     this.props.getColors();
+    this.props.getCategories();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -214,6 +212,14 @@ class AddProduct extends Component {
         formData,
         nextProps.products.colors,
         "color"
+      );
+      this.updateFields(newFormData);
+    }
+    if (nextProps.products.categories) {
+      const newFormData = populateOptionFields(
+        formData,
+        nextProps.products.categories,
+        "category"
       );
       this.updateFields(newFormData);
     }
@@ -354,5 +360,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { addProduct, getUserProfile, getDresses, getColors }
+  { addProduct, getUserProfile, getDresses, getColors, getCategories }
 )(AddProduct);

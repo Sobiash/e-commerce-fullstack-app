@@ -1,20 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import ShopHeader from "./ShopHeader";
 import {
   getProducts,
   getDresses,
+  getCategories,
   getColors
 } from "../../actions/products_actions";
 import { getCartDetail } from "../../actions/user_actions";
-import { category, price } from "../utils/FixedCategories";
+import { price } from "../utils/FixedCategories";
 import CollapseList from "../utils/CollapseList";
 import CollapseRadio from "../utils/CollapseRadio";
 import LoadMore from "./LoadMore";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import CartModal from "../UI/Modal";
-import OrderSummary from "../utils/OderSummary";
 import PropTypes from "prop-types";
 
 class Shop extends Component {
@@ -38,6 +37,7 @@ class Shop extends Component {
     );
     this.props.getDresses();
     this.props.getColors();
+    this.props.getCategories();
     if (this.props.auth.isAuthenticated) {
       this.props.getCartDetail();
     }
@@ -99,17 +99,13 @@ class Shop extends Component {
 
     return (
       <div>
-        <ShopHeader
-          list={category}
-          handleFilters={filters => this.handleFilters(filters, "category")}
-        />
         <div>
           <div className="shop_wrapper">
             <div className="left">
               <CollapseList
                 initState={true}
                 title="Categories"
-                list={category}
+                list={products.categories}
                 handleFilters={filters =>
                   this.handleFilters(filters, "category")
                 }
@@ -119,6 +115,7 @@ class Shop extends Component {
                 title="Dresses"
                 list={products.dresses}
                 handleFilters={filters => this.handleFilters(filters, "dress")}
+                breadCrumbs={filters => this.breadCrumbs(filters, "dress")}
               />
               <CollapseList
                 initState={false}
@@ -171,18 +168,21 @@ class Shop extends Component {
                   </div>
                 </div>
               </div>
-              <CartModal
-                openModal={this.state.openModal}
-                closeModal={this.closeModal}
-              >
-                <OrderSummary
-                  detail={products.productDetail}
-                  // infoItem={infoItem}
-                  // totalItemsSelectorStats={totalItemsSelectorStats}
-                  // selectedSize={selectedSize}
-                  // selectedColor={selectedColor}
-                />
-              </CartModal>
+              {this.props.auth.isAuthenticated ? (
+                <CartModal
+                  openModal={this.state.openModal}
+                  closeModal={this.closeModal}
+                >
+                  Item added to your cart
+                </CartModal>
+              ) : (
+                <CartModal
+                  openModal={this.state.openModal}
+                  closeModal={this.closeModal}
+                >
+                  You need to login to add this product to your cart.
+                </CartModal>
+              )}
               <LoadMore
                 grid={this.state.grid}
                 limit={this.state.limit}
@@ -203,6 +203,7 @@ Shop.propTypes = {
   getCartDetail: PropTypes.func.isRequired,
   getProducts: PropTypes.func.isRequired,
   getDresses: PropTypes.func.isRequired,
+  getCategories: PropTypes.func.isRequired,
   getColors: PropTypes.func.isRequired,
   products: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
@@ -217,5 +218,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getProducts, getDresses, getColors, getCartDetail }
+  { getProducts, getDresses, getColors, getCategories, getCartDetail }
 )(Shop);

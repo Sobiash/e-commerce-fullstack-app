@@ -1202,8 +1202,6 @@ th {
   background-color: #fff;
   width: 70%;
   border: 1px solid #ccc;
-  border-radius: 15px;
-  box-shadow: 1px 1px 1px rgb(51, 50, 50);
   opacity: 0.8;
   padding: 16px;
   left: 15%;
@@ -1227,4 +1225,8 @@ th {
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+a.breadcrumb:hover {
+  border-bottom: 3px solid #4a4a4a;
 }

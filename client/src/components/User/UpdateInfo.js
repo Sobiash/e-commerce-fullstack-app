@@ -70,9 +70,11 @@ class UpdateInfo extends Component {
   updateForm = element => {
     const newFormData = update(element, this.state.formData, "update_user");
     this.setState({
+      formError: false,
       formData: newFormData
     });
   };
+
   submitForm = event => {
     event.preventDefault();
 
@@ -93,9 +95,10 @@ class UpdateInfo extends Component {
       this.setState({ formError: nextProps.errors });
     }
     if (nextProps.user.profile) {
-      const profile = nextProps.user.profile;
-
-      const newFormData = populateFields(this.state.formData, profile);
+      const newFormData = populateFields(
+        this.state.formData,
+        nextProps.user.profile
+      );
       this.setState({
         formData: newFormData
       });

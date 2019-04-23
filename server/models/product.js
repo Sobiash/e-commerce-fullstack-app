@@ -22,10 +22,9 @@ const productSchema = new Schema(
       required: true
     },
     category: {
-      type: String,
-      trim: true,
-      required: true,
-      unique: 1
+      type: Schema.Types.ObjectId,
+      ref: "Category",
+      required: true
     },
     dress: {
       type: Schema.Types.ObjectId,

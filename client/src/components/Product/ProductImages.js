@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ImageLightBox from "./ImageLightBox";
 import PropTypes from "prop-types";
+import BreadCrumbs from "../utils/BreadCrumbs";
 
 class ProductImages extends Component {
   state = {
@@ -44,7 +45,9 @@ class ProductImages extends Component {
       lightbox: false
     });
   };
+
   showThumbs = lightboxImages =>
+    lightboxImages &&
     lightboxImages.map(
       (item, i) =>
         i > 0 && (
@@ -58,8 +61,10 @@ class ProductImages extends Component {
     );
   render() {
     const { detail } = this.props;
+
     return (
       <div className="product_image_container">
+        <BreadCrumbs detail={detail} />
         <div className="main_pic">
           <div
             style={{

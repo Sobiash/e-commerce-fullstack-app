@@ -4,13 +4,15 @@ import {
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_BY_SELL,
   GET_PRODUCTS,
+  GET_ITEMS,
   GET_DRESSES,
   GET_PRODUCT_DETAIL,
   CLEAR_PRODUCT_DETAIL,
   GET_ERRORS,
   GET_COLORS,
   DELETE_PRODUCT,
-  ADD_PRODUCT
+  ADD_PRODUCT,
+  GET_CATEGORIES
 } from "./types";
 
 //?sortBy=sold&order=desc&limit=10
@@ -49,6 +51,23 @@ export const getProducts = (skip, limit, filters = []) => dispatch => {
     .then(res => {
       dispatch({
         type: GET_PRODUCTS,
+        payload: res.data
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data
+      });
+    });
+};
+
+export const getItems = category => dispatch => {
+  axios
+    .get(`${PRODUCT_SERVER}/get_items/${category}`)
+    .then(res => {
+      dispatch({
+        type: GET_ITEMS,
         payload: res.data
       });
     })
@@ -157,6 +176,15 @@ export const getColors = () => dispatch => {
   axios.get(`${PRODUCT_SERVER}/colors`).then(res =>
     dispatch({
       type: GET_COLORS,
+      payload: res.data
+    })
+  );
+};
+
+export const getCategories = () => dispatch => {
+  axios.get(`${PRODUCT_SERVER}/categories`).then(res =>
+    dispatch({
+      type: GET_CATEGORIES,
       payload: res.data
     })
   );

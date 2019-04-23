@@ -57,6 +57,7 @@ class CollapseList extends Component {
       },
       () => {
         this.props.handleFilters(newChecked);
+        // this.props.breadCrumbs(newChecked);
       }
     );
   };
@@ -94,7 +95,7 @@ class CollapseList extends Component {
 CollapseList.propTypes = {
   title: PropTypes.string.isRequired,
   initState: PropTypes.bool.isRequired,
-  list: PropTypes.array.isRequired,
+  list: PropTypes.array,
   handleFilters: PropTypes.func.isRequired
 };
 

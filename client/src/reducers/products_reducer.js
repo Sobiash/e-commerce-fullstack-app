@@ -3,7 +3,9 @@ import {
   GET_PRODUCTS_BY_SELL,
   GET_PRODUCTS,
   GET_DRESSES,
+  GET_CATEGORIES,
   GET_COLORS,
+  GET_ITEMS,
   ADD_PRODUCT,
   GET_PRODUCT_DETAIL,
   CLEAR_PRODUCT_DETAIL,
@@ -36,6 +38,11 @@ const ProductReducer = (state = initialState, action) => {
         articles: action.payload.articles,
         size: action.payload.size
       };
+    case GET_ITEMS:
+      return {
+        ...state,
+        getItems: action.payload
+      };
     case GET_DRESSES:
       return {
         ...state,
@@ -45,6 +52,11 @@ const ProductReducer = (state = initialState, action) => {
       return {
         ...state,
         colors: action.payload
+      };
+    case GET_CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload
       };
     case GET_PRODUCT_DETAIL:
       return {

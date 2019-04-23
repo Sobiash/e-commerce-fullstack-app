@@ -42,6 +42,11 @@ const schemas = {
       name: name.required()
     })
     .required(),
+  addCategory: Joi.object()
+    .keys({
+      name: name.required()
+    })
+    .required(),
   updateProduct: Joi.object()
     .keys({
       name: name.required(),

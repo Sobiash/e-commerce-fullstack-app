@@ -7,7 +7,7 @@ import {
 } from "../../actions/products_actions";
 
 import CartModal from "../UI/Modal";
-import OrderSummary from "../utils/OderSummary";
+
 import PropTypes from "prop-types";
 
 class PopularCategories extends React.Component {
@@ -26,18 +26,21 @@ class PopularCategories extends React.Component {
   render() {
     return (
       <div>
-        <CartModal
-          openModal={this.state.openModal}
-          closeModal={this.closeModal}
-        >
-          <OrderSummary
-          // detail={props}
-          // infoItem={infoItem}
-          // totalItemsSelectorStats={totalItemsSelectorStats}
-          // selectedSize={selectedSize}
-          // selectedColor={selectedColor}
-          />
-        </CartModal>
+        {this.props.auth.isAuthenticated ? (
+          <CartModal
+            openModal={this.state.openModal}
+            closeModal={this.closeModal}
+          >
+            Item added to your cart
+          </CartModal>
+        ) : (
+          <CartModal
+            openModal={this.state.openModal}
+            closeModal={this.closeModal}
+          >
+            You need to login to add this product to your cart.
+          </CartModal>
+        )}
         <div>
           <CardBlock
             list={this.props.products.byArrival}
@@ -64,11 +67,13 @@ class PopularCategories extends React.Component {
 PopularCategories.propTypes = {
   getProductsBySell: PropTypes.func.isRequired,
   getProductsByArrival: PropTypes.func.isRequired,
-  products: PropTypes.object.isRequired
+  products: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
+    auth: state.auth,
     products: state.products
   };
 };

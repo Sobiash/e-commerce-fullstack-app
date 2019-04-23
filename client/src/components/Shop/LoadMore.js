@@ -27,7 +27,7 @@ LoadMore.propTypes = {
   products: PropTypes.array.isRequired,
   grid: PropTypes.string.isRequired,
   limit: PropTypes.number.isRequired,
-  size: PropTypes.number.isRequired,
+  size: PropTypes.number,
   loadMore: PropTypes.func.isRequired
 };
 

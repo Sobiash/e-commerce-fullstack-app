@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   getProductDetail,
+  getCategories,
+  getDresses,
   clearProductDetail,
   deleteProduct
 } from "../../actions/products_actions";
@@ -11,7 +13,6 @@ import Spinner from "../UI/spinner";
 import PropTypes from "prop-types";
 import ProductImages from "./ProductImages";
 import CartModal from "../UI/Modal";
-import OrderSummary from "../utils/OderSummary";
 
 class ProductView extends Component {
   state = {
@@ -48,21 +49,25 @@ class ProductView extends Component {
 
   render() {
     const props = this.props.products.productDetail;
+    const user = this.props.user;
 
     return (
       <div>
-        <CartModal
-          openModal={this.state.openModal}
-          closeModal={this.closeModal}
-        >
-          <OrderSummary
-            detail={props}
-            // infoItem={infoItem}
-            // totalItemsSelectorStats={totalItemsSelectorStats}
-            // selectedSize={selectedSize}
-            // selectedColor={selectedColor}
-          />
-        </CartModal>
+        {this.props.auth.isAuthenticated ? (
+          <CartModal
+            openModal={this.state.openModal}
+            closeModal={this.closeModal}
+          >
+            Item added to your cart
+          </CartModal>
+        ) : (
+          <CartModal
+            openModal={this.state.openModal}
+            closeModal={this.closeModal}
+          >
+            You need to login to add this product to your cart.
+          </CartModal>
+        )}
         <div className="container">
           {props ? (
             <div className="product_detail_wrapper">
@@ -82,7 +87,7 @@ class ProductView extends Component {
                       props.images
                     )
                   }
-                  user={this.props.user.profile}
+                  user={user.profile}
                   deleteProduct={id => this.deleteProduct(id)}
                   toggleModal={this.toggleModal}
                 />
@@ -102,13 +107,15 @@ ProductView.propTypes = {
   getProductDetail: PropTypes.func.isRequired,
   clearProductDetail: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
   products: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
     products: state.products,
-    user: state.user
+    user: state.user,
+    auth: state.auth
   };
 };
 export default connect(

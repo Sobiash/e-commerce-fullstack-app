@@ -1,6 +1,7 @@
 const { Product } = require("../models/product");
 const { Dress } = require("../models/dress");
 const { Color } = require("../models/color");
+const { Category } = require("../models/category");
 const { logger } = require("../utils/logger");
 
 const _ = require("lodash");
@@ -39,7 +40,8 @@ productController.getArticleDetail = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id)
       .populate("color")
-      .populate("dress");
+      .populate("dress")
+      .populate("category");
     if (product) {
       res.status(200).send(product);
     } else {
@@ -50,6 +52,26 @@ productController.getArticleDetail = async (req, res) => {
   } catch (error) {
     logger.error(error);
     res.status(404).json({ error: "Could not find any product!" });
+  }
+};
+
+productController.getItems = async (req, res) => {
+  try {
+    const items = await Product.find({ category: req.params.category })
+      .populate("dress")
+      .populate("color")
+      .populate("category")
+      .exec();
+    if (items) {
+      res.status(200).send(items);
+    } else {
+      return res.status(404).send({
+        error: "Could not find any item!"
+      });
+    }
+  } catch (error) {
+    logger.error(error);
+    res.status(404).json({ error: "Could not find any item!" });
   }
 };
 
@@ -68,6 +90,7 @@ productController.filterItems = async (req, res) => {
     const articles = await Product.find()
       .populate("dress")
       .populate("color")
+      .populate("category")
       .sort([[sortBy, order]])
       .limit(limit)
       .exec();
@@ -151,6 +174,41 @@ productController.getColors = async (req, res) => {
   } catch (error) {
     logger.error(error);
     res.status(400).json(error);
+  }
+};
+
+productController.addCategory = async (req, res) => {
+  try {
+    const body = await _.pick(req.body, ["name"]);
+    const category = await new Category(body);
+    category.save(err => {
+      if (err)
+        return res.json({
+          err
+        });
+      res.status(200).json({
+        category
+      });
+    });
+  } catch (error) {
+    logger.error(error);
+    res.status(400).json(error);
+  }
+};
+
+productController.getCategories = async (req, res) => {
+  try {
+    const categories = await Category.find({});
+    if (categories) {
+      res.status(200).send(categories);
+    } else {
+      return res.status(404).send({
+        error: "Could not find any category!"
+      });
+    }
+  } catch (error) {
+    logger.error(error);
+    res.status(404).json({ error: "Could not find any dress!" });
   }
 };
 
