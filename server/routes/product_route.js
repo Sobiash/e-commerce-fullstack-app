@@ -21,7 +21,10 @@ router.get(
 
 router.get("/api/product/filter_items", productController.filterItems);
 
-router.get("/api/product/get_items/:category", productController.getItems);
+router.get(
+  "/api/product/get_items/:category",
+  productController.genderCategory
+);
 
 router.get("/api/product/dresses", productController.getDresses);
 

@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import MiniSummary from "../Cart/MiniSummary";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/auth_actions";
+
 import {
   clearCurrentProfile,
   getUserProfile,
@@ -151,17 +152,19 @@ class Header extends React.Component {
 
   render() {
     return (
-      <header className="header1">
-        <div className="wrap_header">
-          <Link to="/" className="logo">
-            <img src="/images/icons/logo.png" alt="IMG-LOGO" />
-          </Link>
-          <div className="header-icons">
-            <div>{this.showLinks(this.state.user)}</div>
-            <div>{this.showLinks(this.state.page)}</div>
+      <div>
+        <header className="header1">
+          <div className="wrap_header">
+            <Link to="/" className="logo">
+              <img src="/images/icons/logo.png" alt="IMG-LOGO" />
+            </Link>
+            <div className="header-icons">
+              <div>{this.showLinks(this.state.user)}</div>
+              <div>{this.showLinks(this.state.page)}</div>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
+      </div>
     );
   }
 }
@@ -185,5 +188,10 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { logoutUser, clearCurrentProfile, getUserProfile, getCartDetail }
+  {
+    logoutUser,
+    clearCurrentProfile,
+    getUserProfile,
+    getCartDetail
+  }
 )(withRouter(Header));

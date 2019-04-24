@@ -1,14 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const BreadCrumbs = props => {
+  const category = props.detail.category;
   return (
     <nav className="navbar">
-      <Link to="/shop" className="breadcrumb">
-        Shop
-      </Link>{" "}
-      / {props.detail.category && props.detail.category.name} /{" "}
-      {props.detail.dress && props.detail.dress.name} / {props.detail.name}
+      <NavLink to="/" className="breadcrumb">
+        Home
+      </NavLink>{" "}
+      /{" "}
+      <NavLink
+        to={`/shop/category/${category && category._id}`}
+        className="breadcrumb"
+      >
+        {category && category.name}
+      </NavLink>{" "}
+      / {props.detail.dress && props.detail.dress.name} / {props.detail.name}
     </nav>
   );
 };

@@ -55,7 +55,7 @@ productController.getArticleDetail = async (req, res) => {
   }
 };
 
-productController.getItems = async (req, res) => {
+productController.genderCategory = async (req, res) => {
   try {
     const items = await Product.find({ category: req.params.category })
       .populate("dress")

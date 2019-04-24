@@ -7,9 +7,9 @@ class SubMenu extends Component {
       this.props.list &&
       this.props.list.map(category => (
         <div key={category._id} className="main_menu">
-          <Link to={`/shop/category/${category._id}`} key={category._id}>
+          <Link to={`/shop/category/${category._id}`}>
             <nav>{category.name}</nav>
-          </Link>
+          </Link>{" "}
         </div>
       ));
     return (
@@ -21,6 +21,7 @@ class SubMenu extends Component {
             </Link>
             {renderList}
           </div>
+          {this.props.children}
         </div>
       </div>
     );

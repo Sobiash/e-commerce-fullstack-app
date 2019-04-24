@@ -4,6 +4,7 @@ import {
   GET_PRODUCTS,
   GET_DRESSES,
   GET_CATEGORIES,
+  CLEAR_CATEGORIES,
   GET_COLORS,
   GET_ITEMS,
   ADD_PRODUCT,
@@ -54,6 +55,11 @@ const ProductReducer = (state = initialState, action) => {
         colors: action.payload
       };
     case GET_CATEGORIES:
+      return {
+        ...state,
+        categories: action.payload
+      };
+    case CLEAR_CATEGORIES:
       return {
         ...state,
         categories: action.payload

@@ -57,7 +57,6 @@ class CollapseList extends Component {
       },
       () => {
         this.props.handleFilters(newChecked);
-        // this.props.breadCrumbs(newChecked);
       }
     );
   };

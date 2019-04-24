@@ -14,7 +14,7 @@ class Home extends React.Component {
     const products = this.props.products;
     return (
       <div>
-        <SubMenu list={products.categories} />
+        {/* <SubMenu list={products.categories} /> */}
         <HomeSlider />
         <Promotions />
         <PopularCategories />

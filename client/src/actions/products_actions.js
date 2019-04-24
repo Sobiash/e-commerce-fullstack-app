@@ -12,7 +12,8 @@ import {
   GET_COLORS,
   DELETE_PRODUCT,
   ADD_PRODUCT,
-  GET_CATEGORIES
+  GET_CATEGORIES,
+  CLEAR_CATEGORIES
 } from "./types";
 
 //?sortBy=sold&order=desc&limit=10
@@ -188,6 +189,13 @@ export const getCategories = () => dispatch => {
       payload: res.data
     })
   );
+};
+
+export const clearCategories = () => {
+  return {
+    type: CLEAR_CATEGORIES,
+    payload: []
+  };
 };
 
 export const editProduct = (id, dataToSubmit, history) => dispatch => {
