@@ -15,14 +15,24 @@ import {
   GET_ERRORS
 } from "./types";
 
-export const getUserProfile = () => dispatch => {
-  dispatch(setProfileLoading());
-  axios.get(`${USER_SERVER}/dashboard`).then(res =>
-    dispatch({
-      type: GET_USER_PROFILE,
-      payload: res.data
-    })
-  );
+export const getUserProfile = () => {
+  return dispatch => {
+    dispatch(setProfileLoading());
+    return axios
+      .get(`${USER_SERVER}/dashboard`)
+      .then(res =>
+        dispatch({
+          type: GET_USER_PROFILE,
+          payload: res.data
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: GET_ERRORS,
+          payload: err.response.data
+        })
+      );
+  };
 };
 
 export const setProfileLoading = () => {

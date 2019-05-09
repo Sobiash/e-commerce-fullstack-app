@@ -19,7 +19,6 @@ import PropTypes from "prop-types";
 class Shop extends Component {
   state = {
     openModal: false,
-    grid: "",
     limit: 8,
     skip: 0,
     filters: {
@@ -85,12 +84,6 @@ class Shop extends Component {
     });
   };
 
-  handleGrid = () => {
-    this.setState({
-      grid: !this.state.grid ? "grid_bars" : ""
-    });
-  };
-
   toggleModal = () => this.setState({ openModal: true });
   closeModal = () => this.setState({ openModal: false });
 
@@ -111,11 +104,10 @@ class Shop extends Component {
                 }
               />
               <CollapseList
-                initState={false}
+                initState={true}
                 title="Dresses"
                 list={products.dresses}
                 handleFilters={filters => this.handleFilters(filters, "dress")}
-                breadCrumbs={filters => this.breadCrumbs(filters, "dress")}
               />
               <CollapseList
                 initState={false}

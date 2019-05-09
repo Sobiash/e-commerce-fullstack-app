@@ -6,7 +6,8 @@ import {
   GET_CATEGORIES,
   CLEAR_CATEGORIES,
   GET_COLORS,
-  GET_ITEMS,
+  GENDER_CATEGORIES,
+  DRESS_CATEGORIES,
   ADD_PRODUCT,
   GET_PRODUCT_DETAIL,
   CLEAR_PRODUCT_DETAIL,
@@ -39,10 +40,15 @@ const ProductReducer = (state = initialState, action) => {
         articles: action.payload.articles,
         size: action.payload.size
       };
-    case GET_ITEMS:
+    case GENDER_CATEGORIES:
       return {
         ...state,
-        getItems: action.payload
+        genderCategories: action.payload
+      };
+    case DRESS_CATEGORIES:
+      return {
+        ...state,
+        dressCategories: action.payload
       };
     case GET_DRESSES:
       return {

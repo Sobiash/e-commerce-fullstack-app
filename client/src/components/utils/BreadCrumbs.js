@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const BreadCrumbs = props => {
   const category = props.detail.category;
+  const dress = props.detail.dress;
   return (
     <nav className="navbar">
       <NavLink to="/" className="breadcrumb">
@@ -15,7 +16,11 @@ const BreadCrumbs = props => {
       >
         {category && category.name}
       </NavLink>{" "}
-      / {props.detail.dress && props.detail.dress.name} / {props.detail.name}
+      /{" "}
+      <NavLink to={`/shop/dress/${dress && dress._id}`} className="breadcrumb">
+        {dress && dress.name}
+      </NavLink>{" "}
+      / {props.detail.name}
     </nav>
   );
 };

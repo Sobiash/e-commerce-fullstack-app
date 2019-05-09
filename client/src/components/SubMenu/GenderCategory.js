@@ -1,34 +1,33 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  getItems,
-  getCategories,
-  clearCategories
-} from "../../actions/products_actions";
+import { genderCategories } from "../../actions/products_actions";
 import CardBlock from "../utils/CardBlock";
+import { Link } from "react-router-dom";
 
 class GenderCategory extends Component {
   componentDidMount() {
     const category = this.props.match.params.category;
-    this.props.getItems(category);
+    this.props.genderCategories(category);
   }
 
   componentWillReceiveProps(nextProps) {
     const category = nextProps.match.params.category;
-    this.props.getItems(category);
+    this.props.genderCategories(category);
   }
 
   render() {
     const products = this.props.products;
 
     return (
-      <CardBlock
-        grid=""
-        list={products.getItems}
-        title=""
-        class="card_block_shop"
-        // toggleModal={props.toggleModal}
-      />
+      <div>
+        <CardBlock
+          grid=""
+          list={products.genderCategories}
+          title=""
+          class="card_block_shop"
+          // toggleModal={props.toggleModal}
+        />
+      </div>
     );
   }
 }
@@ -41,5 +40,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getItems, getCategories, clearCategories }
+  { genderCategories }
 )(GenderCategory);

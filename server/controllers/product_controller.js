@@ -75,6 +75,25 @@ productController.genderCategory = async (req, res) => {
   }
 };
 
+productController.dressCategory = async (req, res) => {
+  try {
+    const items = await Product.find({ dress: req.params.dress })
+      .populate("dress")
+      .populate("color")
+      .populate("category")
+      .exec();
+    if (items) {
+      res.status(200).send(items);
+    } else {
+      return res.status(404).send({
+        error: "Could not find any item!"
+      });
+    }
+  } catch (error) {
+    logger.error(error);
+    res.status(404).json({ error: "Could not find any item!" });
+  }
+};
 //get products
 // by arrival
 // /api/product/articles?sortBy=createdAt&order=desc&limit=4

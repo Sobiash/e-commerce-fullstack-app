@@ -45,10 +45,10 @@ const CardBlock = props => {
 };
 
 CardBlock.propTypes = {
-  list: PropTypes.array.isRequired,
-  grid: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  class: PropTypes.string.isRequired
+  list: PropTypes.array,
+  grid: PropTypes.string,
+  title: PropTypes.string,
+  class: PropTypes.string
 };
 
 export default CardBlock;

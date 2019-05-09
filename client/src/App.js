@@ -7,13 +7,14 @@ import RegisterLogin from "./components/Register_Login/RegisterLogin";
 import Register from "./components/Register_Login/Register";
 import Userdashboard from "./components/User/Userdashboard";
 import ManageCategories from "./components/User/Admin/ManageCategories";
-import Shop from "./components/Shop/Shop";
+import ShopLaout from "./components/Shop/ShopLayout";
 import AddProduct from "./components/User/Admin/AddProduct";
 import ProductView from "./components/Product/ProductView";
 import UserCart from "./components/Cart/UserCart";
 import UpdateUserProfile from "./components/User/UpdateUserProfile";
 import HistoryBlock from "./components/User/HistoryBlock";
 import GenderCategory from "./components/SubMenu/GenderCategory";
+import DressCategory from "./components/SubMenu/DressCategory";
 import NotFound from "./components/utils/NotFound";
 import RequestReset from "./components/ResetPassword/index";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
@@ -74,8 +75,9 @@ const App = () => {
           exact
           component={GenderCategory}
         />
+        <Route path="/shop/dress/:dress" exact component={DressCategory} />
 
-        <Route path="/shop" exact component={Shop} />
+        <Route path="/shop" exact component={ShopLaout} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
