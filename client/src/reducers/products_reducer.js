@@ -6,13 +6,13 @@ import {
   GET_CATEGORIES,
   CLEAR_CATEGORIES,
   GET_COLORS,
-  GENDER_CATEGORIES,
-  DRESS_CATEGORIES,
   ADD_PRODUCT,
   GET_PRODUCT_DETAIL,
   CLEAR_PRODUCT_DETAIL,
   DELETE_PRODUCT,
-  EDIT_PRODUCT
+  EDIT_PRODUCT,
+  CATEGORY_NAME,
+  DRESS_NAME
 } from "../actions/types";
 
 const initialState = { articles: [], product: {} };
@@ -40,16 +40,16 @@ const ProductReducer = (state = initialState, action) => {
         articles: action.payload.articles,
         size: action.payload.size
       };
-    case GENDER_CATEGORIES:
-      return {
-        ...state,
-        genderCategories: action.payload
-      };
-    case DRESS_CATEGORIES:
-      return {
-        ...state,
-        dressCategories: action.payload
-      };
+    // case GENDER_CATEGORIES:
+    //   return {
+    //     ...state,
+    //     genderCategories: action.payload
+    //   };
+    // case DRESS_CATEGORIES:
+    //   return {
+    //     ...state,
+    //     dressCategories: action.payload
+    //   };
     case GET_DRESSES:
       return {
         ...state,
@@ -86,6 +86,16 @@ const ProductReducer = (state = initialState, action) => {
         articles: state.articles.filter(
           article => article._id !== action.payload
         )
+      };
+    case DRESS_NAME:
+      return {
+        ...state,
+        dressName: action.payload
+      };
+    case CATEGORY_NAME:
+      return {
+        ...state,
+        categoryName: action.payload
       };
     case EDIT_PRODUCT:
       return {

@@ -25,8 +25,8 @@ const LoadMore = props => {
 
 LoadMore.propTypes = {
   products: PropTypes.array.isRequired,
-  grid: PropTypes.string.isRequired,
-  limit: PropTypes.number.isRequired,
+  grid: PropTypes.string,
+  limit: PropTypes.number,
   size: PropTypes.number,
   loadMore: PropTypes.func.isRequired
 };

@@ -28,3 +28,5 @@ export const DELETE_PRODUCT = "delete_product";
 export const GET_CART_DETAIL = "get_cart_detail";
 export const CREATE_CART = "create_cart";
 export const CLEAR_CATEGORIES = "create_categories";
+export const CATEGORY_NAME = "category_name";
+export const DRESS_NAME = "dress_name";

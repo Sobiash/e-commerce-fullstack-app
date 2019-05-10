@@ -55,45 +55,45 @@ productController.getArticleDetail = async (req, res) => {
   }
 };
 
-productController.genderCategory = async (req, res) => {
-  try {
-    const items = await Product.find({ category: req.params.category })
-      .populate("dress")
-      .populate("color")
-      .populate("category")
-      .exec();
-    if (items) {
-      res.status(200).send(items);
-    } else {
-      return res.status(404).send({
-        error: "Could not find any item!"
-      });
-    }
-  } catch (error) {
-    logger.error(error);
-    res.status(404).json({ error: "Could not find any item!" });
-  }
-};
+// productController.genderCategory = async (req, res) => {
+//   try {
+//     const items = await Product.find({ category: req.params.category })
+//       .populate("dress")
+//       .populate("color")
+//       .populate("category")
+//       .exec();
+//     if (items) {
+//       res.status(200).send(items);
+//     } else {
+//       return res.status(404).send({
+//         error: "Could not find any item!"
+//       });
+//     }
+//   } catch (error) {
+//     logger.error(error);
+//     res.status(404).json({ error: "Could not find any item!" });
+//   }
+// };
 
-productController.dressCategory = async (req, res) => {
-  try {
-    const items = await Product.find({ dress: req.params.dress })
-      .populate("dress")
-      .populate("color")
-      .populate("category")
-      .exec();
-    if (items) {
-      res.status(200).send(items);
-    } else {
-      return res.status(404).send({
-        error: "Could not find any item!"
-      });
-    }
-  } catch (error) {
-    logger.error(error);
-    res.status(404).json({ error: "Could not find any item!" });
-  }
-};
+// productController.dressCategory = async (req, res) => {
+//   try {
+//     const items = await Product.find({ dress: req.params.dress })
+//       .populate("dress")
+//       .populate("color")
+//       .populate("category")
+//       .exec();
+//     if (items) {
+//       res.status(200).send(items);
+//     } else {
+//       return res.status(404).send({
+//         error: "Could not find any item!"
+//       });
+//     }
+//   } catch (error) {
+//     logger.error(error);
+//     res.status(404).json({ error: "Could not find any item!" });
+//   }
+// };
 //get products
 // by arrival
 // /api/product/articles?sortBy=createdAt&order=desc&limit=4
@@ -243,6 +243,40 @@ productController.deleteArticle = async (req, res) => {
   } catch (error) {
     logger.error(error);
     res.status(404).json({ error: "Could not find any product!" });
+  }
+};
+
+productController.categoryName = async (req, res) => {
+  try {
+    const item = await Category.findOne({ _id: req.params.category });
+
+    if (item) {
+      res.status(200).send(item.name);
+    } else {
+      return res.status(404).send({
+        error: "Could not find any item!"
+      });
+    }
+  } catch (error) {
+    logger.error(error);
+    res.status(404).json({ error: "Could not find any item!" });
+  }
+};
+
+productController.dressName = async (req, res) => {
+  try {
+    const item = await Dress.findOne({ _id: req.params.dress });
+
+    if (item) {
+      res.status(200).send(item.name);
+    } else {
+      return res.status(404).send({
+        error: "Could not find any item!"
+      });
+    }
+  } catch (error) {
+    logger.error(error);
+    res.status(404).json({ error: "Could not find any item!" });
   }
 };
 

@@ -1,34 +1,39 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
-  dressCategories,
+  dressName,
   getDresses,
-  clearCategories
+  clearCategories,
+  getProducts
 } from "../../actions/products_actions";
 import CardBlock from "../utils/CardBlock";
+import BreadCrumbs from "../utils/BreadCrumbs";
 
 class DressCategory extends Component {
   componentDidMount() {
     const dress = this.props.match.params.dress;
-    this.props.dressCategories(dress);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const dress = nextProps.match.params.dress;
-    this.props.dressCategories(dress);
+    const filters = {
+      dress: [dress]
+    };
+    this.props.getProducts(0, 0, filters);
+    this.props.dressName(dress);
   }
 
   render() {
     const products = this.props.products;
 
     return (
-      <CardBlock
-        grid=""
-        list={products.dressCategories}
-        title=""
-        class="card_block_shop"
-        // toggleModal={props.toggleModal}
-      />
+      // <BreadCrumbs detail={detail} />
+      <div className="container">
+        <h6 className="category">{this.props.products.dressName}</h6>
+        <CardBlock
+          grid=""
+          list={products.articles}
+          title=""
+          class="card_block_shop"
+          // toggleModal={props.toggleModal}
+        />
+      </div>
     );
   }
 }
@@ -41,5 +46,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { dressCategories, getDresses, clearCategories }
+  { dressName, getDresses, clearCategories, getProducts }
 )(DressCategory);

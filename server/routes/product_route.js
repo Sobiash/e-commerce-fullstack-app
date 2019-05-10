@@ -21,14 +21,17 @@ router.get(
 
 router.get("/api/product/filter_items", productController.filterItems);
 
-router.get(
-  "/api/product/get_categories/:category",
-  productController.genderCategory
-);
+// router.get(
+//   "/api/product/get_categories/:category",
+//   productController.genderCategory
+// );
 
-router.get("/api/product/get_dresses/:dress", productController.dressCategory);
+// router.get("/api/product/get_dresses/:dress", productController.dressCategory);
 
 router.get("/api/product/dresses", productController.getDresses);
+
+router.get("/api/product/categories/:category", productController.categoryName);
+router.get("/api/product/dresses/:dress", productController.dressName);
 
 router.get("/api/product/colors", productController.getColors);
 

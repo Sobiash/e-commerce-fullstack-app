@@ -14,7 +14,9 @@ import {
   DELETE_PRODUCT,
   ADD_PRODUCT,
   GET_CATEGORIES,
-  CLEAR_CATEGORIES
+  CLEAR_CATEGORIES,
+  CATEGORY_NAME,
+  DRESS_NAME
 } from "./types";
 
 //?sortBy=sold&order=desc&limit=10
@@ -64,38 +66,38 @@ export const getProducts = (skip, limit, filters = []) => dispatch => {
     });
 };
 
-export const genderCategories = category => dispatch => {
-  axios
-    .get(`${PRODUCT_SERVER}/get_categories/${category}`)
-    .then(res => {
-      dispatch({
-        type: GENDER_CATEGORIES,
-        payload: res.data
-      });
-    })
-    .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response.data
-      });
-    });
-};
-export const dressCategories = dress => dispatch => {
-  axios
-    .get(`${PRODUCT_SERVER}/get_dresses/${dress}`)
-    .then(res => {
-      dispatch({
-        type: DRESS_CATEGORIES,
-        payload: res.data
-      });
-    })
-    .catch(error => {
-      dispatch({
-        type: GET_ERRORS,
-        payload: error.response.data
-      });
-    });
-};
+// export const genderCategories = category => dispatch => {
+//   axios
+//     .get(`${PRODUCT_SERVER}/get_categories/${category}`)
+//     .then(res => {
+//       dispatch({
+//         type: GENDER_CATEGORIES,
+//         payload: res.data
+//       });
+//     })
+//     .catch(error => {
+//       dispatch({
+//         type: GET_ERRORS,
+//         payload: error.response.data
+//       });
+//     });
+// };
+// export const dressCategories = dress => dispatch => {
+//   axios
+//     .get(`${PRODUCT_SERVER}/get_dresses/${dress}`)
+//     .then(res => {
+//       dispatch({
+//         type: DRESS_CATEGORIES,
+//         payload: res.data
+//       });
+//     })
+//     .catch(error => {
+//       dispatch({
+//         type: GET_ERRORS,
+//         payload: error.response.data
+//       });
+//     });
+// };
 
 export const addProduct = dataToSubmit => dispatch => {
   axios
@@ -207,7 +209,6 @@ export const getCategories = () => dispatch => {
     })
   );
 };
-
 export const clearCategories = () => {
   return {
     type: CLEAR_CATEGORIES,
@@ -225,4 +226,22 @@ export const editProduct = (id, dataToSubmit, history) => dispatch => {
         payload: err.response.data
       })
     );
+};
+
+export const categoryName = category => dispatch => {
+  axios.get(`${PRODUCT_SERVER}/categories/${category}`).then(res =>
+    dispatch({
+      type: CATEGORY_NAME,
+      payload: res.data
+    })
+  );
+};
+
+export const dressName = dress => dispatch => {
+  axios.get(`${PRODUCT_SERVER}/dresses/${dress}`).then(res =>
+    dispatch({
+      type: DRESS_NAME,
+      payload: res.data
+    })
+  );
 };
