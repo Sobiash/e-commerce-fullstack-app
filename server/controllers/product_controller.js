@@ -55,52 +55,7 @@ productController.getArticleDetail = async (req, res) => {
   }
 };
 
-// productController.genderCategory = async (req, res) => {
-//   try {
-//     const items = await Product.find({ category: req.params.category })
-//       .populate("dress")
-//       .populate("color")
-//       .populate("category")
-//       .exec();
-//     if (items) {
-//       res.status(200).send(items);
-//     } else {
-//       return res.status(404).send({
-//         error: "Could not find any item!"
-//       });
-//     }
-//   } catch (error) {
-//     logger.error(error);
-//     res.status(404).json({ error: "Could not find any item!" });
-//   }
-// };
-
-// productController.dressCategory = async (req, res) => {
-//   try {
-//     const items = await Product.find({ dress: req.params.dress })
-//       .populate("dress")
-//       .populate("color")
-//       .populate("category")
-//       .exec();
-//     if (items) {
-//       res.status(200).send(items);
-//     } else {
-//       return res.status(404).send({
-//         error: "Could not find any item!"
-//       });
-//     }
-//   } catch (error) {
-//     logger.error(error);
-//     res.status(404).json({ error: "Could not find any item!" });
-//   }
-// };
-//get products
-// by arrival
-// /api/product/articles?sortBy=createdAt&order=desc&limit=4
-// by sold
-// /api/product/articles?sortBy=sold&order=desc&limit=10
-
-productController.filterItems = async (req, res) => {
+productController.getItems = async (req, res) => {
   try {
     let order = req.query.order ? req.query.order : "asc";
     let sortBy = req.query.sortBy ? req.query.sortBy : "_id";

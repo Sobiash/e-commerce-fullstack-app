@@ -15,7 +15,7 @@ import {
   DRESS_NAME
 } from "../actions/types";
 
-const initialState = { articles: [], product: {} };
+const initialState = { articles: [], product: {}, allProducts: [] };
 
 const ProductReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -40,16 +40,6 @@ const ProductReducer = (state = initialState, action) => {
         articles: action.payload.articles,
         size: action.payload.size
       };
-    // case GENDER_CATEGORIES:
-    //   return {
-    //     ...state,
-    //     genderCategories: action.payload
-    //   };
-    // case DRESS_CATEGORIES:
-    //   return {
-    //     ...state,
-    //     dressCategories: action.payload
-    //   };
     case GET_DRESSES:
       return {
         ...state,

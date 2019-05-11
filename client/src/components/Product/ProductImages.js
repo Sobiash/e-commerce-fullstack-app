@@ -64,7 +64,7 @@ class ProductImages extends Component {
 
     return (
       <div className="product_image_container">
-        <BreadCrumbs detail={detail} />
+        {/* <BreadCrumbs detail={detail} /> */}
         <div className="main_pic">
           <div
             style={{

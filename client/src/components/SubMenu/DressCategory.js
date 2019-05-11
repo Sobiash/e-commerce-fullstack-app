@@ -12,11 +12,14 @@ import BreadCrumbs from "../utils/BreadCrumbs";
 class DressCategory extends Component {
   componentDidMount() {
     const dress = this.props.match.params.dress;
+    this.props.dressName(dress);
+
+    const category = [this.props.location.state.category];
     const filters = {
-      dress: [dress]
+      dress: [dress],
+      category: category
     };
     this.props.getProducts(0, 0, filters);
-    this.props.dressName(dress);
   }
 
   render() {

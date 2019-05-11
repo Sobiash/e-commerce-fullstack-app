@@ -4,8 +4,6 @@ import {
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_BY_SELL,
   GET_PRODUCTS,
-  GENDER_CATEGORIES,
-  DRESS_CATEGORIES,
   GET_DRESSES,
   GET_PRODUCT_DETAIL,
   CLEAR_PRODUCT_DETAIL,
@@ -65,39 +63,6 @@ export const getProducts = (skip, limit, filters = []) => dispatch => {
       });
     });
 };
-
-// export const genderCategories = category => dispatch => {
-//   axios
-//     .get(`${PRODUCT_SERVER}/get_categories/${category}`)
-//     .then(res => {
-//       dispatch({
-//         type: GENDER_CATEGORIES,
-//         payload: res.data
-//       });
-//     })
-//     .catch(error => {
-//       dispatch({
-//         type: GET_ERRORS,
-//         payload: error.response.data
-//       });
-//     });
-// };
-// export const dressCategories = dress => dispatch => {
-//   axios
-//     .get(`${PRODUCT_SERVER}/get_dresses/${dress}`)
-//     .then(res => {
-//       dispatch({
-//         type: DRESS_CATEGORIES,
-//         payload: res.data
-//       });
-//     })
-//     .catch(error => {
-//       dispatch({
-//         type: GET_ERRORS,
-//         payload: error.response.data
-//       });
-//     });
-// };
 
 export const addProduct = dataToSubmit => dispatch => {
   axios

@@ -19,9 +19,14 @@ class GenderCategory extends Component {
     this.props.getDresses();
   }
 
+  getArticles = (dress, category) => {
+    const filters = { dress: [dress], category: [category] };
+    this.props.getProducts(0, 0, filters);
+  };
+
   render() {
     const products = this.props.products;
-    const dressCategory = this.props.match.params.category;
+    const category = this.props.match.params.category;
 
     let articles = products.articles;
     let dresses = products.dresses;
@@ -54,14 +59,25 @@ class GenderCategory extends Component {
       })
     );
 
-    const category =
+    const categories =
       output &&
-      output.map(item => <CategoryCard category={dressCategory} card={item} />);
+      output.map(item => (
+        <Link
+          to={{
+            pathname: `/shop/dress/${item._id}`,
+            state: { category: category }
+          }}
+          key={item._id}
+          onClick={() => this.getArticles(item._id, category)}
+        >
+          <CategoryCard card={item} />
+        </Link>
+      ));
 
     return (
       <div className="container">
         <div style={{ minHeight: "100vh" }}>
-          <div style={{ display: "block" }}>{category} </div>
+          <div style={{ display: "block" }}>{categories} </div>
         </div>
       </div>
     );
