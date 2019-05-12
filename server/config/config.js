@@ -13,9 +13,7 @@ const mongoUri = !env.isProd
   ? "mongodb://localhost:27017/e-commerce-fullstack-app"
   : process.env.MONGO_URI;
 
-const tokenSecret = !env.isProd
-  ? "SUPERSECRETPASSWORD123"
-  : process.env.TOKEN_SECRET;
+const tokenSecret = !env.isProd ? "SUPERSECRETPASSWORD123" : "A3.Fw;+T~.$@fo";
 
 function requiredEnvs(envsArr) {
   envsArr.forEach(env => {

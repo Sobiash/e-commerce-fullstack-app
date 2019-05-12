@@ -88,7 +88,7 @@ userController.resetUserPassword = async (req, res) => {
       const payload = { id: user._id, name: user.name };
       jwt.sign(
         payload,
-        process.env.TOKEN_SECRET,
+        "A3.Fw;+T~.$@fo",
         { expiresIn: 72000 },
         (err, token) => {
           res.json({
