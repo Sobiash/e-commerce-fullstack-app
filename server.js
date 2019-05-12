@@ -69,5 +69,7 @@ for (let route in routes) {
   app.use(routes[route]);
   // app.use("/", routes[route]);
 }
-const listener = app.listen(expressConf.port);
-logger.info(`listening on port ${listener.address().port}`);
+// const listener = app.listen(expressConf.port);
+// logger.info(`listening on port ${listener.address().port}`);
+
+app.listen(expressConf.port);
