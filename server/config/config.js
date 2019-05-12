@@ -7,11 +7,9 @@ const env = {
   isProd: process.env.NODE_ENV == "production"
 };
 
-if (env.isProd) requiredEnvs(["MONGO_URI"]);
-
 const mongoUri = !env.isProd
   ? "mongodb://localhost:27017/e-commerce-fullstack-app"
-  : process.env.MONGO_URI;
+  : "mongodb://sobia.shahbaz:Vestfold123@ds261828.mlab.com:61828/heroku_j6g2srgr";
 
 const tokenSecret = !env.isProd ? "SUPERSECRETPASSWORD123" : "A3.Fw;+T~.$@fo";
 
