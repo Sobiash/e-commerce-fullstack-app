@@ -18,10 +18,12 @@ require("dotenv").config();
 const { uri } = mongoConf;
 
 mongoose.Promise = global.Promise;
+
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useCreateIndex: true
 });
+
 mongoose.connection.on("error", err => {
   console.error(`${err.message}`);
 });
@@ -40,10 +42,10 @@ cloudinary.config({
 });
 
 if (app.get("env") === "production") {
-  app.use(express.static("client/build"));
+  app.use(express.static(path.join(__dirname, "client/build")));
 
   app.get("*", (req, res) => {
-    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+    res.sendFile(path.join(__dirname + "/client/build/index.html"));
   });
 }
 

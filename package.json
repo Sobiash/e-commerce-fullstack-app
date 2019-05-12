@@ -9,7 +9,7 @@
     "server": "nodemon server.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "cd client && npm && npm run build"
   },
   "engines": {
     "node": "10.14.1"
@@ -17,7 +17,7 @@
   "author": "sobia",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^3.6.0"
+    "concurrently": "^4.1.0"
   },
   "dependencies": {
     "@google-cloud/logging-winston": "^0.11.0",
