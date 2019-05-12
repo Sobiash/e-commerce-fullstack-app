@@ -1,4 +1,5 @@
 const { app, logger } = require("./server/utils/logger");
+
 const bodyParser = require("body-parser");
 const { expressConf } = require("./server/config/config");
 const morgan = require("morgan");
@@ -12,6 +13,8 @@ const path = require("path");
 const { mongoConf } = require("./server/config/config");
 const routes = require("./server/routes/index");
 require("dotenv").config();
+
+const compression = require("compression");
 
 // if (app.get("env") === "development") app.use(morgan("tiny"));
 
@@ -40,6 +43,8 @@ cloudinary.config({
   api_key: process.env.CLOUD_API_KEY,
   api_secret: process.env.CLOUD_API_SECRET
 });
+
+app.use(compression());
 
 if (app.get("env") === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));
