@@ -7,7 +7,7 @@ const env = {
   isProd: process.env.NODE_ENV == "production"
 };
 
-if (env.isProd) requiredEnvs(["TOKEN_SECRET", "MONGO_URI"]);
+if (env.isProd) requiredEnvs(["MONGO_URI"]);
 
 const mongoUri = !env.isProd
   ? "mongodb://localhost:27017/e-commerce-fullstack-app"
