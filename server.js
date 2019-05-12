@@ -41,8 +41,6 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET
 });
 
-app.use(compression());
-
 if (app.get("env") === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));
 
