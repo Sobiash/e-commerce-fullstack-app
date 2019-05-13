@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 
 class Card extends React.Component {
   renderCardImage = images => {
-    if (images.length > 0) {
+    if (images && images.length > 0) {
       return images[0].url;
     } else {
       return "/images/img3.jpeg";
