@@ -49,6 +49,7 @@ if (app.get("env") === "production") {
   });
 }
 
+<<<<<<< HEAD
 (async function() {
   try {
     for (let route in routes) {
@@ -68,6 +69,28 @@ if (app.get("env") === "production") {
 // app.use(routes[route]);
 //   app.use("/", routes[route]);
 // }
+=======
+// (async function() {
+//   try {
+//     for (let route in routes) {
+//       logger.info(`Attaching route: ${route}`);
+//       app.use(routes[route]);
+//       // app.use("/", routes[route]);
+//     }
+
+//     const listener = app.listen(expressConf.port);
+//     logger.info(`listening on port ${listener.address().port}`);
+//   } catch (error) {
+//     throw new Error(error);
+//   }
+// })();
+
+for (let route in routes) {
+  // logger.info(`Attaching route: ${route}`);
+  app.use(routes[route]);
+  // app.use("/", routes[route]);
+}
+>>>>>>> parent of 3f264b7... .
 // const listener = app.listen(expressConf.port);
 // logger.info(`listening on port ${listener.address().port}`);
 
