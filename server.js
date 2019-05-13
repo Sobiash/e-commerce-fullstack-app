@@ -14,8 +14,6 @@ const { mongoConf } = require("./server/config/config");
 const routes = require("./server/routes/index");
 require("dotenv").config();
 
-const compression = require("compression");
-
 // if (app.get("env") === "development") app.use(morgan("tiny"));
 
 const { uri } = mongoConf;
@@ -44,8 +42,6 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET
 });
 
-app.use(compression());
-
 if (app.get("env") === "production") {
   app.use(express.static(path.join(__dirname, "client/build")));
 
@@ -54,27 +50,26 @@ if (app.get("env") === "production") {
   });
 }
 
-// (async function() {
-//   try {
-//     for (let route in routes) {
-//       logger.info(`Attaching route: ${route}`);
-//       app.use(routes[route]);
-//       // app.use("/", routes[route]);
-//     }
+(async function() {
+  try {
+    for (let route in routes) {
+      logger.info(`Attaching route: ${route}`);
+      app.use(routes[route]);
+    }
 
-//     const listener = app.listen(expressConf.port);
-//     logger.info(`listening on port ${listener.address().port}`);
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-// })();
+    const listener = app.listen(expressConf.port);
+    logger.info(`listening on port ${listener.address().port}`);
+  } catch (error) {
+    throw new Error(error);
+  }
+})();
 
-for (let route in routes) {
-  // logger.info(`Attaching route: ${route}`);
-  // app.use(routes[route]);
-  app.use("/", routes[route]);
-}
+// for (let route in routes) {
+// logger.info(`Attaching route: ${route}`);
+// app.use(routes[route]);
+//   app.use("/", routes[route]);
+// }
 // const listener = app.listen(expressConf.port);
 // logger.info(`listening on port ${listener.address().port}`);
 
-app.listen(expressConf.port);
+// app.listen(expressConf.port);
