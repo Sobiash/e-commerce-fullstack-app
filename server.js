@@ -1,5 +1,4 @@
 const { app, logger } = require("./server/utils/logger");
-
 const bodyParser = require("body-parser");
 const { expressConf } = require("./server/config/config");
 const morgan = require("morgan");
