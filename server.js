@@ -71,8 +71,8 @@ if (app.get("env") === "production") {
 
 for (let route in routes) {
   // logger.info(`Attaching route: ${route}`);
-  app.use(routes[route]);
-  // app.use("/", routes[route]);
+  // app.use(routes[route]);
+  app.use("/", routes[route]);
 }
 // const listener = app.listen(expressConf.port);
 // logger.info(`listening on port ${listener.address().port}`);
