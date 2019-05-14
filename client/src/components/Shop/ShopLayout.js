@@ -28,6 +28,7 @@ class Shop extends Component {
       price: []
     }
   };
+
   componentDidMount() {
     this.props.getProducts(
       this.state.skip,

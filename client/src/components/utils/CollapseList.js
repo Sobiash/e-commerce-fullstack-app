@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 class CollapseList extends Component {
   state = {
     open: false,
-    checked: []
+    checked: this.props.check ? [this.props.check] : []
   };
   componentDidMount() {
     if (this.props.initState) {
@@ -28,7 +28,7 @@ class CollapseList extends Component {
   renderList = () =>
     this.props.list &&
     this.props.list.map(product => (
-      <ListItem key={product._id} style={{ padding: "0px 0px 0 0" }}>
+      <ListItem key={product._id} style={{ padding: "0px 0px" }}>
         <ListItemText primary={product.name} style={{ fontSize: "5px" }} />
         <ListItemSecondaryAction>
           <Checkbox
@@ -44,7 +44,8 @@ class CollapseList extends Component {
   handleToggle = value => () => {
     const checked = this.state.checked;
     const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+    let newChecked = [...checked];
+
     if (currentIndex === -1) {
       newChecked.push(value);
     } else {
