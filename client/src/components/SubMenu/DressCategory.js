@@ -16,8 +16,6 @@ import CollapseRadio from "../utils/CollapseRadio";
 import CartModal from "../UI/Modal";
 import { Link } from "react-router-dom";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
-import CardBlock from "../utils/CardBlock";
-import BreadCrumbs from "../utils/BreadCrumbs";
 
 class DressCategory extends Component {
   state = {
@@ -35,8 +33,6 @@ class DressCategory extends Component {
   componentDidMount() {
     const dress = this.props.match.params.dress;
     this.props.dressName(dress);
-
-    // const category = [this.props.location.state.category];
 
     this.props.getProducts(
       this.state.skip,

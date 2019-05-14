@@ -5,8 +5,6 @@ import {
   getDresses,
   dressName
 } from "../../actions/products_actions";
-
-import CategoryCard from "../utils/CategoryCard";
 import { Link } from "react-router-dom";
 
 class GenderCategory extends Component {
@@ -62,16 +60,32 @@ class GenderCategory extends Component {
     const categories =
       output &&
       output.map(item => (
-        <Link
-          to={{
-            pathname: `/shop/dress/${item._id}`,
-            state: { category: category }
-          }}
-          key={item._id}
-          onClick={() => this.getArticles(item._id, category)}
+        <div
+          className="col-sm-10 col-md-8 col-lg-4"
+          style={{ display: "inline-block" }}
         >
-          <CategoryCard card={item} />
-        </Link>
+          <div className="block1 hov-img-zoom pos-relative m-t-30 m-r-30">
+            <img
+              src={item.images && item.images[0].url}
+              alt={item.name}
+              style={{ width: "320px", height: "400px" }}
+            />
+
+            <div className="block1-wrapbtn w-size2">
+              <Link
+                className="flex-c-m size2 m-text2 bg3 hov1 trans-0-4"
+                to={{
+                  pathname: `/shop/dress/${item._id}`,
+                  state: { category: category }
+                }}
+                key={item._id}
+                onClick={() => this.getArticles(item._id, category)}
+              >
+                {item.name}
+              </Link>
+            </div>
+          </div>
+        </div>
       ));
 
     return (
