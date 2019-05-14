@@ -14,21 +14,35 @@ class SubMenu extends Component {
       this.props.list.map(category => (
         <div
           key={category._id}
-          className="main_menu"
+          style={{
+            display: "inline-block",
+            fontSize: "16px",
+            margin: " 0 10px",
+            cursor: "pointer"
+          }}
           onClick={() => getArticles(category._id)}
         >
           <Link to={`/shop/category/${category._id}`}>
             <nav>{category.name}</nav>
-          </Link>{" "}
+          </Link>
         </div>
       ));
     return (
       <div className="page_top">
         <div className="container">
-          <div className="menu">
-            <Link to="/shop">
-              <div className="main_menu">All</div>
-            </Link>
+          <div style={{ display: "block", marginLeft: "400px" }}>
+            <div
+              style={{
+                display: "inline-block",
+                fontSize: "16px",
+                margin: " 0 10px",
+                cursor: "pointer"
+              }}
+            >
+              <Link to="/shop">
+                <nav>All</nav>
+              </Link>
+            </div>
             {renderList}
           </div>
           {this.props.children}

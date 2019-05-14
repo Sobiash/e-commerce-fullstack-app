@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import HomeSlider from "./Slider";
+import Banner from "./Banner";
 import Promotions from "./Promotions";
 import PopularCategories from "../PopularCategories/PopoularCategories";
 import { getCategories } from "../../actions/products_actions";
@@ -10,9 +11,11 @@ class Home extends React.Component {
     this.props.getCategories();
   }
   render() {
+    const products = this.props.products;
     return (
       <div>
         <HomeSlider />
+        <Banner list={products.categories} />
         <Promotions />
         <PopularCategories />
       </div>

@@ -224,18 +224,6 @@ class DressCategory extends Component {
           </div>
         </div>
       </div>
-
-      // <BreadCrumbs detail={detail} />
-      // <div className="container">
-      //   <h6 className="category">{this.props.products.dressName}</h6>
-      //   <CardBlock
-      //     grid=""
-      //     list={products.articles}
-      //     title=""
-      //     class="card_block_shop"
-      //     // toggleModal={props.toggleModal}
-      //   />
-      // </div>
     );
   }
 }

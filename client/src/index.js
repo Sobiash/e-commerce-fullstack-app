@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import "./css/styles.css";
 
+import "./css/main.css";
+import "./css/util.css";
+import "./css/styles.css";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
