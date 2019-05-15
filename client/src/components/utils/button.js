@@ -27,9 +27,6 @@ const MyButton = props => {
               props.runAction();
             }}
           >
-            <div>
-              <FontAwesomeIcon icon="shopping-bag" />
-            </div>
             Add to cart
           </div>
         );

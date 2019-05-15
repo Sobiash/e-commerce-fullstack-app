@@ -10,6 +10,8 @@ const CardBlock = props => {
         key={card._id}
         card={card}
         grid={props.grid}
+        newArrival={props.newArrival}
+        popular={props.popular}
         toggleModal={props.toggleModal}
       />
     ));

@@ -47,6 +47,7 @@ class PopularCategories extends React.Component {
             title="New Arrivals"
             class="card_block"
             grid=""
+            newArrival="block2-labelnew"
             toggleModal={this.toggleModal}
           />
         </div>
@@ -55,6 +56,7 @@ class PopularCategories extends React.Component {
             list={this.props.products.bySell}
             title="Best Selling Products"
             class="card_block"
+            popular="block2-labelpopular"
             grid=""
             toggleModal={this.toggleModal}
           />

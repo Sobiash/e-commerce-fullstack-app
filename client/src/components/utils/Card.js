@@ -14,41 +14,71 @@ class Card extends React.Component {
     }
   };
   render() {
-    const { card, grid, auth } = this.props;
+    const { card, grid, auth, newArrival, popular } = this.props;
     return (
-      <div className={`card_item_wrapper ${grid}`}>
-        <Link to={`/product_detail/${card._id}`}>
-          <div
-            className="image"
-            style={{
-              background: `url(${this.renderCardImage(card.images)}) no-repeat`
-            }}
+      <div
+        className={`block2 card_item_wrapper ${grid}`}
+        style={{
+          width: "250px",
+          height: "500px",
+          display: "block",
+          margin: "0px auto"
+        }}
+      >
+        <div
+          className={`block2-img wrap-pic-w of-hidden pos-relative ${newArrival} ${popular}`}
+        >
+          <img
+            src={this.renderCardImage(card.images)}
+            alt={card.name}
+            style={{ width: "300px", height: "400px", display: "inline-block" }}
           />
-          <div className="overlay" />
-        </Link>
-        <div>
-          <MyButton
-            type="cart_link"
-            title="Add to cart"
-            altClass="card_button"
-            toggleModal={this.props.toggleModal}
-            runAction={() => {
-              auth.isAuthenticated
-                ? this.props.addToCart(
-                    card._id,
-                    card.name,
-                    card.price,
-                    card.images
-                  )
-                : console.log("you need to login");
-            }}
-          />
-        </div>
-        <div className="action_container">
-          <div className="tags">
-            <div className="name">{card.name}</div>
-            <div className="price">${card.price}</div>
+
+          <div className="block2-overlay trans-0-4">
+            <a
+              href="#"
+              className="block2-btn-addwishlist hov-pointer trans-0-4"
+            >
+              <i className="icon-wishlist icon_heart_alt" aria-hidden="true" />
+              <i
+                className="icon-wishlist icon_heart dis-none"
+                aria-hidden="true"
+              />
+            </a>
+
+            <div className="block2-btn-addcart w-size1 trans-0-4">
+              <MyButton
+                className="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4"
+                type="cart_link"
+                title="Add to cart"
+                altClass="card_button"
+                toggleModal={this.props.toggleModal}
+                runAction={() => {
+                  auth.isAuthenticated
+                    ? this.props.addToCart(
+                        card._id,
+                        card.name,
+                        card.price,
+                        card.images
+                      )
+                    : console.log("you need to login");
+                }}
+              />
+            </div>
           </div>
+        </div>
+
+        <div className="block2-txt p-t-20">
+          <Link
+            to={`/product_detail/${card._id}`}
+            className="block2-name dis-block s-text3>
+            
+            p-b-5"
+          >
+            {card.name}
+          </Link>
+
+          <span className="block2-price m-text6 p-r-5">$ {card.price}</span>
         </div>
       </div>
     );
@@ -57,7 +87,9 @@ class Card extends React.Component {
 
 Card.propTypes = {
   card: PropTypes.object.isRequired,
-  addToCart: PropTypes.func.isRequired
+  addToCart: PropTypes.func.isRequired,
+  newArrival: PropTypes.string,
+  popular: PropTypes.string
 };
 
 const mapStateToProps = state => {

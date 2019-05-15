@@ -8,6 +8,13 @@ div.title {
   margin-top: 40px;
 }
 
+/* style={{
+          width: "250px",
+          height: "400px",
+          display: "block",
+          margin: "0px auto"
+        }}  */
+
 a {
   font-family: Montserrat-Regular;
   font-weight: 400;
@@ -53,7 +60,6 @@ li {
   list-style-type: none;
 }
 
-/* ------------------------------------ */
 input {
   outline: none;
   border: none !important;
@@ -108,7 +114,6 @@ iframe {
   border: none !important;
 }
 
-/* ------------------------------------ */
 .container {
   max-width: 1200px;
 }
@@ -1568,7 +1573,7 @@ li.sale-noti > a {
 /*[ Block2 ]
 ///////////////////////////////////////////////////////////
 */
-.block2-labelsale::before,
+.block2-labelpopular::before,
 .block2-labelnew::before {
   z-index: 100;
   font-family: Montserrat-Regular;
@@ -1589,9 +1594,9 @@ li.sale-noti > a {
   left: 12px;
 }
 
-.block2-labelsale::before {
+.block2-labelpopular::before {
   background-color: #e65540;
-  content: "Sale";
+  content: "Popular";
 }
 
 .block2-labelnew::before {
