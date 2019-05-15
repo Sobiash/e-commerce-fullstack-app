@@ -16,22 +16,14 @@ class Card extends React.Component {
   render() {
     const { card, grid, auth, newArrival, popular } = this.props;
     return (
-      <div
-        className={`block2 card_item_wrapper ${grid}`}
-        style={{
-          width: "250px",
-          height: "500px",
-          display: "block",
-          margin: "0px auto"
-        }}
-      >
+      <div className={`block2 card_item_wrapper ${grid}`}>
         <div
           className={`block2-img wrap-pic-w of-hidden pos-relative ${newArrival} ${popular}`}
         >
           <img
             src={this.renderCardImage(card.images)}
             alt={card.name}
-            style={{ width: "300px", height: "400px", display: "inline-block" }}
+            style={{ width: "400px", height: "400px", display: "inline-block" }}
           />
 
           <div className="block2-overlay trans-0-4">

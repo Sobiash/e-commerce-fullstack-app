@@ -34,7 +34,8 @@ const CardBlock = props => {
             <div
               style={{
                 display: "flex",
-                flexWrap: "wrap"
+                flexWrap: "wrap",
+                margin: "0px auto"
               }}
             >
               {renderCards(props.list)}

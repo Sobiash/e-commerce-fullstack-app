@@ -7,7 +7,6 @@ import {
 } from "../../actions/products_actions";
 
 import CartModal from "../UI/Modal";
-
 import PropTypes from "prop-types";
 
 class PopularCategories extends React.Component {
