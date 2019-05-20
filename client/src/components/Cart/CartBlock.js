@@ -47,7 +47,7 @@ class CartBlock extends React.Component {
                 }}
                 onClick={() =>
                   this.props.decreaseItem(
-                    cart.product,
+                    cart._id,
                     cart.selectedSize,
                     cart.selectedColor
                   )
@@ -64,7 +64,7 @@ class CartBlock extends React.Component {
                 }}
                 onClick={() =>
                   this.props.increaseItem(
-                    cart.product,
+                    cart._id,
                     cart.selectedSize,
                     cart.selectedColor
                   )
@@ -86,7 +86,7 @@ class CartBlock extends React.Component {
                   style={{ padding: "4px", marginTop: "0" }}
                   onClick={() =>
                     this.props.removeItem(
-                      cart.product,
+                      cart._id,
                       cart.selectedSize,
                       cart.selectedColor
                     )
