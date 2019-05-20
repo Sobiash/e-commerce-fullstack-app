@@ -3,10 +3,23 @@ import MyButton from "../utils/button";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import ColorSelect from "./ColorSelect";
+import SizeSelect from "./SizeSelect";
 
 const ProductInfo = props => {
   const detail = props.detail;
   const toggleModal = props.toggleModal;
+
+  const {
+    handleSizeSelection,
+    handleColorSelection,
+    validateSizeSelection,
+    validateColorSelection,
+    selectedSize,
+    selectedColor,
+    colorSelectionMissingRemark,
+    sizeSelectionMissingRemark
+  } = props;
 
   const showProductTags = detail => (
     <div className="product_tags">
@@ -44,7 +57,9 @@ const ProductInfo = props => {
               detail._id,
               detail.name,
               detail.price,
-              detail.images
+              detail.images,
+              selectedSize,
+              selectedColor
             )
           }
         />
@@ -79,9 +94,6 @@ const ProductInfo = props => {
     <div className="specs">
       <h5>Specs:</h5>
       <div className="item">
-        {detail.color && <p>Colors: {detail.color.name}</p>}
-      </div>
-      <div className="item">
         <p>Dress type: {detail.dress && detail.dress.name}</p>
       </div>
     </div>
@@ -93,6 +105,37 @@ const ProductInfo = props => {
       <span>{detail.price} $</span>
       <p>{detail.description}</p>
       {showProductSpecs(detail)}
+
+      <p>
+        Selected color:{" "}
+        {selectedColor === "" ? <i>Choose below</i> : selectedColor}
+      </p>
+
+      <ColorSelect
+        colors={detail.color}
+        handleColorSelection={handleColorSelection}
+        selectedColor={selectedColor}
+        validateColorSelection={validateColorSelection}
+      />
+      {colorSelectionMissingRemark.length > 0 ? (
+        <b style={{ color: "red" }}>*{colorSelectionMissingRemark}</b>
+      ) : (
+        ""
+      )}
+
+      <SizeSelect
+        sizesArray={detail.size}
+        infoItem={detail}
+        handleSizeSelection={handleSizeSelection}
+        selectedSize={selectedSize}
+        validateSizeSelection={validateSizeSelection}
+      />
+      {sizeSelectionMissingRemark.length > 0 ? (
+        <b style={{ color: "red" }}>*{sizeSelectionMissingRemark}</b>
+      ) : (
+        ""
+      )}
+
       {showProductTags(detail)}
       {showProductActions(detail)}
     </div>

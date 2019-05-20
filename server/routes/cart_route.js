@@ -18,19 +18,19 @@ router
 
 router
   .route("/api/users/increase/:id")
-  .get(
+  .post(
     passport.authenticate("jwt", { session: false }),
     cartController.increaseItem
   );
 router
   .route("/api/users/decrease/:id")
-  .get(
+  .post(
     passport.authenticate("jwt", { session: false }),
     cartController.decreaseItem
   );
 router
   .route("/api/users/remove-item/:id")
-  .delete(
+  .post(
     passport.authenticate("jwt", { session: false }),
     cartController.removeFromCart
   );

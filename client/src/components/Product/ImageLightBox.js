@@ -54,9 +54,9 @@ class ImageLightBox extends Component {
 }
 
 ImageLightBox.propTypes = {
-  key: PropTypes.string.isRequired,
+  key: PropTypes.string,
   images: PropTypes.array.isRequired,
-  open: PropTypes.func.isRequired,
+  open: PropTypes.func,
   position: PropTypes.number.isRequired,
   onClose: PropTypes.func.isRequired
 };

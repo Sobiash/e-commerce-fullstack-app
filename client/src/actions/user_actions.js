@@ -80,11 +80,20 @@ export const createCart = user => dispatch => {
   );
 };
 
-export const addToCart = (id, name, price, images) => dispatch => {
+export const addToCart = (
+  id,
+  name,
+  price,
+  images,
+  selectedSize,
+  selectedColor
+) => dispatch => {
   let data = {
     name,
     price,
-    images
+    images,
+    selectedSize,
+    selectedColor
   };
   axios.post(`${USER_SERVER}/add-to-cart/${id}`, data).then(res =>
     dispatch({
@@ -103,9 +112,14 @@ export const getCartDetail = () => dispatch => {
   );
 };
 
-export const removeCartItems = id => dispatch => {
+export const removeCartItems = (id, size, color) => dispatch => {
+  let data = {
+    id,
+    size,
+    color
+  };
   axios
-    .delete(`${USER_SERVER}/remove-item/${id}`)
+    .post(`${USER_SERVER}/remove-item/${id}`, data)
     .then(res =>
       dispatch({
         type: GET_CART_DETAIL,
@@ -119,9 +133,14 @@ export const removeCartItems = id => dispatch => {
       })
     );
 };
-export const increaseItem = id => dispatch => {
+export const increaseItem = (id, size, color) => dispatch => {
+  let data = {
+    id,
+    size,
+    color
+  };
   axios
-    .get(`${USER_SERVER}/increase/${id}`)
+    .post(`${USER_SERVER}/increase/${id}`, data)
     .then(res =>
       dispatch({
         type: GET_CART_DETAIL,
@@ -135,9 +154,14 @@ export const increaseItem = id => dispatch => {
       })
     );
 };
-export const decreaseItem = id => dispatch => {
+export const decreaseItem = (id, size, color) => dispatch => {
+  let data = {
+    id,
+    size,
+    color
+  };
   axios
-    .get(`${USER_SERVER}/decrease/${id}`)
+    .post(`${USER_SERVER}/decrease/${id}`, data)
     .then(res =>
       dispatch({
         type: GET_CART_DETAIL,

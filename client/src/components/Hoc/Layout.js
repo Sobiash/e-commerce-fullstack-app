@@ -34,5 +34,3 @@ export default connect(
   mapStateToProps,
   { getCategories }
 )(Layout);
-
-// export default Layout;

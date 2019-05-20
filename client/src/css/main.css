@@ -1987,9 +1987,9 @@ li.sale-noti > a {
 /*[ Table ]
 -----------------------------------------------------------
 */
-.wrap-table-shopping-cart {
+/* .wrap-table-shopping-cart {
   overflow: auto;
-}
+} */
 
 .container-table-cart::before {
   content: "";

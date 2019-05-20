@@ -13,6 +13,7 @@ import {
 } from "../../actions/user_actions";
 import Payment from "./Payment";
 import PopularCategories from "../PopularCategories/PopoularCategories";
+import SizeSelect from "../Product/SizeSelect";
 
 class UserCart extends Component {
   state = {
@@ -40,14 +41,14 @@ class UserCart extends Component {
     </div>
   );
 
-  removeFromCart = id => {
-    this.props.removeCartItems(id);
+  removeFromCart = (id, size, color) => {
+    this.props.removeCartItems(id, size, color);
   };
-  increaseItem = id => {
-    this.props.increaseItem(id);
+  increaseItem = (id, size, color) => {
+    this.props.increaseItem(id, size, color);
   };
-  decreaseItem = id => {
-    this.props.decreaseItem(id);
+  decreaseItem = (id, size, color) => {
+    this.props.decreaseItem(id, size, color);
   };
 
   onTransactionSuccess = data => {
@@ -72,9 +73,15 @@ class UserCart extends Component {
             key={item._id}
             cart={item}
             type="cart"
-            removeItem={id => this.removeFromCart(id)}
-            increaseItem={id => this.increaseItem(id)}
-            decreaseItem={id => this.decreaseItem(id)}
+            removeItem={(id, size, color) =>
+              this.removeFromCart(id, size, color)
+            }
+            increaseItem={(id, size, color) =>
+              this.increaseItem(id, size, color)
+            }
+            decreaseItem={(id, size, color) =>
+              this.decreaseItem(id, size, color)
+            }
           />
         );
       });
@@ -147,6 +154,8 @@ class UserCart extends Component {
                           <th className="column-2">Product</th>
                           <th className="column-3">Price</th>
                           <th className="column-4 padding">Quantity</th>
+                          <th className="column-4 padding">Size</th>
+                          <th className="column-4 padding">Color</th>
                           <th className="column-5" />
                         </tr>
                       </tbody>

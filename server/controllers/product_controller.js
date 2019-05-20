@@ -20,8 +20,16 @@ productController.postArticle = async (req, res) => {
       "images",
       "category",
       "color",
+      "size",
       "dress"
     ]);
+
+    if (typeof body.color !== undefined) {
+      body.color = body.color.split(",");
+    }
+    if (typeof body.size !== undefined) {
+      body.size = body.size.split(",");
+    }
 
     const product = await new Product(body);
     product.save((err, product) => {
@@ -39,7 +47,6 @@ productController.postArticle = async (req, res) => {
 productController.getArticleDetail = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id)
-      .populate("color")
       .populate("dress")
       .populate("category");
     if (product) {
@@ -63,7 +70,6 @@ productController.getItems = async (req, res) => {
 
     const articles = await Product.find()
       .populate("dress")
-      .populate("color")
       .populate("category")
       .sort([[sortBy, order]])
       .limit(limit)

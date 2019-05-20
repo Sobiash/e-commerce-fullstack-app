@@ -21,15 +21,18 @@ export class CollapseRadio extends Component {
       });
     }
   }
+
   handleClick = () => {
     this.setState({ open: !this.state.open });
   };
+
   handleAngle = () =>
     this.state.open ? (
       <FontAwesomeIcon icon="angle-up" className="icon" />
     ) : (
       <FontAwesomeIcon icon="angle-down" className="icon" />
     );
+
   renderList = () =>
     this.props.list &&
     this.props.list.map(value => (
@@ -40,12 +43,15 @@ export class CollapseRadio extends Component {
         label={value.name}
       />
     ));
+
   handleChange = event => {
     this.props.handleFilters(event.target.value);
     this.setState({
       value: event.target.value
     });
+    // console.log(this.state.value);
   };
+
   render() {
     return (
       <div>

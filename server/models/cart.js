@@ -26,6 +26,12 @@ const cartSchema = new Schema({
       },
       price: {
         type: Number
+      },
+      selectedSize: {
+        type: String
+      },
+      selectedColor: {
+        type: String
       }
     }
   ]

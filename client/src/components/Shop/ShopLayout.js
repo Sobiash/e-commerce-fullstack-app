@@ -15,6 +15,7 @@ import LoadMore from "./LoadMore";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import CartModal from "../UI/Modal";
 import PropTypes from "prop-types";
+import Sorting from "./Sorting";
 
 class Shop extends Component {
   state = {
@@ -100,6 +101,7 @@ class Shop extends Component {
       skip
     });
   };
+
   handleGrid = () => {
     this.setState({
       grid: !this.state.grid ? "grid_bars" : ""
@@ -166,22 +168,12 @@ class Shop extends Component {
                 </div>
               )}
 
-              <div className="shop_options">
-                <div className="shop_grids clear">
-                  <div
-                    className={`grid_btn ${this.state.grid ? "" : "active"}`}
-                    onClick={() => this.handleGrid()}
-                  >
-                    <FontAwesomeIcon icon="th" className="icon" />
-                  </div>
-                  <div
-                    className={`grid_btn ${!this.state.grid ? "" : "active"}`}
-                    onClick={() => this.handleGrid()}
-                  >
-                    <FontAwesomeIcon icon="th-large" className="icon" />
-                  </div>
-                </div>
-              </div>
+              <Sorting
+                grid={this.state.grid}
+                handleGrid={this.handleGrid}
+                list={price}
+              />
+
               {this.props.auth.isAuthenticated ? (
                 <CartModal
                   openModal={this.state.openModal}

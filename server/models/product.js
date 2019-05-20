@@ -32,8 +32,11 @@ const productSchema = new Schema(
       required: true
     },
     color: {
-      type: Schema.Types.ObjectId,
-      ref: "Color",
+      type: [String],
+      required: true
+    },
+    size: {
+      type: [String],
       required: true
     },
     shipping: {

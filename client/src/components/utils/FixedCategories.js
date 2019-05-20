@@ -16,7 +16,7 @@ const category = [
 const price = [
   {
     _id: 0,
-    name: "Any",
+    name: "Any Price",
     array: []
   },
   {

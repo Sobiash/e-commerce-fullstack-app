@@ -27,9 +27,12 @@ cartController.addToCart = async (req, res) => {
   try {
     await Cart.findOne({ user: req.user._id }, (err, doc) => {
       let duplicate = false;
-
       doc.cartItem.forEach(item => {
-        if (item.product == req.params.id) {
+        if (
+          item.product == req.params.id &&
+          item.selectedSize === req.body.selectedSize &&
+          item.selectedColor === req.body.selectedColor
+        ) {
           duplicate = true;
         }
       });
@@ -38,7 +41,9 @@ cartController.addToCart = async (req, res) => {
         Cart.findOneAndUpdate(
           {
             user: req.user._id,
-            "cartItem.product": mongoose.Types.ObjectId(req.params.id)
+            "cartItem.product": mongoose.Types.ObjectId(req.params.id),
+            "cartItem.selectedSize": req.body.selectedSize,
+            "cartItem.selectedColor": req.body.selectedColor
           },
           { $inc: { "cartItem.$.quantity": 1 } },
           { new: true },
@@ -57,7 +62,9 @@ cartController.addToCart = async (req, res) => {
                 quantity: 1,
                 price: req.body.price,
                 name: req.body.name,
-                images: req.body.images
+                images: req.body.images,
+                selectedSize: req.body.selectedSize,
+                selectedColor: req.body.selectedColor
               }
             }
           },
@@ -93,44 +100,32 @@ cartController.getCartDetail = async (req, res) => {
 
 cartController.removeFromCart = async (req, res) => {
   try {
-    const user = Cart.findOne({ user: req.user._id });
-    if (user) {
-      Cart.findOneAndUpdate(
-        { user: req.user._id },
-        {
-          $pull: {
-            cartItem: {
-              product: mongoose.Types.ObjectId(req.params.id)
-            }
-          }
-        },
-        { new: true },
-        (err, doc) => {
-          if (err) return res.json(err);
-          res.status(200).json(doc.cartItem);
-        }
-      );
-    }
-  } catch (error) {
-    logger.error(error);
-    res.status(404).json({ error: "No cart" });
-  }
-};
-
-cartController.increaseItem = async (req, res) => {
-  try {
     await Cart.findOne({ user: req.user._id }, (err, doc) => {
       doc.cartItem.forEach(item => {
-        if (item.product == req.params.id) {
+        if (
+          item.product == req.body.id &&
+          item.selectedSize === req.body.size &&
+          item.selectedColor === req.body.color
+        ) {
           Cart.findOneAndUpdate(
             {
               user: req.user._id,
-              "cartItem.product": mongoose.Types.ObjectId(req.params.id)
+              "cartItem.product": mongoose.Types.ObjectId(req.body.id),
+              "cartItem.selectedSize": req.body.size,
+              "cartItem.selectedColor": req.body.color
             },
-            { $inc: { "cartItem.$.quantity": 1 } },
+            {
+              $pull: {
+                cartItem: {
+                  product: req.body.id,
+                  selectedSize: req.body.size,
+                  selectedColor: req.body.color
+                }
+              }
+            },
             { new: true },
-            () => {
-              if (err) return res.json({ success: false, err });
+            (err, doc) => {
+              if (err) return res.json(err);
               res.status(200).json(doc.cartItem);
             }
           );
@@ -143,16 +138,59 @@ cartController.increaseItem = async (req, res) => {
   }
 };
 
+cartController.increaseItem = async (req, res) => {
+  try {
+    await Cart.findOne({ user: req.user._id }, (err, doc) => {
+      let duplicate = false;
+      doc.cartItem.forEach(item => {
+        if (
+          item.product == req.body.id &&
+          item.selectedSize === req.body.size &&
+          item.selectedColor === req.body.color
+        ) {
+          duplicate = true;
+        }
+      });
+
+      if (duplicate) {
+        Cart.findOneAndUpdate(
+          {
+            user: req.user._id,
+            "cartItem.product": mongoose.Types.ObjectId(req.body.id),
+            "cartItem.selectedSize": req.body.size,
+            "cartItem.selectedColor": req.body.color
+          },
+          { $inc: { "cartItem.$.quantity": 1 } },
+          { new: true },
+          () => {
+            if (err) return res.json({ success: false, err });
+            res.status(200).json(doc.cartItem);
+          }
+        );
+      }
+    });
+  } catch (error) {
+    logger.error(error);
+    res.status(404).json({ error: "No cart" });
+  }
+};
+
 cartController.decreaseItem = async (req, res) => {
   try {
     await Cart.findOne({ user: req.user._id }, (err, doc) => {
       doc.cartItem.forEach(item => {
-        if (item.product == req.params.id) {
+        if (
+          item.product == req.body.id &&
+          item.selectedSize === req.body.size &&
+          item.selectedColor === req.body.color
+        ) {
           if (item.quantity > 0) {
             Cart.findOneAndUpdate(
               {
                 user: req.user._id,
-                "cartItem.product": mongoose.Types.ObjectId(req.params.id)
+                "cartItem.product": mongoose.Types.ObjectId(req.body.id),
+                "cartItem.selectedSize": req.body.size,
+                "cartItem.selectedColor": req.body.color
               },
               { $inc: { "cartItem.$.quantity": -1 } },
               { new: true },

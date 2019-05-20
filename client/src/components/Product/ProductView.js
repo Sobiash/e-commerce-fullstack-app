@@ -16,7 +16,11 @@ import CartModal from "../UI/Modal";
 
 class ProductView extends Component {
   state = {
-    openModal: false
+    openModal: false,
+    selectedSize: "",
+    selectedColor: "",
+    sizeSelectionMissingRemark: "",
+    colorSelectionMissingRemark: ""
   };
 
   componentDidMount() {
@@ -35,8 +39,8 @@ class ProductView extends Component {
     this.props.clearProductDetail();
   }
 
-  addToCartHandler = (id, name, price, images) => {
-    this.props.addToCart(id, name, price, images);
+  addToCartHandler = (id, name, price, images, selectedSize, selectedColor) => {
+    this.props.addToCart(id, name, price, images, selectedSize, selectedColor);
   };
 
   deleteProduct = id => {
@@ -47,8 +51,22 @@ class ProductView extends Component {
   toggleModal = () => this.setState({ openModal: true });
   closeModal = () => this.setState({ openModal: false });
 
+  handleSizeSelection = selectedSize => this.setState({ selectedSize });
+
+  handleColorSelection = selectedColor => this.setState({ selectedColor });
+
+  validateSizeSelection = remark =>
+    remark === "valid"
+      ? this.setState({ sizeSelectionMissingRemark: "" })
+      : this.setState({ sizeSelectionMissingRemark: remark });
+
+  validateColorSelection = remark =>
+    remark === "valid"
+      ? this.setState({ colorSelectionMissingRemark: "" })
+      : this.setState({ colorSelectionMissingRemark: remark });
+
   render() {
-    const props = this.props.products.productDetail;
+    const productDetail = this.props.products.productDetail;
     const user = this.props.user;
 
     return (
@@ -69,27 +87,34 @@ class ProductView extends Component {
           </CartModal>
         )}
         <div className="container">
-          {props ? (
+          {productDetail ? (
             <div className="product_detail_wrapper">
               <div className="left">
                 <div style={{ width: "500px" }}>
-                  <ProductImages detail={props} />
+                  <ProductImages detail={productDetail} />
                 </div>
               </div>
               <div className="right">
                 <ProductInfo
-                  detail={props}
+                  {...this.state}
+                  detail={productDetail}
                   addToCart={id =>
                     this.addToCartHandler(
                       id,
-                      props.name,
-                      props.price,
-                      props.images
+                      productDetail.name,
+                      productDetail.price,
+                      productDetail.images,
+                      this.state.selectedSize,
+                      this.state.selectedColor
                     )
                   }
                   user={user.profile}
                   deleteProduct={id => this.deleteProduct(id)}
                   toggleModal={this.toggleModal}
+                  handleSizeSelection={this.handleSizeSelection}
+                  handleColorSelection={this.handleColorSelection}
+                  validateSizeSelection={this.validateSizeSelection}
+                  validateColorSelection={this.validateColorSelection}
                 />
               </div>
             </div>

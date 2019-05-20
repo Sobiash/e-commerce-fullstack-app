@@ -91,12 +91,30 @@ class AddProduct extends Component {
         showLabel: true
       },
       color: {
-        element: "select",
+        element: "input",
         value: "",
         config: {
-          lable: "Color Type",
+          lable: "Colors",
           name: "color_input",
-          options: []
+          type: "text",
+          placeholder: "Enter color"
+        },
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false,
+        validationMessage: "",
+        showLabel: true
+      },
+      size: {
+        element: "input",
+        value: "",
+        config: {
+          lable: "Size",
+          name: "size_input",
+          type: "text",
+          placeholder: "Enter size"
         },
         validation: {
           required: true
@@ -190,7 +208,6 @@ class AddProduct extends Component {
   componentDidMount() {
     this.props.getUserProfile();
     this.props.getDresses();
-    this.props.getColors();
     this.props.getCategories();
   }
 
@@ -204,14 +221,6 @@ class AddProduct extends Component {
         formData,
         nextProps.products.dresses,
         "dress"
-      );
-      this.updateFields(newFormData);
-    }
-    if (nextProps.products.colors) {
-      const newFormData = populateOptionFields(
-        formData,
-        nextProps.products.colors,
-        "color"
       );
       this.updateFields(newFormData);
     }
@@ -311,6 +320,11 @@ class AddProduct extends Component {
             <FormField
               id={"color"}
               data={this.state.formData.color}
+              change={element => this.updateForm(element)}
+            />
+            <FormField
+              id={"size"}
+              data={this.state.formData.size}
               change={element => this.updateForm(element)}
             />
 

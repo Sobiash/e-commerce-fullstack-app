@@ -31,8 +31,10 @@ class CartBlock extends React.Component {
             </div>
           </td>
           <td className="column-2">{cart.name}</td>
-          <td className="column-3">{cart.price}</td>
+          <td className="column-3">{cart.price * cart.quantity}</td>
           <td className="column-4">{cart.quantity}</td>
+          <td className="column-4">{cart.selectedSize}</td>
+          <td className="column-4">{cart.selectedColor}</td>
           <td className="column-5">
             <div style={{ display: "block" }}>
               <div
@@ -43,7 +45,13 @@ class CartBlock extends React.Component {
                   marginRight: "5px",
                   marginTop: "0"
                 }}
-                onClick={() => this.props.decreaseItem(cart.product)}
+                onClick={() =>
+                  this.props.decreaseItem(
+                    cart.product,
+                    cart.selectedSize,
+                    cart.selectedColor
+                  )
+                }
               >
                 -
               </div>
@@ -54,7 +62,13 @@ class CartBlock extends React.Component {
                   padding: "4px",
                   marginTop: "0"
                 }}
-                onClick={() => this.props.increaseItem(cart.product)}
+                onClick={() =>
+                  this.props.increaseItem(
+                    cart.product,
+                    cart.selectedSize,
+                    cart.selectedColor
+                  )
+                }
               >
                 +
               </div>
@@ -70,7 +84,13 @@ class CartBlock extends React.Component {
                 <div
                   className="cart_remove_btn link_default"
                   style={{ padding: "4px", marginTop: "0" }}
-                  onClick={() => this.props.removeItem(cart.product)}
+                  onClick={() =>
+                    this.props.removeItem(
+                      cart.product,
+                      cart.selectedSize,
+                      cart.selectedColor
+                    )
+                  }
                 >
                   Remove
                 </div>
