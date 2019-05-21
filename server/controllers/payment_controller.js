@@ -34,6 +34,8 @@ paymentController.successBuy = async (req, res) => {
         price: item.price,
         quantity: item.quantity,
         images: item.images,
+        selectedSize: item.selectedSize,
+        selectedColor: item.selectedColor,
         purchaseOrder
       });
     });
@@ -55,7 +57,9 @@ paymentController.successBuy = async (req, res) => {
         name: item.name,
         id: item._id,
         price: item.price,
-        quantity: item.quantity
+        quantity: item.quantity,
+        selectedSize: item.selectedSize,
+        selectedColor: item.selectedColor
       });
       return orderItem;
     });

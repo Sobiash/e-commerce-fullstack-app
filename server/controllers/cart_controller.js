@@ -1,19 +1,16 @@
 const { Cart } = require("../models/cart");
 const mongoose = require("mongoose");
-const _ = require("lodash");
 const { logger } = require("../utils/logger");
 const cartController = {};
 
 cartController.createCart = async (req, res) => {
   try {
-    const body = await _.pick(req.body, ["user"]);
-    const exists = await Cart.findOne({ user: body.user });
+    const exists = await Cart.findOne({ user: req.body.user });
     if (exists) {
       res.json(exists);
       return;
     } else {
-      const { user } = body;
-      const cart = await new Cart(body);
+      const cart = await new Cart(req.body);
       await cart.save();
       res.json(cart);
     }

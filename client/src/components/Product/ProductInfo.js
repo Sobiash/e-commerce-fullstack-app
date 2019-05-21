@@ -7,10 +7,10 @@ import ColorSelect from "./ColorSelect";
 import SizeSelect from "./SizeSelect";
 
 const ProductInfo = props => {
-  const detail = props.detail;
-  const toggleModal = props.toggleModal;
-
   const {
+    detail,
+    addToCart,
+    toggleModal,
     handleSizeSelection,
     handleColorSelection,
     validateSizeSelection,
@@ -51,17 +51,23 @@ const ProductInfo = props => {
       >
         <MyButton
           type="add_to_cart_link"
-          toggleModal={toggleModal}
-          runAction={() =>
-            props.addToCart(
-              detail._id,
-              detail.name,
-              detail.price,
-              detail.images,
-              selectedSize,
-              selectedColor
-            )
-          }
+          validateSizeSelection={validateSizeSelection}
+          validateColorSelection={validateColorSelection}
+          selectedSize={selectedSize}
+          selectedColor={selectedColor}
+          runAction={() => {
+            return (
+              addToCart(
+                detail._id,
+                detail.name,
+                detail.price,
+                detail.images,
+                selectedSize,
+                selectedColor
+              ),
+              toggleModal()
+            );
+          }}
         />
       </div>
       {props.user.isAdmin && (

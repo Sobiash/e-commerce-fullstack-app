@@ -18,8 +18,11 @@ class HistoryBlock extends React.Component {
       history.map((product, i) => (
         <tr key={i}>
           <td>{product.dateOfPurchase}</td>
-          <td>{product.purchase}</td>
+          <td>{product.purchaseOrder}</td>
           <td>{product.name}</td>
+          <td>
+            {product.selectedSize} {product.selectedColor}
+          </td>
           <td>$ {product.price * product.quantity}</td>
           <td>{product.quantity}</td>
         </tr>
@@ -36,6 +39,7 @@ class HistoryBlock extends React.Component {
                     <th>Order Date</th>
                     <th>Order Number</th>
                     <th>Product name</th>
+                    <th>Product size&color</th>
                     <th>Price paid</th>
                     <th>Quantity</th>
                   </tr>

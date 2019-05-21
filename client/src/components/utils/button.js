@@ -4,41 +4,47 @@ import PropTypes from "prop-types";
 import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 
 const MyButton = props => {
+  const {
+    altClass,
+    linkTo,
+    addStyles,
+    title,
+    selectedSize,
+    selectedColor,
+    validateSizeSelection,
+    validateColorSelection,
+    runAction
+  } = props;
   const buttons = () => {
     let button = "";
     switch (props.type) {
       case "default":
         button = (
           <Link
-            className={!props.altClass ? "link_default" : props.altClass}
-            to={props.linkTo}
-            {...props.addStyles}
+            className={!altClass ? "link_default" : altClass}
+            to={linkTo}
+            {...addStyles}
           >
-            {props.title}
+            {title}
           </Link>
         );
         break;
-      case "cart_link":
-        button = (
-          <div
-            className="bag_link"
-            onClick={() => {
-              props.toggleModal();
-              props.runAction();
-            }}
-          >
-            Add to cart
-          </div>
-        );
-        break;
+
       case "add_to_cart_link":
         button = (
           <div
             onClick={() => {
-              props.toggleModal();
-              props.runAction();
+              return (
+                selectedSize.length < 1 &&
+                  validateSizeSelection("Please, select a size"),
+                selectedColor.length < 1 &&
+                  validateColorSelection("Please, select a color"),
+                selectedSize.length > 0 &&
+                  selectedColor.length > 0 &&
+                  runAction()
+              );
             }}
-            className={!props.altClass ? "bag_link" : props.altClass}
+            className={!altClass ? "bag_link" : altClass}
           >
             <FontAwesomeIcon icon="shopping-bag" /> {"  "}
             Add to cart

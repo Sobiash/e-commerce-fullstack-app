@@ -45,13 +45,7 @@ class CartBlock extends React.Component {
                   marginRight: "5px",
                   marginTop: "0"
                 }}
-                onClick={() =>
-                  this.props.decreaseItem(
-                    cart._id,
-                    cart.selectedSize,
-                    cart.selectedColor
-                  )
-                }
+                onClick={() => this.props.decreaseItem(cart._id)}
               >
                 -
               </div>
@@ -62,13 +56,7 @@ class CartBlock extends React.Component {
                   padding: "4px",
                   marginTop: "0"
                 }}
-                onClick={() =>
-                  this.props.increaseItem(
-                    cart._id,
-                    cart.selectedSize,
-                    cart.selectedColor
-                  )
-                }
+                onClick={() => this.props.increaseItem(cart._id)}
               >
                 +
               </div>
@@ -84,13 +72,7 @@ class CartBlock extends React.Component {
                 <div
                   className="cart_remove_btn link_default"
                   style={{ padding: "4px", marginTop: "0" }}
-                  onClick={() =>
-                    this.props.removeItem(
-                      cart._id,
-                      cart.selectedSize,
-                      cart.selectedColor
-                    )
-                  }
+                  onClick={() => this.props.removeItem(cart._id)}
                 >
                   Remove
                 </div>

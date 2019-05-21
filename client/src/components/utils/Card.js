@@ -41,20 +41,9 @@ class Card extends React.Component {
             <div className="block2-btn-addcart w-size1 trans-0-4">
               <MyButton
                 className="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4"
-                type="cart_link"
-                title="Add to cart"
-                altClass="card_button"
-                toggleModal={this.props.toggleModal}
-                runAction={() => {
-                  auth.isAuthenticated
-                    ? this.props.addToCart(
-                        card._id,
-                        card.name,
-                        card.price,
-                        card.images
-                      )
-                    : console.log("you need to login");
-                }}
+                type="default"
+                linkTo={this.props.linkTo}
+                title="View"
               />
             </div>
           </div>

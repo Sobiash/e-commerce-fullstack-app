@@ -41,14 +41,14 @@ class UserCart extends Component {
     </div>
   );
 
-  removeFromCart = (id, size, color) => {
-    this.props.removeCartItems(id, size, color);
+  removeFromCart = id => {
+    this.props.removeCartItems(id);
   };
-  increaseItem = (id, size, color) => {
-    this.props.increaseItem(id, size, color);
+  increaseItem = id => {
+    this.props.increaseItem(id);
   };
-  decreaseItem = (id, size, color) => {
-    this.props.decreaseItem(id, size, color);
+  decreaseItem = id => {
+    this.props.decreaseItem(id);
   };
 
   onTransactionSuccess = data => {
@@ -73,15 +73,9 @@ class UserCart extends Component {
             key={item._id}
             cart={item}
             type="cart"
-            removeItem={(id, size, color) =>
-              this.removeFromCart(id, size, color)
-            }
-            increaseItem={(id, size, color) =>
-              this.increaseItem(id, size, color)
-            }
-            decreaseItem={(id, size, color) =>
-              this.decreaseItem(id, size, color)
-            }
+            removeItem={id => this.removeFromCart(id)}
+            increaseItem={id => this.increaseItem(id)}
+            decreaseItem={id => this.decreaseItem(id)}
           />
         );
       });

@@ -12,7 +12,7 @@ const CardBlock = props => {
         grid={props.grid}
         newArrival={props.newArrival}
         popular={props.popular}
-        toggleModal={props.toggleModal}
+        linkTo={`/product_detail/${card._id}`}
       />
     ));
   return (

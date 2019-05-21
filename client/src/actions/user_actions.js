@@ -112,11 +112,9 @@ export const getCartDetail = () => dispatch => {
   );
 };
 
-export const removeCartItems = (id, size, color) => dispatch => {
+export const removeCartItems = id => dispatch => {
   let data = {
-    id,
-    size,
-    color
+    id
   };
   axios
     .post(`${USER_SERVER}/remove-item/${id}`, data)
@@ -133,11 +131,9 @@ export const removeCartItems = (id, size, color) => dispatch => {
       })
     );
 };
-export const increaseItem = (id, size, color) => dispatch => {
+export const increaseItem = id => dispatch => {
   let data = {
-    id,
-    size,
-    color
+    id
   };
   axios
     .post(`${USER_SERVER}/increase/${id}`, data)
@@ -154,11 +150,9 @@ export const increaseItem = (id, size, color) => dispatch => {
       })
     );
 };
-export const decreaseItem = (id, size, color) => dispatch => {
+export const decreaseItem = id => dispatch => {
   let data = {
-    id,
-    size,
-    color
+    id
   };
   axios
     .post(`${USER_SERVER}/decrease/${id}`, data)
