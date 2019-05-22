@@ -43,6 +43,7 @@ class CollapseList extends Component {
 
   handleToggle = value => () => {
     const checked = this.state.checked;
+
     const currentIndex = checked.indexOf(value);
     let newChecked = [...checked];
 

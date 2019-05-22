@@ -12,12 +12,21 @@ shopController.shopItems = async (req, res) => {
     let findArgs = {};
 
     console.log(req.body);
+
     for (let key in req.body.filters) {
       if (req.body.filters[key].length > 0) {
         if (key === "price") {
           findArgs[key] = {
             $gte: req.body.filters[key][0],
             $lte: req.body.filters[key][1]
+          };
+        } else if (key === "size") {
+          findArgs[key] = {
+            $in: req.body.filters[key]
+          };
+        } else if (key === "color") {
+          findArgs[key] = {
+            $in: req.body.filters[key]
           };
         } else {
           findArgs[key] = req.body.filters[key];
