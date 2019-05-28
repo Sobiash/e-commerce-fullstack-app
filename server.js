@@ -1,11 +1,3 @@
-// if (app.get("env") === "production") {
-//   app.use(express.static(path.join(__dirname, "client/build")));
-
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.join(__dirname + "/client/build/index.html"));
-//   });
-// }
-
 const { app, logger } = require("./server/utils/logger");
 const bodyParser = require("body-parser");
 const { expressConf } = require("./server/config/config");
@@ -47,16 +39,24 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET
 });
 
-(async function() {
-  try {
-    for (let route in routes) {
-      logger.info(`Attaching route: ${route}`);
-      app.use(routes[route]);
-    }
+if (app.get("env") === "production") {
+  app.use(express.static(path.join(__dirname, "client/build")));
 
-    const listener = app.listen(expressConf.port);
-    logger.info(`listening on port ${listener.address().port}`);
-  } catch (error) {
-    throw new Error(error);
-  }
-})();
+  app.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname + "/client/build/index.html"));
+  });
+} else {
+  (async function() {
+    try {
+      for (let route in routes) {
+        logger.info(`Attaching route: ${route}`);
+        app.use(routes[route]);
+      }
+
+      const listener = app.listen(expressConf.port);
+      logger.info(`listening on port ${listener.address().port}`);
+    } catch (error) {
+      throw new Error(error);
+    }
+  })();
+}

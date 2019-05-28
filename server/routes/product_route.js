@@ -26,8 +26,6 @@ router.get("/api/product/dresses", productController.getDresses);
 router.get("/api/product/categories/:category", productController.categoryName);
 router.get("/api/product/dresses/:dress", productController.dressName);
 
-router.get("/api/product/colors", productController.getColors);
-
 router.get("/api/product/categories", productController.getCategories);
 
 router
@@ -37,15 +35,6 @@ router
     passport.authenticate("jwt", { session: false }),
     admin,
     productController.addDress
-  );
-
-router
-  .route("/api/product/color")
-  .post(
-    validateBody("addColor"),
-    passport.authenticate("jwt", { session: false }),
-    admin,
-    productController.addColor
   );
 
 router

@@ -1,9 +1,7 @@
 const { Product } = require("../models/product");
 const { Dress } = require("../models/dress");
-const { Color } = require("../models/color");
 const { Category } = require("../models/category");
 const { logger } = require("../utils/logger");
-
 const _ = require("lodash");
 
 const productController = {};
@@ -119,41 +117,6 @@ productController.getDresses = async (req, res) => {
   } catch (error) {
     logger.error(error);
     res.status(404).json({ error: "Could not find any dress!" });
-  }
-};
-
-productController.addColor = async (req, res) => {
-  try {
-    const body = await _.pick(req.body, ["name"]);
-    const color = await new Color(body);
-    color.save(err => {
-      if (err)
-        return res.json({
-          err
-        });
-      res.status(200).json({
-        color
-      });
-    });
-  } catch (error) {
-    logger.error(error);
-    res.status(400).json(error);
-  }
-};
-
-productController.getColors = async (req, res) => {
-  try {
-    const colors = await Color.find({});
-    if (colors) {
-      res.status(200).send(colors);
-    } else {
-      return res.status(422).send({
-        error: "Could not find any color!"
-      });
-    }
-  } catch (error) {
-    logger.error(error);
-    res.status(400).json(error);
   }
 };
 

@@ -10,7 +10,7 @@ import {
   getColors
 } from "../../actions/products_actions";
 import { getCartDetail } from "../../actions/user_actions";
-import { price } from "../utils/FixedCategories";
+import { sizes, colors, price } from "../utils/FixedCategories";
 import CollapseList from "../utils/CollapseList";
 import CollapseRadio from "../utils/CollapseRadio";
 import CartModal from "../UI/Modal";
@@ -26,7 +26,8 @@ class DressCategory extends Component {
       category: [this.props.location.state.category],
       dress: [this.props.match.params.dress],
       color: [],
-      price: []
+      price: [],
+      size: []
     }
   };
 
@@ -58,6 +59,18 @@ class DressCategory extends Component {
       newFilters[category] = priceValues;
     }
 
+    if (category === "size") {
+      let sizeValues = this.handleSize(filters);
+
+      newFilters[category] = sizeValues;
+    }
+
+    if (category === "color") {
+      let colorValues = this.handleColor(filters);
+
+      newFilters[category] = colorValues;
+    }
+
     this.showFilterResults(newFilters);
     this.setState({
       filters: newFilters
@@ -73,6 +86,40 @@ class DressCategory extends Component {
       }
     }
     return array;
+  };
+
+  handleSize = value => {
+    const data = sizes;
+    let array = value;
+
+    const finalArray = [];
+
+    array.forEach(i =>
+      data.forEach(k => {
+        if (i === k._id) {
+          finalArray.push(k.name);
+        }
+      })
+    );
+
+    return finalArray;
+  };
+
+  handleColor = value => {
+    const data = colors;
+    let array = value;
+
+    const finalArray = [];
+
+    array.forEach(i =>
+      data.forEach(k => {
+        if (i === k._id) {
+          finalArray.push(k.name);
+        }
+      })
+    );
+
+    return finalArray;
   };
 
   handleFilters = (filters, category) => {
@@ -145,8 +192,14 @@ class DressCategory extends Component {
               <CollapseList
                 initState={false}
                 title="Colors"
-                list={products.colors}
+                list={colors}
                 handleFilters={filters => this.handleFilters(filters, "color")}
+              />
+              <CollapseList
+                initState={false}
+                title="Sizes"
+                list={sizes}
+                handleFilters={filters => this.handleFilters(filters, "size")}
               />
 
               <CollapseRadio
@@ -211,7 +264,7 @@ class DressCategory extends Component {
               <LoadMore
                 grid={this.state.grid}
                 limit={this.state.limit}
-                // size={products.size}
+                size={products.size}
                 products={products.articles}
                 loadMore={() => this.loadMoreCards()}
                 toggleModal={this.toggleModal}
