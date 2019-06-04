@@ -33,11 +33,11 @@ app.use(cookieParser());
 app.use(passport.initialize());
 require("./server/config/passport")(passport);
 
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET
-});
+// cloudinary.config({
+//   cloud_name: process.env.CLOUD_NAME,
+//   api_key: process.env.CLOUD_API_KEY,
+//   api_secret: process.env.CLOUD_API_SECRET
+// });
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
