@@ -39,24 +39,20 @@ cloudinary.config({
   api_secret: process.env.CLOUD_API_SECRET
 });
 
-if (app.get("env") === "production") {
-  app.use(express.static(path.join(__dirname, "client/build")));
-
-  app.get("/*", (req, res) => {
-    res.sendFile(path.join(__dirname + "/client/build/index.html"));
-  });
-} else {
-  (async function() {
-    try {
-      for (let route in routes) {
-        logger.info(`Attaching route: ${route}`);
-        app.use(routes[route]);
-      }
-
-      const listener = app.listen(expressConf.port);
-      logger.info(`listening on port ${listener.address().port}`);
-    } catch (error) {
-      throw new Error(error);
-    }
-  })();
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
 }
+
+(async function() {
+  try {
+    for (let route in routes) {
+      logger.info(`Attaching route: ${route}`);
+      app.use(routes[route]);
+    }
+
+    const listener = app.listen(expressConf.port);
+    logger.info(`listening on port ${listener.address().port}`);
+  } catch (error) {
+    throw new Error(error);
+  }
+})();
