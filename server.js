@@ -33,7 +33,10 @@ app.use("/api/product", require("./server/routes/product_route"));
 app.use("/api/shop", require("./server/routes/shop_route"));
 app.use("/api/users", require("./server/routes/user_route"));
 
-mongoose.connect(process.env.MONGODB_URI || "localhost:3004");
+mongoose.connect(
+  process.env.MONGODB_URI ||
+    "mongodb://localhost:27017/e-commerce-fullstack-app"
+);
 
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
