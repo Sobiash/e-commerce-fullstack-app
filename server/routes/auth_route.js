@@ -5,11 +5,11 @@ const { validateUserData } = require("../joi_schemas/register");
 const { validateLogin } = require("../joi_schemas/login");
 
 router
-  .route("/api/users/register")
+  .route("/register")
   .post(validateUserData("registerUser"), authController.registerUser);
 
 router
-  .route("/api/users/login")
+  .route("/login")
   .post(validateLogin("loginUser"), authController.loginUser);
 
 module.exports = router;

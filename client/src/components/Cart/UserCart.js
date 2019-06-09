@@ -11,6 +11,8 @@ import {
   decreaseItem,
   onSuccessBuy
 } from "../../actions/user_actions";
+
+import img from "../../images/img4.jpeg";
 import Payment from "./Payment";
 import PopularCategories from "../PopularCategories/PopoularCategories";
 import SizeSelect from "../Product/SizeSelect";
@@ -128,7 +130,7 @@ class UserCart extends Component {
             <div
               className="bg-title-page"
               style={{
-                background: "url(/images/img4.jpeg)",
+                background: `url(${img})`,
                 backgroundPosition: "center",
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat"

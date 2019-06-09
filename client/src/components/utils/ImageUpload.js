@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Dropzone from "react-dropzone";
 import axios from "axios";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+// import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import PropTypes from "prop-types";
 
@@ -18,7 +18,7 @@ class ImageUpload extends Component {
       header: { "content-type": "multipart/form-data" }
     };
     formData.append("file", files[0]);
-    axios.post("/api/users/upload-image", formData, config).then(response => {
+    axios.post("/api/admin/upload-image", formData, config).then(response => {
       this.setState(
         {
           uploading: false,
@@ -32,7 +32,7 @@ class ImageUpload extends Component {
   };
 
   onRemove = id => {
-    axios.get(`/api/users/remove-image?public_id=${id}`).then(response => {
+    axios.get(`/api/admin/remove-image?public_id=${id}`).then(response => {
       let images = this.state.uploadedFiles.filter(item => {
         return item.public_id !== id;
       });
@@ -81,7 +81,8 @@ class ImageUpload extends Component {
                 <div {...getRootProps()}>
                   <input {...getInputProps()} />
                   <div className="wrap">
-                    <FontAwesomeIcon icon="plus-circle" />
+                    {/* <FontAwesomeIcon icon="plus-circle" /> */}
+                    <p>hello</p>
                   </div>
                 </div>
               )}

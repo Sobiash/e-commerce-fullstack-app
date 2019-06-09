@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ImageLightBox from "./ImageLightBox";
+import img from "../../images/img1.jpeg";
 import PropTypes from "prop-types";
 import BreadCrumbs from "../utils/BreadCrumbs";
 
@@ -27,7 +28,7 @@ class ProductImages extends Component {
     if (images) {
       return images[0].url;
     } else {
-      return "/images/img1.jpeg";
+      return `${img}`;
     }
   };
 

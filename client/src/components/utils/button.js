@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+// import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 
 const MyButton = props => {
   const {
@@ -46,7 +46,7 @@ const MyButton = props => {
             }}
             className={!altClass ? "bag_link" : altClass}
           >
-            <FontAwesomeIcon icon="shopping-bag" /> {"  "}
+            {/* <FontAwesomeIcon icon="shopping-bag" /> {"  "} */}
             Add to cart
           </div>
         );

@@ -2,6 +2,7 @@ import React from "react";
 import { getUserProfile, getCartDetail } from "../../actions/user_actions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import img from "../../images/img1.jpeg";
 
 class CartBlock extends React.Component {
   componentDidMount() {
@@ -13,7 +14,7 @@ class CartBlock extends React.Component {
     if (images.length > 0) {
       return images[0].url;
     } else {
-      return "/images/img1.jpeg";
+      return `${img}`;
     }
   };
 

@@ -59,17 +59,12 @@ authController.loginUser = async (req, res) => {
       return res.status(404).json({ error: "Incorrect password" });
     } else {
       const payload = { id: user._id, name: user.name };
-      jwt.sign(
-        payload,
-        process.env.TOKEN_SECRET,
-        { expiresIn: 7200 },
-        (err, token) => {
-          res.json({
-            success: true,
-            token: "Bearer " + token
-          });
-        }
-      );
+      jwt.sign(payload, "A3.Fw+T~.fo", { expiresIn: 7200 }, (err, token) => {
+        res.json({
+          success: true,
+          token: "Bearer " + token
+        });
+      });
     }
   } catch (error) {
     logger.error(error);

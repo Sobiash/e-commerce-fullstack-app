@@ -1,9 +1,10 @@
 import React from "react";
 import MyButton from "../utils/button";
+import img from "../../images/img4.jpeg";
 
 const Promotions = () => {
   const promotion = {
-    img: "/images/img4.jpeg",
+    img: img,
     lineOne: "Sale",
     lineTwo: "Upto 40% off sale online and in stores",
     linkTitle: "Shop now",

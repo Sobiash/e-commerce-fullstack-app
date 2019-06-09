@@ -6,21 +6,21 @@ const { validateUserData } = require("../joi_schemas/register");
 const passport = require("passport");
 
 router.get(
-  "/api/users/dashboard",
+  "/dashboard",
   passport.authenticate("jwt", { session: false }),
   userController.getUserProfile
 );
 
 router
-  .route("/api/users/reset-user")
+  .route("/reset-user")
   .post(validateBody("requestReset"), userController.requestReset);
 
 router
-  .route("/api/users/reset-password")
+  .route("/reset-password")
   .post(validateBody("resetUserPassword"), userController.resetUserPassword);
 
 router
-  .route("/api/users/update-profile")
+  .route("/update-profile")
   .post(
     validateUserData("updateProfile"),
     passport.authenticate("jwt", { session: false }),
@@ -28,7 +28,7 @@ router
   );
 
 router
-  .route("/api/users")
+  .route("/")
   .delete(
     passport.authenticate("jwt", { session: false }),
     userController.deleteProfile

@@ -6,7 +6,7 @@ const { validateBody } = require("../joi_schemas/product");
 const passport = require("passport");
 
 router
-  .route("/api/product/article")
+  .route("/article")
   .post(
     validateBody("postArticle"),
     passport.authenticate("jwt", { session: false }),
@@ -14,22 +14,19 @@ router
     productController.postArticle
   );
 
-router.get(
-  "/api/product/articles_by_id/:id",
-  productController.getArticleDetail
-);
+router.get("/articles_by_id/:id", productController.getArticleDetail);
 
-router.get("/api/product/filter_items", productController.getItems);
+router.get("/filter_items", productController.getItems);
 
-router.get("/api/product/dresses", productController.getDresses);
+router.get("/dresses", productController.getDresses);
 
-router.get("/api/product/categories/:category", productController.categoryName);
-router.get("/api/product/dresses/:dress", productController.dressName);
+router.get("/categories/:category", productController.categoryName);
+router.get("/dresses/:dress", productController.dressName);
 
-router.get("/api/product/categories", productController.getCategories);
+router.get("/categories", productController.getCategories);
 
 router
-  .route("/api/product/dress")
+  .route("/dress")
   .post(
     validateBody("addDress"),
     passport.authenticate("jwt", { session: false }),
@@ -38,7 +35,7 @@ router
   );
 
 router
-  .route("/api/product/category")
+  .route("/category")
   .post(
     validateBody("addCategory"),
     passport.authenticate("jwt", { session: false }),
@@ -47,7 +44,7 @@ router
   );
 
 router
-  .route("/api/product/articles_by_id/:id")
+  .route("/articles_by_id/:id")
   .delete(
     passport.authenticate("jwt", { session: false }),
     admin,

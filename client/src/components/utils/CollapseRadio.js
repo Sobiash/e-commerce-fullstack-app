@@ -6,7 +6,7 @@ import Collapse from "@material-ui/core/Collapse";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
 export class CollapseRadio extends Component {
@@ -26,12 +26,12 @@ export class CollapseRadio extends Component {
     this.setState({ open: !this.state.open });
   };
 
-  handleAngle = () =>
-    this.state.open ? (
-      <FontAwesomeIcon icon="angle-up" className="icon" />
-    ) : (
-      <FontAwesomeIcon icon="angle-down" className="icon" />
-    );
+  // handleAngle = () =>
+  //   this.state.open ? (
+  //     <FontAwesomeIcon icon="angle-up" className="icon" />
+  //   ) : (
+  //     <FontAwesomeIcon icon="angle-down" className="icon" />
+  //   );
 
   renderList = () =>
     this.props.list &&
@@ -64,7 +64,7 @@ export class CollapseRadio extends Component {
               primary={this.props.title}
               className="collapse_title"
             />
-            {this.handleAngle()}
+            {/* {this.handleAngle()} */}
           </ListItem>
           <Collapse in={this.state.open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>

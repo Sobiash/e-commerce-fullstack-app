@@ -3,7 +3,7 @@ import FormField from "../utils/Form/FormField";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+// import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 
 import {
   update,
@@ -123,7 +123,8 @@ class UpdateInfo extends Component {
             }}
             onClick={event => this.submitForm(event)}
           >
-            SAVE <FontAwesomeIcon icon="save" />
+            SAVE
+            {/* <FontAwesomeIcon icon="save" /> */}
           </div>
           <div className="form_block_two">
             <div className="block">

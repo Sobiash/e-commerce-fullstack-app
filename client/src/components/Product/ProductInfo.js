@@ -1,6 +1,6 @@
 import React from "react";
 import MyButton from "../utils/button";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+// import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import ColorSelect from "./ColorSelect";
@@ -31,9 +31,7 @@ const ProductInfo = props => {
         </div>
       ) : (
         <div className="tag">
-          <div>
-            <FontAwesomeIcon icon="times" />
-          </div>
+          <div>{/* <FontAwesomeIcon icon="times" /> */}</div>
           <div className="tag_text">
             <div>Not Available</div>
             <div>Pre order only</div>
@@ -80,7 +78,8 @@ const ProductInfo = props => {
             }}
           >
             <Link to={`/admin/edit_product/${detail._id}`}>
-              <FontAwesomeIcon icon="pencil-alt" />
+              {/* <FontAwesomeIcon icon="pencil-alt" /> */}
+              <p>hello</p>
             </Link>
           </div>
           <div style={{ display: "inline-block" }}>
@@ -88,7 +87,8 @@ const ProductInfo = props => {
               className="link_default"
               onClick={() => props.deleteProduct(detail._id)}
             >
-              <FontAwesomeIcon icon="trash-alt" />
+              {/* <FontAwesomeIcon icon="trash-alt" /> */}
+              <p>hello</p>
             </div>
           </div>
         </div>

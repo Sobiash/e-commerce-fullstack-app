@@ -3,7 +3,7 @@ import UserLayout from "../Hoc/UserLayout";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+// import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import {
   getUserProfile,
   deleteProfile,
@@ -49,7 +49,8 @@ class Userdashboard extends React.Component {
                 style={{ display: "inline-block", marginRight: "20px" }}
               >
                 <Link to="/user/user_profile">
-                  <FontAwesomeIcon icon="pencil-alt" />
+                  {/* <FontAwesomeIcon icon="pencil-alt" /> */}
+                  <p>hello</p>
                 </Link>
               </div>
               <div style={{ display: "inline-block" }}>
@@ -58,7 +59,8 @@ class Userdashboard extends React.Component {
                   className="link_default"
                   onClick={event => this.deleteProfile(event)}
                 >
-                  <FontAwesomeIcon icon="trash-alt" />
+                  {/* <FontAwesomeIcon icon="trash-alt" /> */}
+                  <p>hello</p>
                 </div>
               </div>
             </div>

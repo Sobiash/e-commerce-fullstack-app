@@ -6,7 +6,7 @@ const passport = require("passport");
 const { admin } = require("../middleware/admin");
 
 router
-  .route("/api/users/upload-image")
+  .route("/upload-image")
   .post(
     passport.authenticate("jwt", { session: false }),
     admin,
@@ -15,7 +15,7 @@ router
   );
 
 router.get(
-  "/api/users/remove-image",
+  "/remove-image",
 
   adminController.removeImage
 );

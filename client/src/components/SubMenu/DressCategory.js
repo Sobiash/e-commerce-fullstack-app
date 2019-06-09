@@ -15,7 +15,7 @@ import CollapseList from "../utils/CollapseList";
 import CollapseRadio from "../utils/CollapseRadio";
 import CartModal from "../UI/Modal";
 import { Link } from "react-router-dom";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+// import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 
 class DressCategory extends Component {
   state = {
@@ -236,13 +236,15 @@ class DressCategory extends Component {
                     className={`grid_btn ${this.state.grid ? "" : "active"}`}
                     onClick={() => this.handleGrid()}
                   >
-                    <FontAwesomeIcon icon="th" className="icon" />
+                    {/* <FontAwesomeIcon icon="th" className="icon" /> */}
+                    <p>hello</p>
                   </div>
                   <div
                     className={`grid_btn ${!this.state.grid ? "" : "active"}`}
                     onClick={() => this.handleGrid()}
                   >
-                    <FontAwesomeIcon icon="th-large" className="icon" />
+                    {/* <FontAwesomeIcon icon="th-large" className="icon" /> */}
+                    <p>hello</p>
                   </div>
                 </div>
               </div>

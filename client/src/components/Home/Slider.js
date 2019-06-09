@@ -1,24 +1,27 @@
 import React from "react";
 import MyButton from "../utils/button";
+import img from "../../images/img1.jpeg";
+import img2 from "../../images/img2.jpeg";
+import img3 from "../../images/img3.jpeg";
 
 const HomeSlider = () => {
   const slides = [
     {
-      img: "/images/img1.jpeg",
+      img: img,
       lineOne: "Women Collection 2019",
       lineTwo: "New Arrivals",
       linkTitle: "Shop now",
       linkTo: "/shop"
     },
     {
-      img: "/images/img2.jpeg",
+      img: img2,
       lineOne: "Men Collection 2019",
       lineTwo: "New Arrivals",
       linkTitle: "Shop now",
       linkTo: "/shop"
     },
     {
-      img: "/images/img3.jpeg",
+      img: img3,
       lineOne: "Awesome",
       lineTwo: "Discounts",
       linkTitle: "View offers",

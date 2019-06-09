@@ -1,5 +1,5 @@
 import React from "react";
-import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+// import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 
 class Sorting extends React.Component {
   state = {
@@ -45,13 +45,15 @@ class Sorting extends React.Component {
               className={`grid_btn ${this.props.grid ? "" : "active"}`}
               onClick={() => this.handleGrid()}
             >
-              <FontAwesomeIcon icon="th" className="icon" />
+              {/* <FontAwesomeIcon icon="th" className="icon" /> */}
+              <p>hello</p>
             </div>
             <div
               className={`grid_btn ${!this.props.grid ? "" : "active"}`}
               onClick={() => this.handleGrid()}
             >
-              <FontAwesomeIcon icon="th-large" className="icon" />
+              {/* <FontAwesomeIcon icon="th-large" className="icon" /> */}
+              <p>hello</p>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ require("dotenv").config();
 const resetPassWord = data => {
   const URL =
     process.env.NODE_ENV === "production"
-      ? process.env.ROOT_URL
+      ? "https://merny.herokuapp.com/"
       : "http://localhost:3000";
 
   return `

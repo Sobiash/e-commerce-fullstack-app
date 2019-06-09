@@ -3,6 +3,8 @@ import { Link, withRouter } from "react-router-dom";
 import MiniSummary from "../Cart/MiniSummary";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/auth_actions";
+import img from "../../images/icons/icon-header-02.png";
+import img2 from "../../images/icons/logo.png";
 
 import {
   clearCurrentProfile,
@@ -24,7 +26,7 @@ class Header extends React.Component {
     user: [
       {
         name: "My Cart",
-        icon: "/images/icons/icon-header-02.png",
+        icon: img,
         linkTo: "/user/cart",
         public: true
       },
@@ -156,7 +158,7 @@ class Header extends React.Component {
         <header className="header1">
           <div className="wrap_header">
             <Link to="/" className="logo">
-              <img src="/images/icons/logo.png" alt="IMG-LOGO" />
+              <img src={img2} alt="IMG-LOGO" />
             </Link>
             <div className="header-icons">
               <div>{this.showLinks(this.state.user)}</div>

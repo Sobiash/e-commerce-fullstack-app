@@ -5,7 +5,7 @@ require("dotenv").config();
 
 const opts = {};
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = process.env.TOKEN_SECRET;
+opts.secretOrKey = "A3.Fw+T~.fo";
 
 module.exports = passport => {
   passport.use(

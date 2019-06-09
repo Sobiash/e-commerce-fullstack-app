@@ -1,41 +1,24 @@
 const express = require("express");
-const { app, logger } = require("./server/utils/logger");
-const { expressConf } = require("./server/config/config");
-const morgan = require("morgan");
-const cookieParser = require("cookie-parser");
-const cloudinary = require("cloudinary");
-const passport = require("passport");
+("cookie-parser");
+
 const mongoose = require("mongoose");
 
-const { mongoConf } = require("./server/config/config");
-const routes = require("./server/routes/index");
+const app = express();
+const PORT = process.env.PORT || 3001;
 require("dotenv").config();
+const passport = require("passport");
+const cloudinary = require("cloudinary");
 
-if (app.get("env") == "development") app.use(morgan("tiny"));
-
-const { uri } = mongoConf;
-
-mongoose.Promise = global.Promise;
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useCreateIndex: true
-});
-
-mongoose.connection.on("error", err => {
-  console.error(`${err.message}`);
-});
-
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-// app.use(cookieParser());
 
 app.use(passport.initialize());
 require("./server/config/passport")(passport);
 
 cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET
+  cloud_name: "fashe",
+  api_key: "123494699886532",
+  api_secret: "m7Qr9cqQZMV5rZBWMkns-YvjekI"
 });
 
 if (process.env.NODE_ENV === "production") {
@@ -52,16 +35,6 @@ app.use("/api/users", require("./server/routes/user_route"));
 
 mongoose.connect(process.env.MONGODB_URI || "localhost:3004");
 
-// (async function() {
-//   try {
-//     for (let route in routes) {
-//       logger.info(`Attaching route: ${route}`);
-//       app.use(routes[route]);
-//     }
-
-//     const listener = app.listen(expressConf.port);
-//     logger.info(`listening on port ${listener.address().port}`);
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-// })();
+app.listen(PORT, function() {
+  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+});

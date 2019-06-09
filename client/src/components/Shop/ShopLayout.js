@@ -15,6 +15,7 @@ import LoadMore from "./LoadMore";
 import CartModal from "../UI/Modal";
 import PropTypes from "prop-types";
 import Sorting from "./Sorting";
+import img from "../../images/img2.jpeg";
 
 class Shop extends Component {
   state = {
@@ -204,7 +205,7 @@ class Shop extends Component {
                 <div
                   className="shop-title-page"
                   style={{
-                    background: "url(images/img2.jpeg)"
+                    backgroundImage: `url(${img})`
                   }}
                 >
                   <h3>Free Shipping</h3>
