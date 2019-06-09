@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { getProducts } from "../../actions/products_actions";
 import { connect } from "react-redux";
 
-class Banner extends React.Component {
+class Sale extends React.Component {
   render() {
     const renderList =
       this.props.list &&
@@ -58,4 +58,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { getProducts }
-)(Banner);
+)(Sale);

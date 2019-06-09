@@ -1,41 +1,43 @@
 import React from "react";
 import MyButton from "../utils/button";
-import img from "../../images/img4.jpeg";
+import img from "../../images/icons/sale.png";
 
 const Promotions = () => {
-  const promotion = {
-    img: img,
-    lineOne: "Sale",
-    lineTwo: "Upto 40% off sale online and in stores",
-    linkTitle: "Shop now",
-    linkTo: "/shop"
-  };
-  const renderPromotion = () =>
-    promotion && (
-      <div
-        className="home_promotion_img"
-        style={{
-          background: `url(${promotion.img})`
-        }}
-      >
-        <div className="tag title">{promotion.lineOne}</div>
-        <div className="tag low_title">{promotion.lineTwo}</div>
-        <div>
-          <MyButton
-            type="default"
-            title={promotion.linkTitle}
-            linkTo={promotion.linkTo}
-            addStyles={{
-              margin: "10px 0 0 0"
-            }}
-          />
-        </div>
-      </div>
-    );
-
   return (
     <div className="container">
-      <div className="home_promotion">{renderPromotion()}</div>
+      <div className="home_promotion">
+        <div
+          className="home_promotion_img"
+          style={{
+            background: `url(${img})`,
+            height: "500px",
+            width: "auto",
+            display: "block",
+            marginBottom: "60px"
+          }}
+        >
+          <div
+            style={{
+              display: "inline-block",
+              position: "absolute",
+              top: "460px",
+              left: "500px"
+            }}
+          >
+            women
+          </div>
+          <div
+            style={{
+              display: "inline-block",
+              position: "absolute",
+              top: "460px",
+              right: "500px"
+            }}
+          >
+            men
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

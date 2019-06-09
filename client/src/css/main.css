@@ -447,29 +447,14 @@ iframe {
   right: 5px;
 }
 
-/*[ Header ]
-///////////////////////////////////////////////////////////
-*/
-.header1 {
-  height: 125px;
-  -webkit-transition: all 0.3s;
-  -o-transition: all 0.3s;
-  -moz-transition: all 0.3s;
-  transition: all 0.3s;
-}
-
 .fixed-header {
   height: 110px;
 }
-
-/*[ Header Desktop ]
->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/
 
 .container-menu-header {
   width: 100%;
   top: 0;
   left: 0;
-  position: fixed;
   z-index: 1100;
   box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0 1px 5px 0px rgba(0, 0, 0, 0.2);
@@ -559,10 +544,6 @@ iframe {
   -o-transition: all 0.3s;
   -moz-transition: all 0.3s;
   transition: all 0.3s;
-}
-
-.fixed-header .wrap_header {
-  height: 65px;
 }
 
 /*[ Logo ]

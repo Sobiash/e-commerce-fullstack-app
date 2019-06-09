@@ -13,9 +13,9 @@ class Layout extends React.Component {
     const products = this.props.products;
     return (
       <div>
-        <Header />
         <div className="page_container">
-          <SubMenu list={products.categories} />
+          <Header />
+          {/* <SubMenu list={products.categories} /> */}
           {this.props.children}
         </div>
         <Footer />

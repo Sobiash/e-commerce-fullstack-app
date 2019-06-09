@@ -16,23 +16,11 @@ import PropTypes from "prop-types";
 
 class Header extends React.Component {
   state = {
-    page: [
-      {
-        name: "Shop",
-        linkTo: "/shop",
-        public: true
-      }
-    ],
     user: [
       {
         name: "My Cart",
         icon: img,
         linkTo: "/user/cart",
-        public: true
-      },
-      {
-        name: "Sign Up",
-        linkTo: "/register",
         public: true
       },
       {
@@ -137,7 +125,7 @@ class Header extends React.Component {
             list.push(item);
           }
         } else {
-          if (item.name !== "Log In" && item.name !== "Sign Up") {
+          if (item.name !== "Log In") {
             list.push(item);
           }
         }
@@ -162,7 +150,6 @@ class Header extends React.Component {
             </Link>
             <div className="header-icons">
               <div>{this.showLinks(this.state.user)}</div>
-              <div>{this.showLinks(this.state.page)}</div>
             </div>
           </div>
         </header>
