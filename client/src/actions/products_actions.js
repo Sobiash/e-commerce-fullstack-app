@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PRODUCT_SERVER } from "../components/utils/config";
+import { PRODUCT_SERVER, SHOP_SERVER } from "../components/utils/config";
 import {
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_BY_SELL,
@@ -48,7 +48,7 @@ export const getProducts = (skip, limit, filters = []) => dispatch => {
   };
 
   axios
-    .post(`${PRODUCT_SERVER}/shop`, data)
+    .post(`${SHOP_SERVER}/shop`, data)
     .then(res => {
       dispatch({
         type: GET_PRODUCTS,

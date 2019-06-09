@@ -1,6 +1,10 @@
 import axios from "axios";
 
-import { USER_SERVER } from "../components/utils/config";
+import {
+  USER_SERVER,
+  PAYMENT_SERVER,
+  CART_SERVER
+} from "../components/utils/config";
 import {
   ADD_TO_CART,
   GET_CART_DETAIL,
@@ -72,7 +76,7 @@ export const createCart = user => dispatch => {
   let data = {
     user
   };
-  axios.post(`${USER_SERVER}/create-cart`, data).then(res =>
+  axios.post(`${CART_SERVER}/create-cart`, data).then(res =>
     dispatch({
       type: CREATE_CART,
       payload: res.data
@@ -95,7 +99,7 @@ export const addToCart = (
     selectedSize,
     selectedColor
   };
-  axios.post(`${USER_SERVER}/add-to-cart/${id}`, data).then(res =>
+  axios.post(`${CART_SERVER}/add-to-cart/${id}`, data).then(res =>
     dispatch({
       type: ADD_TO_CART,
       payload: res.data
@@ -104,7 +108,7 @@ export const addToCart = (
 };
 
 export const getCartDetail = () => dispatch => {
-  axios.get(`${USER_SERVER}/get-cart`).then(res =>
+  axios.get(`${CART_SERVER}/get-cart`).then(res =>
     dispatch({
       type: GET_CART_DETAIL,
       payload: res.data
@@ -117,7 +121,7 @@ export const removeCartItems = id => dispatch => {
     id
   };
   axios
-    .post(`${USER_SERVER}/remove-item/${id}`, data)
+    .post(`${CART_SERVER}/remove-item/${id}`, data)
     .then(res =>
       dispatch({
         type: GET_CART_DETAIL,
@@ -136,7 +140,7 @@ export const increaseItem = id => dispatch => {
     id
   };
   axios
-    .post(`${USER_SERVER}/increase/${id}`, data)
+    .post(`${CART_SERVER}/increase/${id}`, data)
     .then(res =>
       dispatch({
         type: GET_CART_DETAIL,
@@ -155,7 +159,7 @@ export const decreaseItem = id => dispatch => {
     id
   };
   axios
-    .post(`${USER_SERVER}/decrease/${id}`, data)
+    .post(`${CART_SERVER}/decrease/${id}`, data)
     .then(res =>
       dispatch({
         type: GET_CART_DETAIL,
@@ -198,7 +202,7 @@ export const requestReset = dataToSubmit => dispatch => {
   );
 };
 export const onSuccessBuy = data => dispatch => {
-  axios.post(`${USER_SERVER}/success-buy`, data).then(res =>
+  axios.post(`${PAYMENT_SERVER}/success-buy`, data).then(res =>
     dispatch({
       type: ON_SUCCESS_BUY_USER,
       payload: res.data

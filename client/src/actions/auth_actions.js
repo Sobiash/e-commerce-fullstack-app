@@ -1,12 +1,12 @@
 import axios from "axios";
 import setAuthToken from "../components/utils/AuthToken";
 import jwt_decode from "jwt-decode";
-import { USER_SERVER } from "../components/utils/config";
+import { AUTH_SERVER } from "../components/utils/config";
 import { SET_CURRENT_USER, GET_ERRORS } from "./types";
 
 export const registerUser = (dataToSubmit, history) => {
   return dispatch => {
-    const registerUrl = `${USER_SERVER}/register`;
+    const registerUrl = `${AUTH_SERVER}/register`;
     return axios
       .post(registerUrl, dataToSubmit)
       .then(res => history.push("/register_login"))
@@ -21,7 +21,7 @@ export const registerUser = (dataToSubmit, history) => {
 
 export const loginUser = dataToSubmit => {
   return dispatch => {
-    const loginUrl = `${USER_SERVER}/login`;
+    const loginUrl = `${AUTH_SERVER}/login`;
     return axios
       .post(loginUrl, dataToSubmit)
       .then(res => {
