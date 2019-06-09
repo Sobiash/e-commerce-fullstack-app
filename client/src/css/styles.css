@@ -93,15 +93,17 @@ a {
 
 .input {
   text-align: center;
-  outline: 1;
-  border-width: 0 0 2px;
-  border-bottom: 1px solid #000;
   height: 35px;
-  margin: 0 auto;
+  margin: 30px auto 0px;
   z-index: 1;
   line-height: 20px;
   font-size: 15px;
   background-color: transparent;
+}
+
+hr {
+  color: #000;
+  border: 0.5px solid #000;
 }
 
 .dialog_alert {
@@ -326,19 +328,22 @@ header .log_out_link {
   display: inline-block;
   margin-left: 20px;
 }
+footer {
+  color: #000;
+}
 
 footer .wrapper {
   padding: 45px;
-  background-color: #1a1a1a;
+  background-color: #cccccc;
   text-align: justify;
 }
 
 footer .left {
-  width: 22%;
+  width: 25%;
   padding: 0 0px 0 50px;
 }
 footer .middle {
-  width: 22%;
+  width: 25%;
   padding: 0 0px 0 50px;
 }
 footer .right {
@@ -347,7 +352,7 @@ footer .right {
 }
 footer .flex-w {
   display: flex;
-  color: #cccccc;
+  color: #000;
   font-size: 12px;
   padding-bottom: 70px;
 }
@@ -355,7 +360,7 @@ footer a:hover {
   color: #ffffff;
 }
 footer .wrapper h4 {
-  color: #ffffff;
+  color: #000;
   font-size: 12px;
 }
 footer .newsletter {
@@ -371,8 +376,8 @@ footer li {
   flex-wrap: wrap;
 }
 .flex-w .link_default {
-  background: #ffffff;
-  color: rgb(17, 17, 17);
+  background: rgb(17, 17, 17);
+  color: #ffffff;
   margin-top: 10px;
   padding: 5px 15px;
   font-size: 12px;
@@ -382,7 +387,7 @@ footer li {
   width: 60%;
   margin: 0 auto 30px auto;
   text-align: center;
-  color: #ffffff;
+  color: #000;
   opacity: 0.9;
   font-size: 12px;
 }

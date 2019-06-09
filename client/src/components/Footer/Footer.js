@@ -8,40 +8,35 @@ const Footer = () => {
         <div className="container">
           <div className="flex-w">
             <div className="left">
-              <h4 className="newsletter">SHOP</h4>
+              <h4 className="newsletter">Shoping guide</h4>
               <div>
                 <div>
-                  <Link to="/shop">
-                    <div>All</div>
-                  </Link>
-                  <div>Men</div>
-                  <div>Women</div>
-                  <div>Kids</div>
+                  <div>FAQ's</div>
+
+                  <div>Payment</div>
+                  <div>Shipment</div>
+                  <div>Returns</div>
+                  <div>Exchange</div>
                 </div>
               </div>
             </div>
             <div className="middle">
-              <h4 className="newsletter">Contact Us</h4>
-              <div>
-                <div>Get all the information on events, sales and offers.</div>
-              </div>
+              <h4 className="newsletter">Social</h4>
+              <div>Facebook</div>
+              <div>Twitter</div>
+              <div>Pinterest</div>
+              <div>Instagram</div>
+              <div>Youtube</div>
             </div>
 
             <div className="right">
-              <h4 className="newsletter">Join the Fashe Club</h4>
-              <div>
-                <div>Get all the information on events, sales and offers.</div>
-                <Link className="link_default" to="/">
-                  <div>Read More</div>
-                </Link>
-              </div>
+              <h4 className="newsletter">Payment methods</h4>
+              <div>VISA</div>
+              <div>MasterCard</div>
+              <div>Paypal</div>
+              <div>GiftCard</div>
+              <div>Pay on delivery</div>
             </div>
-          </div>
-          <div className="copyright">
-            Get all the information on events, sales and offers. Get all the
-            information on events, sales and offers. Get all the information on
-            events, sales and offers. Get all the information on events, sales
-            and offers.
           </div>
         </div>
       </div>

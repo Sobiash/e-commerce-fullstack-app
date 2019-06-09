@@ -1,5 +1,4 @@
 import React from "react";
-import MyButton from "../utils/button";
 import img from "../../images/icons/sale.png";
 
 const Promotions = () => {
