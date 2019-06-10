@@ -124,10 +124,11 @@ class Register extends Component {
     return (
       <div className="page_wrapper">
         <div className="container">
-          <div className="register_login_container">
+          <div className="register_login_container" style={{ width: "600px" }}>
             <div className="left">
               <form onSubmit={event => this.submitForm(event)}>
-                <h3>Personal information</h3>
+                <h3>Write your personal details</h3>
+                <br />
                 <div className="form_block_two">
                   <div className="block">
                     <FormField
@@ -153,6 +154,8 @@ class Register extends Component {
                     />
                   </div>
                 </div>
+                <br />
+                <br />
                 <h3>Verify password</h3>
                 <div className="form_block_two">
                   <div className="block">
@@ -181,7 +184,7 @@ class Register extends Component {
                     className="link_default"
                     onClick={event => this.submitForm(event)}
                   >
-                    Create an account
+                    Create account
                   </div>
                 </div>
               </form>

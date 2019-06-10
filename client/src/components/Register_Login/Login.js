@@ -1,5 +1,6 @@
 import React from "react";
 import FormField from "../utils/Form/FormField";
+import { Link } from "react-router-dom";
 import { update, generateData, isFormValid } from "../utils/Form/FormActions";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
@@ -89,11 +90,16 @@ class Login extends React.Component {
             data={this.state.formData.email}
             change={element => this.updateForm(element)}
           />
+          <br />
           <FormField
             id={"password"}
             data={this.state.formData.password}
             change={element => this.updateForm(element)}
           />
+          <br />
+          <Link to="/reset-user" style={{ textDecoration: "underline" }}>
+            Forgot Password?
+          </Link>
           {this.state.formError && (
             <div className="error_label"> {this.state.formError.error}</div>
           )}
@@ -103,13 +109,6 @@ class Login extends React.Component {
               onClick={event => this.submitForm(event)}
             >
               Log in
-            </div>
-            <div
-              style={{ marginLeft: "10px" }}
-              className="link_default"
-              onClick={() => this.props.history.push("/reset-user")}
-            >
-              Forgot Password
             </div>
           </div>
         </form>

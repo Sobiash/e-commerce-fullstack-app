@@ -58,6 +58,7 @@ body {
 }
 
 .page_container {
+  margin-top: 80px;
   min-height: 100vh;
 }
 
@@ -91,14 +92,18 @@ a {
   color: inherit;
 }
 
-.input {
-  text-align: center;
+input {
   height: 35px;
   margin: 30px auto 0px;
   z-index: 1;
   line-height: 20px;
-  font-size: 15px;
+  font-size: 25px;
   background-color: transparent;
+  border-bottom: 1px solid #000 !important;
+}
+
+.input {
+  text-align: center;
 }
 
 hr {
@@ -205,10 +210,12 @@ select {
 
 .form_block_two {
   display: flex;
+  width: 400px;
 }
 .form_block_two .block {
-  flex-grow: 1;
+  /* flex-grow: 1; */
   box-sizing: border-box;
+  width: 200px;
 }
 
 .form_block_two .block:nth-child(1) {
@@ -528,15 +535,6 @@ div.tag.low_title {
   background: transparent;
 }
 
-/* .card_item_wrapper {
-  flex-grow: 1;
-  width: 25%;
-  padding: 0 10px;
-  box-sizing: border-box;
-  position: relative;
-  overflow: hidden;
-} */
-
 .overlay {
   position: absolute;
   top: 0;
@@ -811,13 +809,14 @@ div.block2-overlay.trans-0-4 img {
 .register_login_container h2 {
   margin: 20px 0px;
   text-transform: uppercase;
-  color: #686868;
+  color: #000;
 }
 
 .register_login_container p {
   font-weight: 300;
   font-size: 16px;
   width: 90%;
+  color: #000;
 }
 
 .user_container {

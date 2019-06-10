@@ -92,7 +92,7 @@ class ResetPassWord extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="page_container">
         <form onSubmit={event => this.submitForm(event)}>
           <h3>Reset password</h3>
 
