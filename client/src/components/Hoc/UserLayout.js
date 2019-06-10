@@ -5,26 +5,26 @@ import PropTypes from "prop-types";
 
 const links = [
   {
-    name: "My account",
+    name: "MY ACCOUNT",
     linkTo: "/user/dashboard"
   },
   {
-    name: "Order history",
+    name: "ORDERS",
     linkTo: "/user/order_history"
   },
   {
-    name: "My cart",
-    linkTo: "/user/cart"
+    name: "PERSONAL DETAILS",
+    linkTo: "/user/order_history"
   }
 ];
 
 const admin = [
   {
-    name: "Add products",
+    name: "ADD PRODUCTS",
     linkTo: "/admin/add_products"
   },
   {
-    name: "Manage categories",
+    name: "MANAGE CATEGORIES",
     linkTo: "/admin/manage_categories"
   }
 ];
@@ -35,20 +35,22 @@ class UserLayout extends React.Component {
 
     const generateLinks = links =>
       links.map((link, i) => (
-        <Link to={link.linkTo} key={i}>
-          {link.name}
-        </Link>
+        <div>
+          <Link to={link.linkTo} key={i}>
+            {link.name}
+          </Link>
+        </div>
       ));
     return (
       <div className="container">
         <div className="user_container">
           <div className="user_left_nav">
-            <h3>My account</h3>
-            <div className="links">{generateLinks(links)}</div>
+            <div>{generateLinks(links)}</div>
             {profile && profile.isAdmin && (
               <div>
-                <h3>Admin</h3>
-                <div className="links">{generateLinks(admin)}</div>
+                <br />
+                <h3>ADMIN</h3>
+                <div>{generateLinks(admin)}</div>
               </div>
             )}
           </div>

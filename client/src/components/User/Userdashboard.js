@@ -27,49 +27,49 @@ class Userdashboard extends React.Component {
   };
 
   render() {
-    const { profile, loading } = this.props.user;
+    // const { profile, loading } = this.props.user;
 
-    let dashboardContent;
+    // let dashboardContent;
 
-    if (loading) {
-      dashboardContent = <Spinner />;
-    } else {
-      dashboardContent = (
-        <div>
-          <div className="user_nfo_panel">
-            <h3>User information</h3>
-            <div>
-              <span>{profile.name}</span>
-              <span>{profile.lastname}</span>
-              <span>{profile.email}</span>
-            </div>
-            <div style={{ display: "block" }}>
-              <div
-                className="link_default"
-                style={{ display: "inline-block", marginRight: "20px" }}
-              >
-                <Link to="/user/user_profile">
-                  {/* <FontAwesomeIcon icon="pencil-alt" /> */}
-                  <p>hello</p>
-                </Link>
-              </div>
-              <div style={{ display: "inline-block" }}>
-                <div
-                  style={{ marginTop: "10px" }}
-                  className="link_default"
-                  onClick={event => this.deleteProfile(event)}
-                >
-                  {/* <FontAwesomeIcon icon="trash-alt" /> */}
-                  <p>hello</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
+    // if (loading) {
+    //   dashboardContent = <Spinner />;
+    // } else {
+    //   dashboardContent = (
+    //     <div>
+    //       <div className="user_nfo_panel">
+    //         <h3>My account</h3>
+    //         <div>
+    //           <span>{profile.name}</span>
+    //           <span>{profile.lastname}</span>
+    //           <span>{profile.email}</span>
+    //         </div>
+    //         <div style={{ display: "block" }}>
+    //           <div
+    //             className="link_default"
+    //             style={{ display: "inline-block", marginRight: "20px" }}
+    //           >
+    //             <Link to="/user/user_profile">
+    //               {/* <FontAwesomeIcon icon="pencil-alt" /> */}
+    //               <p>hello</p>
+    //             </Link>
+    //           </div>
+    //           <div style={{ display: "inline-block" }}>
+    //             <div
+    //               style={{ marginTop: "10px" }}
+    //               className="link_default"
+    //               onClick={event => this.deleteProfile(event)}
+    //             >
+    //               {/* <FontAwesomeIcon icon="trash-alt" /> */}
+    //               <p>hello</p>
+    //             </div>
+    //           </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   );
+    // }
 
-    return <UserLayout>{dashboardContent}</UserLayout>;
+    return <UserLayout>{/* {dashboardContent} */}</UserLayout>;
   }
 }
 
