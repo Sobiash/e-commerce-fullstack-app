@@ -6,6 +6,8 @@ import PrivateRoute from "./components/Hoc/PrivateRout";
 import RegisterLogin from "./components/Register_Login/RegisterLogin";
 import Register from "./components/Register_Login/Register";
 import Userdashboard from "./components/User/Userdashboard";
+import UserAccessData from "./components/User/UserAccessData";
+import UserPaymentData from "./components/User/UserPaymentData";
 import ManageCategories from "./components/User/Admin/ManageCategories";
 import ShopLaout from "./components/Shop/ShopLayout";
 import AddProduct from "./components/User/Admin/AddProduct";
@@ -45,6 +47,16 @@ const App = () => {
     <Layout>
       <Switch>
         <PrivateRoute path="/user/dashboard" exact component={Userdashboard} />
+        <PrivateRoute
+          path="/user/access_data"
+          exact
+          component={UserAccessData}
+        />
+        <PrivateRoute
+          path="/user/payment_data"
+          exact
+          component={UserPaymentData}
+        />
         <Route path="/user/cart" exact component={UserCart} />
         <PrivateRoute
           path="/user/user_profile"

@@ -109,23 +109,8 @@ class UpdateInfo extends Component {
     return (
       <div>
         <form onSubmit={event => this.submitForm(event)}>
-          <div style={{ display: "inline-block" }}>
-            <h4>Personal information</h4>
-          </div>
+          <div style={{ display: "inline-block" }} />
 
-          <div
-            className="link_default"
-            style={{
-              display: "inline-block",
-              marginLeft: "300px",
-              color: "#222222",
-              background: "#ffffff"
-            }}
-            onClick={event => this.submitForm(event)}
-          >
-            SAVE
-            {/* <FontAwesomeIcon icon="save" /> */}
-          </div>
           <div className="form_block_two">
             <div className="block">
               <FormField
@@ -155,6 +140,16 @@ class UpdateInfo extends Component {
             )}
           </div>
         </form>
+        <div
+          className="link_default"
+          style={{
+            color: "#222222",
+            background: "#ffffff"
+          }}
+          onClick={event => this.submitForm(event)}
+        >
+          SAVE
+        </div>
       </div>
     );
   }

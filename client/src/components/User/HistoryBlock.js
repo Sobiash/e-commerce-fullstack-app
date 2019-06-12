@@ -31,7 +31,12 @@ class HistoryBlock extends React.Component {
       <UserLayout>
         <div className="user_nfo_panel">
           <div className="user_product_block_wrapper">
-            <h3>History Purchases</h3>
+            <h2>Orders</h2>
+            <p>
+              Check the status and information regarding your online orders. You
+              can also cancel the order or request a refund.
+            </p>
+            <br />
             <div className="history_blocks">
               <table>
                 <thead>
@@ -54,8 +59,11 @@ class HistoryBlock extends React.Component {
       <UserLayout>
         <div className="user_nfo_panel">
           <div className="user_product_block_wrapper">
-            <h3>History Purchases</h3>
-            You have no history of purchases.
+            <h2>Orders</h2>
+            <p>
+              Check the status and information regarding your online orders. You
+              can also cancel the order or request a refund.
+            </p>
           </div>
         </div>
       </UserLayout>

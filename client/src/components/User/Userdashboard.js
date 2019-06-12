@@ -3,7 +3,7 @@ import UserLayout from "../Hoc/UserLayout";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-// import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+
 import {
   getUserProfile,
   deleteProfile,
@@ -27,49 +27,58 @@ class Userdashboard extends React.Component {
   };
 
   render() {
-    // const { profile, loading } = this.props.user;
+    const { loading } = this.props.user;
 
-    // let dashboardContent;
+    let dashboardContent;
 
-    // if (loading) {
-    //   dashboardContent = <Spinner />;
-    // } else {
-    //   dashboardContent = (
-    //     <div>
-    //       <div className="user_nfo_panel">
-    //         <h3>My account</h3>
-    //         <div>
-    //           <span>{profile.name}</span>
-    //           <span>{profile.lastname}</span>
-    //           <span>{profile.email}</span>
-    //         </div>
-    //         <div style={{ display: "block" }}>
-    //           <div
-    //             className="link_default"
-    //             style={{ display: "inline-block", marginRight: "20px" }}
-    //           >
-    //             <Link to="/user/user_profile">
-    //               {/* <FontAwesomeIcon icon="pencil-alt" /> */}
-    //               <p>hello</p>
-    //             </Link>
-    //           </div>
-    //           <div style={{ display: "inline-block" }}>
-    //             <div
-    //               style={{ marginTop: "10px" }}
-    //               className="link_default"
-    //               onClick={event => this.deleteProfile(event)}
-    //             >
-    //               {/* <FontAwesomeIcon icon="trash-alt" /> */}
-    //               <p>hello</p>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   );
-    // }
+    if (loading) {
+      dashboardContent = <Spinner />;
+    } else {
+      dashboardContent = (
+        <div>
+          <h2>My account </h2>
+          <br />
+          <Link to="/user/order_history">
+            <h3> Orders and Returns</h3>
+          </Link>
 
-    return <UserLayout>{/* {dashboardContent} */}</UserLayout>;
+          <p>
+            Check the status and information regarding your online orders. You
+            can also cancel the order or request a refund.
+          </p>
+
+          <br />
+          <Link to="/user/payment_data">
+            <h3> Payment Details</h3>
+          </Link>
+          <p>
+            If you have saved your PAYMENT DATA, you can see your cards, delete
+            them and choose your main card for future purchases from here.
+          </p>
+          <br />
+          <Link to="/user/user_profile">
+            <h3>Personal Details</h3>
+          </Link>
+          <p>
+            You can access and modify your personal details (name, billing
+            address, telephone number, etc.) in order to speed up your future
+            purchases and notify us of changes in your contact details.
+          </p>
+          <br />
+          <Link to="/user/access_data">
+            <h3>Access Details</h3>
+          </Link>
+
+          <p>
+            You can change your access details (e-mail and password ). Remember
+            that the security of your personal details is important. You should
+            use a secure password and change it from time to time.
+          </p>
+        </div>
+      );
+    }
+
+    return <UserLayout>{dashboardContent}</UserLayout>;
   }
 }
 

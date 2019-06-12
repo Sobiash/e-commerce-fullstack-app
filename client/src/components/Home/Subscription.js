@@ -57,7 +57,7 @@ class Subscription extends React.Component {
             className="link_default"
             onClick={event => this.submitForm(event)}
           >
-            Reset Password
+            Sign up
           </div>
         </form>
       </div>

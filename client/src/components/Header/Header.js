@@ -51,7 +51,7 @@ class Header extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props !== nextProps) {
+    if (nextProps !== this.props) {
       this.props.getCartDetail();
     }
   }
