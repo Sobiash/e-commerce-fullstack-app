@@ -46,7 +46,6 @@ const MyButton = props => {
             }}
             className={!altClass ? "bag_link" : altClass}
           >
-            {/* <FontAwesomeIcon icon="shopping-bag" /> {"  "} */}
             Add to cart
           </div>
         );

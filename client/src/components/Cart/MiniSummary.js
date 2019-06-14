@@ -2,9 +2,13 @@ import PropTypes from "prop-types";
 import React, { Fragment } from "react";
 import { ListGroup, ListGroupItem, Col, Row, Button } from "reactstrap";
 import { Link } from "react-router-dom";
+import Payment from "./Payment";
+import { calculateTotal } from "../utils/helper";
 
 const MiniSummary = props => {
   const cart = props.cart;
+  const email = props.email;
+  const onTransactionSuccess = props.onTransactionSuccess;
   const empty = props.empty;
 
   const CardPreview = (
@@ -34,14 +38,24 @@ const MiniSummary = props => {
           <ListGroupItem style={{ listStyle: "none" }}>
             <Link to="/user/cart">
               <Button className="link_default" style={{ marginTop: "10px" }}>
-                View Cart
+                Edit Cart
               </Button>
             </Link>
-            <Link to="/user/cart">
-              <Button className="link_default" style={{ marginTop: "10px" }}>
+          </ListGroupItem>
+          <ListGroupItem style={{ listStyle: "none" }}>
+            <Payment
+              amount={calculateTotal(cart)}
+              email={email}
+              cart={cart[0].images[0].url}
+              onSuccess={data => onTransactionSuccess(data)}
+            >
+              <Button
+                className="link_default"
+                style={{ margin: "10px 0px 20px 20px" }}
+              >
                 Checkout
               </Button>
-            </Link>
+            </Payment>
           </ListGroupItem>
         </Fragment>
       ) : (

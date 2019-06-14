@@ -3,6 +3,7 @@ import { Link, withRouter } from "react-router-dom";
 import MiniSummary from "../Cart/MiniSummary";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/auth_actions";
+import { onSuccessBuy } from "../../actions/user_actions";
 import img from "../../images/icons/icon-header-02.png";
 import img2 from "../../images/icons/logo.png";
 
@@ -42,17 +43,27 @@ class Header extends React.Component {
     isOpen: false,
     subMenuOpen: false,
     subMenuCategorySelected: "",
-    openCartPreview: false
+    openCartPreview: false,
+    cartLength: 0,
+    showSuccess: false
   };
 
   componentDidMount() {
+    const user = this.props.user;
     this.props.getUserProfile();
     this.props.getCartDetail();
+    this.setState({
+      cartLength: user.cartDetail.length
+    });
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps !== this.props) {
+  componentWillUpdate(nextProps, nextState) {
+    const user = this.props.user;
+    if (nextProps.user.cartDetail !== user.cartDetail) {
       this.props.getCartDetail();
+      this.setState({
+        cartLength: user.cartDetail.length
+      });
     }
   }
 
@@ -60,6 +71,18 @@ class Header extends React.Component {
     this.props.logoutUser();
     this.props.clearCurrentProfile();
     this.props.history.push("/register_login");
+  };
+
+  onTransactionSuccess = data => {
+    this.props.onSuccessBuy({
+      cartDetail: this.props.user.cartDetail,
+      paymentData: data
+    });
+    if (this.props.user.successBuy) {
+      this.setState({
+        showSuccess: true
+      });
+    }
   };
 
   defaultLink = (item, i) =>
@@ -82,8 +105,8 @@ class Header extends React.Component {
     const user = this.props.user;
     return (
       <div className="cart_link" key={i}>
-        <span>
-          {auth.isAuthenticated && user.cartDetail ? user.cartDetail.length : 0}
+        <span className="cart_link_span">
+          {auth.isAuthenticated && user.cartDetail && this.state.cartLength}
         </span>
         <img
           src={item.icon}
@@ -109,6 +132,8 @@ class Header extends React.Component {
             <MiniSummary
               empty={user.cartDetail.length === 0 && true}
               cart={user.cartDetail}
+              email={user.profile.email}
+              onTransactionSuccess={this.onTransactionSuccess}
             />
           </div>
         )}
@@ -181,6 +206,7 @@ export default connect(
     logoutUser,
     clearCurrentProfile,
     getUserProfile,
-    getCartDetail
+    getCartDetail,
+    onSuccessBuy
   }
 )(withRouter(Header));

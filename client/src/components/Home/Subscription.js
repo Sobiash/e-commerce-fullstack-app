@@ -1,7 +1,6 @@
 import React from "react";
 import FormField from "../utils/Form/FormField";
 import { update, generateData, isFormValid } from "../utils/Form/FormActions";
-import { fontSize } from "@material-ui/system";
 
 class Subscription extends React.Component {
   state = {

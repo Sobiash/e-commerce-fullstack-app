@@ -11,6 +11,7 @@ import {
   decreaseItem,
   onSuccessBuy
 } from "../../actions/user_actions";
+import { calculateTotal } from "../utils/helper";
 
 import img from "../../images/img4.jpeg";
 import Payment from "./Payment";
@@ -26,14 +27,6 @@ class UserCart extends Component {
     this.props.getUserProfile();
     this.props.getCartDetail();
   }
-
-  calculateTotal = cartDetail => {
-    let total = 0;
-    cartDetail.forEach(item => {
-      total += parseInt(item.price, 10) * item.quantity;
-    });
-    return total;
-  };
 
   showNotItems = () => (
     <div className="container">
@@ -170,10 +163,10 @@ class UserCart extends Component {
                 >
                   <h2>Shopping Bag, Sum</h2>
                   <div className="user_cart_info">
-                    <p>ORDER VALUE : $ {this.calculateTotal(cart)}</p>
+                    <p>ORDER VALUE : $ {calculateTotal(cart)}</p>
                     <div className="payment">
                       <Payment
-                        amount={this.calculateTotal(cart)}
+                        amount={calculateTotal(cart)}
                         email={this.props.user.profile.email}
                         cart={cart[0].images[0].url}
                         onSuccess={data => this.onTransactionSuccess(data)}

@@ -314,7 +314,7 @@ header .cart_link {
   position: relative;
 }
 
-header .cart_link span {
+header .cart_link_span {
   display: flex;
   justify-content: center;
   align-items: center;

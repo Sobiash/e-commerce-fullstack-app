@@ -94,7 +94,7 @@ class UpdateInfo extends Component {
     if (nextProps.errors) {
       this.setState({ formError: nextProps.errors });
     }
-    if (nextProps.user.profile) {
+    if (nextProps.user.profile !== this.props.user.profile) {
       const newFormData = populateFields(
         this.state.formData,
         nextProps.user.profile

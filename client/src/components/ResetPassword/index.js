@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import FormField from "../utils/Form/FormField";
 import { update, generateData, isFormValid } from "../utils/Form/FormActions";
 import axios from "axios";
-import { textAlign, fontSize } from "@material-ui/system";
 
 class RequestReset extends Component {
   state = {
