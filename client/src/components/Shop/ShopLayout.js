@@ -162,13 +162,13 @@ class Shop extends Component {
     const products = this.props.products;
 
     return (
-      <div>
+      <div style={{ marginTop: "100px" }}>
         <div>
           <div className="shop_wrapper">
             <div className="left">
               <CollapseList
                 initState={true}
-                title="Categories"
+                title="Filters"
                 list={products.categories}
                 handleFilters={filters =>
                   this.handleFilters(filters, "category")

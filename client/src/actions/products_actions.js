@@ -120,6 +120,8 @@ export const deleteProduct = id => dispatch => {
           payload: error.response.data
         });
       });
+  } else {
+    window.location.reload();
   }
 };
 

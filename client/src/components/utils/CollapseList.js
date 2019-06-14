@@ -5,7 +5,8 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Collapse from "@material-ui/core/Collapse";
-// import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+import arrowUp from "../../images/icons/up-arrow.png";
+import arrowDown from "../../images/icons/down-arrow.png";
 import PropTypes from "prop-types";
 
 class CollapseList extends Component {
@@ -62,12 +63,12 @@ class CollapseList extends Component {
       }
     );
   };
-  // handleAngle = () =>
-  //   this.state.open ? (
-  //     <FontAwesomeIcon icon="angle-up" className="icon" />
-  //   ) : (
-  //     <FontAwesomeIcon icon="angle-down" className="icon" />
-  //   );
+  handleAngle = () =>
+    this.state.open ? (
+      <img style={{ width: "20px", height: "20px" }} src={arrowUp} alt="" />
+    ) : (
+      <img style={{ width: "20px", height: "20px" }} src={arrowDown} alt="" />
+    );
   render() {
     return (
       <div className="collapse_items_wrapper">
@@ -80,7 +81,7 @@ class CollapseList extends Component {
               primary={this.props.title}
               className="collapse_title"
             />
-            {/* {this.handleAngle()} */}
+            {this.handleAngle()}
           </ListItem>
           <Collapse in={this.state.open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>

@@ -97,7 +97,7 @@ class UserCart extends Component {
                   </div>
                 </div>
                 <div className="user_cart_sum">
-                  <h2>Shopping Bag, Sum</h2>
+                  <h2 style={{ marginTop: "20px" }}>Shopping Bag, Sum</h2>
                   <div className="user_cart_info">
                     <p>
                       Proceed to the checkout - log in to use your Club offers
@@ -163,7 +163,7 @@ class UserCart extends Component {
                   className="user_cart_sum"
                   style={{ width: "350px", marginRight: "250px" }}
                 >
-                  <h2>Shopping Bag, Sum</h2>
+                  <h2 style={{ marginTop: "20px" }}>Shopping Bag, Sum</h2>
                   <div className="user_cart_info">
                     <p>ORDER VALUE : $ {calculateTotal(cart)}</p>
                     <div className="payment">

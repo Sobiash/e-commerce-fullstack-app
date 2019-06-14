@@ -1,10 +1,11 @@
 import React from "react";
 import MyButton from "../utils/button";
-// import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import ColorSelect from "./ColorSelect";
 import SizeSelect from "./SizeSelect";
+import editor from "../../images/icons/edit.png";
+import cross from "../../images/icons/cancel.png";
 
 const ProductInfo = props => {
   const {
@@ -31,7 +32,6 @@ const ProductInfo = props => {
         </div>
       ) : (
         <div className="tag">
-          <div>{/* <FontAwesomeIcon icon="times" /> */}</div>
           <div className="tag_text">
             <div>Not Available</div>
             <div>Pre order only</div>
@@ -71,24 +71,30 @@ const ProductInfo = props => {
       {props.user.isAdmin && (
         <div style={{ display: "inline-block" }}>
           <div
-            className="link_default"
             style={{
               display: "inline-block",
-              marginRight: "10px"
+              marginLeft: "10px"
             }}
           >
             <Link to={`/admin/edit_product/${detail._id}`}>
-              {/* <FontAwesomeIcon icon="pencil-alt" /> */}
-              <p>hello</p>
+              <img
+                src={editor}
+                alt="image-edit-image"
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  backgroundColor: "transparent"
+                }}
+              />
             </Link>
           </div>
-          <div style={{ display: "inline-block" }}>
-            <div
-              className="link_default"
-              onClick={() => props.deleteProduct(detail._id)}
-            >
-              {/* <FontAwesomeIcon icon="trash-alt" /> */}
-              <p>hello</p>
+          <div style={{ display: "inline-block", marginLeft: "10px" }}>
+            <div onClick={() => props.deleteProduct(detail._id)}>
+              <img
+                src={cross}
+                alt="delete"
+                style={{ width: "15px", height: "15px" }}
+              />
             </div>
           </div>
         </div>

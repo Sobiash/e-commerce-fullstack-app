@@ -1,5 +1,4 @@
 import React from "react";
-// import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 import layout from "../../images/icons/layout.png";
 import squares from "../../images/icons/squares.png";
 

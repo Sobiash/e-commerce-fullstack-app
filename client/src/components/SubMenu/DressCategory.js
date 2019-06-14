@@ -16,6 +16,7 @@ import CollapseRadio from "../utils/CollapseRadio";
 import CartModal from "../UI/Modal";
 import { Link } from "react-router-dom";
 import layout from "../../images/icons/layout.png";
+import squares from "../../images/icons/squares.png";
 
 class DressCategory extends Component {
   state = {
@@ -169,13 +170,13 @@ class DressCategory extends Component {
     const category = this.props.location.state.category;
 
     return (
-      <div>
+      <div style={{ marginTop: "100px" }}>
         <div>
           <div className="shop_wrapper">
             <div className="left">
               <CollapseList
                 initState={true}
-                title="Categories"
+                title="Filters"
                 list={products.categories}
                 handleFilters={filters =>
                   this.handleFilters(filters, "category")
@@ -236,10 +237,9 @@ class DressCategory extends Component {
                     className={`grid_btn ${this.state.grid ? "" : "active"}`}
                     onClick={() => this.handleGrid()}
                   >
-                    {/* <FontAwesomeIcon icon="th" className="icon" /> */}
                     <img
-                      src={layout}
-                      style={{ width: "5px", height: "10px" }}
+                      src={squares}
+                      style={{ width: "20px", height: "20px" }}
                       alt=""
                     />
                   </div>
@@ -247,8 +247,11 @@ class DressCategory extends Component {
                     className={`grid_btn ${!this.state.grid ? "" : "active"}`}
                     onClick={() => this.handleGrid()}
                   >
-                    {/* <FontAwesomeIcon icon="th-large" className="icon" /> */}
-                    <p>hello</p>
+                    <img
+                      src={layout}
+                      style={{ width: "20px", height: "20px" }}
+                      alt=""
+                    />
                   </div>
                 </div>
               </div>

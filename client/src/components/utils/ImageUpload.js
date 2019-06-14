@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Dropzone from "react-dropzone";
 import axios from "axios";
-// import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+import camera from "../../images/icons/add-photo.png";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import PropTypes from "prop-types";
 
@@ -81,8 +81,11 @@ class ImageUpload extends Component {
                 <div {...getRootProps()}>
                   <input {...getInputProps()} />
                   <div className="wrap">
-                    {/* <FontAwesomeIcon icon="plus-circle" /> */}
-                    <p>hello</p>
+                    <img
+                      src={camera}
+                      alt="camera-image"
+                      style={{ width: "50px", height: "50px" }}
+                    />
                   </div>
                 </div>
               )}

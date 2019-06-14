@@ -45,7 +45,9 @@ class ProductView extends Component {
 
   deleteProduct = id => {
     this.props.deleteProduct(id);
-    this.props.history.push("/shop");
+    if (window.confirm) {
+      this.props.history.push("/shop");
+    }
   };
 
   toggleModal = () => this.setState({ openModal: true });
