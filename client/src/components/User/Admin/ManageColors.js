@@ -58,7 +58,7 @@ class ManageDresses extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
+    if (nextProps.errors !== this.props.errors) {
       this.setState({ formError: nextProps.errors });
     }
   }

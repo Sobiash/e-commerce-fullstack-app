@@ -63,6 +63,21 @@ class UpdateInfo extends Component {
         valid: false,
         touched: false,
         validationMessage: ""
+      },
+      password: {
+        element: "input",
+        value: "",
+        config: {
+          name: "password_input",
+          type: "password",
+          placeholder: "Enter your password"
+        },
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false,
+        validationMessage: ""
       }
     }
   };
@@ -91,7 +106,7 @@ class UpdateInfo extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
+    if (nextProps.errors !== this.props.errors) {
       this.setState({ formError: nextProps.errors });
     }
     if (nextProps.user.profile !== this.props.user.profile) {
@@ -131,6 +146,13 @@ class UpdateInfo extends Component {
             <FormField
               id={"email"}
               data={this.state.formData.email}
+              change={element => this.updateForm(element)}
+            />
+          </div>
+          <div>
+            <FormField
+              id={"password"}
+              data={this.state.formData.password}
               change={element => this.updateForm(element)}
             />
           </div>

@@ -212,11 +212,11 @@ class AddProduct extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.errors) {
+    if (nextProps.errors !== this.props.errors) {
       this.setState({ formError: nextProps.errors });
     }
     const formData = this.state.formData;
-    if (nextProps.products.dresses) {
+    if (nextProps.products.dresses !== this.props.products.dresses) {
       const newFormData = populateOptionFields(
         formData,
         nextProps.products.dresses,
@@ -224,7 +224,7 @@ class AddProduct extends Component {
       );
       this.updateFields(newFormData);
     }
-    if (nextProps.products.categories) {
+    if (nextProps.products.categories !== this.props.products.categories) {
       const newFormData = populateOptionFields(
         formData,
         nextProps.products.categories,

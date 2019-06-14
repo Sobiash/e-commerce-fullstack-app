@@ -71,12 +71,12 @@ class Login extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated) {
+    if (nextProps.auth.isAuthenticated !== this.props.auth.isAuthenticated) {
       this.props.history.push("/user/dashboard");
       this.props.createCart(nextProps.auth.user.id);
     }
 
-    if (nextProps.errors) {
+    if (nextProps.errors !== this.props.errors) {
       this.setState({ formError: nextProps.errors });
     }
   }

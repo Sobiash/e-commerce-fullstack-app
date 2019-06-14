@@ -44,8 +44,8 @@ const schemas = {
     .keys({
       name: name.required(),
       lastname: lastname.required(),
-      email: email.required()
-      // password: password.required()
+      email: email.required(),
+      password: password.required()
     })
     .required()
 };

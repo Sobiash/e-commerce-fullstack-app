@@ -107,7 +107,12 @@ userController.resetUserPassword = async (req, res) => {
 
 userController.updateProfile = async (req, res) => {
   try {
-    const body = await _.pick(req.body, ["name", "lastname", "email"]);
+    const body = await _.pick(req.body, [
+      "name",
+      "lastname",
+      "email",
+      "password"
+    ]);
 
     const user = await User.findOne({ _id: req.user._id });
     if (!user) {
@@ -115,9 +120,12 @@ userController.updateProfile = async (req, res) => {
         message: "Sorry, something went wrong."
       });
     } else {
+      const hash = await hashPassword(body.password);
+      body.password = hash;
       user.name = body.name;
       user.lastname = body.lastname;
       user.email = body.email;
+      user.password = hash;
 
       user.save((err, doc) => {
         if (err) return res.status(400).json({ err });

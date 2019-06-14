@@ -71,10 +71,12 @@ export const resetFields = (formData, formName) => {
 
 export const populateFields = (formData, field) => {
   for (let key in formData) {
-    formData[key].value = field[key];
-    formData[key].valid = true;
-    formData[key].touched = true;
-    formData[key].validationMessage = true;
+    if (key !== "password") {
+      formData[key].value = field[key];
+      formData[key].valid = true;
+      formData[key].touched = true;
+      formData[key].validationMessage = true;
+    }
   }
   return formData;
 };
