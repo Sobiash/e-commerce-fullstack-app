@@ -13,7 +13,6 @@ const UpdateUserProfile = () => {
           address, telephone number, etc.) in order to facilitate your future
           purchases and to notify us of any change in your contact details.
         </p>
-        <br />
         <UpdateInfo />
         <br />
 

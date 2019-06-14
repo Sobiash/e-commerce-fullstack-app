@@ -142,6 +142,17 @@ class UpdateInfo extends Component {
               />
             </div>
           </div>
+          <br />
+          <br />
+          <h3>Change e-mail address</h3>
+          <p>
+            If you wish to update the e-mail address associated with this
+            account, please fill in the following fields. Your password is
+            requested for security reasons.
+          </p>
+
+          <br />
+          <br />
           <div>
             <FormField
               id={"email"}
@@ -149,6 +160,16 @@ class UpdateInfo extends Component {
               change={element => this.updateForm(element)}
             />
           </div>
+          <br />
+          <br />
+          <h3>Change password</h3>
+          <p>
+            If you wish to change the password to access your account, please
+            provide the following information:
+          </p>
+          <br />
+
+          <br />
           <div>
             <FormField
               id={"password"}

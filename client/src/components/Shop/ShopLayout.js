@@ -209,7 +209,7 @@ class Shop extends Component {
                   }}
                 >
                   <h3>Free Shipping</h3>
-                  <p>For Fashe Club members</p>
+                  <p style={{ textAlign: "center" }}>For Fashe Club members</p>
                   <div className="shop_span">
                     <span>
                       <Link to="/register">Sign up</Link>

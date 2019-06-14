@@ -14,7 +14,7 @@ const links = [
   },
   {
     name: "PERSONAL DETAILS",
-    linkTo: "/user/order_history"
+    linkTo: "/user/user_profile"
   }
 ];
 

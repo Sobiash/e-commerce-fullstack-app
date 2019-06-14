@@ -15,7 +15,7 @@ import CollapseList from "../utils/CollapseList";
 import CollapseRadio from "../utils/CollapseRadio";
 import CartModal from "../UI/Modal";
 import { Link } from "react-router-dom";
-// import FontAwesomeIcon from "@fortawesome/react-fontawesome";
+import layout from "../../images/icons/layout.png";
 
 class DressCategory extends Component {
   state = {
@@ -237,7 +237,11 @@ class DressCategory extends Component {
                     onClick={() => this.handleGrid()}
                   >
                     {/* <FontAwesomeIcon icon="th" className="icon" /> */}
-                    <p>hello</p>
+                    <img
+                      src={layout}
+                      style={{ width: "5px", height: "10px" }}
+                      alt=""
+                    />
                   </div>
                   <div
                     className={`grid_btn ${!this.state.grid ? "" : "active"}`}

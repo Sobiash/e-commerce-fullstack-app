@@ -12,11 +12,9 @@ import {
   onSuccessBuy
 } from "../../actions/user_actions";
 import { calculateTotal } from "../utils/helper";
-
 import img from "../../images/img4.jpeg";
 import Payment from "./Payment";
 import PopularCategories from "../PopularCategories/PopoularCategories";
-import SizeSelect from "../Product/SizeSelect";
 
 class UserCart extends Component {
   state = {
@@ -150,6 +148,10 @@ class UserCart extends Component {
                       </tbody>
                       {CartItem}
                     </table>
+                    <br />
+                    <Link to="/shop">
+                      <div className="link_default">Continue shopping</div>
+                    </Link>
                   </div>
                 ) : (
                   this.showNotItems()

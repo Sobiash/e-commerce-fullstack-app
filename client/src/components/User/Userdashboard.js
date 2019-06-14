@@ -48,12 +48,14 @@ class Userdashboard extends React.Component {
           </p>
 
           <br />
-          <Link to="/user/payment_data">
-            <h3> Payment Details</h3>
+          <Link to="/user/address">
+            <h3>Address book</h3>
           </Link>
           <p>
-            If you have saved your PAYMENT DATA, you can see your cards, delete
-            them and choose your main card for future purchases from here.
+            Use the address book to store as many addresses as you wish (your
+            house, your office, your family residence, etc.). This means you
+            won't have to fill in the shipping address each time you place an
+            order.
           </p>
           <br />
           <Link to="/user/user_profile">
@@ -65,15 +67,6 @@ class Userdashboard extends React.Component {
             purchases and notify us of changes in your contact details.
           </p>
           <br />
-          <Link to="/user/access_data">
-            <h3>Access Details</h3>
-          </Link>
-
-          <p>
-            You can change your access details (e-mail and password ). Remember
-            that the security of your personal details is important. You should
-            use a secure password and change it from time to time.
-          </p>
         </div>
       );
     }
