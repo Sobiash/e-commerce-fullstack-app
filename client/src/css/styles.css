@@ -40,7 +40,7 @@ p {
   margin: 0 10px;
   display: inline-block;
   cursor: pointer;
-  position: fixed;
+  /* position: fixed; */
 }
 
 .logo {
@@ -264,7 +264,11 @@ select {
 .bag_link:hover,
 .add_to_cart_link:hover {
   /* opacity: 0.8; */
-  background: #e65540;
+  left: 150px;
+  width: 50px;
+  height: 1px;
+  background: rgba(150, 250, 250, 0.5);
+  box-shadow: 0 0 10px rgba(70, 250, 250, 1);
 }
 
 .action_button {
@@ -281,7 +285,6 @@ select {
 }
 
 header {
-  position: fixed;
   z-index: 999;
   width: 100%;
 }

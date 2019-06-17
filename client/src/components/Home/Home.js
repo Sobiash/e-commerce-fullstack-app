@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import MainImage from "./MainImage";
-import Sale from "./Sale";
 import Promotions from "./Promotions";
 import Subscription from "./Subscription";
 import PopularCategories from "../PopularCategories/PopoularCategories";
@@ -17,6 +16,7 @@ class Home extends React.Component {
       <div>
         <MainImage list={products.categories} />
         <Promotions />
+        <PopularCategories />
         <Subscription />
       </div>
     );
