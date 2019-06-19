@@ -13,8 +13,17 @@
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "node",
+    "express",
+    "mongodb",
+    "react",
+    "javascript",
+    "redux",
+    "mern"
+  ],
+  "author": "Sobia Shahbaz",
+  "license": "MIT",
   "engines": {
     "node": "10.3.0"
   },
