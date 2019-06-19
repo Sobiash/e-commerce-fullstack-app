@@ -27,6 +27,7 @@ class Subscription extends React.Component {
   };
 
   render() {
+    const { formData, formSuccess, formError } = this.state;
     return (
       <div
         style={{
@@ -42,14 +43,14 @@ class Subscription extends React.Component {
         <form onSubmit={event => this.submitForm(event)}>
           <FormField
             id={"email"}
-            data={this.state.formData.email}
+            data={formData.email}
             change={element => this.updateForm(element)}
           />
 
-          {this.state.formSuccess && (
+          {formSuccess && (
             <div className="form_success">Done, check your email</div>
           )}
-          {this.state.formError && (
+          {formError && (
             <div className="error_label">Please check your data</div>
           )}
           <div

@@ -92,35 +92,49 @@ class Register extends Component {
   };
 
   updateForm = element => {
-    const newFormData = update(element, this.state.formData, "register");
+    const { formData } = this.state;
+    const newFormData = update(element, formData, "register");
     this.setState({
       formData: newFormData
     });
   };
   submitForm = event => {
+    const { formData } = this.state;
+    const { history } = this.props;
+
     event.preventDefault();
 
-    let dataToSubmit = generateData(this.state.formData, "register");
+    let dataToSubmit = generateData(formData, "register");
 
-    let formIsValid = isFormValid(this.state.formData, "register");
+    let formIsValid = isFormValid(formData, "register");
 
     if (formIsValid) {
-      this.props.registerUser(dataToSubmit, this.props.history);
+      registerUser(dataToSubmit, history);
     }
   };
 
   componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/users/user_profile");
+    const { auth, history } = this.props;
+    if (auth.isAuthenticated) {
+      history.push("/users/user_profile");
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.errors !== this.props.errors) {
+    const { errors } = this.props;
+    if (nextProps.errors !== errors) {
       this.setState({ formError: nextProps.errors });
     }
   }
   render() {
+    const {
+      name,
+      lastname,
+      email,
+      password,
+      confirmPassword
+    } = this.state.formData;
+    const { formError } = this.state;
     return (
       <div className="page_wrapper">
         <div className="container">
@@ -133,14 +147,14 @@ class Register extends Component {
                   <div className="block">
                     <FormField
                       id={"name"}
-                      data={this.state.formData.name}
+                      data={name}
                       change={element => this.updateForm(element)}
                     />
                   </div>
                   <div className="block">
                     <FormField
                       id={"lastname"}
-                      data={this.state.formData.lastname}
+                      data={lastname}
                       change={element => this.updateForm(element)}
                     />
                   </div>
@@ -149,7 +163,7 @@ class Register extends Component {
                   <div className="block">
                     <FormField
                       id={"email"}
-                      data={this.state.formData.email}
+                      data={email}
                       change={element => this.updateForm(element)}
                     />
                   </div>
@@ -161,23 +175,21 @@ class Register extends Component {
                   <div className="block">
                     <FormField
                       id={"password"}
-                      data={this.state.formData.password}
+                      data={password}
                       change={element => this.updateForm(element)}
                     />
                   </div>
                   <div className="block">
                     <FormField
                       id={"confirmPassword"}
-                      data={this.state.formData.confirmPassword}
+                      data={confirmPassword}
                       change={element => this.updateForm(element)}
                     />
                   </div>
                 </div>
                 <div>
-                  {this.state.formError && (
-                    <div className="error_label">
-                      {this.state.formError.error}
-                    </div>
+                  {formError && (
+                    <div className="error_label">{formError.error}</div>
                   )}
 
                   <div

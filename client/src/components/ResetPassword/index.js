@@ -27,7 +27,8 @@ class RequestReset extends Component {
     }
   };
   updateForm = element => {
-    const newFormData = update(element, this.state.formData, "reset_email");
+    const { formData } = this.state;
+    const newFormData = update(element, formData, "reset_email");
     this.setState({
       formError: false,
       formData: newFormData
@@ -35,7 +36,8 @@ class RequestReset extends Component {
   };
 
   updateForm = element => {
-    const newFormData = update(element, this.state.formData, "reset_email");
+    const { formData } = this.state;
+    const newFormData = update(element, formData, "reset_email");
     this.setState({
       formError: false,
       formData: newFormData
@@ -43,10 +45,11 @@ class RequestReset extends Component {
   };
 
   submitForm = event => {
+    const { formData } = this.state;
     event.preventDefault();
 
-    let dataToSubmit = generateData(this.state.formData, "reset_email");
-    let formIsValid = isFormValid(this.state.formData, "reset_email");
+    let dataToSubmit = generateData(formData, "reset_email");
+    let formIsValid = isFormValid(formData, "reset_email");
 
     if (formIsValid) {
       axios.post("/api/users/reset-user", dataToSubmit).then(response => {
@@ -63,6 +66,7 @@ class RequestReset extends Component {
     }
   };
   render() {
+    const { formData, formSuccess, formError } = this.state;
     return (
       <div
         style={{
@@ -79,14 +83,14 @@ class RequestReset extends Component {
         <form onSubmit={event => this.submitForm(event)}>
           <FormField
             id={"email"}
-            data={this.state.formData.email}
+            data={formData.email}
             change={element => this.updateForm(element)}
           />
 
-          {this.state.formSuccess && (
+          {formSuccess && (
             <div className="form_success">Done, check your email</div>
           )}
-          {this.state.formError && (
+          {formError && (
             <div className="error_label">Please check your data</div>
           )}
           <div

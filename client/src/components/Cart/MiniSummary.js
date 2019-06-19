@@ -5,12 +5,7 @@ import { Link } from "react-router-dom";
 import Payment from "./Payment";
 import { calculateTotal } from "../utils/helper";
 
-const MiniSummary = props => {
-  const cart = props.cart;
-  const email = props.email;
-  const onTransactionSuccess = props.onTransactionSuccess;
-  const empty = props.empty;
-
+const MiniSummary = ({ cart, email, onTransactionSuccess, empty }) => {
   const CardPreview = (
     <ListGroup>
       {!empty ? (

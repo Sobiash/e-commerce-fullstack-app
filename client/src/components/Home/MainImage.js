@@ -2,9 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const HomeSlider = props => {
+  const { list } = props;
   const renderCategories =
-    props.list &&
-    props.list.map(category => (
+    list &&
+    list.map(category => (
       <Link key={category._id} to={`/shop/category/${category._id}`}>
         <div
           className="home-images"

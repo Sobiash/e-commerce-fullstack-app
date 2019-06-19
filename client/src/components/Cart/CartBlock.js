@@ -19,23 +19,33 @@ class CartBlock extends React.Component {
   };
 
   renderCartItems = cart => {
+    const { decreaseItem, increaseItem, removeItem } = this.props;
+    const {
+      _id,
+      images,
+      name,
+      price,
+      quantity,
+      selectedSize,
+      selectedColor
+    } = cart;
     return (
       <tbody>
-        <tr className="table-row" key={cart._id}>
+        <tr className="table-row" key={_id}>
           <td className="column-1">
             <div className="cart-img-product">
               <img
-                src={this.renderCartImages(cart.images)}
+                src={this.renderCartImages(images)}
                 alt="item"
                 className="image"
               />
             </div>
           </td>
-          <td className="column-2">{cart.name}</td>
-          <td className="column-3">{cart.price * cart.quantity}</td>
-          <td className="column-4">{cart.quantity}</td>
-          <td className="column-4">{cart.selectedSize}</td>
-          <td className="column-4">{cart.selectedColor}</td>
+          <td className="column-2">{name}</td>
+          <td className="column-3">{price * quantity}</td>
+          <td className="column-4">{quantity}</td>
+          <td className="column-4">{selectedSize}</td>
+          <td className="column-4">{selectedColor}</td>
           <td className="column-5">
             <div style={{ display: "block" }}>
               <div
@@ -46,7 +56,7 @@ class CartBlock extends React.Component {
                   marginRight: "5px",
                   marginTop: "0"
                 }}
-                onClick={() => this.props.decreaseItem(cart._id)}
+                onClick={() => decreaseItem(_id)}
               >
                 -
               </div>
@@ -57,7 +67,7 @@ class CartBlock extends React.Component {
                   padding: "4px",
                   marginTop: "0"
                 }}
-                onClick={() => this.props.increaseItem(cart._id)}
+                onClick={() => increaseItem(_id)}
               >
                 +
               </div>
@@ -73,7 +83,7 @@ class CartBlock extends React.Component {
                 <div
                   className="cart_remove_btn link_default"
                   style={{ padding: "4px", marginTop: "0" }}
-                  onClick={() => this.props.removeItem(cart._id)}
+                  onClick={() => removeItem(_id)}
                 >
                   Remove
                 </div>
@@ -86,9 +96,8 @@ class CartBlock extends React.Component {
   };
 
   render() {
-    return (
-      <React.Fragment>{this.renderCartItems(this.props.cart)}</React.Fragment>
-    );
+    const { cart } = this.props;
+    return <React.Fragment>{this.renderCartItems(cart)}</React.Fragment>;
   }
 }
 

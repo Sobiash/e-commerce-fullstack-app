@@ -49,36 +49,42 @@ class Header extends React.Component {
   };
 
   componentDidMount() {
-    const user = this.props.user;
-    this.props.getUserProfile();
-    this.props.getCartDetail();
+    // const user = this.props.user;
+    const { user, getUserProfile, getCartDetail } = this.props;
+    getUserProfile();
+    getCartDetail();
     this.setState({
       cartLength: user.cartDetail.length
     });
   }
 
   componentWillUpdate(nextProps, nextState) {
-    const user = this.props.user;
-    if (nextProps.user.cartDetail !== user.cartDetail) {
-      this.props.getCartDetail();
+    const { user, getCartDetail } = this.props;
+    const { cartDetail } = user;
+    if (nextProps.user.cartDetail !== cartDetail) {
+      getCartDetail();
       this.setState({
-        cartLength: user.cartDetail.length
+        cartLength: cartDetail.length
       });
     }
   }
 
   logoutHandler = () => {
-    this.props.logoutUser();
-    this.props.clearCurrentProfile();
-    this.props.history.push("/register_login");
+    const { logoutUser, clearCurrentProfile, history } = this.props;
+    logoutUser();
+    clearCurrentProfile();
+    history.push("/register_login");
   };
 
   onTransactionSuccess = data => {
-    this.props.onSuccessBuy({
-      cartDetail: this.props.user.cartDetail,
+    const { onSuccessBuy, user } = this.props;
+    const { cartDetail, successBuy } = user;
+
+    onSuccessBuy({
+      cartDetail: cartDetail,
       paymentData: data
     });
-    if (this.props.user.successBuy) {
+    if (successBuy) {
       this.setState({
         showSuccess: true
       });
@@ -101,22 +107,22 @@ class Header extends React.Component {
     );
 
   cartLink = (item, i) => {
-    const auth = this.props.auth;
-    const user = this.props.user;
+    const { auth, user } = this.props;
+    const { cartLength, openCartPreview } = this.state;
+    const { cartDetail, profile } = user;
+    const { isAuthenticated } = auth;
     return (
       <div className="cart_link" key={i}>
         <span className="cart_link_span">
-          {auth.isAuthenticated && user.cartDetail && this.state.cartLength}
+          {isAuthenticated && cartDetail && cartLength}
         </span>
         <img
           src={item.icon}
           alt="MY_CART"
           style={{ cursor: "pointer" }}
-          onClick={() =>
-            this.setState({ openCartPreview: !this.state.openCartPreview })
-          }
+          onClick={() => this.setState({ openCartPreview: !openCartPreview })}
         />
-        {this.state.openCartPreview && (
+        {openCartPreview && (
           <div
             style={{
               position: "fixed",
@@ -130,9 +136,9 @@ class Header extends React.Component {
             }}
           >
             <MiniSummary
-              empty={user.cartDetail.length === 0 && true}
-              cart={user.cartDetail}
-              email={user.profile.email}
+              empty={cartDetail.length === 0 && true}
+              cart={cartDetail}
+              email={profile.email}
               onTransactionSuccess={this.onTransactionSuccess}
             />
           </div>
@@ -142,10 +148,11 @@ class Header extends React.Component {
   };
 
   showLinks = type => {
+    const { isAuthenticated } = this.props.auth;
     let list = [];
     if (this.props.auth) {
       type.forEach(item => {
-        if (!this.props.auth.isAuthenticated) {
+        if (!isAuthenticated) {
           if (item.public === true) {
             list.push(item);
           }
@@ -166,6 +173,7 @@ class Header extends React.Component {
   };
 
   render() {
+    const { user } = this.state;
     return (
       <div>
         <header className="header1">
@@ -174,7 +182,7 @@ class Header extends React.Component {
               <img src={img2} alt="IMG-LOGO" />
             </Link>
             <div className="header-icons">
-              <div>{this.showLinks(this.state.user)}</div>
+              <div>{this.showLinks(user)}</div>
             </div>
           </div>
         </header>

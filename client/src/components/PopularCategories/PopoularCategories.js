@@ -15,34 +15,32 @@ class PopularCategories extends React.Component {
   };
 
   componentDidMount() {
-    this.props.getProductsBySell();
-    this.props.getProductsByArrival();
+    const { getProductsBySell, getProductsByArrival } = this.props;
+    getProductsBySell();
+    getProductsByArrival();
   }
 
   toggleModal = () => this.setState({ openModal: true });
   closeModal = () => this.setState({ openModal: false });
 
   render() {
+    const { isAuthenticated } = this.props.auth;
+    const { byArrival, bySell } = this.props.products;
+    const { openModal } = this.state;
     return (
       <div>
-        {this.props.auth.isAuthenticated ? (
-          <CartModal
-            openModal={this.state.openModal}
-            closeModal={this.closeModal}
-          >
+        {isAuthenticated ? (
+          <CartModal openModal={openModal} closeModal={this.closeModal}>
             Item added to your cart
           </CartModal>
         ) : (
-          <CartModal
-            openModal={this.state.openModal}
-            closeModal={this.closeModal}
-          >
+          <CartModal openModal={openModal} closeModal={this.closeModal}>
             You need to login to add this product to your cart.
           </CartModal>
         )}
         <div>
           <CardBlock
-            list={this.props.products.byArrival}
+            list={byArrival}
             title="New Arrivals"
             class="card_block"
             grid=""
@@ -52,7 +50,7 @@ class PopularCategories extends React.Component {
         </div>
         <div>
           <CardBlock
-            list={this.props.products.bySell}
+            list={bySell}
             title="Best Selling Products"
             class="card_block"
             popular="block2-labelpopular"

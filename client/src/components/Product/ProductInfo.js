@@ -7,24 +7,26 @@ import SizeSelect from "./SizeSelect";
 import editor from "../../images/icons/edit.png";
 import cross from "../../images/icons/cancel.png";
 
-const ProductInfo = props => {
-  const {
-    detail,
-    addToCart,
-    toggleModal,
-    handleSizeSelection,
-    handleColorSelection,
-    validateSizeSelection,
-    validateColorSelection,
-    selectedSize,
-    selectedColor,
-    colorSelectionMissingRemark,
-    sizeSelectionMissingRemark
-  } = props;
+const ProductInfo = ({
+  user,
+  deleteProduct,
+  detail,
+  addToCart,
+  toggleModal,
+  handleSizeSelection,
+  handleColorSelection,
+  validateSizeSelection,
+  validateColorSelection,
+  selectedSize,
+  selectedColor,
+  colorSelectionMissingRemark,
+  sizeSelectionMissingRemark
+}) => {
+  const { available, name, price, description, color, size } = detail;
 
-  const showProductTags = detail => (
+  const showProductTags = () => (
     <div className="product_tags">
-      {detail.available ? (
+      {available ? (
         <div className="tag">
           <div className="tag_text">
             <div>Available in store</div>
@@ -41,7 +43,15 @@ const ProductInfo = props => {
     </div>
   );
 
-  const showProductActions = detail => (
+  const showProductActions = ({
+    _id,
+    name,
+    price,
+    color,
+    size,
+    description,
+    images
+  }) => (
     <div className="product_actions" style={{ display: "block" }}>
       <div
         className="cart"
@@ -56,10 +66,13 @@ const ProductInfo = props => {
           runAction={() => {
             return (
               addToCart(
-                detail._id,
-                detail.name,
-                detail.price,
-                detail.images,
+                _id,
+                name,
+                price,
+                color,
+                size,
+                description,
+                images,
                 selectedSize,
                 selectedColor
               ),
@@ -68,7 +81,7 @@ const ProductInfo = props => {
           }}
         />
       </div>
-      {props.user.isAdmin && (
+      {user.isAdmin && (
         <div style={{ display: "inline-block" }}>
           <div
             style={{
@@ -76,7 +89,7 @@ const ProductInfo = props => {
               marginLeft: "10px"
             }}
           >
-            <Link to={`/admin/edit_product/${detail._id}`}>
+            <Link to={`/admin/edit_product/${_id}`}>
               <img
                 src={editor}
                 alt="image-edit-image"
@@ -89,7 +102,7 @@ const ProductInfo = props => {
             </Link>
           </div>
           <div style={{ display: "inline-block", marginLeft: "10px" }}>
-            <div onClick={() => props.deleteProduct(detail._id)}>
+            <div onClick={() => deleteProduct(_id)}>
               <img
                 src={cross}
                 alt="delete"
@@ -102,20 +115,20 @@ const ProductInfo = props => {
     </div>
   );
 
-  const showProductSpecs = detail => (
+  const showProductSpecs = ({ dress }) => (
     <div className="specs">
       <h5>Specs:</h5>
       <div className="item">
-        <p>Dress type: {detail.dress && detail.dress.name}</p>
+        <p>Dress type: {dress && dress.name}</p>
       </div>
     </div>
   );
 
   return (
     <div className="product_info">
-      <h5>{detail.name}</h5>
-      <span>{detail.price} $</span>
-      <p>{detail.description}</p>
+      <h5>{name}</h5>
+      <span>{price} $</span>
+      <p>{description}</p>
       {showProductSpecs(detail)}
 
       <p>
@@ -124,7 +137,7 @@ const ProductInfo = props => {
       </p>
 
       <ColorSelect
-        colors={detail.color}
+        colors={color}
         handleColorSelection={handleColorSelection}
         selectedColor={selectedColor}
         validateColorSelection={validateColorSelection}
@@ -136,7 +149,7 @@ const ProductInfo = props => {
       )}
 
       <SizeSelect
-        sizesArray={detail.size}
+        sizesArray={size}
         infoItem={detail}
         handleSizeSelection={handleSizeSelection}
         selectedSize={selectedSize}

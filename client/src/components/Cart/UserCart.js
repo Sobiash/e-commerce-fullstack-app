@@ -22,8 +22,9 @@ class UserCart extends Component {
   };
 
   componentDidMount() {
-    this.props.getUserProfile();
-    this.props.getCartDetail();
+    const { getUserProfile, getCartDetail } = this.props;
+    getUserProfile();
+    getCartDetail();
   }
 
   showNotItems = () => (
@@ -45,11 +46,12 @@ class UserCart extends Component {
   };
 
   onTransactionSuccess = data => {
+    const { cartDetail, successBuy } = this.props.user;
     this.props.onSuccessBuy({
-      cartDetail: this.props.user.cartDetail,
+      cartDetail: cartDetail,
       paymentData: data
     });
-    if (this.props.user.successBuy) {
+    if (successBuy) {
       this.setState({
         showSuccess: true
       });
@@ -57,10 +59,12 @@ class UserCart extends Component {
   };
 
   render() {
-    const cart = this.props.user.cartDetail;
+    const { cartDetail } = this.props.user;
+    const { email } = this.props.user.profile;
+    const { isAuthenticated } = this.props.auth;
     const CartItem =
-      cart.length > 0 &&
-      cart.map(item => {
+      cartDetail.length > 0 &&
+      cartDetail.map(item => {
         return (
           <CartBlock
             key={item._id}
@@ -75,7 +79,7 @@ class UserCart extends Component {
 
     return (
       <div>
-        {!this.props.auth.isAuthenticated ? (
+        {!isAuthenticated ? (
           <div className="container">
             <div className="shopping_cart">
               <h1>Shopping Bag</h1>
@@ -132,7 +136,7 @@ class UserCart extends Component {
 
             <div className="container-table-cart">
               <div className="container">
-                {cart.length > 0 ? (
+                {cartDetail.length > 0 ? (
                   <div className="wrap-table-shopping-cart ">
                     <table className="table-shopping-cart">
                       <tbody>
@@ -158,19 +162,19 @@ class UserCart extends Component {
                 )}
               </div>
 
-              {cart.length > 0 && (
+              {cartDetail.length > 0 && (
                 <div
                   className="user_cart_sum"
                   style={{ width: "350px", marginRight: "250px" }}
                 >
                   <h2 style={{ marginTop: "20px" }}>Shopping Bag, Sum</h2>
                   <div className="user_cart_info">
-                    <p>ORDER VALUE : $ {calculateTotal(cart)}</p>
+                    <p>ORDER VALUE : $ {calculateTotal(cartDetail)}</p>
                     <div className="payment">
                       <Payment
-                        amount={calculateTotal(cart)}
-                        email={this.props.user.profile.email}
-                        cart={cart[0].images[0].url}
+                        amount={calculateTotal(cartDetail)}
+                        email={email}
+                        cart={cartDetail[0].images[0].url}
                         onSuccess={data => this.onTransactionSuccess(data)}
                       >
                         <div
@@ -191,7 +195,7 @@ class UserCart extends Component {
             </div>
           </div>
         )}
-        {!this.props.auth.isAuthenticated && <PopularCategories />}
+        {!isAuthenticated && <PopularCategories />}
       </div>
     );
   }

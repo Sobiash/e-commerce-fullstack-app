@@ -24,29 +24,39 @@ class ProductView extends Component {
   };
 
   componentDidMount() {
-    this.props.getUserProfile();
+    const {
+      getUserProfile,
+      getProductDetail,
+      products,
+      history,
+      match
+    } = this.props;
+    getUserProfile();
 
-    const id = this.props.match.params.id;
+    const id = match.params.id;
 
-    this.props.getProductDetail(id);
+    getProductDetail(id);
 
-    if (!this.props.products) {
-      this.props.history.push("/");
+    if (!products) {
+      history.push("/");
     }
   }
 
   componentWillUnmount() {
-    this.props.clearProductDetail();
+    const { clearProductDetail } = this.props;
+    clearProductDetail();
   }
 
   addToCartHandler = (id, name, price, images, selectedSize, selectedColor) => {
-    this.props.addToCart(id, name, price, images, selectedSize, selectedColor);
+    const { addToCart } = this.props;
+    addToCart(id, name, price, images, selectedSize, selectedColor);
   };
 
   deleteProduct = id => {
-    this.props.deleteProduct(id);
+    const { deleteProduct, history } = this.props;
+    deleteProduct(id);
     if (window.confirm) {
-      this.props.history.push("/shop");
+      history.push("/shop");
     }
   };
 
@@ -68,23 +78,19 @@ class ProductView extends Component {
       : this.setState({ colorSelectionMissingRemark: remark });
 
   render() {
-    const productDetail = this.props.products.productDetail;
-    const user = this.props.user;
+    const { productDetail } = this.props.products;
+    const { user } = this.props;
+    const { isAuthenticated } = this.props.auth;
+    const { openModal, selectedSize, selectedColor } = this.state;
 
     return (
       <div>
-        {this.props.auth.isAuthenticated ? (
-          <CartModal
-            openModal={this.state.openModal}
-            closeModal={this.closeModal}
-          >
+        {isAuthenticated ? (
+          <CartModal openModal={openModal} closeModal={this.closeModal}>
             Item added to your cart
           </CartModal>
         ) : (
-          <CartModal
-            openModal={this.state.openModal}
-            closeModal={this.closeModal}
-          >
+          <CartModal openModal={openModal} closeModal={this.closeModal}>
             You need to login to add this product to your cart.
           </CartModal>
         )}
@@ -106,8 +112,8 @@ class ProductView extends Component {
                       productDetail.name,
                       productDetail.price,
                       productDetail.images,
-                      this.state.selectedSize,
-                      this.state.selectedColor
+                      selectedSize,
+                      selectedColor
                     )
                   }
                   user={user.profile}

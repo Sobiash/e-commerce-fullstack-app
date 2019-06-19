@@ -12,7 +12,7 @@ class ProductImages extends Component {
   };
 
   componentDidMount() {
-    const images = this.props.detail.images;
+    const { images } = this.props.detail;
     if (images) {
       let lightboxImages = [];
       images.forEach(item => {
@@ -33,7 +33,8 @@ class ProductImages extends Component {
   };
 
   handleLightBox = position => {
-    if (this.state.lightboxImages.length > 0) {
+    const { lightboxImages } = this.state;
+    if (lightboxImages.length > 0) {
       this.setState({
         lightbox: true,
         imagePosition: position
@@ -62,6 +63,7 @@ class ProductImages extends Component {
     );
   render() {
     const { detail } = this.props;
+    const { lightboxImages, lightbox, open, imagePosition } = this.state;
 
     return (
       <div className="product_image_container">
@@ -75,15 +77,13 @@ class ProductImages extends Component {
             onClick={() => this.handleLightBox(0)}
           />
         </div>
-        <div className="main_thumbs">
-          {this.showThumbs(this.state.lightboxImages)}
-        </div>
-        {this.state.lightbox && (
+        <div className="main_thumbs">{this.showThumbs(lightboxImages)}</div>
+        {lightbox && (
           <ImageLightBox
             key={detail._id}
-            images={this.state.lightboxImages}
-            open={this.state.open}
-            position={this.state.imagePosition}
+            images={lightboxImages}
+            open={open}
+            position={imagePosition}
             onClose={() => this.handleLightBoxClose()}
           />
         )}

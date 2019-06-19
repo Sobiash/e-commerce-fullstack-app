@@ -10,7 +10,7 @@ class Layout extends React.Component {
     this.props.getCategories();
   }
   render() {
-    const products = this.props.products;
+    const { products } = this.props;
     return (
       <div>
         <div className="page_container">

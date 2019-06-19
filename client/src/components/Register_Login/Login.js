@@ -47,62 +47,68 @@ class Login extends React.Component {
   };
 
   updateForm = element => {
-    const newFormData = update(element, this.state.formData, "login");
+    const { formData } = this.state;
+    const newFormData = update(element, formData, "login");
     this.setState({
       formData: newFormData
     });
   };
 
   submitForm = event => {
+    const { formData } = this.state;
+    const { loginUser } = this.props;
+
     event.preventDefault();
 
-    let dataToSubmit = generateData(this.state.formData, "login");
-    let formIsValid = isFormValid(this.state.formData, "login");
+    let dataToSubmit = generateData(formData, "login");
+    let formIsValid = isFormValid(formData, "login");
 
     if (formIsValid) {
-      this.props.loginUser(dataToSubmit);
+      loginUser(dataToSubmit);
     }
   };
 
   componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/user/dashboard");
+    const { auth, history } = this.props;
+    if (auth.isAuthenticated) {
+      history.push("/user/dashboard");
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAuthenticated !== this.props.auth.isAuthenticated) {
-      this.props.history.push("/user/dashboard");
-      this.props.createCart(nextProps.auth.user.id);
+    const { auth, history, createCart, errors } = this.props;
+    if (nextProps.auth.isAuthenticated !== auth.isAuthenticated) {
+      history.push("/user/dashboard");
+      createCart(nextProps.auth.user.id);
     }
 
-    if (nextProps.errors !== this.props.errors) {
+    if (nextProps.errors !== errors) {
       this.setState({ formError: nextProps.errors });
     }
   }
 
   render() {
+    const { email, password } = this.state.formData;
+    const { formError } = this.state;
     return (
       <div className="signin_wrapper">
         <form onSubmit={event => this.submitForm(event)}>
           <FormField
             id={"email"}
-            data={this.state.formData.email}
+            data={email}
             change={element => this.updateForm(element)}
           />
           <br />
           <FormField
             id={"password"}
-            data={this.state.formData.password}
+            data={password}
             change={element => this.updateForm(element)}
           />
           <br />
           <Link to="/reset-user" style={{ textDecoration: "underline" }}>
             Forgot Password?
           </Link>
-          {this.state.formError && (
-            <div className="error_label"> {this.state.formError.error}</div>
-          )}
+          {formError && <div className="error_label"> {formError.error}</div>}
           <div className="login_buttons">
             <div
               className="link_default"

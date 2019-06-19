@@ -7,15 +7,15 @@ class Payment extends Component {
     this.props.onSuccess(res);
   };
   render() {
-    const image = this.props.cart;
+    const { cart, email, amount } = this.props;
     return (
       <StripeCheckout
-        amount={this.props.amount * 100}
+        amount={amount * 100}
         name="Fashe"
-        image={image}
+        image={cart}
         stripeKey={STRIPE_KEY}
         currency="USD"
-        email={this.props.email}
+        email={email}
         token={res => this.onToken(res)}
         allowRememberMe={true}
       >

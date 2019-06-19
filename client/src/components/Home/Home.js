@@ -11,10 +11,10 @@ class Home extends React.Component {
     this.props.getCategories();
   }
   render() {
-    const products = this.props.products;
+    const { categories } = this.props.products;
     return (
       <div>
-        <MainImage list={products.categories} />
+        <MainImage list={categories} />
         <Promotions />
         <PopularCategories />
         <Subscription />

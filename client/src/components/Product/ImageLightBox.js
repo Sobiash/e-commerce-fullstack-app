@@ -10,40 +10,45 @@ class ImageLightBox extends Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    if (props.images) {
-      const images = [];
-      props.images.forEach(item => {
-        images.push({ src: `${item}` });
+    const { images } = props;
+    if (images) {
+      const imagesArray = [];
+      images.forEach(item => {
+        imagesArray.push({ src: `${item}` });
       });
       return (state = {
-        images
+        images: imagesArray
       });
     }
     return false;
   }
 
   handlePreviousImage = () => {
+    const { currentImage } = this.state;
     this.setState({
-      currentImage: this.state.currentImage - 1
+      currentImage: currentImage - 1
     });
   };
   handleNextImage = () => {
+    const { currentImage } = this.state;
     this.setState({
-      currentImage: this.state.currentImage + 1
+      currentImage: currentImage + 1
     });
   };
 
   closeLightBox = () => {
-    this.props.onClose();
+    const { onClose } = this.props;
+    onClose();
   };
 
   render() {
+    const { currentImage, images, lightboxIsOpen } = this.state;
     return (
       <div>
         <Lightbox
-          currentImage={this.state.currentImage}
-          images={this.state.images}
-          isOpen={this.state.lightboxIsOpen}
+          currentImage={currentImage}
+          images={images}
+          isOpen={lightboxIsOpen}
           onClickPrev={() => this.handlePreviousImage()}
           onClickNext={() => this.handleNextImage()}
           onClose={() => this.closeLightBox()}

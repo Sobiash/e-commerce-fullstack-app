@@ -46,7 +46,8 @@ class ResetPassWord extends Component {
   };
 
   updateForm = element => {
-    const newFormData = update(element, this.state.formData, "reset-password");
+    const { formData } = this.state;
+    const newFormData = update(element, formData, "reset-password");
     this.setState({
       formError: false,
       formData: newFormData
@@ -54,16 +55,18 @@ class ResetPassWord extends Component {
   };
 
   submitForm = event => {
+    const { formData, resetToken } = this.state;
+    const { history } = this.props;
     event.preventDefault();
 
-    let dataToSubmit = generateData(this.state.formData, "reset-password");
-    let formIsValid = isFormValid(this.state.formData, "reset-password");
+    let dataToSubmit = generateData(formData, "reset-password");
+    let formIsValid = isFormValid(formData, "reset-password");
 
     if (formIsValid) {
       axios
         .post("/api/users/reset-password", {
           ...dataToSubmit,
-          resetToken: this.state.resetToken
+          resetToken: resetToken
         })
         .then(response => {
           if (!response.data.success) {
@@ -74,7 +77,7 @@ class ResetPassWord extends Component {
           } else {
             this.setState({ formError: false, formSuccess: true });
             setTimeout(() => {
-              this.props.history.push("/register_login");
+              history.push("/register_login");
             }, 3000);
           }
         });
@@ -86,11 +89,21 @@ class ResetPassWord extends Component {
   };
 
   componentDidMount() {
-    const resetToken = this.props.match.params.token;
+    const { match } = this.props;
+    const resetToken = match.params.token;
     this.setState({ resetToken });
   }
 
   render() {
+    const {
+      password,
+      confirmPassword,
+      formErrorMessage,
+      formError
+    } = this.state.formData;
+
+    const { formSuccess } = this.state;
+
     return (
       <div className="page_container">
         <form onSubmit={event => this.submitForm(event)}>
@@ -100,22 +113,22 @@ class ResetPassWord extends Component {
             <div className="block">
               <FormField
                 id={"password"}
-                data={this.state.formData.password}
+                data={password}
                 change={element => this.updateForm(element)}
               />
             </div>
             <div className="block">
               <FormField
                 id={"confirmPassword"}
-                data={this.state.formData.confirmPassword}
+                data={confirmPassword}
                 change={element => this.updateForm(element)}
               />
             </div>
           </div>
 
           <div>
-            {this.state.formError ? (
-              <div className="error_label">{this.state.formErrorMessage}</div>
+            {formError ? (
+              <div className="error_label">{formErrorMessage}</div>
             ) : (
               ""
             )}
@@ -128,7 +141,7 @@ class ResetPassWord extends Component {
           </div>
         </form>
 
-        <Dialog open={this.state.formSuccess}>
+        <Dialog open={formSuccess}>
           <div className="dialog_alert">
             <div>
               Your password was reseted...you will be redirected to login page.
