@@ -43,15 +43,16 @@ class ImageLightBox extends Component {
 
   render() {
     const { currentImage, images, lightboxIsOpen } = this.state;
+    const { handlePreviousImage, handleNextImage, closeLightBox } = this;
     return (
       <div>
         <Lightbox
           currentImage={currentImage}
           images={images}
           isOpen={lightboxIsOpen}
-          onClickPrev={() => this.handlePreviousImage()}
-          onClickNext={() => this.handleNextImage()}
-          onClose={() => this.closeLightBox()}
+          onClickPrev={() => handlePreviousImage()}
+          onClickNext={() => handleNextImage()}
+          onClose={() => closeLightBox()}
         />
       </div>
     );

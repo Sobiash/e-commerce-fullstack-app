@@ -78,19 +78,30 @@ class ProductView extends Component {
       : this.setState({ colorSelectionMissingRemark: remark });
 
   render() {
-    const { productDetail } = this.props.products;
-    const { user } = this.props;
-    const { isAuthenticated } = this.props.auth;
+    const { user, auth, products } = this.props;
+    const { profile } = user;
+    const { isAuthenticated } = auth;
+    const { productDetail } = products;
     const { openModal, selectedSize, selectedColor } = this.state;
+    const {
+      closeModal,
+      toggleModal,
+      addToCartHandler,
+      deleteProduct,
+      handleSizeSelection,
+      handleColorSelection,
+      validateColorSelection,
+      validateSizeSelection
+    } = this;
 
     return (
       <div>
         {isAuthenticated ? (
-          <CartModal openModal={openModal} closeModal={this.closeModal}>
+          <CartModal openModal={openModal} closeModal={closeModal}>
             Item added to your cart
           </CartModal>
         ) : (
-          <CartModal openModal={openModal} closeModal={this.closeModal}>
+          <CartModal openModal={openModal} closeModal={closeModal}>
             You need to login to add this product to your cart.
           </CartModal>
         )}
@@ -107,7 +118,7 @@ class ProductView extends Component {
                   {...this.state}
                   detail={productDetail}
                   addToCart={id =>
-                    this.addToCartHandler(
+                    addToCartHandler(
                       id,
                       productDetail.name,
                       productDetail.price,
@@ -116,13 +127,13 @@ class ProductView extends Component {
                       selectedColor
                     )
                   }
-                  user={user.profile}
-                  deleteProduct={id => this.deleteProduct(id)}
-                  toggleModal={this.toggleModal}
-                  handleSizeSelection={this.handleSizeSelection}
-                  handleColorSelection={this.handleColorSelection}
-                  validateSizeSelection={this.validateSizeSelection}
-                  validateColorSelection={this.validateColorSelection}
+                  user={profile}
+                  deleteProduct={id => deleteProduct(id)}
+                  toggleModal={toggleModal}
+                  handleSizeSelection={handleSizeSelection}
+                  handleColorSelection={handleColorSelection}
+                  validateSizeSelection={validateSizeSelection}
+                  validateColorSelection={validateColorSelection}
                 />
               </div>
             </div>

@@ -48,22 +48,32 @@ class ProductImages extends Component {
     });
   };
 
-  showThumbs = lightboxImages =>
-    lightboxImages &&
-    lightboxImages.map(
-      (item, i) =>
-        i > 0 && (
-          <div
-            key={i}
-            onClick={() => this.handleLightBox(i)}
-            className="thumb"
-            style={{ background: `url(${item}) no-repeat` }}
-          />
-        )
+  showThumbs = lightboxImages => {
+    const { handleLightBox } = this;
+    return (
+      lightboxImages &&
+      lightboxImages.map(
+        (item, i) =>
+          i > 0 && (
+            <div
+              key={i}
+              onClick={() => handleLightBox(i)}
+              className="thumb"
+              style={{ background: `url(${item}) no-repeat` }}
+            />
+          )
+      )
     );
+  };
   render() {
     const { detail } = this.props;
     const { lightboxImages, lightbox, open, imagePosition } = this.state;
+    const {
+      renderImages,
+      handleLightBox,
+      showThumbs,
+      handleLightBoxClose
+    } = this;
 
     return (
       <div className="product_image_container">
@@ -72,19 +82,19 @@ class ProductImages extends Component {
           <div
             style={{
               backgroundSize: "cover",
-              background: `url(${this.renderImages(detail.images)}) no-repeat`
+              background: `url(${renderImages(detail.images)}) no-repeat`
             }}
-            onClick={() => this.handleLightBox(0)}
+            onClick={() => handleLightBox(0)}
           />
         </div>
-        <div className="main_thumbs">{this.showThumbs(lightboxImages)}</div>
+        <div className="main_thumbs">{showThumbs(lightboxImages)}</div>
         {lightbox && (
           <ImageLightBox
             key={detail._id}
             images={lightboxImages}
             open={open}
             position={imagePosition}
-            onClose={() => this.handleLightBoxClose()}
+            onClose={() => handleLightBoxClose()}
           />
         )}
       </div>

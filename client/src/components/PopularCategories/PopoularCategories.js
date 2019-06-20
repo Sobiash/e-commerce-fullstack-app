@@ -24,17 +24,19 @@ class PopularCategories extends React.Component {
   closeModal = () => this.setState({ openModal: false });
 
   render() {
-    const { isAuthenticated } = this.props.auth;
-    const { byArrival, bySell } = this.props.products;
+    const { auth, products } = this.props;
+    const { isAuthenticated } = auth;
+    const { byArrival, bySell } = products;
     const { openModal } = this.state;
+    const { closeModal, toggleModal } = this;
     return (
       <div>
         {isAuthenticated ? (
-          <CartModal openModal={openModal} closeModal={this.closeModal}>
+          <CartModal openModal={openModal} closeModal={closeModal}>
             Item added to your cart
           </CartModal>
         ) : (
-          <CartModal openModal={openModal} closeModal={this.closeModal}>
+          <CartModal openModal={openModal} closeModal={closeModal}>
             You need to login to add this product to your cart.
           </CartModal>
         )}
@@ -45,7 +47,7 @@ class PopularCategories extends React.Component {
             class="card_block"
             grid=""
             newArrival="block2-labelnew"
-            toggleModal={this.toggleModal}
+            toggleModal={toggleModal}
           />
         </div>
         <div>
@@ -55,7 +57,7 @@ class PopularCategories extends React.Component {
             class="card_block"
             popular="block2-labelpopular"
             grid=""
-            toggleModal={this.toggleModal}
+            toggleModal={toggleModal}
           />
         </div>
       </div>

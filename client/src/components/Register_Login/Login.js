@@ -55,10 +55,10 @@ class Login extends React.Component {
   };
 
   submitForm = event => {
+    event.preventDefault();
+
     const { formData } = this.state;
     const { loginUser } = this.props;
-
-    event.preventDefault();
 
     let dataToSubmit = generateData(formData, "login");
     let formIsValid = isFormValid(formData, "login");
@@ -70,14 +70,16 @@ class Login extends React.Component {
 
   componentDidMount() {
     const { auth, history } = this.props;
-    if (auth.isAuthenticated) {
+    const { isAuthenticated } = auth;
+    if (isAuthenticated) {
       history.push("/user/dashboard");
     }
   }
 
   componentWillReceiveProps(nextProps) {
     const { auth, history, createCart, errors } = this.props;
-    if (nextProps.auth.isAuthenticated !== auth.isAuthenticated) {
+    const { isAuthenticated } = auth;
+    if (nextProps.auth.isAuthenticated !== isAuthenticated) {
       history.push("/user/dashboard");
       createCart(nextProps.auth.user.id);
     }
@@ -88,21 +90,22 @@ class Login extends React.Component {
   }
 
   render() {
-    const { email, password } = this.state.formData;
-    const { formError } = this.state;
+    const { formError, formData } = this.state;
+    const { email, password } = formData;
+    const { updateForm, submitForm } = this;
     return (
       <div className="signin_wrapper">
-        <form onSubmit={event => this.submitForm(event)}>
+        <form onSubmit={event => submitForm(event)}>
           <FormField
             id={"email"}
             data={email}
-            change={element => this.updateForm(element)}
+            change={element => updateForm(element)}
           />
           <br />
           <FormField
             id={"password"}
             data={password}
-            change={element => this.updateForm(element)}
+            change={element => updateForm(element)}
           />
           <br />
           <Link to="/reset-user" style={{ textDecoration: "underline" }}>
@@ -110,10 +113,7 @@ class Login extends React.Component {
           </Link>
           {formError && <div className="error_label"> {formError.error}</div>}
           <div className="login_buttons">
-            <div
-              className="link_default"
-              onClick={event => this.submitForm(event)}
-            >
+            <div className="link_default" onClick={event => submitForm(event)}>
               Log in
             </div>
           </div>

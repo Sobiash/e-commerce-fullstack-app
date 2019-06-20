@@ -1,13 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 
-const propTypes = {
-  handleSizeSelection: PropTypes.func.isRequired,
-  sizesArray: PropTypes.array.isRequired,
-  selectedSize: PropTypes.string.isRequired,
-  validateSizeSelection: PropTypes.func.isRequired
-};
-
 class SizeSelect extends Component {
   render() {
     const {
@@ -40,5 +33,12 @@ class SizeSelect extends Component {
     );
   }
 }
+
+SizeSelect.propTypes = {
+  handleSizeSelection: PropTypes.func.isRequired,
+  sizesArray: PropTypes.array.isRequired,
+  selectedSize: PropTypes.string.isRequired,
+  validateSizeSelection: PropTypes.func.isRequired
+};
 
 export default SizeSelect;

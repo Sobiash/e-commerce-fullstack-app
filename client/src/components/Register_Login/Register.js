@@ -99,10 +99,10 @@ class Register extends Component {
     });
   };
   submitForm = event => {
-    const { formData } = this.state;
-    const { history } = this.props;
-
     event.preventDefault();
+
+    const { formData } = this.state;
+    const { registerUser, history } = this.props;
 
     let dataToSubmit = generateData(formData, "register");
 
@@ -115,7 +115,8 @@ class Register extends Component {
 
   componentDidMount() {
     const { auth, history } = this.props;
-    if (auth.isAuthenticated) {
+    const { isAuthenticated } = auth;
+    if (isAuthenticated) {
       history.push("/users/user_profile");
     }
   }
@@ -127,20 +128,15 @@ class Register extends Component {
     }
   }
   render() {
-    const {
-      name,
-      lastname,
-      email,
-      password,
-      confirmPassword
-    } = this.state.formData;
-    const { formError } = this.state;
+    const { formError, formData } = this.state;
+    const { name, lastname, email, password, confirmPassword } = formData;
+    const { updateForm, submitForm } = this;
     return (
       <div className="page_wrapper">
         <div className="container">
           <div className="register_login_container" style={{ width: "600px" }}>
             <div className="left">
-              <form onSubmit={event => this.submitForm(event)}>
+              <form onSubmit={event => submitForm(event)}>
                 <h3>Write your personal details</h3>
                 <br />
                 <div className="form_block_two">
@@ -148,14 +144,14 @@ class Register extends Component {
                     <FormField
                       id={"name"}
                       data={name}
-                      change={element => this.updateForm(element)}
+                      change={element => updateForm(element)}
                     />
                   </div>
                   <div className="block">
                     <FormField
                       id={"lastname"}
                       data={lastname}
-                      change={element => this.updateForm(element)}
+                      change={element => updateForm(element)}
                     />
                   </div>
                 </div>
@@ -164,7 +160,7 @@ class Register extends Component {
                     <FormField
                       id={"email"}
                       data={email}
-                      change={element => this.updateForm(element)}
+                      change={element => updateForm(element)}
                     />
                   </div>
                 </div>
@@ -176,14 +172,14 @@ class Register extends Component {
                     <FormField
                       id={"password"}
                       data={password}
-                      change={element => this.updateForm(element)}
+                      change={element => updateForm(element)}
                     />
                   </div>
                   <div className="block">
                     <FormField
                       id={"confirmPassword"}
                       data={confirmPassword}
-                      change={element => this.updateForm(element)}
+                      change={element => updateForm(element)}
                     />
                   </div>
                 </div>
@@ -194,7 +190,7 @@ class Register extends Component {
 
                   <div
                     className="link_default"
-                    onClick={event => this.submitForm(event)}
+                    onClick={event => submitForm(event)}
                   >
                     Create account
                   </div>

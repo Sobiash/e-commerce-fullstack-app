@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { USER_SERVER } from "../utils/config";
 import FormField from "../utils/Form/FormField";
 import { update, generateData, isFormValid } from "../utils/Form/FormActions";
 import Dialog from "@material-ui/core/Dialog";
@@ -55,16 +56,17 @@ class ResetPassWord extends Component {
   };
 
   submitForm = event => {
+    event.preventDefault();
+
     const { formData, resetToken } = this.state;
     const { history } = this.props;
-    event.preventDefault();
 
     let dataToSubmit = generateData(formData, "reset-password");
     let formIsValid = isFormValid(formData, "reset-password");
 
     if (formIsValid) {
       axios
-        .post("/api/users/reset-password", {
+        .post(`${USER_SERVER}/reset-password`, {
           ...dataToSubmit,
           resetToken: resetToken
         })
@@ -95,14 +97,8 @@ class ResetPassWord extends Component {
   }
 
   render() {
-    const {
-      password,
-      confirmPassword,
-      formErrorMessage,
-      formError
-    } = this.state.formData;
-
-    const { formSuccess } = this.state;
+    const { formSuccess, formData, formError, formErrorMessage } = this.state;
+    const { password, confirmPassword } = formData;
 
     return (
       <div className="page_container">
