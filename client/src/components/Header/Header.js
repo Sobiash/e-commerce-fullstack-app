@@ -17,6 +17,13 @@ import PropTypes from "prop-types";
 
 class Header extends React.Component {
   state = {
+    page: [
+      {
+        name: "Shop",
+        linkTo: "/shop",
+        public: true
+      }
+    ],
     user: [
       {
         name: "My Cart",
@@ -173,7 +180,7 @@ class Header extends React.Component {
   };
 
   render() {
-    const { user } = this.state;
+    const { user, page } = this.state;
     const { showLinks } = this;
     return (
       <div>
@@ -184,6 +191,7 @@ class Header extends React.Component {
             </Link>
             <div className="header-icons">
               <div>{showLinks(user)}</div>
+              <div>{showLinks(page)}</div>
             </div>
           </div>
         </header>
