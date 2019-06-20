@@ -49,7 +49,6 @@ class Header extends React.Component {
   };
 
   componentDidMount() {
-    // const user = this.props.user;
     const { user, getUserProfile, getCartDetail } = this.props;
     getUserProfile();
     getCartDetail();
@@ -91,13 +90,10 @@ class Header extends React.Component {
     }
   };
 
-  defaultLink = (item, i) =>
-    item.name === "Log out" ? (
-      <div
-        className="log_out_link"
-        key={i}
-        onClick={() => this.logoutHandler()}
-      >
+  defaultLink = (item, i) => {
+    const { logoutHandler } = this;
+    return item.name === "Log out" ? (
+      <div className="log_out_link" key={i} onClick={() => logoutHandler()}>
         {item.name}
       </div>
     ) : (
@@ -105,8 +101,10 @@ class Header extends React.Component {
         {item.name}
       </Link>
     );
+  };
 
   cartLink = (item, i) => {
+    const { onTransactionSuccess } = this;
     const { auth, user } = this.props;
     const { cartLength, openCartPreview } = this.state;
     const { cartDetail, profile } = user;
@@ -139,7 +137,7 @@ class Header extends React.Component {
               empty={cartDetail.length === 0 && true}
               cart={cartDetail}
               email={profile.email}
-              onTransactionSuccess={this.onTransactionSuccess}
+              onTransactionSuccess={onTransactionSuccess}
             />
           </div>
         )}
@@ -148,9 +146,11 @@ class Header extends React.Component {
   };
 
   showLinks = type => {
-    const { isAuthenticated } = this.props.auth;
+    const { defaultLink, cartLink } = this;
+    const { auth } = this.props;
+    const { isAuthenticated } = auth;
     let list = [];
-    if (this.props.auth) {
+    if (auth) {
       type.forEach(item => {
         if (!isAuthenticated) {
           if (item.public === true) {
@@ -165,15 +165,16 @@ class Header extends React.Component {
     }
     return list.map((item, i) => {
       if (item.name !== "My Cart") {
-        return this.defaultLink(item, i);
+        return defaultLink(item, i);
       } else {
-        return this.cartLink(item, i);
+        return cartLink(item, i);
       }
     });
   };
 
   render() {
     const { user } = this.state;
+    const { showLinks } = this;
     return (
       <div>
         <header className="header1">
@@ -182,7 +183,7 @@ class Header extends React.Component {
               <img src={img2} alt="IMG-LOGO" />
             </Link>
             <div className="header-icons">
-              <div>{this.showLinks(user)}</div>
+              <div>{showLinks(user)}</div>
             </div>
           </div>
         </header>

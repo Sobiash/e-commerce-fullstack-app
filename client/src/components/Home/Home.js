@@ -8,7 +8,8 @@ import { getCategories } from "../../actions/products_actions";
 
 class Home extends React.Component {
   componentDidMount() {
-    this.props.getCategories();
+    const { getCategories } = this.props;
+    getCategories();
   }
   render() {
     const { categories } = this.props.products;

@@ -7,16 +7,17 @@ import { connect } from "react-redux";
 
 class Layout extends React.Component {
   componentDidMount() {
-    this.props.getCategories();
+    const { getCategories } = this.props;
+    getCategories();
   }
   render() {
-    const { products } = this.props;
+    const { products, children } = this.props;
     return (
       <div>
         <div className="page_container">
           <Header />
           {/* <SubMenu list={products.categories} /> */}
-          {this.props.children}
+          {children}
         </div>
         <Footer />
       </div>

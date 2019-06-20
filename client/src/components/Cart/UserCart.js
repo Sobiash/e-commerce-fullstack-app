@@ -36,18 +36,21 @@ class UserCart extends Component {
   );
 
   removeFromCart = id => {
-    this.props.removeCartItems(id);
+    const { removeCartItems } = this.props;
+    removeCartItems(id);
   };
   increaseItem = id => {
-    this.props.increaseItem(id);
+    const { increaseItem } = this.props;
+    increaseItem(id);
   };
   decreaseItem = id => {
-    this.props.decreaseItem(id);
+    const { decreaseItem } = this.props;
+    decreaseItem(id);
   };
 
   onTransactionSuccess = data => {
-    const { cartDetail, successBuy } = this.props.user;
-    this.props.onSuccessBuy({
+    const { cartDetail, successBuy, onSuccessBuy } = this.props.user;
+    onSuccessBuy({
       cartDetail: cartDetail,
       paymentData: data
     });
@@ -59,9 +62,17 @@ class UserCart extends Component {
   };
 
   render() {
-    const { cartDetail } = this.props.user;
-    const { email } = this.props.user.profile;
-    const { isAuthenticated } = this.props.auth;
+    const { user, auth } = this.props;
+    const { cartDetail } = user;
+    const { email } = user.profile;
+    const { isAuthenticated } = auth;
+    const {
+      removeFromCart,
+      increaseItem,
+      decreaseItem,
+      showNotItems,
+      onTransactionSuccess
+    } = this;
     const CartItem =
       cartDetail.length > 0 &&
       cartDetail.map(item => {
@@ -70,9 +81,9 @@ class UserCart extends Component {
             key={item._id}
             cart={item}
             type="cart"
-            removeItem={id => this.removeFromCart(id)}
-            increaseItem={id => this.increaseItem(id)}
-            decreaseItem={id => this.decreaseItem(id)}
+            removeItem={id => removeFromCart(id)}
+            increaseItem={id => increaseItem(id)}
+            decreaseItem={id => decreaseItem(id)}
           />
         );
       });
@@ -158,7 +169,7 @@ class UserCart extends Component {
                     </Link>
                   </div>
                 ) : (
-                  this.showNotItems()
+                  showNotItems()
                 )}
               </div>
 
@@ -175,7 +186,7 @@ class UserCart extends Component {
                         amount={calculateTotal(cartDetail)}
                         email={email}
                         cart={cartDetail[0].images[0].url}
-                        onSuccess={data => this.onTransactionSuccess(data)}
+                        onSuccess={data => onTransactionSuccess(data)}
                       >
                         <div
                           className="bag_link"

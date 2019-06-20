@@ -31,7 +31,8 @@ const admin = [
 
 class UserLayout extends React.Component {
   render() {
-    const { profile } = this.props.user;
+    const { user, children } = this.props;
+    const { profile } = user;
 
     const generateLinks = links =>
       links.map((link, i) => (
@@ -54,7 +55,7 @@ class UserLayout extends React.Component {
               </div>
             )}
           </div>
-          <div className="user_right">{this.props.children}</div>
+          <div className="user_right">{children}</div>
         </div>
       </div>
     );

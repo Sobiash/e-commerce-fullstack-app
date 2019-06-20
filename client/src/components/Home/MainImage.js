@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const HomeSlider = props => {
-  const { list } = props;
+const HomeSlider = ({ list }) => {
   const renderCategories =
     list &&
     list.map(category => (

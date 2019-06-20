@@ -4,10 +4,12 @@ import { STRIPE_KEY } from "../utils/config";
 
 class Payment extends Component {
   onToken = res => {
-    this.props.onSuccess(res);
+    const { onSuccess } = this.props;
+    onSuccess(res);
   };
   render() {
-    const { cart, email, amount } = this.props;
+    const { cart, email, amount, children } = this.props;
+    const { onToken } = this;
     return (
       <StripeCheckout
         amount={amount * 100}
@@ -16,10 +18,10 @@ class Payment extends Component {
         stripeKey={STRIPE_KEY}
         currency="USD"
         email={email}
-        token={res => this.onToken(res)}
+        token={res => onToken(res)}
         allowRememberMe={true}
       >
-        {this.props.children}
+        {children}
       </StripeCheckout>
     );
   }
