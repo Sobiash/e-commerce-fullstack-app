@@ -33,13 +33,15 @@ class ManageDresses extends Component {
   };
 
   resetFieldsHandler = () => {
-    const newFormData = resetFields(this.state.formData, "colors");
+    const { formData } = this.state;
+    const newFormData = resetFields(formData, "colors");
     this.setState({
       formData: newFormData
     });
   };
   updateForm = element => {
-    const newFormData = update(element, this.state.formData, "colors");
+    const { formData } = this.state;
+    const newFormData = update(element, formData, "colors");
     this.setState({
       formError: false,
       formData: newFormData
@@ -48,40 +50,48 @@ class ManageDresses extends Component {
   submitForm = event => {
     event.preventDefault();
 
-    let dataToSubmit = generateData(this.state.formData, "colors");
-    let formIsValid = isFormValid(this.state.formData, "colors");
+    const { formData } = this.state;
+    const { addColor } = this.props;
+    const { resetFieldsHandler } = this;
+
+    let dataToSubmit = generateData(formData, "colors");
+    let formIsValid = isFormValid(formData, "colors");
 
     if (formIsValid) {
-      this.props.addColor(dataToSubmit);
-      this.resetFieldsHandler();
+      addColor(dataToSubmit);
+      resetFieldsHandler();
     }
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.errors !== this.props.errors) {
+    const { errors } = this.props;
+    if (nextProps.errors !== errors) {
       this.setState({ formError: nextProps.errors });
     }
   }
 
   render() {
+    const { formData, formError } = this.state;
+    const { name } = formData;
+    const { updateForm, submitForm } = this;
     return (
       <div className="admin_category_wrapper">
         <h3>Color Types</h3>
         <div className="admin_two_column">
           <div className="left" />
           <div className="right">
-            <form onSubmit={event => this.submitForm(event)}>
+            <form onSubmit={event => submitForm(event)}>
               <FormField
                 id={"name"}
-                data={this.state.formData.name}
-                change={element => this.updateForm(element)}
+                data={name}
+                change={element => updateForm(element)}
               />
-              {this.state.formError && (
-                <div className="error_label">{this.state.formError.error}</div>
+              {formError && (
+                <div className="error_label">{formError.error}</div>
               )}
               <button
                 className="link_default"
-                onClick={event => this.submitForm(event)}
+                onClick={event => submitForm(event)}
               >
                 Add color type
               </button>

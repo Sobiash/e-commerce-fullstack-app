@@ -1,10 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Backdrop = props =>
-  props.openModal ? (
-    <div className="backdrop" onClick={props.closeModal} />
-  ) : null;
+const Backdrop = ({ openModal, closeModal }) =>
+  openModal ? <div className="backdrop" onClick={closeModal} /> : null;
 
 Backdrop.propTypes = {
   openModal: PropTypes.bool.isRequired,

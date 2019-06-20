@@ -2,18 +2,18 @@ import React from "react";
 import Backdrop from "./Backdrop";
 import PropTypes from "prop-types";
 
-const CartModal = props => {
+const CartModal = ({ openModal, closeModal, children }) => {
   return (
     <div>
-      <Backdrop openModal={props.openModal} closeModal={props.closeModal} />
+      <Backdrop openModal={openModal} closeModal={closeModal} />
       <div
         className="modal"
         style={{
-          transform: props.openModal ? "translateY(0)" : "translateY(-100vh)",
-          opacity: props.openModal ? "1" : "0"
+          transform: openModal ? "translateY(0)" : "translateY(-100vh)",
+          opacity: openModal ? "1" : "0"
         }}
       >
-        {props.children}
+        {children}
       </div>
     </div>
   );

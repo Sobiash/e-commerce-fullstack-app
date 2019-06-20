@@ -6,7 +6,8 @@ import Collapse from "@material-ui/core/Collapse";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import arrowUp from "../../images/icons/up-arrow.png";
+import arrowDown from "../../images/icons/down-arrow.png";
 import PropTypes from "prop-types";
 
 export class CollapseRadio extends Component {
@@ -15,66 +16,74 @@ export class CollapseRadio extends Component {
     value: "0"
   };
   componentDidMount() {
-    if (this.props.initState) {
+    const { initState } = this.props;
+    if (initState) {
       this.setState({
-        open: this.props.initState
+        open: initState
       });
     }
   }
 
   handleClick = () => {
-    this.setState({ open: !this.state.open });
+    const { open } = this.state;
+
+    this.setState({ open: !open });
   };
 
-  // handleAngle = () =>
-  //   this.state.open ? (
-  //     <FontAwesomeIcon icon="angle-up" className="icon" />
-  //   ) : (
-  //     <FontAwesomeIcon icon="angle-down" className="icon" />
-  //   );
+  handleAngle = () =>
+    this.state.open ? (
+      <img style={{ width: "20px", height: "20px" }} src={arrowUp} alt="" />
+    ) : (
+      <img style={{ width: "20px", height: "20px" }} src={arrowDown} alt="" />
+    );
 
-  renderList = () =>
-    this.props.list &&
-    this.props.list.map(value => (
-      <FormControlLabel
-        key={value._id}
-        value={`${value._id}`}
-        control={<Radio />}
-        label={value.name}
-      />
-    ));
+  renderList = () => {
+    const { list } = this.props;
+    return (
+      list &&
+      list.map(value => (
+        <FormControlLabel
+          key={value._id}
+          value={`${value._id}`}
+          control={<Radio />}
+          label={value.name}
+        />
+      ))
+    );
+  };
 
   handleChange = event => {
-    this.props.handleFilters(event.target.value);
+    const { handleFilters } = this.props;
+
+    handleFilters(event.target.value);
     this.setState({
       value: event.target.value
     });
-    // console.log(this.state.value);
   };
 
   render() {
+    const { handleClick, handleAngle, handleChange, renderList } = this;
+    const { title } = this.props;
+    const { open, value } = this.state;
     return (
       <div>
         <List style={{ borderBottom: "1px solid #dbdbdb" }}>
           <ListItem
-            onClick={this.handleClick}
+            onClick={handleClick}
             style={{ padding: "10px 23px 10px 0" }}
           >
-            <ListItemText
-              primary={this.props.title}
-              className="collapse_title"
-            />
-            {/* {this.handleAngle()} */}
+            <ListItemText primary={title} className="collapse_title" />
+            {handleAngle()}
           </ListItem>
-          <Collapse in={this.state.open} timeout="auto" unmountOnExit>
+          <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <RadioGroup
                 aria-label="prices"
                 name="price"
-                value={this.state.value}
-                onChange={this.handleChange}
+                value={value}
+                onChange={handleChange}
               >
-                {this.renderList()}
+                {renderList()}
               </RadioGroup>
             </List>
           </Collapse>

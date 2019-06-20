@@ -1,23 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-// import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 
-const MyButton = props => {
-  const {
-    altClass,
-    linkTo,
-    addStyles,
-    title,
-    selectedSize,
-    selectedColor,
-    validateSizeSelection,
-    validateColorSelection,
-    runAction
-  } = props;
+const MyButton = ({
+  altClass,
+  linkTo,
+  addStyles,
+  title,
+  selectedSize,
+  selectedColor,
+  validateSizeSelection,
+  validateColorSelection,
+  runAction,
+  type
+}) => {
   const buttons = () => {
     let button = "";
-    switch (props.type) {
+    switch (type) {
       case "default":
         button = (
           <Link

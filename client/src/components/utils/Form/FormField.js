@@ -2,12 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const FormField = ({ data, change, id }) => {
+  const {
+    element,
+    showLabel,
+    config,
+    value,
+    validation,
+    valid,
+    validationMessage
+  } = data;
   const showError = () => {
     let errorMessage = null;
-    if (data.validation && !data.valid) {
-      errorMessage = (
-        <div className="error_label">{data.validationMessage}</div>
-      );
+    if (validation && !valid) {
+      errorMessage = <div className="error_label">{validationMessage}</div>;
     }
     return errorMessage;
   };
@@ -15,16 +22,14 @@ const FormField = ({ data, change, id }) => {
   const renderFormTemplate = () => {
     let formTemplate = null;
 
-    switch (data.element) {
+    switch (element) {
       case "input":
         formTemplate = (
           <div className="formBlock">
-            {data.showLabel && (
-              <div className="label_inputs">{data.config.lable}</div>
-            )}
+            {showLabel && <div className="label_inputs">{config.lable}</div>}
             <input
-              {...data.config}
-              value={data.value}
+              {...config}
+              value={value}
               onBlur={event => change({ event, id, blur: true })}
               onChange={event => change({ event, id })}
             />
@@ -35,16 +40,14 @@ const FormField = ({ data, change, id }) => {
       case "select":
         formTemplate = (
           <div className="formBlock">
-            {data.showLabel && (
-              <div className="label_inputs">{data.config.lable}</div>
-            )}
+            {showLabel && <div className="label_inputs">{config.lable}</div>}
             <select
-              value={data.value}
+              value={value}
               onBlur={event => change({ event, id, blur: true })}
               onChange={event => change({ event, id })}
             >
               <option value="">Select one</option>
-              {data.config.options.map(item => (
+              {config.options.map(item => (
                 <option key={item.key} value={item.key}>
                   {item.value}
                 </option>
@@ -58,12 +61,10 @@ const FormField = ({ data, change, id }) => {
       case "textarea":
         formTemplate = (
           <div className="formBlock">
-            {data.showLabel && (
-              <div className="label_inputs">{data.config.lable}</div>
-            )}
+            {showLabel && <div className="label_inputs">{config.lable}</div>}
             <textarea
-              {...data.config}
-              value={data.value}
+              {...config}
+              value={value}
               onBlur={event => change({ event, id, blur: true })}
               onChange={event => change({ event, id })}
             />

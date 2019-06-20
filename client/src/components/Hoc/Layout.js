@@ -1,37 +1,17 @@
 import React from "react";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import SubMenu from "../SubMenu/SubMenu";
-import { getCategories } from "../../actions/products_actions";
-import { connect } from "react-redux";
 
-class Layout extends React.Component {
-  componentDidMount() {
-    const { getCategories } = this.props;
-    getCategories();
-  }
-  render() {
-    const { products, children } = this.props;
-    return (
-      <div>
-        <div className="page_container">
-          <Header />
-          {/* <SubMenu list={products.categories} /> */}
-          {children}
-        </div>
-        <Footer />
+const Layout = ({ children }) => {
+  return (
+    <div>
+      <div className="page_container">
+        <Header />
+        {children}
       </div>
-    );
-  }
-}
-
-const mapStateToProps = state => {
-  return {
-    products: state.products
-  };
+      <Footer />
+    </div>
+  );
 };
 
-export default connect(
-  mapStateToProps,
-  { getCategories }
-)(Layout);
+export default Layout;

@@ -14,15 +14,18 @@ class Card extends React.Component {
     }
   };
   render() {
-    const { card, grid, auth, newArrival, popular } = this.props;
+    const { card, grid, newArrival, popular, linkTo } = this.props;
+    const { _id, images, name, price } = card;
+
+    const { renderCardImage } = this;
     return (
       <div className={`block2 card_item_wrapper ${grid}`}>
         <div
           className={`block2-img wrap-pic-w of-hidden pos-relative ${newArrival} ${popular}`}
         >
           <img
-            src={this.renderCardImage(card.images)}
-            alt={card.name}
+            src={renderCardImage(images)}
+            alt={name}
             style={{ width: "400px", height: "400px", display: "inline-block" }}
           />
 
@@ -42,7 +45,7 @@ class Card extends React.Component {
               <MyButton
                 className="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4"
                 type="default"
-                linkTo={this.props.linkTo}
+                linkTo={linkTo}
                 title="View"
               />
             </div>
@@ -51,15 +54,15 @@ class Card extends React.Component {
 
         <div className="block2-txt p-t-20">
           <Link
-            to={`/product_detail/${card._id}`}
+            to={`/product_detail/${_id}`}
             className="block2-name dis-block s-text3>
             
             p-b-5"
           >
-            {card.name}
+            {name}
           </Link>
 
-          <span className="block2-price m-text6 p-r-5">$ {card.price}</span>
+          <span className="block2-price m-text6 p-r-5">$ {price}</span>
         </div>
       </div>
     );

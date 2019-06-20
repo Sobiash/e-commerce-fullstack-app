@@ -33,46 +33,56 @@ class DressCategory extends Component {
   };
 
   componentDidMount() {
-    const dress = this.props.match.params.dress;
-    this.props.dressName(dress);
+    const {
+      match,
+      dressName,
+      getProducts,
+      getDresses,
+      getColors,
+      getCategories,
+      getCartDetail,
+      auth
+    } = this.props;
+    const { isAuthenticated } = auth;
+    const { skip, limit, filters } = this.state;
+    const dress = match.params.dress;
+    dressName(dress);
 
-    this.props.getProducts(
-      this.state.skip,
-      this.state.limit,
-      this.state.filters
-    );
+    getProducts(skip, limit, filters);
 
-    this.props.getDresses();
-    this.props.getColors();
-    this.props.getCategories();
-    if (this.props.auth.isAuthenticated) {
-      this.props.getCartDetail();
+    getDresses();
+    getColors();
+    getCategories();
+    if (isAuthenticated) {
+      getCartDetail();
     }
   }
 
   handleFilters = (filters, category) => {
     const newFilters = { ...this.state.filters };
 
+    const { handlePrice, handleSize, handleColor, showFilterResults } = this;
+
     newFilters[category] = filters;
 
     if (category === "price") {
-      let priceValues = this.handlePrice(filters);
+      let priceValues = handlePrice(filters);
       newFilters[category] = priceValues;
     }
 
     if (category === "size") {
-      let sizeValues = this.handleSize(filters);
+      let sizeValues = handleSize(filters);
 
       newFilters[category] = sizeValues;
     }
 
     if (category === "color") {
-      let colorValues = this.handleColor(filters);
+      let colorValues = handleColor(filters);
 
       newFilters[category] = colorValues;
     }
 
-    this.showFilterResults(newFilters);
+    showFilterResults(newFilters);
     this.setState({
       filters: newFilters
     });
@@ -126,36 +136,45 @@ class DressCategory extends Component {
   handleFilters = (filters, category) => {
     const newFilters = { ...this.state.filters };
 
+    const { handlePrice, showFilterResults } = this;
+
     newFilters[category] = filters;
 
     if (category === "price") {
-      let priceValues = this.handlePrice(filters);
+      let priceValues = handlePrice(filters);
       newFilters[category] = priceValues;
     }
 
-    this.showFilterResults(newFilters);
+    showFilterResults(newFilters);
     this.setState({
       filters: newFilters
     });
   };
 
   showFilterResults = filters => {
-    this.props.getProducts(0, this.state.limit, filters);
+    const { limit } = this.state;
+    const { getProducts } = this.props;
+    getProducts(0, limit, filters);
     this.setState({
       skip: 0
     });
   };
 
   loadMoreCards = () => {
-    let skip = this.state.skip + this.state.limit;
-    this.props.getProducts(skip, this.state.limit, this.state.filters);
+    const { skip, limit, filters } = this.state;
+    const { getProducts } = this.props;
+
+    let skipOlder = skip + limit;
+    getProducts(skip, limit, filters);
     this.setState({
-      skip
+      skip: skipOlder
     });
   };
+
   handleGrid = () => {
+    const { grid } = this.state;
     this.setState({
-      grid: !this.state.grid ? "grid_bars" : ""
+      grid: !grid ? "grid_bars" : ""
     });
   };
 
@@ -163,11 +182,19 @@ class DressCategory extends Component {
   closeModal = () => this.setState({ openModal: false });
 
   render() {
-    const products = this.props.products;
-
-    const dress = this.props.match.params.dress;
-
-    const category = this.props.location.state.category;
+    const { products, auth, match, location } = this.props;
+    const { grid, limit, openModal } = this.state;
+    const { dress } = match.params;
+    const { category } = location.state;
+    const { categories, dresses, size, articles } = products;
+    const { isAuthenticated } = auth;
+    const {
+      handleFilters,
+      handleGrid,
+      closeModal,
+      toggleModal,
+      loadMoreCards
+    } = this;
 
     return (
       <div style={{ marginTop: "100px" }}>
@@ -177,41 +204,39 @@ class DressCategory extends Component {
               <CollapseList
                 initState={true}
                 title="Filters"
-                list={products.categories}
-                handleFilters={filters =>
-                  this.handleFilters(filters, "category")
-                }
+                list={categories}
+                handleFilters={filters => handleFilters(filters, "category")}
                 check={category}
               />
               <CollapseList
                 initState={true}
                 title="Dresses"
-                list={products.dresses}
-                handleFilters={filters => this.handleFilters(filters, "dress")}
+                list={dresses}
+                handleFilters={filters => handleFilters(filters, "dress")}
                 check={dress}
               />
               <CollapseList
                 initState={false}
                 title="Colors"
                 list={colors}
-                handleFilters={filters => this.handleFilters(filters, "color")}
+                handleFilters={filters => handleFilters(filters, "color")}
               />
               <CollapseList
                 initState={false}
                 title="Sizes"
                 list={sizes}
-                handleFilters={filters => this.handleFilters(filters, "size")}
+                handleFilters={filters => handleFilters(filters, "size")}
               />
 
               <CollapseRadio
                 initState={true}
                 title="Price"
                 list={price}
-                handleFilters={filters => this.handleFilters(filters, "price")}
+                handleFilters={filters => handleFilters(filters, "price")}
               />
             </div>
             <div className="right">
-              {!this.props.auth.isAuthenticated && (
+              {!isAuthenticated && (
                 <div
                   className="shop-title-page"
                   style={{
@@ -234,8 +259,8 @@ class DressCategory extends Component {
               <div className="shop_options">
                 <div className="shop_grids clear">
                   <div
-                    className={`grid_btn ${this.state.grid ? "" : "active"}`}
-                    onClick={() => this.handleGrid()}
+                    className={`grid_btn ${grid ? "" : "active"}`}
+                    onClick={() => handleGrid()}
                   >
                     <img
                       src={squares}
@@ -244,8 +269,8 @@ class DressCategory extends Component {
                     />
                   </div>
                   <div
-                    className={`grid_btn ${!this.state.grid ? "" : "active"}`}
-                    onClick={() => this.handleGrid()}
+                    className={`grid_btn ${!grid ? "" : "active"}`}
+                    onClick={() => handleGrid()}
                   >
                     <img
                       src={layout}
@@ -255,28 +280,22 @@ class DressCategory extends Component {
                   </div>
                 </div>
               </div>
-              {this.props.auth.isAuthenticated ? (
-                <CartModal
-                  openModal={this.state.openModal}
-                  closeModal={this.closeModal}
-                >
+              {isAuthenticated ? (
+                <CartModal openModal={openModal} closeModal={closeModal}>
                   Item added to your cart
                 </CartModal>
               ) : (
-                <CartModal
-                  openModal={this.state.openModal}
-                  closeModal={this.closeModal}
-                >
+                <CartModal openModal={openModal} closeModal={closeModal}>
                   You need to login to add this product to your cart.
                 </CartModal>
               )}
               <LoadMore
-                grid={this.state.grid}
-                limit={this.state.limit}
-                size={products.size}
-                products={products.articles}
-                loadMore={() => this.loadMoreCards()}
-                toggleModal={this.toggleModal}
+                grid={grid}
+                limit={limit}
+                size={size}
+                products={articles}
+                loadMore={() => loadMoreCards()}
+                toggleModal={toggleModal}
               />
             </div>
           </div>
