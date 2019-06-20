@@ -35,7 +35,8 @@ app.use("/api/users", require("./server/routes/user_route"));
 
 mongoose.connect(
   process.env.MONGODB_URI ||
-    "mongodb://localhost:27017/e-commerce-fullstack-app"
+    "mongodb://localhost:27017/e-commerce-fullstack-app",
+  { useCreateIndex: true, useNewUrlParser: true }
 );
 
 app.listen(PORT, function() {
