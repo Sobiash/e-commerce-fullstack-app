@@ -26,21 +26,10 @@ class Card extends React.Component {
           <img
             src={renderCardImage(images)}
             alt={name}
-            style={{ width: "400px", height: "400px", display: "inline-block" }}
+            style={{ width: "400px", height: "450px", display: "inline-block" }}
           />
 
           <div className="block2-overlay trans-0-4">
-            <a
-              href="#"
-              className="block2-btn-addwishlist hov-pointer trans-0-4"
-            >
-              <i className="icon-wishlist icon_heart_alt" aria-hidden="true" />
-              <i
-                className="icon-wishlist icon_heart dis-none"
-                aria-hidden="true"
-              />
-            </a>
-
             <div className="block2-btn-addcart w-size1 trans-0-4">
               <MyButton
                 className="flex-c-m size1 bg4 bo-rad-23 hov1 s-text1 trans-0-4"
