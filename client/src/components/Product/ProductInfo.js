@@ -1,5 +1,5 @@
 import React from "react";
-import MyButton from "../utils/button";
+import MyButton from "../UI/button";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import ColorSelect from "./ColorSelect";

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import CardBlock from "../utils/CardBlock";
+import CardBlock from "../UI/CardBlock";
 import {
   getProductsBySell,
   getProductsByArrival

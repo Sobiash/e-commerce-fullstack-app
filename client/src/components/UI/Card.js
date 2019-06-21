@@ -1,5 +1,5 @@
 import React from "react";
-import MyButton from "../utils/button";
+import MyButton from "./button";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { addToCart } from "../../actions/user_actions";

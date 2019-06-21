@@ -9,8 +9,8 @@ import {
 } from "../../actions/products_actions";
 import { getCartDetail } from "../../actions/user_actions";
 import { sizes, colors, price } from "../utils/FixedCategories";
-import CollapseList from "../utils/CollapseList";
-import CollapseRadio from "../utils/CollapseRadio";
+import CollapseList from "../UI/CollapseList";
+import CollapseRadio from "../UI/CollapseRadio";
 import LoadMore from "./LoadMore";
 import CartModal from "../UI/Modal";
 import PropTypes from "prop-types";
