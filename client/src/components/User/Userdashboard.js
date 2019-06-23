@@ -15,19 +15,23 @@ import PropTypes from "prop-types";
 
 class Userdashboard extends React.Component {
   componentDidMount() {
-    this.props.getUserProfile();
-    this.props.getCartDetail();
+    const { getUserProfile, getCartDetail } = this.props;
+
+    getUserProfile();
+    getCartDetail();
   }
 
   deleteProfile = e => {
     e.preventDefault();
-    this.props.deleteProfile();
-    this.props.clearCurrentProfile();
-    this.props.history.push("/register_login");
+    const { deleteProfile, clearCurrentProfile, history } = this.props;
+    deleteProfile();
+    clearCurrentProfile();
+    history.push("/register_login");
   };
 
   render() {
-    const { loading } = this.props.user;
+    const { user } = this.props;
+    const { loading } = user;
 
     let dashboardContent;
 
@@ -70,11 +74,9 @@ class Userdashboard extends React.Component {
         </div>
       );
     }
-
     return <UserLayout>{dashboardContent}</UserLayout>;
   }
 }
-
 Userdashboard.propTypes = {
   getUserProfile: PropTypes.func.isRequired,
   getCartDetail: PropTypes.func.isRequired,
@@ -82,13 +84,11 @@ Userdashboard.propTypes = {
   clearCurrentProfile: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 };
-
 const mapStateToProps = state => {
   return {
     user: state.user
   };
 };
-
 export default connect(
   mapStateToProps,
   { getUserProfile, deleteProfile, clearCurrentProfile, getCartDetail }

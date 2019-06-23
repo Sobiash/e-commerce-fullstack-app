@@ -29,7 +29,8 @@ class ResetUser extends Component {
     }
   };
   updateForm = element => {
-    const newFormData = update(element, this.state.formData, "reset_email");
+    const { formData } = this.state;
+    const newFormData = update(element, formData, "reset_email");
     this.setState({
       formError: false,
       formData: newFormData
@@ -38,14 +39,20 @@ class ResetUser extends Component {
   submitForm = event => {
     event.preventDefault();
 
-    let dataToSubmit = generateData(this.state.formData, "reset_email");
-    let formIsValid = isFormValid(this.state.formData, "reset_email");
+    const { formData } = this.state;
+    const { requestReset } = this.props;
+
+    let dataToSubmit = generateData(formData, "reset_email");
+    let formIsValid = isFormValid(formData, "reset_email");
 
     if (formIsValid) {
-      this.props.requestReset(dataToSubmit);
+      requestReset(dataToSubmit);
     }
   };
   render() {
+    const { formData, formError } = this.state;
+    const { email } = formData;
+    const { submitForm, updateForm } = this;
     return (
       <div
         className="container"
@@ -55,22 +62,19 @@ class ResetUser extends Component {
         }}
       >
         <h3>Reset password</h3>
-        <form onSubmit={event => this.submitForm(event)}>
+        <form onSubmit={event => submitForm(event)}>
           <FormField
             id={"email"}
-            data={this.state.formData.email}
-            change={element => this.updateForm(element)}
+            data={email}
+            change={element => updateForm(element)}
           />
 
           {/* <div className="from_success">Done, check your email</div> */}
 
-          {this.state.formError ? (
+          {formError ? (
             <div className="error_label">Please check your data</div>
           ) : null}
-          <div
-            className="link_default"
-            onClick={event => this.submitForm(event)}
-          >
+          <div className="link_default" onClick={event => submitForm(event)}>
             Send email
           </div>
         </form>

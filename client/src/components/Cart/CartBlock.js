@@ -6,8 +6,9 @@ import img from "../../images/img1.jpeg";
 
 class CartBlock extends React.Component {
   componentDidMount() {
-    this.props.getUserProfile();
-    this.props.getCartDetail();
+    const { getUserProfile, getCartDetail } = this.props;
+    getUserProfile();
+    getCartDetail();
   }
 
   renderCartImages = images => {
@@ -29,13 +30,14 @@ class CartBlock extends React.Component {
       selectedSize,
       selectedColor
     } = cart;
+    const { renderCartImages } = this;
     return (
       <tbody>
         <tr className="table-row" key={_id}>
           <td className="column-1">
             <div className="cart-img-product">
               <img
-                src={this.renderCartImages(images)}
+                src={renderCartImages(images)}
                 alt="item"
                 className="image"
               />
@@ -97,7 +99,8 @@ class CartBlock extends React.Component {
 
   render() {
     const { cart } = this.props;
-    return <React.Fragment>{this.renderCartItems(cart)}</React.Fragment>;
+    const { renderCartItems } = this;
+    return <React.Fragment>{renderCartItems(cart)}</React.Fragment>;
   }
 }
 

@@ -3,7 +3,6 @@ import FormField from "../utils/Form/FormField";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router-dom";
-// import FontAwesomeIcon from "@fortawesome/react-fontawesome";
 
 import {
   update,
@@ -83,7 +82,8 @@ class UpdateInfo extends Component {
   };
 
   updateForm = element => {
-    const newFormData = update(element, this.state.formData, "update_user");
+    const { formData } = this.state;
+    const newFormData = update(element, formData, "update_user");
     this.setState({
       formError: false,
       formData: newFormData
@@ -93,27 +93,31 @@ class UpdateInfo extends Component {
   submitForm = event => {
     event.preventDefault();
 
-    let dataToSubmit = generateData(this.state.formData, "update_user");
-    let formIsValid = isFormValid(this.state.formData, "update_user");
+    const { formData } = this.state;
+
+    let dataToSubmit = generateData(formData, "update_user");
+    let formIsValid = isFormValid(formData, "update_user");
 
     if (formIsValid) {
-      this.props.updateUserData(dataToSubmit, this.props.history);
+      const { updateUserData, history } = this.props;
+      updateUserData(dataToSubmit, history);
     }
   };
 
   componentDidMount = () => {
-    this.props.getUserProfile();
+    const { getUserProfile } = this.props;
+    getUserProfile();
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.errors !== this.props.errors) {
+    const { errors, user } = this.props;
+    const { formData } = this.state;
+
+    if (nextProps.errors !== errors) {
       this.setState({ formError: nextProps.errors });
     }
-    if (nextProps.user.profile !== this.props.user.profile) {
-      const newFormData = populateFields(
-        this.state.formData,
-        nextProps.user.profile
-      );
+    if (nextProps.user.profile !== user.profile) {
+      const newFormData = populateFields(formData, nextProps.user.profile);
       this.setState({
         formData: newFormData
       });
@@ -121,24 +125,28 @@ class UpdateInfo extends Component {
   }
 
   render() {
+    const { updateForm, submitForm } = this;
+    const { formData, formError } = this.state;
+    const { name, lastname, email, password } = formData;
+
     return (
       <div>
-        <form onSubmit={event => this.submitForm(event)}>
+        <form onSubmit={event => submitForm(event)}>
           <div style={{ display: "inline-block" }} />
 
           <div className="form_block_two">
             <div className="block">
               <FormField
                 id={"name"}
-                data={this.state.formData.name}
-                change={element => this.updateForm(element)}
+                data={name}
+                change={element => updateForm(element)}
               />
             </div>
             <div className="block">
               <FormField
                 id={"lastname"}
-                data={this.state.formData.lastname}
-                change={element => this.updateForm(element)}
+                data={lastname}
+                change={element => updateForm(element)}
               />
             </div>
           </div>
@@ -156,8 +164,8 @@ class UpdateInfo extends Component {
           <div>
             <FormField
               id={"email"}
-              data={this.state.formData.email}
-              change={element => this.updateForm(element)}
+              data={email}
+              change={element => updateForm(element)}
             />
           </div>
           <br />
@@ -173,14 +181,12 @@ class UpdateInfo extends Component {
           <div>
             <FormField
               id={"password"}
-              data={this.state.formData.password}
-              change={element => this.updateForm(element)}
+              data={password}
+              change={element => updateForm(element)}
             />
           </div>
           <div>
-            {this.state.formError && (
-              <div className="error_label">{this.state.formError.error}</div>
-            )}
+            {formError && <div className="error_label">{formError.error}</div>}
           </div>
         </form>
         <div
@@ -189,7 +195,7 @@ class UpdateInfo extends Component {
             color: "#222222",
             background: "#ffffff"
           }}
-          onClick={event => this.submitForm(event)}
+          onClick={event => submitForm(event)}
         >
           SAVE
         </div>

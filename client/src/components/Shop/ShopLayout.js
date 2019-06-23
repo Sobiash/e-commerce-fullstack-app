@@ -32,30 +32,39 @@ class Shop extends Component {
   };
 
   componentDidMount() {
-    this.props.getProducts(
-      this.state.skip,
-      this.state.limit,
-      this.state.filters
-    );
-    this.props.getDresses();
-    this.props.getColors();
-    this.props.getCategories();
-    if (this.props.auth.isAuthenticated) {
-      this.props.getCartDetail();
+    const {
+      getProducts,
+      getDresses,
+      getColors,
+      getCategories,
+      getCartDetail,
+      auth
+    } = this.props;
+    const { isAuthenticated } = auth;
+    const { skip, limit, filters } = this.state;
+
+    getProducts(skip, limit, filters);
+    getDresses();
+    getColors();
+    getCategories();
+
+    if (isAuthenticated) {
+      getCartDetail();
     }
   }
 
   handleFilters = (filters, category) => {
     const newFilters = { ...this.state.filters };
+    const { handlePrice, showFilterResults } = this;
 
     newFilters[category] = filters;
 
     if (category === "price") {
-      let priceValues = this.handlePrice(filters);
+      let priceValues = handlePrice(filters);
       newFilters[category] = priceValues;
     }
 
-    this.showFilterResults(newFilters);
+    showFilterResults(newFilters);
     this.setState({
       filters: newFilters
     });
@@ -108,50 +117,59 @@ class Shop extends Component {
 
   handleFilters = (filters, category) => {
     const newFilters = { ...this.state.filters };
+    const { handlePrice, handleSize, handleColor, showFilterResults } = this;
 
     newFilters[category] = filters;
 
     if (category === "price") {
-      let priceValues = this.handlePrice(filters);
+      let priceValues = handlePrice(filters);
 
       newFilters[category] = priceValues;
     }
     if (category === "size") {
-      let sizeValues = this.handleSize(filters);
+      let sizeValues = handleSize(filters);
 
       newFilters[category] = sizeValues;
     }
 
     if (category === "color") {
-      let colorValues = this.handleColor(filters);
+      let colorValues = handleColor(filters);
 
       newFilters[category] = colorValues;
     }
 
-    this.showFilterResults(newFilters);
+    showFilterResults(newFilters);
     this.setState({
       filters: newFilters
     });
   };
 
   showFilterResults = filters => {
-    this.props.getProducts(0, this.state.limit, filters);
+    const { getProducts } = this.props;
+    const { limit } = this.state;
+
+    getProducts(0, limit, filters);
     this.setState({
       skip: 0
     });
   };
 
   loadMoreCards = () => {
-    let skip = this.state.skip + this.state.limit;
-    this.props.getProducts(skip, this.state.limit, this.state.filters);
+    const { skip, limit, filters } = this.state;
+    const { getProducts } = this.props;
+
+    let skipOlder = skip + limit;
+    getProducts(skip, limit, filters);
     this.setState({
-      skip
+      skip: skipOlder
     });
   };
 
   handleGrid = () => {
+    const { grid } = this.state;
+
     this.setState({
-      grid: !this.state.grid ? "grid_bars" : ""
+      grid: !grid ? "grid_bars" : ""
     });
   };
 
@@ -159,8 +177,17 @@ class Shop extends Component {
   closeModal = () => this.setState({ openModal: false });
 
   render() {
-    const products = this.props.products;
-
+    const { products, auth } = this.props;
+    const { grid, openModal, limit } = this.state;
+    const { isAuthenticated } = auth;
+    const { categories, dresses, size, articles } = products;
+    const {
+      handleFilters,
+      handleGrid,
+      closeModal,
+      toggleModal,
+      loadMoreCards
+    } = this;
     return (
       <div style={{ marginTop: "100px" }}>
         <div>
@@ -169,39 +196,37 @@ class Shop extends Component {
               <CollapseList
                 initState={true}
                 title="Filters"
-                list={products.categories}
-                handleFilters={filters =>
-                  this.handleFilters(filters, "category")
-                }
+                list={categories}
+                handleFilters={filters => handleFilters(filters, "category")}
               />
               <CollapseList
                 initState={true}
                 title="Dresses"
-                list={products.dresses}
-                handleFilters={filters => this.handleFilters(filters, "dress")}
+                list={dresses}
+                handleFilters={filters => handleFilters(filters, "dress")}
               />
               <CollapseList
                 initState={false}
                 title="Colors"
                 list={colors}
-                handleFilters={filters => this.handleFilters(filters, "color")}
+                handleFilters={filters => handleFilters(filters, "color")}
               />
               <CollapseList
                 initState={false}
                 title="Sizes"
                 list={sizes}
-                handleFilters={filters => this.handleFilters(filters, "size")}
+                handleFilters={filters => handleFilters(filters, "size")}
               />
 
               <CollapseRadio
                 initState={true}
                 title="Price"
                 list={price}
-                handleFilters={filters => this.handleFilters(filters, "price")}
+                handleFilters={filters => handleFilters(filters, "price")}
               />
             </div>
             <div className="right">
-              {!this.props.auth.isAuthenticated && (
+              {!isAuthenticated && (
                 <div
                   className="shop-title-page"
                   style={{
@@ -221,34 +246,24 @@ class Shop extends Component {
                 </div>
               )}
 
-              <Sorting
-                grid={this.state.grid}
-                handleGrid={this.handleGrid}
-                list={price}
-              />
+              <Sorting grid={grid} handleGrid={handleGrid} list={price} />
 
-              {this.props.auth.isAuthenticated ? (
-                <CartModal
-                  openModal={this.state.openModal}
-                  closeModal={this.closeModal}
-                >
+              {isAuthenticated ? (
+                <CartModal openModal={openModal} closeModal={closeModal}>
                   Item added to your cart
                 </CartModal>
               ) : (
-                <CartModal
-                  openModal={this.state.openModal}
-                  closeModal={this.closeModal}
-                >
+                <CartModal openModal={openModal} closeModal={closeModal}>
                   You need to login to add this product to your cart.
                 </CartModal>
               )}
               <LoadMore
-                grid={this.state.grid}
-                limit={this.state.limit}
-                size={products.size}
-                products={products.articles}
-                loadMore={() => this.loadMoreCards()}
-                toggleModal={this.toggleModal}
+                grid={grid}
+                limit={limit}
+                size={size}
+                products={articles}
+                loadMore={() => loadMoreCards()}
+                toggleModal={toggleModal}
               />
             </div>
           </div>

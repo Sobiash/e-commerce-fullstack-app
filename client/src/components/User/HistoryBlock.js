@@ -7,26 +7,38 @@ import { getUserProfile, getCartDetail } from "../../actions/user_actions";
 
 class HistoryBlock extends React.Component {
   componentDidMount() {
-    this.props.getUserProfile();
-    this.props.getCartDetail();
+    const { getUserProfile, getCartDetail } = this.props;
+    getUserProfile();
+    getCartDetail();
   }
 
   render() {
-    const history = this.props.user.profile.history;
+    const { history } = this.props.user.profile;
     const renderHistory = () =>
       history &&
-      history.map((product, i) => (
-        <tr key={i}>
-          <td>{product.dateOfPurchase}</td>
-          <td>{product.purchaseOrder}</td>
-          <td>{product.name}</td>
-          <td>
-            {product.selectedSize} {product.selectedColor}
-          </td>
-          <td>$ {product.price * product.quantity}</td>
-          <td>{product.quantity}</td>
-        </tr>
-      ));
+      history.map((product, i) => {
+        const {
+          name,
+          dateOfPurchase,
+          purchaseOrder,
+          selectedSize,
+          selectedColor,
+          price,
+          quantity
+        } = product;
+        return (
+          <tr key={i}>
+            <td>{dateOfPurchase}</td>
+            <td>{purchaseOrder}</td>
+            <td>{name}</td>
+            <td>
+              {selectedSize} {selectedColor}
+            </td>
+            <td>$ {price * quantity}</td>
+            <td>{quantity}</td>
+          </tr>
+        );
+      });
     return history && history.length > 0 ? (
       <UserLayout>
         <div className="user_nfo_panel">

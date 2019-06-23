@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   getProductDetail,
-  getCategories,
-  getDresses,
   clearProductDetail,
   deleteProduct
 } from "../../actions/products_actions";

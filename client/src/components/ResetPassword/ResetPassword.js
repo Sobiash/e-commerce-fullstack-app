@@ -99,6 +99,7 @@ class ResetPassWord extends Component {
   render() {
     const { formSuccess, formData, formError, formErrorMessage } = this.state;
     const { password, confirmPassword } = formData;
+    const { submitForm, updateForm } = this;
 
     return (
       <div className="container">
@@ -109,7 +110,7 @@ class ResetPassWord extends Component {
             margin: "20px 300px 200px 200px"
           }}
         >
-          <form onSubmit={event => this.submitForm(event)}>
+          <form onSubmit={event => submitForm(event)}>
             <h3>Reset password</h3>
 
             <div className="form_block_two">
@@ -117,14 +118,14 @@ class ResetPassWord extends Component {
                 <FormField
                   id={"password"}
                   data={password}
-                  change={element => this.updateForm(element)}
+                  change={element => updateForm(element)}
                 />
               </div>
               <div className="block">
                 <FormField
                   id={"confirmPassword"}
                   data={confirmPassword}
-                  change={element => this.updateForm(element)}
+                  change={element => updateForm(element)}
                 />
               </div>
             </div>
@@ -137,7 +138,7 @@ class ResetPassWord extends Component {
               )}
               <div
                 className="link_default"
-                onClick={event => this.submitForm(event)}
+                onClick={event => submitForm(event)}
               >
                 Reset password
               </div>
