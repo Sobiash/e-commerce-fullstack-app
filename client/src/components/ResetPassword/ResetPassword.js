@@ -101,49 +101,58 @@ class ResetPassWord extends Component {
     const { password, confirmPassword } = formData;
 
     return (
-      <div className="page_container">
-        <form onSubmit={event => this.submitForm(event)}>
-          <h3>Reset password</h3>
+      <div className="container">
+        <div
+          className="page_container"
+          style={{
+            width: "500px",
+            margin: "20px 300px 200px 200px"
+          }}
+        >
+          <form onSubmit={event => this.submitForm(event)}>
+            <h3>Reset password</h3>
 
-          <div className="form_block_two">
-            <div className="block">
-              <FormField
-                id={"password"}
-                data={password}
-                change={element => this.updateForm(element)}
-              />
+            <div className="form_block_two">
+              <div className="block">
+                <FormField
+                  id={"password"}
+                  data={password}
+                  change={element => this.updateForm(element)}
+                />
+              </div>
+              <div className="block">
+                <FormField
+                  id={"confirmPassword"}
+                  data={confirmPassword}
+                  change={element => this.updateForm(element)}
+                />
+              </div>
             </div>
-            <div className="block">
-              <FormField
-                id={"confirmPassword"}
-                data={confirmPassword}
-                change={element => this.updateForm(element)}
-              />
-            </div>
-          </div>
 
-          <div>
-            {formError ? (
-              <div className="error_label">{formErrorMessage}</div>
-            ) : (
-              ""
-            )}
-            <div
-              className="link_default"
-              onClick={event => this.submitForm(event)}
-            >
-              Reset password
-            </div>
-          </div>
-        </form>
-
-        <Dialog open={formSuccess}>
-          <div className="dialog_alert">
             <div>
-              Your password was reseted...you will be redirected to login page.
+              {formError ? (
+                <div className="error_label">{formErrorMessage}</div>
+              ) : (
+                ""
+              )}
+              <div
+                className="link_default"
+                onClick={event => this.submitForm(event)}
+              >
+                Reset password
+              </div>
             </div>
-          </div>
-        </Dialog>
+          </form>
+
+          <Dialog open={formSuccess}>
+            <div className="dialog_alert">
+              <div>
+                Your password was reseted...you will be redirected to login
+                page.
+              </div>
+            </div>
+          </Dialog>
+        </div>
       </div>
     );
   }
