@@ -9,8 +9,8 @@ const HomeSlider = ({ list }) => {
         <div
           className="home-images"
           style={{
-            backgroundImage: `url(${category.images[0].url})`,
-            maxWidth: "1000%",
+            background: `url(${category.images[0].url})`,
+            maxWidth: "1200%",
             width: "50%",
             height: "100vh",
             overflow: "hidden",
@@ -30,8 +30,7 @@ const HomeSlider = ({ list }) => {
         maxWidth: "1000%",
         width: "auto",
         height: "100vh",
-        display: "block",
-        position: "relative"
+        display: "block"
       }}
     >
       {renderCategories}

@@ -60,7 +60,7 @@ const MiniSummary = ({ cart, email, onTransactionSuccess, empty }) => {
       )}
     </ListGroup>
   );
-  return CardPreview;
+  return <div style={{ top: "500px", right: "500px" }}>{CardPreview}</div>;
 };
 
 MiniSummary.propTypes = {

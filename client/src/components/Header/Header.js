@@ -118,9 +118,7 @@ class Header extends React.Component {
     const { isAuthenticated } = auth;
     return (
       <div className="cart_link" key={i}>
-        <span className="cart_link_span">
-          {isAuthenticated && cartDetail && cartLength}
-        </span>
+        <span className="cart_link_span">{cartDetail && cartLength}</span>
         <img
           src={item.icon}
           alt="MY_CART"
@@ -184,7 +182,7 @@ class Header extends React.Component {
     const { showLinks } = this;
     return (
       <div>
-        <header className="header1">
+        <header className="header1" style={{ maxWidth: "1300px" }}>
           <div className="wrap_header">
             <Link to="/" className="logo">
               <img src={img2} alt="IMG-LOGO" />
