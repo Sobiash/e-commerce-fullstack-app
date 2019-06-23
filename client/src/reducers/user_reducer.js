@@ -58,7 +58,7 @@ const UserReducer = (state = initialState, action) => {
         updateUserData: action.payload
       };
     case RESET_USER:
-      return { ...state, requestReset: action.payload };
+      return { ...state, requestReset: action.payload.success };
     case ON_SUCCESS_BUY_USER:
       return {
         ...state,

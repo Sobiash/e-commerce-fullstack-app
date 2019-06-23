@@ -2,35 +2,35 @@ import React from "react";
 import Card from "./Card";
 import PropTypes from "prop-types";
 
-const CardBlock = ({ list, grid, newArrival, popular, title, classes }) => {
+const CardBlock = props => {
   const renderCards = () =>
-    list &&
-    list.map(card => (
+    props.list &&
+    props.list.map(card => (
       <Card
         key={card._id}
         card={card}
-        grid={grid}
-        newArrival={newArrival}
-        popular={popular}
+        grid={props.grid}
+        newArrival={props.newArrival}
+        popular={props.popular}
         linkTo={`/product_detail/${card._id}`}
       />
     ));
   return (
     <div>
-      {classes === "card_block_shop" ? (
+      {props.class === "card_block_shop" ? (
         <div className="card_block_shop">
           <div>
-            {list &&
-              (list.length === 0 && (
+            {props.list &&
+              (props.list.length === 0 && (
                 <div className="no-results">Sorry, no results</div>
               ))}
-            {renderCards(list)}
+            {renderCards(props.list)}
           </div>
         </div>
       ) : (
         <div className="card_block">
           <div className="container">
-            {title && <div className="title">{title}</div>}
+            {props.title && <div className="title">{props.title}</div>}
             <div
               style={{
                 display: "flex",
@@ -38,7 +38,7 @@ const CardBlock = ({ list, grid, newArrival, popular, title, classes }) => {
                 margin: "0px auto"
               }}
             >
-              {renderCards(list)}
+              {renderCards(props.list)}
             </div>
           </div>
         </div>
@@ -51,7 +51,7 @@ CardBlock.propTypes = {
   list: PropTypes.array,
   grid: PropTypes.string,
   title: PropTypes.string,
-  classes: PropTypes.string
+  class: PropTypes.string
 };
 
 export default CardBlock;

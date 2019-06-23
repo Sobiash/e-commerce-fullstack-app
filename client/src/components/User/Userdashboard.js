@@ -15,23 +15,19 @@ import PropTypes from "prop-types";
 
 class Userdashboard extends React.Component {
   componentDidMount() {
-    const { getUserProfile, getCartDetail } = this.props;
-
-    getUserProfile();
-    getCartDetail();
+    this.props.getUserProfile();
+    this.props.getCartDetail();
   }
 
   deleteProfile = e => {
     e.preventDefault();
-    const { deleteProfile, clearCurrentProfile, history } = this.props;
-    deleteProfile();
-    clearCurrentProfile();
-    history.push("/register_login");
+    this.props.deleteProfile();
+    this.props.clearCurrentProfile();
+    this.props.history.push("/register_login");
   };
 
   render() {
-    const { user } = this.props;
-    const { loading } = user;
+    const { loading } = this.props.user;
 
     let dashboardContent;
 

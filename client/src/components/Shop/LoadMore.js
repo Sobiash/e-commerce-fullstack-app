@@ -1,22 +1,22 @@
 import React from "react";
-import CardBlock from "../UI/CardBlock";
+import CardBlock from "../utils/CardBlock";
 import PropTypes from "prop-types";
 
-const LoadMore = ({ grid, products, toggleModal, size, limit, loadMore }) => {
+const LoadMore = props => {
   return (
     <div>
       <div>
         <CardBlock
-          grid={grid}
-          list={products}
+          grid={props.grid}
+          list={props.products}
           title=""
-          classes="card_block_shop"
-          toggleModal={toggleModal}
+          class="card_block_shop"
+          toggleModal={props.toggleModal}
         />
       </div>
-      {size > 0 && size >= limit && (
+      {props.size > 0 && props.size >= props.limit && (
         <div className="load_more_container">
-          <span onClick={() => loadMore()}>Load More</span>
+          <span onClick={() => props.loadMore()}>Load More</span>
         </div>
       )}
     </div>

@@ -64,17 +64,6 @@ class Header extends React.Component {
     });
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   const { user, getCartDetail } = this.props;
-  //   const { cartDetail } = user;
-  //   if (nextProps.user.cartDetail !== cartDetail) {
-  //     getCartDetail();
-  //     this.setState({
-  //       cartLength: cartDetail.length
-  //     });
-  //   }
-  // }
-
   componentWillUpdate(nextProps, nextState) {
     const { user, getCartDetail } = this.props;
     const { cartDetail } = user;
@@ -129,7 +118,9 @@ class Header extends React.Component {
     const { isAuthenticated } = auth;
     return (
       <div className="cart_link" key={i}>
-        <span className="cart_link_span">{cartDetail && cartLength}</span>
+        <span className="cart_link_span">
+          {isAuthenticated && cartDetail && cartLength}
+        </span>
         <img
           src={item.icon}
           alt="MY_CART"

@@ -9,46 +9,32 @@ class Sorting extends React.Component {
   };
 
   handleGrid = () => {
-    const { handleGrid } = this.props;
-    handleGrid();
+    this.props.handleGrid();
   };
 
-  renderList = () => {
-    const { list } = this.props;
-    const { value } = this.state;
-    const { handleChange } = this;
-    return (
-      list &&
-      list.map(val => {
-        const { _id, name } = val;
-        return (
-          <option onClick={handleChange(value)} key={_id}>
-            {name}
-          </option>
-        );
-      })
-    );
-  };
+  renderList = () =>
+    this.props.list &&
+    this.props.list.map(value => (
+      <option onClick={this.handleChange(this.state.value)} key={value._id}>
+        {value.name}
+      </option>
+    ));
 
   handleChange = event => {
-    const { handleFilters } = this.props;
-
-    handleFilters(event.target.value);
+    this.props.handleFilters(event.target.value);
     this.setState({
       value: event.target.value
     });
   };
 
   render() {
-    const { grid } = this.props;
-    const { handleGrid } = this;
     return (
       <div>
         <div className="shop_options">
           <div className="shop_grids clear">
             <div
-              className={`grid_btn ${grid ? "" : "active"}`}
-              onClick={() => handleGrid()}
+              className={`grid_btn ${this.props.grid ? "" : "active"}`}
+              onClick={() => this.handleGrid()}
             >
               <img
                 src={squares}
@@ -57,8 +43,8 @@ class Sorting extends React.Component {
               />
             </div>
             <div
-              className={`grid_btn ${!grid ? "" : "active"}`}
-              onClick={() => handleGrid()}
+              className={`grid_btn ${!this.props.grid ? "" : "active"}`}
+              onClick={() => this.handleGrid()}
             >
               <img
                 src={layout}

@@ -15,44 +15,35 @@ class CollapseList extends Component {
     checked: this.props.check ? [this.props.check] : []
   };
   componentDidMount() {
-    const { initState } = this.props;
-    if (initState) {
+    if (this.props.initState) {
       this.setState({
-        open: initState
+        open: this.props.initState
       });
     }
   }
 
   handleClick = () => {
-    const { open } = this.state;
-    this.setState({ open: !open });
+    this.setState({ open: !this.state.open });
   };
 
-  renderList = () => {
-    const { list } = this.props;
-    const { checked } = this.state;
-    const { handleToggle } = this;
-    return (
-      list &&
-      list.map(product => (
-        <ListItem key={product._id} style={{ padding: "0px 0px" }}>
-          <ListItemText primary={product.name} style={{ fontSize: "5px" }} />
-          <ListItemSecondaryAction>
-            <Checkbox
-              style={{ fontSize: "5px" }}
-              color="primary"
-              onChange={handleToggle(product._id)}
-              checked={checked.indexOf(product._id) !== -1}
-            />
-          </ListItemSecondaryAction>
-        </ListItem>
-      ))
-    );
-  };
+  renderList = () =>
+    this.props.list &&
+    this.props.list.map(product => (
+      <ListItem key={product._id} style={{ padding: "0px 0px" }}>
+        <ListItemText primary={product.name} style={{ fontSize: "5px" }} />
+        <ListItemSecondaryAction>
+          <Checkbox
+            style={{ fontSize: "5px" }}
+            color="primary"
+            onChange={this.handleToggle(product._id)}
+            checked={this.state.checked.indexOf(product._id) !== -1}
+          />
+        </ListItemSecondaryAction>
+      </ListItem>
+    ));
 
   handleToggle = value => () => {
-    const { checked } = this.state;
-    const { handleFilters } = this.props;
+    const checked = this.state.checked;
 
     const currentIndex = checked.indexOf(value);
     let newChecked = [...checked];
@@ -68,7 +59,7 @@ class CollapseList extends Component {
         checked: newChecked
       },
       () => {
-        handleFilters(newChecked);
+        this.props.handleFilters(newChecked);
       }
     );
   };
@@ -79,22 +70,22 @@ class CollapseList extends Component {
       <img style={{ width: "20px", height: "20px" }} src={arrowDown} alt="" />
     );
   render() {
-    const { handleClick, renderList, handleAngle } = this;
-    const { title } = this.props;
-    const { open } = this.state;
     return (
       <div className="collapse_items_wrapper">
         <List style={{ borderBottom: "1px solid #dbdbdb" }}>
           <ListItem
-            onClick={handleClick}
+            onClick={this.handleClick}
             style={{ padding: "5px 23px 10px 0" }}
           >
-            <ListItemText primary={title} className="collapse_title" />
-            {handleAngle()}
+            <ListItemText
+              primary={this.props.title}
+              className="collapse_title"
+            />
+            {this.handleAngle()}
           </ListItem>
-          <Collapse in={open} timeout="auto" unmountOnExit>
+          <Collapse in={this.state.open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              {renderList()}
+              {this.renderList()}
             </List>
           </Collapse>
         </List>

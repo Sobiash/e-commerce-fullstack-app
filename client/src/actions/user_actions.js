@@ -195,12 +195,16 @@ export const clearUpdateUserData = () => {
 
 export const requestReset = dataToSubmit => dispatch => {
   axios.post(`${USER_SERVER}/reset-user`, dataToSubmit).then(res =>
-    dispatch({
-      type: RESET_USER,
-      payload: res.data
-    })
+    dispatch(
+      {
+        type: RESET_USER,
+        payload: res.data
+      },
+      console.log(res.data)
+    )
   );
 };
+
 export const onSuccessBuy = data => dispatch => {
   axios.post(`${PAYMENT_SERVER}/success-buy`, data).then(res =>
     dispatch({

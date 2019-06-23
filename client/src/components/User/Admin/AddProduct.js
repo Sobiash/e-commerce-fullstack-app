@@ -206,45 +206,37 @@ class AddProduct extends Component {
   };
 
   componentDidMount() {
-    const { getUserProfile, getDresses, getCategories } = this.props;
-    getUserProfile();
-    getDresses();
-    getCategories();
+    this.props.getUserProfile();
+    this.props.getDresses();
+    this.props.getCategories();
   }
 
   componentWillReceiveProps(nextProps) {
-    const { errors, products } = this.props;
-    const { dresses, categories } = products;
-    const { formData } = this.state;
-    const { updateFields } = this;
-
-    if (nextProps.errors !== errors) {
+    if (nextProps.errors !== this.props.errors) {
       this.setState({ formError: nextProps.errors });
     }
-
-    if (nextProps.products.dresses !== dresses) {
+    const formData = this.state.formData;
+    if (nextProps.products.dresses !== this.props.products.dresses) {
       const newFormData = populateOptionFields(
         formData,
         nextProps.products.dresses,
         "dress"
       );
-      updateFields(newFormData);
+      this.updateFields(newFormData);
     }
-    if (nextProps.products.categories !== categories) {
+    if (nextProps.products.categories !== this.props.products.categories) {
       const newFormData = populateOptionFields(
         formData,
         nextProps.products.categories,
         "category"
       );
-      updateFields(newFormData);
+      this.updateFields(newFormData);
     }
   }
 
   imagesHandler = images => {
-    const { formData } = this.state;
-
     const newFormData = {
-      ...formData
+      ...this.state.formData
     };
     newFormData["images"].value = images;
     newFormData["images"].valid = true;
@@ -254,9 +246,7 @@ class AddProduct extends Component {
   };
 
   resetFieldHandler = () => {
-    const { formData } = this.state;
-
-    const newFormData = resetFields(formData, "products");
+    const newFormData = resetFields(this.state.formData, "products");
     setTimeout(() => {
       this.setState({
         formData: newFormData
@@ -271,9 +261,7 @@ class AddProduct extends Component {
   };
 
   updateForm = element => {
-    const { formData } = this.state;
-
-    const newFormData = update(element, formData, "products");
+    const newFormData = update(element, this.state.formData, "products");
     this.setState({
       formData: newFormData
     });
@@ -282,98 +270,84 @@ class AddProduct extends Component {
   submitForm = event => {
     event.preventDefault();
 
-    const { formData } = this.state;
-    const { addProduct } = this.props;
-    const { resetFieldHandler } = this;
-
-    let dataToSubmit = generateData(formData, "products");
-    let formIsValid = isFormValid(formData, "products");
+    let dataToSubmit = generateData(this.state.formData, "products");
+    let formIsValid = isFormValid(this.state.formData, "products");
 
     if (formIsValid) {
-      addProduct(dataToSubmit);
+      this.props.addProduct(dataToSubmit);
       setTimeout(() => {
-        resetFieldHandler();
+        this.resetFieldHandler();
       }, 500);
     }
   };
 
   render() {
-    const { formError, formData } = this.state;
-    const { updateForm, submitForm, imagesHandler } = this;
-    const {
-      name,
-      description,
-      price,
-      category,
-      dress,
-      color,
-      size,
-      available,
-      publish,
-      shipping
-    } = formData;
-
     return (
       <UserLayout>
         <div>
           <h3>Add Products</h3>
-          <form onSubmit={event => submitForm(event)}>
-            {formError && <div className="error_label">{formError.error}</div>}
-            <ImageUpload imagesHandler={images => imagesHandler(images)} />
+          <form onSubmit={event => this.submitForm(event)}>
+            {this.state.formError && (
+              <div className="error_label">{this.state.formError.error}</div>
+            )}
+            <ImageUpload imagesHandler={images => this.imagesHandler(images)} />
             <FormField
               id={"name"}
-              data={name}
-              change={element => updateForm(element)}
+              data={this.state.formData.name}
+              change={element => this.updateForm(element)}
             />
             <FormField
               id={"description"}
-              data={description}
-              change={element => updateForm(element)}
+              data={this.state.formData.description}
+              change={element => this.updateForm(element)}
             />
             <FormField
               id={"price"}
-              data={price}
-              change={element => updateForm(element)}
+              data={this.state.formData.price}
+              change={element => this.updateForm(element)}
             />
             <div className="form_devider" />
             <FormField
               id={"category"}
-              data={category}
-              change={element => updateForm(element)}
+              data={this.state.formData.category}
+              change={element => this.updateForm(element)}
             />
             <FormField
               id={"dress"}
-              data={dress}
-              change={element => updateForm(element)}
+              data={this.state.formData.dress}
+              change={element => this.updateForm(element)}
             />
             <FormField
               id={"color"}
-              data={color}
-              change={element => updateForm(element)}
+              data={this.state.formData.color}
+              change={element => this.updateForm(element)}
             />
             <FormField
               id={"size"}
-              data={size}
-              change={element => updateForm(element)}
+              data={this.state.formData.size}
+              change={element => this.updateForm(element)}
             />
 
             <FormField
               id={"available"}
-              data={available}
-              change={element => updateForm(element)}
+              data={this.state.formData.available}
+              change={element => this.updateForm(element)}
             />
             <FormField
               id={"publish"}
-              data={publish}
-              change={element => updateForm(element)}
+              data={this.state.formData.publish}
+              change={element => this.updateForm(element)}
             />
             <div className="form_devider" />
             <FormField
               id={"shipping"}
-              data={shipping}
-              change={element => updateForm(element)}
+              data={this.state.formData.shipping}
+              change={element => this.updateForm(element)}
             />
-            <div className="link_default" onClick={event => submitForm(event)}>
+            <div
+              className="link_default"
+              onClick={event => this.submitForm(event)}
+            >
               Add product
             </div>
           </form>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ImageLightBox from "./ImageLightBox";
 import img from "../../images/img1.jpeg";
 import PropTypes from "prop-types";
-import BreadCrumbs from "../UI/BreadCrumbs";
+import BreadCrumbs from "../utils/BreadCrumbs";
 
 class ProductImages extends Component {
   state = {

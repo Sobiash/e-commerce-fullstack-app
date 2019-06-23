@@ -33,25 +33,19 @@ class ManageDresses extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    const { errors } = this.props;
-
-    if (nextProps.errors !== errors) {
+    if (nextProps.errors !== this.props.errors) {
       this.setState({ formError: nextProps.errors });
     }
   }
 
   resetFieldsHandler = () => {
-    const { formData } = this.state;
-
-    const newFormData = resetFields(formData, "dresses");
+    const newFormData = resetFields(this.state.formData, "dresses");
     this.setState({
       formData: newFormData
     });
   };
   updateForm = element => {
-    const { formData } = this.state;
-
-    const newFormData = update(element, formData, "dresses");
+    const newFormData = update(element, this.state.formData, "dresses");
     this.setState({
       formError: false,
       formData: newFormData
@@ -60,41 +54,33 @@ class ManageDresses extends Component {
   submitForm = event => {
     event.preventDefault();
 
-    const { formData } = this.state;
-    const { addDressType } = this.props;
-    const { resetFieldsHandler } = this;
-
-    let dataToSubmit = generateData(formData, "dresses");
-    let formIsValid = isFormValid(formData, "dresses");
+    let dataToSubmit = generateData(this.state.formData, "dresses");
+    let formIsValid = isFormValid(this.state.formData, "dresses");
 
     if (formIsValid) {
-      addDressType(dataToSubmit);
-      resetFieldsHandler();
+      this.props.addDressType(dataToSubmit);
+      this.resetFieldsHandler();
     }
   };
   render() {
-    const { formData, formError } = this.state;
-    const { name } = formData;
-    const { updateForm, submitForm } = this;
-
     return (
       <div className="admin_category_wrapper">
         <h3>Dress Types</h3>
         <div className="admin_two_column">
           <div className="left" />
           <div className="right">
-            <form onSubmit={event => submitForm(event)}>
+            <form onSubmit={event => this.submitForm(event)}>
               <FormField
                 id={"name"}
-                data={name}
-                change={element => updateForm(element)}
+                data={this.state.formData.name}
+                change={element => this.updateForm(element)}
               />
-              {formError && (
-                <div className="error_label">{formError.error}</div>
+              {this.state.formError && (
+                <div className="error_label">{this.state.formError.error}</div>
               )}
               <button
                 className="link_default"
-                onClick={event => submitForm(event)}
+                onClick={event => this.submitForm(event)}
               >
                 Add dress type
               </button>

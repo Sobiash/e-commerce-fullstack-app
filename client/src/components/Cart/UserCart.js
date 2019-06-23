@@ -49,7 +49,8 @@ class UserCart extends Component {
   };
 
   onTransactionSuccess = data => {
-    const { cartDetail, successBuy, onSuccessBuy } = this.props.user;
+    const { cartDetail, successBuy } = this.props.user;
+    const { onSuccessBuy } = this.props;
     onSuccessBuy({
       cartDetail: cartDetail,
       paymentData: data

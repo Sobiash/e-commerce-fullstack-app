@@ -23,7 +23,6 @@ import jwt_decode from "jwt-decode";
 import setAuthToken from "./components/utils/AuthToken";
 import { setCurrentUser, logoutUser } from "./actions/auth_actions";
 import { clearCurrentProfile } from "./actions/user_actions";
-
 import store from "./store";
 
 if (localStorage.jwtToken) {

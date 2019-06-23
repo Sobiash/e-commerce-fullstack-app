@@ -9,8 +9,7 @@ import PropTypes from "prop-types";
 
 class ManageCategories extends React.Component {
   componentDidMount() {
-    const getUserProfile = this.props;
-    getUserProfile();
+    this.props.getUserProfile();
   }
   render() {
     return (

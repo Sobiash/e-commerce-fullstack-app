@@ -46,7 +46,7 @@ userController.requestReset = async (req, res) => {
 
     sendEmail(user.email, user.name, null, "reset-password", user);
     return res.status(200).json({
-      message: "successful"
+      success: true
     });
   } catch (error) {
     logger.error(error);

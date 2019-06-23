@@ -9,25 +9,25 @@ import { Link } from "react-router-dom";
 
 class GenderCategory extends Component {
   componentDidMount() {
-    const { match, getProducts, getDresses } = this.props;
-    const category = match.params.category;
+    const category = this.props.match.params.category;
     const filters = {
       category: [category]
     };
-    getProducts(0, 0, filters);
-    getDresses();
+    this.props.getProducts(0, 0, filters);
+    this.props.getDresses();
   }
 
   getArticles = (dress, category) => {
-    const { getProducts } = this.props;
     const filters = { dress: [dress], category: [category] };
-    getProducts(0, 0, filters);
+    this.props.getProducts(0, 0, filters);
   };
 
   render() {
-    const { products, match } = this.props;
-    const { category } = match.params;
-    const { articles, dresses } = products;
+    const products = this.props.products;
+    const category = this.props.match.params.category;
+
+    let articles = products.articles;
+    let dresses = products.dresses;
 
     let dressArr = [];
     let articleArr = [];
@@ -59,37 +59,34 @@ class GenderCategory extends Component {
 
     const categories =
       output &&
-      output.map(item => {
-        const { images, name, _id } = item;
-        return (
-          <div
-            className="col-sm-10 col-md-8 col-lg-4"
-            style={{ display: "inline-block" }}
-          >
-            <div className="block1 hov-img-zoom pos-relative m-t-30 m-r-30">
-              <img
-                src={images && images[0].url}
-                alt={name}
-                style={{ width: "320px", height: "400px" }}
-              />
+      output.map(item => (
+        <div
+          className="col-sm-10 col-md-8 col-lg-4"
+          style={{ display: "inline-block" }}
+        >
+          <div className="block1 hov-img-zoom pos-relative m-t-30 m-r-30">
+            <img
+              src={item.images && item.images[0].url}
+              alt={item.name}
+              style={{ width: "320px", height: "400px" }}
+            />
 
-              <div className="block1-wrapbtn w-size2">
-                <Link
-                  className="flex-c-m size2 m-text2 bg3 hov1 trans-0-4"
-                  to={{
-                    pathname: `/shop/dress/${_id}`,
-                    state: { category: category }
-                  }}
-                  key={_id}
-                  onClick={() => this.getArticles(_id, category)}
-                >
-                  {name}
-                </Link>
-              </div>
+            <div className="block1-wrapbtn w-size2">
+              <Link
+                className="flex-c-m size2 m-text2 bg3 hov1 trans-0-4"
+                to={{
+                  pathname: `/shop/dress/${item._id}`,
+                  state: { category: category }
+                }}
+                key={item._id}
+                onClick={() => this.getArticles(item._id, category)}
+              >
+                {item.name}
+              </Link>
             </div>
           </div>
-        );
-      });
+        </div>
+      ));
 
     return (
       <div className="container">
