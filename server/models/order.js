@@ -8,16 +8,6 @@ const orderSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "User"
     },
-    total: {
-      type: Number,
-      default: 0
-    },
-    charge: {
-      type: String
-    },
-    purchaseOrder: {
-      type: String
-    },
     orderItem: [
       {
         product: {
@@ -28,11 +18,9 @@ const orderSchema = new Schema(
           type: Number,
           default: 1
         },
-        name: {
-          type: String
-        },
-        price: {
-          type: Number
+        discountedPrice: {
+          type: Number,
+          default: 0
         },
         selectedSize: {
           type: String
@@ -41,7 +29,21 @@ const orderSchema = new Schema(
           type: String
         }
       }
-    ]
+    ],
+    total: {
+      type: Number,
+      default: 0
+    },
+    paymentId: {
+      type: String
+    },
+    purchaseOrder: {
+      type: String
+    },
+    postalAddress: {
+      type: Schema.Types.ObjectId,
+      ref: "PostalAddress"
+    }
   },
   { timestamps: true }
 );

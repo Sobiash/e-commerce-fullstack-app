@@ -29,7 +29,7 @@ app.use("/api/admin", require("./server/routes/admin_route"));
 app.use("/api/auth", require("./server/routes/auth_route"));
 app.use("/api/cart", require("./server/routes/cart_route"));
 app.use("/api/payment", require("./server/routes/payment_route"));
-app.use("/api/product", require("./server/routes/product_route"));
+app.use("/api/products", require("./server/routes/product_route"));
 app.use("/api/shop", require("./server/routes/shop_route"));
 app.use("/api/users", require("./server/routes/user_route"));
 

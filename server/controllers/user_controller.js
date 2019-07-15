@@ -17,11 +17,13 @@ userController.getUserProfile = async (req, res) => {
         email: req.user.email,
         name: req.user.name,
         lastname: req.user.lastname,
+        username: req.user.username,
+        profileImage: req.user.profileImage,
         role: req.user.role,
-        history: req.user.history
+        orderHistory: req.user.history
       });
     } else {
-      return res.status(404).json({
+      return res.status(400).json({
         error: "Could not find any user!"
       });
     }
@@ -111,10 +113,12 @@ userController.updateProfile = async (req, res) => {
       "name",
       "lastname",
       "email",
+      "username",
+      "profileImage",
       "password"
     ]);
 
-    const user = await User.findOne({ _id: req.user._id });
+    const user = await User.findOne(req.user._id);
     if (!user) {
       return res.json({
         message: "Sorry, something went wrong."
@@ -124,8 +128,11 @@ userController.updateProfile = async (req, res) => {
       body.password = hash;
       user.name = body.name;
       user.lastname = body.lastname;
+      user.username = body.username;
       user.email = body.email;
       user.password = hash;
+      user.profileImage = body.profileImage;
+      user.updatedAt = Date.now();
 
       user.save((err, doc) => {
         if (err) return res.status(400).json({ err });
@@ -142,11 +149,40 @@ userController.updateProfile = async (req, res) => {
 
 userController.deleteProfile = async (req, res) => {
   try {
-    await User.findOneAndDelete({ _id: req.user._id });
-    return res.json({ success: true });
+    const user = await User.findById(req.user._id);
+    if (user) {
+      await user.remove();
+      res.status(200).json({ success: true });
+    } else {
+      return res.status(400).json({ error: "Could not find any user!" });
+    }
   } catch (error) {
     logger.error(error);
     res.status(400).json(error);
+  }
+};
+
+userController.postalAddress = async (req, res) => {
+  try {
+    const body = await _.pick(req.body, [
+      "street",
+      "city",
+      "zipCode",
+      "country"
+    ]);
+
+    const exists = await PostalAddress.findOne({ user: req.body.user });
+    if (exists) {
+      res.json(exists);
+      return;
+    } else {
+      const postalAddress = await new PostalAddress(body);
+      await postalAddress.save();
+      res.status(200).json(postalAddress);
+    }
+  } catch (error) {
+    logger.error(error);
+    res.status(404).json({ error: "No cart" });
   }
 };
 

@@ -45,10 +45,22 @@ class ProductView extends Component {
     clearProductDetail();
   }
 
-  addToCartHandler = (id, name, price, images, selectedSize, selectedColor) => {
+  addToCartHandler = (id, productDetail, selectedSize, selectedColor) => {
     const { addToCart } = this.props;
-    addToCart(id, name, price, images, selectedSize, selectedColor);
+    addToCart(id, productDetail, selectedSize, selectedColor);
+
+    // this.getModal(id, name, price, images, selectedSize, selectedColor);
   };
+
+  // getModal = (id, name, price, images, selectedSize, selectedColor) => {
+  //   // {isAuthenticated ? (
+  //   return (
+  //     // <CartModal openModal={this.state.openModal} closeModal={this.closeModal}>
+  //     //   Item added to your cart
+  //     // </CartModal>
+  //     <p>he</p>
+  //   );
+  // };
 
   deleteProduct = id => {
     const { deleteProduct, history } = this.props;
@@ -59,6 +71,7 @@ class ProductView extends Component {
   };
 
   toggleModal = () => this.setState({ openModal: true });
+
   closeModal = () => this.setState({ openModal: false });
 
   handleSizeSelection = selectedSize => this.setState({ selectedSize });
@@ -94,21 +107,22 @@ class ProductView extends Component {
 
     return (
       <div>
-        {isAuthenticated ? (
-          <CartModal openModal={openModal} closeModal={closeModal}>
-            Item added to your cart
-          </CartModal>
-        ) : (
-          <CartModal openModal={openModal} closeModal={closeModal}>
-            You need to login to add this product to your cart.
-          </CartModal>
-        )}
         <div className="container">
           {productDetail ? (
             <div className="product_detail_wrapper">
+              {/* {this.getModal()} */}
+              {/* {isAuthenticated ? (
+                <CartModal openModal={openModal} closeModal={closeModal}>
+                  Item added to your cart
+                </CartModal>
+              ) : (
+                <CartModal openModal={openModal} closeModal={closeModal}>
+                  You need to login to add this product to your cart.
+                </CartModal>
+              )} */}
               <div className="left">
                 <div style={{ width: "500px" }}>
-                  <ProductImages detail={productDetail} />
+                  <ProductImages detail={selectedSize} />
                 </div>
               </div>
               <div className="right">
@@ -118,9 +132,7 @@ class ProductView extends Component {
                   addToCart={id =>
                     addToCartHandler(
                       id,
-                      productDetail.name,
-                      productDetail.price,
-                      productDetail.images,
+                      productDetail,
                       selectedSize,
                       selectedColor
                     )
@@ -128,6 +140,8 @@ class ProductView extends Component {
                   user={profile}
                   deleteProduct={id => deleteProduct(id)}
                   toggleModal={toggleModal}
+                  openModal={openModal}
+                  closeModal={closeModal}
                   handleSizeSelection={handleSizeSelection}
                   handleColorSelection={handleColorSelection}
                   validateSizeSelection={validateSizeSelection}

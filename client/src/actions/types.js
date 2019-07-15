@@ -6,6 +6,7 @@ export const GET_CATEGORIES = "get_categories";
 export const ADD_COLOR = "add_color";
 export const ADD_DRESS = "add_dress";
 export const GET_DRESSES = "get_dresses";
+export const GET_SIZES = "get_sizes";
 export const GET_PRODUCTS = "get_products";
 export const ADD_PRODUCT = "add_product";
 export const GET_PRODUCT_DETAIL = "get_product_detail";

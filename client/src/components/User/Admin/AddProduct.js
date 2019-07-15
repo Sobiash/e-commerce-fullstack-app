@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import UserLayout from "../../Hoc/UserLayout";
 import { getUserProfile } from "../../../actions/user_actions";
 import FormField from "../../utils/Form/FormField";
-import ImageUpload from "../../utils/ImageUpload";
+import ImageUpload from "../../UI/ImageUpload";
 import {
   update,
   generateData,
@@ -75,12 +75,13 @@ class AddProduct extends Component {
         showLabel: true
       },
       dress: {
-        element: "select",
+        element: "input",
         value: "",
         config: {
-          lable: "Dress Type",
+          lable: "Dress",
           name: "dress_input",
-          options: []
+          type: "text",
+          placeholder: "Enter dress"
         },
         validation: {
           required: true
@@ -98,6 +99,23 @@ class AddProduct extends Component {
           name: "color_input",
           type: "text",
           placeholder: "Enter color"
+        },
+        validation: {
+          required: true
+        },
+        valid: false,
+        touched: false,
+        validationMessage: "",
+        showLabel: true
+      },
+      category: {
+        element: "input",
+        value: "",
+        config: {
+          lable: "Category",
+          name: "category_input",
+          type: "text",
+          placeholder: "Enter category"
         },
         validation: {
           required: true
@@ -176,22 +194,6 @@ class AddProduct extends Component {
         validationMessage: "",
         showLabel: true
       },
-      category: {
-        element: "select",
-        value: "",
-        config: {
-          lable: "Category",
-          name: "category_input",
-          options: []
-        },
-        validation: {
-          required: true
-        },
-        valid: false,
-        touched: false,
-        validationMessage: "",
-        showLabel: true
-      },
       images: {
         value: [],
         validation: {
@@ -206,7 +208,7 @@ class AddProduct extends Component {
   };
 
   componentDidMount() {
-    const { getUserProfile, getDresses, getCategories } = this.props;
+    const { getUserProfile } = this.props;
     getUserProfile();
     getDresses();
     getCategories();
@@ -214,7 +216,7 @@ class AddProduct extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { errors, products } = this.props;
-    const { dresses, categories } = products;
+    // const { dresses, categories } = products;
     const { formData } = this.state;
     const { updateFields } = this;
 
@@ -222,22 +224,22 @@ class AddProduct extends Component {
       this.setState({ formError: nextProps.errors });
     }
 
-    if (nextProps.products.dresses !== dresses) {
-      const newFormData = populateOptionFields(
-        formData,
-        nextProps.products.dresses,
-        "dress"
-      );
-      updateFields(newFormData);
-    }
-    if (nextProps.products.categories !== categories) {
-      const newFormData = populateOptionFields(
-        formData,
-        nextProps.products.categories,
-        "category"
-      );
-      updateFields(newFormData);
-    }
+    // if (nextProps.products.dresses !== dresses) {
+    //   const newFormData = populateOptionFields(
+    //     formData,
+    //     nextProps.products.dresses,
+    //     "dress"
+    //   );
+    //   updateFields(newFormData);
+    // }
+    // if (nextProps.products.categories !== categories) {
+    //   const newFormData = populateOptionFields(
+    //     formData,
+    //     nextProps.products.categories,
+    //     "category"
+    //   );
+    //   updateFields(newFormData);
+    // }
   }
 
   imagesHandler = images => {

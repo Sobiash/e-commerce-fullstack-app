@@ -8,16 +8,25 @@ const description = Joi.string().error(
   new Error("Product description is required.")
 );
 const price = Joi.number();
-const category = Joi.string();
-const dress = Joi.string();
+const discount = Joi.number();
 const color = Joi.array()
   .items(Joi.string())
   .single();
 const size = Joi.array()
   .items(Joi.string())
   .single();
+const category = Joi.array()
+  .items(Joi.string())
+  .single();
+const tags = Joi.array()
+  .items(Joi.string())
+  .single();
+const dress = Joi.array()
+  .items(Joi.string())
+  .single();
 const shipping = Joi.number();
 const available = Joi.bool();
+const sale = Joi.bool();
 const publish = Joi.bool();
 const images = Joi.array();
 
@@ -27,44 +36,36 @@ const schemas = {
       name: name.required(),
       description: description.required(),
       price: price.required(),
+      discount,
       category: category.required(),
       dress: dress.required(),
       color: color.required(),
+      tags,
+      sale,
       size: size.required(),
       available: available.required(),
-      publish: publish.required(),
+      publish: publish,
       images: images.required(),
       shipping
     })
     .required(),
 
-  addDress: Joi.object()
-    .keys({
-      name: name.required()
-    })
-    .required(),
-  addColor: Joi.object()
-    .keys({
-      name: name.required()
-    })
-    .required(),
-  addCategory: Joi.object()
-    .keys({
-      name: name.required()
-    })
-    .required(),
   updateProduct: Joi.object()
     .keys({
       name: name.required(),
       description: description.required(),
       price: price.required(),
+      discount,
       category: category.required(),
       dress: dress.required(),
       color: color.required(),
-      shipping: shipping.required(),
+      tags,
+      sale,
+      size: size.required(),
       available: available.required(),
-      publish: publish.required(),
-      images: images.required()
+      publish: publish,
+      images: images.required(),
+      shipping
     })
     .required()
 };

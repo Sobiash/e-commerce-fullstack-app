@@ -1,5 +1,5 @@
 const USER_SERVER = "/api/users";
-const PRODUCT_SERVER = "/api/product";
+const PRODUCT_SERVER = "/api/products";
 const SHOP_SERVER = "/api/shop";
 const ADMIN_SERVER = "/api/admin";
 const PAYMENT_SERVER = "/api/payment";

@@ -7,12 +7,13 @@ import {
   clearCategories,
   getProducts,
   getCategories,
-  getColors
+  getColors,
+  getSizes
 } from "../../actions/products_actions";
 import { getCartDetail } from "../../actions/user_actions";
-import { sizes, colors, price } from "../utils/FixedCategories";
-import CollapseList from "../utils/CollapseList";
-import CollapseRadio from "../utils/CollapseRadio";
+import { price } from "../utils/FixedCategories";
+import CollapseList from "../UI/CollapseList";
+import CollapseRadio from "../UI/CollapseRadio";
 import CartModal from "../UI/Modal";
 import { Link } from "react-router-dom";
 import layout from "../../images/icons/layout.png";
@@ -70,17 +71,17 @@ class DressCategory extends Component {
       newFilters[category] = priceValues;
     }
 
-    if (category === "size") {
-      let sizeValues = handleSize(filters);
+    // if (category === "size") {
+    //   let sizeValues = handleSize(filters);
 
-      newFilters[category] = sizeValues;
-    }
+    //   newFilters[category] = sizeValues;
+    // }
 
-    if (category === "color") {
-      let colorValues = handleColor(filters);
+    // if (category === "color") {
+    //   let colorValues = handleColor(filters);
 
-      newFilters[category] = colorValues;
-    }
+    //   newFilters[category] = colorValues;
+    // }
 
     showFilterResults(newFilters);
     this.setState({
@@ -99,39 +100,39 @@ class DressCategory extends Component {
     return array;
   };
 
-  handleSize = value => {
-    const data = sizes;
-    let array = value;
+  // handleSize = value => {
+  //   const data = sizes;
+  //   let array = value;
 
-    const finalArray = [];
+  //   const finalArray = [];
 
-    array.forEach(i =>
-      data.forEach(k => {
-        if (i === k._id) {
-          finalArray.push(k.name);
-        }
-      })
-    );
+  //   array.forEach(i =>
+  //     data.forEach(k => {
+  //       if (i === k._id) {
+  //         finalArray.push(k.name);
+  //       }
+  //     })
+  //   );
 
-    return finalArray;
-  };
+  //   return finalArray;
+  // };
 
-  handleColor = value => {
-    const data = colors;
-    let array = value;
+  // handleColor = value => {
+  //   const data = colors;
+  //   let array = value;
 
-    const finalArray = [];
+  //   const finalArray = [];
 
-    array.forEach(i =>
-      data.forEach(k => {
-        if (i === k._id) {
-          finalArray.push(k.name);
-        }
-      })
-    );
+  //   array.forEach(i =>
+  //     data.forEach(k => {
+  //       if (i === k._id) {
+  //         finalArray.push(k.name);
+  //       }
+  //     })
+  //   );
 
-    return finalArray;
-  };
+  //   return finalArray;
+  // };
 
   handleFilters = (filters, category) => {
     const newFilters = { ...this.state.filters };
@@ -215,18 +216,18 @@ class DressCategory extends Component {
                 handleFilters={filters => handleFilters(filters, "dress")}
                 check={dress}
               />
-              <CollapseList
+              {/* <CollapseList
                 initState={false}
                 title="Colors"
                 list={colors}
                 handleFilters={filters => handleFilters(filters, "color")}
-              />
-              <CollapseList
+              /> */}
+              {/* <CollapseList
                 initState={false}
                 title="Sizes"
                 list={sizes}
                 handleFilters={filters => handleFilters(filters, "size")}
-              />
+              /> */}
 
               <CollapseRadio
                 initState={true}
@@ -280,7 +281,7 @@ class DressCategory extends Component {
                   </div>
                 </div>
               </div>
-              {isAuthenticated ? (
+              {/* {isAuthenticated ? (
                 <CartModal openModal={openModal} closeModal={closeModal}>
                   Item added to your cart
                 </CartModal>
@@ -288,7 +289,7 @@ class DressCategory extends Component {
                 <CartModal openModal={openModal} closeModal={closeModal}>
                   You need to login to add this product to your cart.
                 </CartModal>
-              )}
+              )} */}
               <LoadMore
                 grid={grid}
                 limit={limit}
@@ -320,6 +321,7 @@ export default connect(
     clearCategories,
     getProducts,
     getColors,
+    getSizes,
     getCategories,
     getCartDetail
   }

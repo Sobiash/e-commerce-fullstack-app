@@ -1,68 +1,3 @@
-const sizes = [
-  {
-    _id: 1,
-    name: "XS"
-  },
-  {
-    _id: 2,
-    name: "S"
-  },
-  {
-    _id: 3,
-    name: "M"
-  },
-  {
-    _id: 4,
-    name: "L"
-  },
-  {
-    _id: 5,
-    name: "XL"
-  }
-];
-const colors = [
-  {
-    _id: 1,
-    name: "Red"
-  },
-  {
-    _id: 2,
-    name: "Green"
-  },
-  {
-    _id: 3,
-    name: "Blue"
-  },
-  {
-    _id: 4,
-    name: "Yellow"
-  },
-  {
-    _id: 5,
-    name: "White"
-  },
-  {
-    _id: 6,
-    name: "Black"
-  },
-  {
-    _id: 7,
-    name: "Khaki"
-  },
-  {
-    _id: 8,
-    name: "Dark Blue"
-  },
-  {
-    _id: 9,
-    name: "Light Blue"
-  },
-  {
-    _id: 10,
-    name: "Brown"
-  }
-];
-
 const price = [
   {
     _id: 0,
@@ -96,4 +31,4 @@ const price = [
   }
 ];
 
-export { sizes, colors, price };
+export { price };

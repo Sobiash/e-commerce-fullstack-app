@@ -16,7 +16,7 @@ cartController.createCart = async (req, res) => {
     }
   } catch (error) {
     logger.error(error);
-    res.status(404).json({ error: "No cart" });
+    res.status(400).json({ error: "No cart" });
   }
 };
 
@@ -57,9 +57,6 @@ cartController.addToCart = async (req, res) => {
               cartItem: {
                 product: mongoose.Types.ObjectId(req.params.id),
                 quantity: 1,
-                price: req.body.price,
-                name: req.body.name,
-                images: req.body.images,
                 selectedSize: req.body.selectedSize,
                 selectedColor: req.body.selectedColor
               }
@@ -81,17 +78,24 @@ cartController.addToCart = async (req, res) => {
 
 cartController.getCartDetail = async (req, res) => {
   try {
-    const cart = await Cart.findOne({ user: req.user._id });
+    const cart = await Cart.findOne({ user: req.user._id })
+      .populate({
+        path: "cartItem.product",
+        model: "Product",
+        select: "name price images"
+      })
+      .exec();
+
     if (cart) {
       res.status(200).json(cart.cartItem);
     } else {
-      return res.status(404).json({
+      return res.status(400).json({
         error: "Could not find any cart!"
       });
     }
   } catch (error) {
     logger.error(error);
-    res.status(404).json({ error: "Could not find any cart!" });
+    res.status(400).json({ error: "Could not find any cart!" });
   }
 };
 
@@ -100,7 +104,7 @@ cartController.removeFromCart = async (req, res) => {
     await Cart.findOne({ user: req.user._id }, (err, doc) => {
       doc.cartItem.forEach(item => {
         if (item._id == req.body.id) {
-          Cart.findOneAndUpdate(
+          Cart.updateOne(
             {
               user: req.user._id,
               "cartItem._id": mongoose.Types.ObjectId(req.body.id)
@@ -112,7 +116,6 @@ cartController.removeFromCart = async (req, res) => {
                 }
               }
             },
-            { new: true },
             (err, doc) => {
               if (err) return res.json(err);
               res.status(200).json(doc.cartItem);
@@ -123,7 +126,7 @@ cartController.removeFromCart = async (req, res) => {
     });
   } catch (error) {
     logger.error(error);
-    res.status(404).json({ error: "No cart" });
+    res.status(400).json({ error: "No cart" });
   }
 };
 
@@ -132,13 +135,13 @@ cartController.increaseItem = async (req, res) => {
     await Cart.findOne({ user: req.user._id }, (err, doc) => {
       doc.cartItem.forEach(item => {
         if (item._id == req.body.id) {
-          Cart.findOneAndUpdate(
+          Cart.updateOne(
             {
               user: req.user._id,
-              "cartItem._id": req.body.id
+              "cartItem._id": mongoose.Types.ObjectId(req.body.id)
             },
             { $inc: { "cartItem.$.quantity": 1 } },
-            { new: true },
+
             () => {
               if (err) return res.json({ success: false, err });
               res.status(200).json(doc.cartItem);
@@ -149,7 +152,7 @@ cartController.increaseItem = async (req, res) => {
     });
   } catch (error) {
     logger.error(error);
-    res.status(404).json({ error: "No cart" });
+    res.status(400).json({ error: "No cart" });
   }
 };
 
@@ -159,13 +162,13 @@ cartController.decreaseItem = async (req, res) => {
       doc.cartItem.forEach(item => {
         if (item._id == req.body.id) {
           if (item.quantity > 0) {
-            Cart.findOneAndUpdate(
+            Cart.updateOne(
               {
                 user: req.user._id,
-                "cartItem._id": req.body.id
+                "cartItem._id": mongoose.Types.ObjectId(req.body.id)
               },
               { $inc: { "cartItem.$.quantity": -1 } },
-              { new: true },
+
               () => {
                 if (err) return res.json({ success: false, err });
                 res.status(200).json(doc.cartItem);
@@ -177,7 +180,7 @@ cartController.decreaseItem = async (req, res) => {
     });
   } catch (error) {
     logger.error(error);
-    res.status(404).json({ error: "No cart" });
+    res.status(400).json({ error: "No cart" });
   }
 };
 

@@ -86,16 +86,12 @@ export const createCart = user => dispatch => {
 
 export const addToCart = (
   id,
-  name,
-  price,
-  images,
+  productDetail,
   selectedSize,
   selectedColor
 ) => dispatch => {
   let data = {
-    name,
-    price,
-    images,
+    productDetail,
     selectedSize,
     selectedColor
   };
@@ -195,13 +191,10 @@ export const clearUpdateUserData = () => {
 
 export const requestReset = dataToSubmit => dispatch => {
   axios.post(`${USER_SERVER}/reset-user`, dataToSubmit).then(res =>
-    dispatch(
-      {
-        type: RESET_USER,
-        payload: res.data
-      },
-      console.log(res.data)
-    )
+    dispatch({
+      type: RESET_USER,
+      payload: res.data
+    })
   );
 };
 

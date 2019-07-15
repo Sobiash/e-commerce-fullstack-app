@@ -6,6 +6,10 @@ const email = Joi.string()
   .lowercase()
   .error(new Error("Email not found!"));
 
+// const username = Joi.string()
+//   .required()
+//   .error(new Error("Wrong username"));
+
 const password = Joi.string()
   .min(6)
   .max(255)
@@ -16,6 +20,7 @@ const schemas = {
   loginUser: Joi.object()
     .keys({
       email: email.required(),
+      // username,
       password: password.required()
     })
     .required()

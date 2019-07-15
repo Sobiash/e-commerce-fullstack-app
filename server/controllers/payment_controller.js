@@ -28,20 +28,18 @@ paymentController.successBuy = async (req, res) => {
     req.body.cartDetail.forEach(item => {
       history.push({
         dateOfPurchase: formatted_date,
-        product: item.product,
-        name: item.name,
-        id: item._id,
-        price: item.price,
-        quantity: item.quantity,
-        images: item.images,
+        product: item.product._id,
         selectedSize: item.selectedSize,
         selectedColor: item.selectedColor,
+        discountedPrice: item.discountedPrice
+          ? item.discountedPrice * item.quantity
+          : 0,
         purchaseOrder
       });
     });
 
     req.body.cartDetail.forEach(item => {
-      total += parseInt(item.price, 10) * item.quantity;
+      total += parseInt(item.product.price, 10) * item.quantity;
       return total;
     });
 
@@ -53,24 +51,24 @@ paymentController.successBuy = async (req, res) => {
 
     req.body.cartDetail.forEach(item => {
       orderItem.push({
-        product: item.product,
-        name: item.name,
-        id: item._id,
-        price: item.price,
+        product: item.product._id,
         quantity: item.quantity,
         selectedSize: item.selectedSize,
-        selectedColor: item.selectedColor
+        selectedColor: item.selectedColor,
+        discountedPrice: item.discountedPrice
+          ? item.discountedPrice * item.quantity
+          : 0
       });
       return orderItem;
     });
 
     transactionData.user = req.user._id;
     transactionData.total = total;
-    transactionData.charge = charge.id;
+    transactionData.paymentId = charge.id;
     transactionData.orderItem = orderItem;
     transactionData.purchaseOrder = purchaseOrder;
 
-    User.findByIdAndUpdate(
+    User.updateOne(
       {
         _id: req.user._id
       },
@@ -90,9 +88,9 @@ paymentController.successBuy = async (req, res) => {
           async.eachSeries(
             doc.orderItem,
             (item, callback) => {
-              Product.findByIdAndUpdate(
+              Product.updateOne(
                 {
-                  _id: item.product
+                  _id: item.product._id
                 },
                 {
                   $inc: {
@@ -108,7 +106,7 @@ paymentController.successBuy = async (req, res) => {
             err => {
               if (err) return res.json({ success: false, err });
 
-              Cart.findOneAndUpdate(
+              Cart.updateOne(
                 { user: req.user._id },
                 {
                   $set: {

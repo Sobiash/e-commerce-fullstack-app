@@ -3,6 +3,7 @@ import Backdrop from "./Backdrop";
 import PropTypes from "prop-types";
 
 const CartModal = props => {
+  console.log(props.selectedSize);
   return (
     <div>
       <Backdrop openModal={props.openModal} closeModal={props.closeModal} />

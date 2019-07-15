@@ -50,6 +50,7 @@ class UserCart extends Component {
 
   onTransactionSuccess = data => {
     const { cartDetail, successBuy } = this.props.user;
+
     const { onSuccessBuy } = this.props;
     onSuccessBuy({
       cartDetail: cartDetail,
@@ -64,9 +65,11 @@ class UserCart extends Component {
 
   render() {
     const { user, auth } = this.props;
-    const { cartDetail } = user;
+    const { cartDetail, cart } = user;
+    // const { cartItem } = cartDetail;
     const { email } = user.profile;
     const { isAuthenticated } = auth;
+
     const {
       removeFromCart,
       increaseItem,
@@ -74,7 +77,7 @@ class UserCart extends Component {
       showNotItems,
       onTransactionSuccess
     } = this;
-    const CartItem =
+    const CartItems =
       cartDetail.length > 0 &&
       cartDetail.map(item => {
         return (
@@ -162,7 +165,7 @@ class UserCart extends Component {
                           <th className="column-5" />
                         </tr>
                       </tbody>
-                      {CartItem}
+                      {CartItems}
                     </table>
                     <br />
                     <Link to="/shop">
@@ -186,7 +189,7 @@ class UserCart extends Component {
                       <Payment
                         amount={calculateTotal(cartDetail)}
                         email={email}
-                        cart={cartDetail[0].images[0].url}
+                        cart={cartDetail[0].product.images[0].url}
                         onSuccess={data => onTransactionSuccess(data)}
                       >
                         <div

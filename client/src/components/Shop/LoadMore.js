@@ -1,5 +1,5 @@
 import React from "react";
-import CardBlock from "../utils/CardBlock";
+import CardBlock from "../UI/CardBlock";
 import PropTypes from "prop-types";
 
 const LoadMore = ({ grid, products, toggleModal, size, limit, loadMore }) => {

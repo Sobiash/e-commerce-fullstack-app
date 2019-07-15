@@ -5,12 +5,13 @@ import {
   getProducts,
   getDresses,
   getCategories,
-  getColors
+  getColors,
+  getSizes
 } from "../../actions/products_actions";
 import { getCartDetail } from "../../actions/user_actions";
-import { sizes, colors, price } from "../utils/FixedCategories";
-import CollapseList from "../utils/CollapseList";
-import CollapseRadio from "../utils/CollapseRadio";
+import { price } from "../utils/FixedCategories";
+import CollapseList from "../UI/CollapseList";
+import CollapseRadio from "../UI/CollapseRadio";
 import LoadMore from "./LoadMore";
 import CartModal from "../UI/Modal";
 import PropTypes from "prop-types";
@@ -81,39 +82,39 @@ class Shop extends Component {
     return array;
   };
 
-  handleSize = value => {
-    const data = sizes;
-    let array = value;
+  // handleSize = value => {
+  //   const data = sizes;
+  //   let array = value;
 
-    const finalArray = [];
+  //   const finalArray = [];
 
-    array.forEach(i =>
-      data.forEach(k => {
-        if (i === k._id) {
-          finalArray.push(k.name);
-        }
-      })
-    );
+  //   array.forEach(i =>
+  //     data.forEach(k => {
+  //       if (i === k._id) {
+  //         finalArray.push(k.name);
+  //       }
+  //     })
+  //   );
 
-    return finalArray;
-  };
+  //   return finalArray;
+  // };
 
-  handleColor = value => {
-    const data = colors;
-    let array = value;
+  // handleColor = value => {
+  //   const data = colors;
+  //   let array = value;
 
-    const finalArray = [];
+  //   const finalArray = [];
 
-    array.forEach(i =>
-      data.forEach(k => {
-        if (i === k._id) {
-          finalArray.push(k.name);
-        }
-      })
-    );
+  //   array.forEach(i =>
+  //     data.forEach(k => {
+  //       if (i === k._id) {
+  //         finalArray.push(k.name);
+  //       }
+  //     })
+  //   );
 
-    return finalArray;
-  };
+  //   return finalArray;
+  // };
 
   handleFilters = (filters, category) => {
     const newFilters = { ...this.state.filters };
@@ -205,18 +206,18 @@ class Shop extends Component {
                 list={dresses}
                 handleFilters={filters => handleFilters(filters, "dress")}
               />
-              <CollapseList
+              {/* <CollapseList
                 initState={false}
                 title="Colors"
                 list={colors}
                 handleFilters={filters => handleFilters(filters, "color")}
-              />
-              <CollapseList
+              /> */}
+              {/* <CollapseList
                 initState={false}
                 title="Sizes"
                 list={sizes}
                 handleFilters={filters => handleFilters(filters, "size")}
-              />
+              /> */}
 
               <CollapseRadio
                 initState={true}
@@ -248,7 +249,7 @@ class Shop extends Component {
 
               <Sorting grid={grid} handleGrid={handleGrid} list={price} />
 
-              {isAuthenticated ? (
+              {/* {isAuthenticated ? (
                 <CartModal openModal={openModal} closeModal={closeModal}>
                   Item added to your cart
                 </CartModal>
@@ -256,7 +257,7 @@ class Shop extends Component {
                 <CartModal openModal={openModal} closeModal={closeModal}>
                   You need to login to add this product to your cart.
                 </CartModal>
-              )}
+              )} */}
               <LoadMore
                 grid={grid}
                 limit={limit}
@@ -292,5 +293,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getProducts, getDresses, getColors, getCategories, getCartDetail }
+  { getProducts, getDresses, getColors, getSizes, getCategories, getCartDetail }
 )(Shop);

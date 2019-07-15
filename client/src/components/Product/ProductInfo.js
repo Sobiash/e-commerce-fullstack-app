@@ -1,11 +1,12 @@
 import React from "react";
-import MyButton from "../utils/button";
+import MyButton from "../UI/button";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import ColorSelect from "./ColorSelect";
 import SizeSelect from "./SizeSelect";
 import editor from "../../images/icons/edit.png";
 import cross from "../../images/icons/cancel.png";
+import CartModal from "../UI/Modal";
 
 const ProductInfo = ({
   user,
@@ -13,6 +14,8 @@ const ProductInfo = ({
   detail,
   addToCart,
   toggleModal,
+  openModal,
+  closeModal,
   handleSizeSelection,
   handleColorSelection,
   validateSizeSelection,
@@ -43,8 +46,30 @@ const ProductInfo = ({
     </div>
   );
 
+  const showModal = (
+    name,
+    price,
+    color,
+    size,
+    description,
+    images,
+    selectedSize,
+    selectedColor
+  ) => {
+    return (
+      <CartModal
+        openModal={openModal}
+        closeModal={closeModal}
+        selectedSize={selectedSize}
+      >
+        {selectedSize}
+      </CartModal>
+    );
+  };
+
   const showProductActions = ({
     _id,
+    detail,
     name,
     price,
     color,
@@ -65,18 +90,19 @@ const ProductInfo = ({
           selectedColor={selectedColor}
           runAction={() => {
             return (
-              addToCart(
-                _id,
-                name,
-                price,
-                color,
-                size,
-                description,
-                images,
-                selectedSize,
-                selectedColor
-              ),
+              addToCart(_id, detail, selectedSize, selectedColor),
               toggleModal()
+              // showModal(
+              //   _id,
+              //   name,
+              //   price,
+              //   color,
+              //   size,
+              //   description,
+              //   images,
+              //   selectedSize,
+              //   selectedColor
+              // )
             );
           }}
         />
@@ -163,6 +189,7 @@ const ProductInfo = ({
 
       {showProductTags(detail)}
       {showProductActions(detail)}
+      {/* {showModal(detail)} */}
     </div>
   );
 };

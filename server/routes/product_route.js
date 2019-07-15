@@ -11,40 +11,34 @@ router
     validateBody("postArticle"),
     passport.authenticate("jwt", { session: false }),
     admin,
-    productController.postArticle
+    productController.postArticles
   );
 
-router.get("/articles_by_id/:id", productController.getArticleDetail);
+router.get("/product_detail/:id", productController.getArticleDetail);
 
-router.get("/filter_items", productController.getItems);
+router.get("/filter_items", productController.filterItems);
 
 router.get("/dresses", productController.getDresses);
 
-router.get("/categories/:category", productController.categoryName);
-router.get("/dresses/:dress", productController.dressName);
-
 router.get("/categories", productController.getCategories);
+router.get("/colors", productController.getColors);
+router.get("/sizes", productController.getSizes);
+
+router.get("/search", productController.searchArticles);
+
+router.get("/related/:id", productController.relatedArticles);
 
 router
-  .route("/dress")
-  .post(
-    validateBody("addDress"),
+  .route("/product/:id")
+  .put(
+    validateBody("updateProduct"),
     passport.authenticate("jwt", { session: false }),
     admin,
-    productController.addDress
+    productController.updateProduct
   );
 
 router
-  .route("/category")
-  .post(
-    validateBody("addCategory"),
-    passport.authenticate("jwt", { session: false }),
-    admin,
-    productController.addCategory
-  );
-
-router
-  .route("/articles_by_id/:id")
+  .route("/product/:id")
   .delete(
     passport.authenticate("jwt", { session: false }),
     admin,

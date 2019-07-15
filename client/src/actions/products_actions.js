@@ -8,6 +8,7 @@ import {
   GET_PRODUCT_DETAIL,
   GET_ERRORS,
   GET_COLORS,
+  GET_SIZES,
   DELETE_PRODUCT,
   ADD_PRODUCT,
   GET_CATEGORIES,
@@ -82,7 +83,7 @@ export const addProduct = dataToSubmit => dispatch => {
 
 export const getProductDetail = id => dispatch => {
   axios
-    .get(`${PRODUCT_SERVER}/articles_by_id/${id}`)
+    .get(`${PRODUCT_SERVER}/product_detail/${id}`)
     .then(res => {
       dispatch({
         type: GET_PRODUCT_DETAIL,
@@ -162,6 +163,14 @@ export const getColors = () => dispatch => {
   axios.get(`${PRODUCT_SERVER}/colors`).then(res =>
     dispatch({
       type: GET_COLORS,
+      payload: res.data
+    })
+  );
+};
+export const getSizes = () => dispatch => {
+  axios.get(`${PRODUCT_SERVER}/sizes`).then(res =>
+    dispatch({
+      type: GET_SIZES,
       payload: res.data
     })
   );

@@ -21,15 +21,8 @@ class CartBlock extends React.Component {
 
   renderCartItems = cart => {
     const { decreaseItem, increaseItem, removeItem } = this.props;
-    const {
-      _id,
-      images,
-      name,
-      price,
-      quantity,
-      selectedSize,
-      selectedColor
-    } = cart;
+    const { _id, product, quantity, selectedSize, selectedColor } = cart;
+    const { name, price, images } = product;
     const { renderCartImages } = this;
     return (
       <tbody>

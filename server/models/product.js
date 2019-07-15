@@ -21,14 +21,16 @@ const productSchema = new Schema(
       type: Number,
       required: true
     },
+    discount: {
+      type: Number,
+      default: 0
+    },
     category: {
-      type: Schema.Types.ObjectId,
-      ref: "Category",
+      type: [String],
       required: true
     },
     dress: {
-      type: Schema.Types.ObjectId,
-      ref: "Dress",
+      type: [String],
       required: true
     },
     color: {
@@ -39,12 +41,17 @@ const productSchema = new Schema(
       type: [String],
       required: true
     },
-    shipping: {
-      type: Number
+    tags: {
+      type: [String],
+      default: []
     },
-    available: {
+    sale: {
       type: Boolean,
-      required: true
+      default: false
+    },
+    shipping: {
+      type: Number,
+      default: 15
     },
     sold: {
       type: Number,
@@ -53,7 +60,7 @@ const productSchema = new Schema(
     },
     publish: {
       type: Boolean,
-      required: true
+      default: true
     },
     images: {
       type: Array,

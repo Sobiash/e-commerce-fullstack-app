@@ -43,64 +43,48 @@ if (localStorage.jwtToken) {
 }
 const App = () => {
   return (
-    <HashRouter>
-      <Layout>
-        <Switch>
-          <PrivateRoute
-            path="/user/dashboard"
-            exact
-            component={Userdashboard}
-          />
-          <PrivateRoute
-            path="/user/address"
-            exact
-            component={UserAddressData}
-          />
-          <Route path="/user/cart" exact component={UserCart} />
-          <PrivateRoute
-            path="/user/user_profile"
-            exact
-            component={UpdateUserProfile}
-          />
-          <PrivateRoute
-            path="/user/order_history"
-            exact
-            component={HistoryBlock}
-          />
-          <PrivateRoute
-            path="/admin/add_products"
-            exact
-            component={AddProduct}
-          />
-          <PrivateRoute
-            path="/admin/manage_categories"
-            exact
-            component={ManageCategories}
-          />
+    // <HashRouter>
+    <Layout>
+      <Switch>
+        <PrivateRoute path="/user/dashboard" exact component={Userdashboard} />
+        <PrivateRoute path="/user/address" exact component={UserAddressData} />
+        <Route path="/user/cart" exact component={UserCart} />
+        <PrivateRoute
+          path="/user/user_profile"
+          exact
+          component={UpdateUserProfile}
+        />
+        <PrivateRoute
+          path="/user/order_history"
+          exact
+          component={HistoryBlock}
+        />
+        <PrivateRoute path="/admin/add_products" exact component={AddProduct} />
+        <PrivateRoute
+          path="/admin/manage_categories"
+          exact
+          component={ManageCategories}
+        />
 
-          <Route
-            path="/reset-password/:token"
-            exact
-            component={ResetPassword}
-          />
-          <Route path="/reset-user" exact component={RequestReset} />
+        <Route path="/reset-password/:token" exact component={ResetPassword} />
+        <Route path="/reset-user" exact component={RequestReset} />
 
-          <Route path="/register" exact component={Register} />
-          <Route path="/register_login" exact component={RegisterLogin} />
-          <Route path="/product_detail/:id" exact component={ProductView} />
-          <Route path="/" exact component={Home} />
-          <Route
-            path="/shop/category/:category"
-            exact
-            component={GenderCategory}
-          />
-          <Route path="/shop/dress/:dress" exact component={DressCategory} />
+        <Route path="/register" exact component={Register} />
+        <Route path="/register_login" exact component={RegisterLogin} />
+        <Route path="/product_detail/:id" exact component={ProductView} />
+        <Route path="/" exact component={Home} />
+        <Route
+          path="/shop/category/:category"
+          exact
+          component={GenderCategory}
+        />
+        <Route path="/shop/dress/:dress" exact component={DressCategory} />
 
-          <Route path="/shop" exact component={ShopLaout} />
-          <Route component={NotFound} />
-        </Switch>
-      </Layout>
-    </HashRouter>
+        <Route path="/shop" exact component={ShopLaout} />
+        <Route component={NotFound} />
+      </Switch>
+    </Layout>
+    // </HashRouter>
   );
 };
 

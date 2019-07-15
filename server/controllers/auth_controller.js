@@ -14,6 +14,8 @@ authController.registerUser = async (req, res) => {
       "name",
       "lastname",
       "email",
+      "username",
+      "profileImage",
       "password",
       "confirmPassword"
     ]);
@@ -23,7 +25,7 @@ authController.registerUser = async (req, res) => {
       res.status(400).json({
         error: "This email is already in use."
       });
-      res.redirect("/api/users/register");
+      res.redirect("/login");
       return;
     }
 
@@ -33,7 +35,7 @@ authController.registerUser = async (req, res) => {
 
     const user = await new User(body);
     await user.save();
-    res.json(user);
+    res.status(200).json(user);
 
     sendEmail(body.email, body.name, null, "welcome");
   } catch (error) {
@@ -49,14 +51,14 @@ authController.loginUser = async (req, res) => {
     const user = await User.findOne({ email: body.email });
 
     if (!user) {
-      return res.status(404).json({
+      return res.status(400).json({
         error: "User not found."
       });
     }
 
     const isMatch = await bcrypt.compare(body.password, user.password);
     if (!isMatch) {
-      return res.status(404).json({ error: "Incorrect password" });
+      return res.status(400).json({ error: "Incorrect password" });
     } else {
       const payload = { id: user._id, name: user.name };
       jwt.sign(payload, "A3.Fw+T~.fo", { expiresIn: 7200 }, (err, token) => {

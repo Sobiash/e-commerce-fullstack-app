@@ -29,12 +29,20 @@ const confirmPassword = Joi.string()
   .valid(Joi.ref("password"))
   .error(new Error("Passowrd do not match."));
 
+const username = Joi.string()
+  .required()
+  .error(new Error("Please choose a unique username"));
+
+const profileImage = Joi.string().error(new Error("Somethig went wrong"));
+
 const schemas = {
   registerUser: Joi.object()
     .keys({
       name: name.required(),
       lastname: lastname.required(),
       email: email.required(),
+      username,
+      profileImage,
       password: password.required(),
       confirmPassword: confirmPassword.required()
     })
@@ -45,6 +53,8 @@ const schemas = {
       name: name.required(),
       lastname: lastname.required(),
       email: email.required(),
+      username,
+      profileImage,
       password: password.required()
     })
     .required()

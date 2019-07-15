@@ -9,40 +9,55 @@ require("dotenv").config();
 const { logger } = require("../utils/logger");
 
 const Schema = mongoose.Schema;
-const userSchema = new Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: 1
+const userSchema = new Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: 1
+    },
+    username: {
+      type: String,
+      trim: true,
+      default: ""
+    },
+    password: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      trim: true,
+      required: true
+    },
+    lastname: {
+      type: String,
+      trim: true,
+      required: true
+    },
+    profileImage: {
+      type: String,
+      default: ""
+    },
+    orderHistory: {
+      type: Array,
+      default: []
+    },
+    role: {
+      type: Number,
+      default: 0
+    },
+    resetToken: {
+      type: String
+    },
+    resetTokenExpiration: {
+      type: Number
+    },
+    stripe_customer: {}
   },
-  password: {
-    type: String,
-    required: true
-  },
-  name: {
-    type: String,
-    required: true
-  },
-  lastname: {
-    type: String,
-    required: true
-  },
-  history: {
-    type: Array,
-    default: []
-  },
-  role: {
-    type: Number,
-    default: 0
-  },
-  resetToken: {
-    type: String
-  },
-  resetTokenExpiration: {
-    type: Number
-  },
-  stripe_customer: {}
-});
+  { timestamps: true }
+);
 
 const hashPassword = async password => {
   try {

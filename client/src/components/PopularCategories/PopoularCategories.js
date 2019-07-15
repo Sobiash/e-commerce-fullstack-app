@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import CardBlock from "../utils/CardBlock";
+import CardBlock from "../UI/CardBlock";
 import {
   getProductsBySell,
   getProductsByArrival
@@ -31,7 +31,7 @@ class PopularCategories extends React.Component {
     const { closeModal, toggleModal } = this;
     return (
       <div>
-        {isAuthenticated ? (
+        {/* {isAuthenticated ? (
           <CartModal openModal={openModal} closeModal={closeModal}>
             Item added to your cart
           </CartModal>
@@ -39,7 +39,7 @@ class PopularCategories extends React.Component {
           <CartModal openModal={openModal} closeModal={closeModal}>
             You need to login to add this product to your cart.
           </CartModal>
-        )}
+        )} */}
         <div>
           <CardBlock
             list={byArrival}
