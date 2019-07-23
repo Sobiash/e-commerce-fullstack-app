@@ -40,7 +40,7 @@ const userSchema = new Schema(
       type: String,
       default: ""
     },
-    orderHistory: {
+    history: {
       type: Array,
       default: []
     },

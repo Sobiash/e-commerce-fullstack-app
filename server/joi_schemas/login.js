@@ -1,14 +1,16 @@
 const Joi = require("joi");
 
+// const identifier = Joi.string()
+//   .regex(
+//     /^[a-zA-Z0-9]{5,30}$|^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+//   )
+//   .error(new Error("Invalid username format"));
+
 const email = Joi.string()
   .email()
   .trim()
   .lowercase()
-  .error(new Error("Email not found!"));
-
-// const username = Joi.string()
-//   .required()
-//   .error(new Error("Wrong username"));
+  .error(new Error("Invalid email format"));
 
 const password = Joi.string()
   .min(6)
@@ -20,7 +22,6 @@ const schemas = {
   loginUser: Joi.object()
     .keys({
       email: email.required(),
-      // username,
       password: password.required()
     })
     .required()

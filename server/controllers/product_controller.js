@@ -1,5 +1,6 @@
 const { Product } = require("../models/product");
 const { logger } = require("../utils/logger");
+const { normalizeErrors } = require("../utils/mongoose");
 const _ = require("lodash");
 
 const productController = {};
@@ -57,7 +58,7 @@ productController.getArticleDetail = async (req, res) => {
     const product = await Product.findById(req.params.id);
 
     if (product) {
-      return res.status(200).send(product);
+      return res.status(200).json(product);
     } else {
       return res.status(404).json({
         error: "Could not find any product!"
@@ -79,7 +80,7 @@ productController.relatedArticles = async (req, res) => {
       .exec();
 
     if (related) {
-      res.status(200).send(related);
+      res.status(200).json(related);
     } else {
       return res.status(400).json({
         error: "Could not find any product!"
@@ -102,9 +103,9 @@ productController.filterItems = async (req, res) => {
       .limit(limit)
       .exec();
     if (articles) {
-      res.status(200).send(articles);
+      res.status(200).json(articles);
     } else {
-      return res.status(400).send({
+      return res.status(400).json({
         error: "Could not find any product!"
       });
     }
@@ -118,9 +119,9 @@ productController.getCategories = async (req, res) => {
   try {
     const categories = await Product.distinct("category", {});
     if (categories) {
-      res.status(200).send(categories);
+      res.status(200).json(categories);
     } else {
-      return res.status(400).send({
+      return res.status(400).json({
         error: "Could not find any category!"
       });
     }
@@ -134,9 +135,9 @@ productController.getDresses = async (req, res) => {
   try {
     const dresses = await Product.distinct("dress", {});
     if (dresses) {
-      res.status(200).send(dresses);
+      res.status(200).json(dresses);
     } else {
-      return res.status(400).send({
+      return res.status(400).json({
         error: "Could not find any dress!"
       });
     }
@@ -150,9 +151,9 @@ productController.getColors = async (req, res) => {
   try {
     const colors = await Product.distinct("color", {});
     if (colors) {
-      res.status(200).send(colors);
+      res.status(200).json(colors);
     } else {
-      return res.status(400).send({
+      return res.status(400).json({
         error: "Could not find any color!"
       });
     }
@@ -166,9 +167,9 @@ productController.getSizes = async (req, res) => {
   try {
     const sizes = await Product.distinct("size", {});
     if (sizes) {
-      res.status(200).send(sizes);
+      res.status(200).json(sizes);
     } else {
-      return res.status(400).send({
+      return res.status(400).json({
         error: "Could not find any size!"
       });
     }
@@ -191,9 +192,9 @@ productController.searchArticles = async (req, res) => {
     const products = await Product.find(query);
 
     if (products) {
-      res.status(200).send(products);
+      res.status(200).json(products);
     } else {
-      return res.status(400).send({
+      return res.status(400).json({
         error: "Could not find any product!"
       });
     }

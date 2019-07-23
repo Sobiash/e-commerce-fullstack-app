@@ -1,6 +1,7 @@
 const { Cart } = require("../models/cart");
 const mongoose = require("mongoose");
 const { logger } = require("../utils/logger");
+const { normalizeErrors } = require("../utils/mongoose");
 const cartController = {};
 
 cartController.createCart = async (req, res) => {
@@ -164,7 +165,6 @@ cartController.decreaseItem = async (req, res) => {
           if (item.quantity > 0) {
             Cart.updateOne(
               {
-                user: req.user._id,
                 "cartItem._id": mongoose.Types.ObjectId(req.body.id)
               },
               { $inc: { "cartItem.$.quantity": -1 } },

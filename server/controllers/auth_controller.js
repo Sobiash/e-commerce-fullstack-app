@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const _ = require("lodash");
 require("dotenv").config();
 const logger = require("../utils/logger");
+const { normalizeErrors } = require("../utils/mongoose");
 
 const authController = {};
 
@@ -15,18 +16,16 @@ authController.registerUser = async (req, res) => {
       "lastname",
       "email",
       "username",
-      "profileImage",
       "password",
       "confirmPassword"
     ]);
 
     const exists = await User.findOne({ email: body.email });
     if (exists) {
-      res.status(400).json({
+      res.status(409).json({
         error: "This email is already in use."
       });
       res.redirect("/login");
-      return;
     }
 
     const hash = await hashPassword(body.password);
@@ -40,13 +39,27 @@ authController.registerUser = async (req, res) => {
     sendEmail(body.email, body.name, null, "welcome");
   } catch (error) {
     logger.error(error);
-    res.status(400).json(error);
+    res.status(400).json({ error: debug.normalizeErrors(error.errors) });
   }
 };
 
 authController.loginUser = async (req, res) => {
   try {
     const body = await _.pick(req.body, ["email", "password"]);
+
+    // const getUserByEmail = email => {
+    //   return User.findOne({ email });
+    // };
+
+    // const getUserByUsername = username => {
+    //   return User.findOne({ username });
+    // };
+
+    // const isMail = identifier.includes("@");
+
+    // const user = isMail
+    //   ? await getUserByEmail(identifier)
+    //   : await getUserByUsername(identifier);
 
     const user = await User.findOne({ email: body.email });
 

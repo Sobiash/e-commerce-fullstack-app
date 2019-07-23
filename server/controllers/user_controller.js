@@ -5,8 +5,29 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const _ = require("lodash");
 const { logger } = require("../utils/logger");
+const { normalizeErrors } = require("../utils/mongoose");
 
 const userController = {};
+
+userController.allProfiles = async (req, res) => {
+  try {
+    const user = await User.find();
+
+    if (user) res.status(200).json(user);
+    //If no errors, send them back to the client
+
+    // if (user) {
+    //   return res.status(200).json({
+    //     user
+    //   });
+    // } else {
+    //   return res.status(400).json({ error: normalizeErrors(error.errors) });
+    // }
+  } catch (error) {
+    logger.error(error);
+    res.status(400).json(error);
+  }
+};
 
 userController.getUserProfile = async (req, res) => {
   try {
@@ -23,9 +44,7 @@ userController.getUserProfile = async (req, res) => {
         orderHistory: req.user.history
       });
     } else {
-      return res.status(400).json({
-        error: "Could not find any user!"
-      });
+      return res.status(400).json({ error: normalizeErrors(error.errors) });
     }
   } catch (error) {
     logger.error(error);
@@ -52,7 +71,7 @@ userController.requestReset = async (req, res) => {
     });
   } catch (error) {
     logger.error(error);
-    res.status(400).json(error);
+    res.status(400).json({ error: normalizeErrors(error.errors) });
   }
 };
 
@@ -103,7 +122,7 @@ userController.resetUserPassword = async (req, res) => {
     }
   } catch (error) {
     logger.error(error);
-    res.status(400).json(error);
+    res.status(400).json({ error: normalizeErrors(error.errors) });
   }
 };
 
@@ -135,7 +154,8 @@ userController.updateProfile = async (req, res) => {
       user.updatedAt = Date.now();
 
       user.save((err, doc) => {
-        if (err) return res.status(400).json({ err });
+        if (err)
+          return res.status(400).json({ error: normalizeErrors(error.errors) });
         return res.status(200).json({
           success: true
         });
@@ -143,7 +163,7 @@ userController.updateProfile = async (req, res) => {
     }
   } catch (error) {
     logger.error(error);
-    res.status(400).json(error);
+    res.status(400).json({ error: normalizeErrors(error.errors) });
   }
 };
 
@@ -158,7 +178,7 @@ userController.deleteProfile = async (req, res) => {
     }
   } catch (error) {
     logger.error(error);
-    res.status(400).json(error);
+    res.status(400).json({ error: normalizeErrors(error.errors) });
   }
 };
 
@@ -182,7 +202,7 @@ userController.postalAddress = async (req, res) => {
     }
   } catch (error) {
     logger.error(error);
-    res.status(404).json({ error: "No cart" });
+    res.status(400).json({ error: normalizeErrors(error.errors) });
   }
 };
 

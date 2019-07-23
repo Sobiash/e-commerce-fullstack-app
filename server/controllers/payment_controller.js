@@ -7,6 +7,7 @@ const SHA1 = require("crypto-js/sha1");
 const { sendEmail } = require("../utils/mail/mail");
 const { logger } = require("../utils/logger");
 const stripe = require("../config/stripe");
+const { normalizeErrors } = require("../utils/mongoose");
 
 const paymentController = {};
 
@@ -30,6 +31,7 @@ paymentController.successBuy = async (req, res) => {
         dateOfPurchase: formatted_date,
         product: item.product._id,
         selectedSize: item.selectedSize,
+        quantity: item.quantity,
         selectedColor: item.selectedColor,
         discountedPrice: item.discountedPrice
           ? item.discountedPrice * item.quantity
@@ -64,11 +66,11 @@ paymentController.successBuy = async (req, res) => {
 
     transactionData.user = req.user._id;
     transactionData.total = total;
-    transactionData.paymentId = charge.id;
+    transactionData.charge = charge.id;
     transactionData.orderItem = orderItem;
     transactionData.purchaseOrder = purchaseOrder;
 
-    User.updateOne(
+    User.findByIdAndUpdate(
       {
         _id: req.user._id
       },
@@ -78,17 +80,21 @@ paymentController.successBuy = async (req, res) => {
       {
         new: true
       },
+
       (err, user) => {
         if (err) return res.json({ success: false, err });
 
         const order = new Order(transactionData);
         order.save((err, doc) => {
-          if (err) return res.json({ success: false, err });
+          if (err)
+            return res
+              .status(400)
+              .json({ error: normalizeErrors(error.errors) });
 
           async.eachSeries(
             doc.orderItem,
             (item, callback) => {
-              Product.updateOne(
+              Product.findByIdAndUpdate(
                 {
                   _id: item.product._id
                 },
@@ -106,7 +112,7 @@ paymentController.successBuy = async (req, res) => {
             err => {
               if (err) return res.json({ success: false, err });
 
-              Cart.updateOne(
+              Cart.findOneAndUpdate(
                 { user: req.user._id },
                 {
                   $set: {
@@ -128,7 +134,7 @@ paymentController.successBuy = async (req, res) => {
                 transactionData,
                 purchaseOrder
               );
-              res.status(200).json({
+              return res.status(200).json({
                 success: true
               });
             }
@@ -138,7 +144,7 @@ paymentController.successBuy = async (req, res) => {
     );
   } catch (error) {
     logger.error(error);
-    res.status(400).json(error);
+    res.status(400).json({ error: normalizeErrors(error.errors) });
   }
 };
 

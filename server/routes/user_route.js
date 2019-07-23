@@ -8,10 +8,11 @@ const passport = require("passport");
 
 router.get(
   "/user/dashboard",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   userController.getUserProfile
 );
 
+router.get("/all/users", userController.allProfiles);
 router
   .route("/user/postal_address")
   .post(validateAddress("postalAddress"), userController.postalAddress);

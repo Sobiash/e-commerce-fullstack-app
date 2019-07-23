@@ -2,10 +2,13 @@ const express = require("express");
 ("cookie-parser");
 
 const mongoose = require("mongoose");
+mongoose.set("useFindAndModify", false);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 require("dotenv").config();
+
+const db = require("./server/utils/helpers/setupTear");
 const passport = require("passport");
 const cloudinary = require("cloudinary");
 
@@ -33,12 +36,10 @@ app.use("/api/products", require("./server/routes/product_route"));
 app.use("/api/shop", require("./server/routes/shop_route"));
 app.use("/api/users", require("./server/routes/user_route"));
 
-mongoose.connect(
-  process.env.MONGODB_URI ||
-    "mongodb://localhost:27017/e-commerce-fullstack-app",
-  { useCreateIndex: true, useNewUrlParser: true }
-);
-
-app.listen(PORT, function() {
-  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+db.connect().then(() => {
+  app.listen(PORT, () => {
+    console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+  });
 });
+
+module.exports = app;

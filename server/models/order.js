@@ -34,7 +34,7 @@ const orderSchema = new Schema(
       type: Number,
       default: 0
     },
-    paymentId: {
+    charge: {
       type: String
     },
     purchaseOrder: {

@@ -14,6 +14,10 @@ const email = Joi.string()
   .lowercase()
   .error(new Error("Invalid email format"));
 
+const username = Joi.string()
+  .regex(/^[a-zA-Z0-9]{5,30}$/)
+  .error(new Error("Invalid username format"));
+
 const password = Joi.string()
   .min(6)
   .max(255)
@@ -29,10 +33,6 @@ const confirmPassword = Joi.string()
   .valid(Joi.ref("password"))
   .error(new Error("Passowrd do not match."));
 
-const username = Joi.string()
-  .required()
-  .error(new Error("Please choose a unique username"));
-
 const profileImage = Joi.string().error(new Error("Somethig went wrong"));
 
 const schemas = {
@@ -41,7 +41,7 @@ const schemas = {
       name: name.required(),
       lastname: lastname.required(),
       email: email.required(),
-      username,
+      username: username.required(),
       profileImage,
       password: password.required(),
       confirmPassword: confirmPassword.required()

@@ -65,8 +65,7 @@ class UserCart extends Component {
 
   render() {
     const { user, auth } = this.props;
-    const { cartDetail, cart } = user;
-    // const { cartItem } = cartDetail;
+    const { cartDetail } = user;
     const { email } = user.profile;
     const { isAuthenticated } = auth;
 
@@ -78,6 +77,7 @@ class UserCart extends Component {
       onTransactionSuccess
     } = this;
     const CartItems =
+      cartDetail &&
       cartDetail.length > 0 &&
       cartDetail.map(item => {
         return (
@@ -151,7 +151,7 @@ class UserCart extends Component {
 
             <div className="container-table-cart">
               <div className="container">
-                {cartDetail.length > 0 ? (
+                {cartDetail && cartDetail.length > 0 ? (
                   <div className="wrap-table-shopping-cart ">
                     <table className="table-shopping-cart">
                       <tbody>
@@ -177,7 +177,7 @@ class UserCart extends Component {
                 )}
               </div>
 
-              {cartDetail.length > 0 && (
+              {cartDetail && cartDetail.length > 0 && (
                 <div
                   className="user_cart_sum"
                   style={{ width: "350px", marginRight: "250px" }}
@@ -189,7 +189,7 @@ class UserCart extends Component {
                       <Payment
                         amount={calculateTotal(cartDetail)}
                         email={email}
-                        cart={cartDetail[0].product.images[0].url}
+                        cart={ cartDetail[0].product.images[0].url}
                         onSuccess={data => onTransactionSuccess(data)}
                       >
                         <div

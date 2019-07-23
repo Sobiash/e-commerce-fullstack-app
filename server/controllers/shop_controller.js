@@ -1,5 +1,6 @@
 const { Product } = require("../models/product");
 const { logger } = require("../utils/logger");
+const { normalizeErrors } = require("../utils/mongoose");
 
 const shopController = {};
 
@@ -41,8 +42,9 @@ shopController.shopItems = async (req, res) => {
       .skip(skip)
       .limit(limit)
       .exec((err, articles) => {
-        if (err)
-          return res.status(400).send({ error: "No shop items are found!" });
+        if (err) {
+          return res.status(400).json({ error: normalizeErrors(error.errors) });
+        }
         res.status(200).json({
           size: articles.length,
           articles: articles
