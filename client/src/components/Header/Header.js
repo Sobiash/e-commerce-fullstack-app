@@ -1,9 +1,10 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
+import { AppBar, Toolbar, Typography, Button } from "@material-ui/core";
 import MiniSummary from "../Cart/MiniSummary";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/auth_actions";
-import { onSuccessBuy } from "../../actions/user_actions";
+import { onSuccessBuy, removeCartItems } from "../../actions/user_actions";
 import img from "../../images/icons/icon-header-02.png";
 import img2 from "../../images/icons/logo.png";
 
@@ -50,7 +51,6 @@ class Header extends React.Component {
     isOpen: false,
     subMenuOpen: false,
     subMenuCategorySelected: "",
-    openCartPreview: false,
     cartLength: 0,
     showSuccess: false
   };
@@ -82,6 +82,11 @@ class Header extends React.Component {
     history.push("/register_login");
   };
 
+  removeFromCart = id => {
+    const { removeCartItems } = this.props;
+    removeCartItems(id);
+  };
+
   onTransactionSuccess = data => {
     const { onSuccessBuy, user } = this.props;
     const { cartDetail, successBuy } = user;
@@ -100,12 +105,12 @@ class Header extends React.Component {
   defaultLink = (item, i) => {
     const { logoutHandler } = this;
     return item.name === "Log out" ? (
-      <div className="log_out_link" key={i} onClick={() => logoutHandler()}>
+      <Button key={i} onClick={() => logoutHandler()}>
         {item.name}
-      </div>
+      </Button>
     ) : (
-      <Link to={item.linkTo} key={i} className="icon-login">
-        {item.name}
+      <Link to={item.linkTo} key={i}>
+        <Button>{item.name}</Button>
       </Link>
     );
   };
@@ -113,40 +118,18 @@ class Header extends React.Component {
   cartLink = (item, i) => {
     const { onTransactionSuccess } = this;
     const { auth, user } = this.props;
-    const { cartLength, openCartPreview } = this.state;
+    const { cartLength } = this.state;
     const { cartDetail, profile } = user;
-    const { isAuthenticated } = auth;
     return (
-      <div className="cart_link" key={i}>
-        <span className="cart_link_span">{cartDetail && cartLength}</span>
-        <img
-          src={item.icon}
-          alt="MY_CART"
-          style={{ cursor: "pointer" }}
-          onClick={() => this.setState({ openCartPreview: !openCartPreview })}
-        />
-        {openCartPreview && (
-          <div
-            style={{
-              position: "fixed",
-              width: "300px",
-              minHeight: "150px",
-              right: "15",
-              top: "50",
-              border: "solid 1px #3333",
-              zIndex: "150",
-              background: "white"
-            }}
-          >
-            <MiniSummary
-              empty={cartDetail.length === 0 && true}
-              cart={cartDetail}
-              email={profile.email}
-              onTransactionSuccess={onTransactionSuccess}
-            />
-          </div>
-        )}
-      </div>
+      <MiniSummary
+        empty={cartDetail.length === 0 && true}
+        cart={cartDetail}
+        cartLength={cartLength}
+        item={item}
+        email={profile.email}
+        onTransactionSuccess={onTransactionSuccess}
+        removeItem={id => this.removeFromCart(id)}
+      />
     );
   };
 
@@ -180,19 +163,29 @@ class Header extends React.Component {
   render() {
     const { user, page } = this.state;
     const { showLinks } = this;
+    const useStyles = {
+      root: {
+        flexGrow: 1
+      },
+      text: {
+        flexGrow: 1,
+        color: "black"
+      }
+    };
+
     return (
       <div>
-        <header className="header1" style={{ maxWidth: "1300px" }}>
-          <div className="wrap_header">
-            <Link to="/" className="logo">
-              <img src={img2} alt="IMG-LOGO" />
-            </Link>
-            <div className="header-icons">
-              <div>{showLinks(user)}</div>
-              <div>{showLinks(page)}</div>
-            </div>
-          </div>
-        </header>
+        <AppBar position="static">
+          <Toolbar style={{ backgroundColor: "white" }}>
+            <Typography variant="h6" style={useStyles.text}>
+              <Link to="/">
+                <img src={img2} alt="IMG-LOGO" />
+              </Link>
+            </Typography>
+            {showLinks(user)}
+            {showLinks(page)}
+          </Toolbar>
+        </AppBar>
       </div>
     );
   }
@@ -205,7 +198,8 @@ Header.propTypes = {
   clearCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
-  errors: PropTypes.object
+  errors: PropTypes.object,
+  removeCartItems: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -222,6 +216,7 @@ export default connect(
     clearCurrentProfile,
     getUserProfile,
     getCartDetail,
-    onSuccessBuy
+    onSuccessBuy,
+    removeCartItems
   }
 )(withRouter(Header));

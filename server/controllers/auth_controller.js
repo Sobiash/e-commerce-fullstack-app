@@ -38,8 +38,12 @@ authController.registerUser = async (req, res) => {
 
     sendEmail(body.email, body.name, null, "welcome");
   } catch (error) {
-    logger.error(error);
-    res.status(400).json({ error: debug.normalizeErrors(error.errors) });
+    try {
+      logger.error(error);
+    } catch (err) {
+      console.log(err);
+    }
+    res.status(400).json({ error: normalizeErrors(error.errors) });
   }
 };
 

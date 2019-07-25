@@ -318,20 +318,6 @@ header .cart_link {
   position: relative;
 }
 
-header .cart_link_span {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background-color: #111111;
-  color: white;
-  font-size: 12px;
-  position: absolute;
-  top: 0;
-  left: -10px;
-}
 header .log_out_link {
   cursor: pointer;
   display: inline-block;
