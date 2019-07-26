@@ -213,7 +213,6 @@ select {
   width: 400px;
 }
 .form_block_two .block {
-  /* flex-grow: 1; */
   box-sizing: border-box;
   width: 200px;
 }
@@ -230,22 +229,6 @@ select {
   color: #ffffffff;
   padding: 10px;
   display: block;
-}
-
-.link_default {
-  padding: 5px 45px;
-  display: inline-block;
-  border: solid 1px #333333;
-  background: #222222;
-  color: #fff;
-  font-size: 0.8rem;
-  margin-top: 30px;
-  cursor: pointer;
-  box-sizing: border-box;
-}
-
-.link_default:hover {
-  opacity: 0.8;
 }
 
 .card_link,

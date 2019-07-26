@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import React, { Fragment } from "react";
-import { ListGroup, ListGroupItem, Col, Row } from "reactstrap";
 import {
   Typography,
   Button,
@@ -10,7 +9,6 @@ import {
   List,
   ListItem,
   ListItemAvatar,
-  ListItemIcon,
   ListItemSecondaryAction,
   ListItemText,
   Avatar,

@@ -12,3 +12,36 @@
   top: 7px;
   left: 12px;
 }
+
+.pos-relative {
+  position: relative;
+}
+
+.block {
+  display: block;
+}
+.inlineblock {
+  display: inline-block;
+}
+
+.link_default {
+  padding: 4px 53px;
+  border: solid 1px #333333;
+  background: #222222;
+  color: #fff;
+  opacity: 0.9;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.link_default:hover {
+  opacity: 1;
+}
+
+.center {
+  text-align: center;
+}
+
+.sm-line-height {
+  line-height: 1.5;
+}
