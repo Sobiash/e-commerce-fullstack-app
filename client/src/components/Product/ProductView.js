@@ -29,8 +29,8 @@ class ProductView extends Component {
       history,
       match
     } = this.props;
-    getUserProfile();
 
+    getUserProfile();
     const id = match.params.id;
 
     getProductDetail(id);
@@ -122,7 +122,7 @@ class ProductView extends Component {
               )} */}
               <div className="left">
                 <div style={{ width: "500px" }}>
-                  <ProductImages detail={selectedSize} />
+                  <ProductImages detail={productDetail} />
                 </div>
               </div>
               <div className="right">

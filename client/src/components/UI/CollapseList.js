@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import Checkbox from "@material-ui/core/Checkbox";
-import Collapse from "@material-ui/core/Collapse";
+import {
+  List,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+  Checkbox,
+  Collapse
+} from "@material-ui/core";
 import arrowUp from "../../images/icons/up-arrow.png";
 import arrowDown from "../../images/icons/down-arrow.png";
 import PropTypes from "prop-types";
@@ -35,14 +37,14 @@ class CollapseList extends Component {
     return (
       list &&
       list.map(product => (
-        <ListItem key={product._id} style={{ padding: "0px 0px" }}>
-          <ListItemText primary={product.name} style={{ fontSize: "5px" }} />
+        <ListItem key={product} style={{ padding: "0px 0px" }}>
+          <ListItemText primary={product} style={{ fontSize: "5px" }} />
           <ListItemSecondaryAction>
             <Checkbox
               style={{ fontSize: "5px" }}
               color="primary"
-              onChange={handleToggle(product._id)}
-              checked={checked.indexOf(product._id) !== -1}
+              onChange={handleToggle(product)}
+              checked={checked.indexOf(product) !== -1}
             />
           </ListItemSecondaryAction>
         </ListItem>

@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+// import styles from "../UI/ColorStyles";
 
 const styles = (x, selectedColor) => ({
   backgroundColor: x,

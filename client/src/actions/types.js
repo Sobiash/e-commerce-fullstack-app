@@ -10,6 +10,7 @@ export const GET_SIZES = "get_sizes";
 export const GET_PRODUCTS = "get_products";
 export const ADD_PRODUCT = "add_product";
 export const GET_PRODUCT_DETAIL = "get_product_detail";
+export const CLEAR_PRODUCT_DETAIL = "clear_product_detail";
 export const ADD_TO_CART = "add_to_cart";
 export const UPDATE_USER_DATA = "update_user_data";
 export const CLEAR_UPDATE_USER_DATA = "clear_update_user_data";

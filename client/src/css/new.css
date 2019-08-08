@@ -45,3 +45,29 @@
 .sm-line-height {
   line-height: 1.5;
 }
+
+.buttons {
+  position: relative;
+  bottom: 35px;
+  opacity: 0;
+}
+
+.buttons:hover {
+  opacity: 1;
+}
+
+.shop_wrapper {
+  margin: 0px 0 10px 0;
+  display: flex;
+}
+
+.shop_wrapper .left {
+  width: 350px;
+
+  padding: 0 5px 0 45px;
+}
+
+.shop_wrapper .right {
+  min-width: 1200px;
+  padding-left: 25px;
+}

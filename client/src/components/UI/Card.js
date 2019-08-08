@@ -27,22 +27,23 @@ class Card extends React.Component {
       },
       paper: {
         height: "400px",
-        width: "280px",
-        marginRight: "20px",
+        width: "270px",
+        marginRight: "25px",
         borderRadius: "0px"
       },
       cardImage: {
-        width: "280px",
+        width: "270px",
         height: "400px",
         display: "inline-block",
         objectFit: "center"
-      }
+      },
+      grid: { width: "270px", margin: "0 10px" }
     };
     return (
       <div className={`${grid}`}>
         <div className={`pos-relative ${newArrival} ${popular}`}>
           <Link to={`/product_detail/${_id}`}>
-            <Grid item>
+            <Grid item style={classes.grid}>
               <Paper style={classes.paper}>
                 <img
                   src={renderCardImage(images)}
@@ -51,7 +52,7 @@ class Card extends React.Component {
                 />
               </Paper>
             </Grid>
-            <div className="block" ml={12}>
+            <div className="buttons block center">
               <div className="inlineblock">
                 <MyButton type="default" linkTo={linkTo} title="View" />
               </div>
@@ -89,17 +90,3 @@ export default connect(
   mapStateToProps,
   { addToCart }
 )(Card);
-
-// import React from "react";
-
-// export default function SpacingGrid() {
-//   const classes = useStyles();
-
-//   return (
-//     <Grid item spacing={2}>
-//       <Paper className={classes.paper}>
-
-//       </Paper>
-//     </Grid>
-//   );
-// }

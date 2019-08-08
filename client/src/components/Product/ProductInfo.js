@@ -39,7 +39,7 @@ const ProductInfo = ({
         <div className="tag">
           <div className="tag_text">
             <div>Not Available</div>
-            <div>Pre order only</div>
+            <div>Get alert when the product is available</div>
           </div>
         </div>
       )}
@@ -145,7 +145,7 @@ const ProductInfo = ({
     <div className="specs">
       <h5>Specs:</h5>
       <div className="item">
-        <p>Dress type: {dress && dress.name}</p>
+        <p>Dress type: {dress}</p>
       </div>
     </div>
   );

@@ -16,7 +16,6 @@ import LoadMore from "./LoadMore";
 import CartModal from "../UI/Modal";
 import PropTypes from "prop-types";
 import Sorting from "./Sorting";
-import img from "../../images/img2.jpeg";
 
 class Shop extends Component {
   state = {
@@ -37,6 +36,7 @@ class Shop extends Component {
       getProducts,
       getDresses,
       getColors,
+      getSizes,
       getCategories,
       getCartDetail,
       auth
@@ -48,6 +48,7 @@ class Shop extends Component {
     getDresses();
     getColors();
     getCategories();
+    getSizes();
 
     if (isAuthenticated) {
       getCartDetail();
@@ -82,40 +83,6 @@ class Shop extends Component {
     return array;
   };
 
-  // handleSize = value => {
-  //   const data = sizes;
-  //   let array = value;
-
-  //   const finalArray = [];
-
-  //   array.forEach(i =>
-  //     data.forEach(k => {
-  //       if (i === k._id) {
-  //         finalArray.push(k.name);
-  //       }
-  //     })
-  //   );
-
-  //   return finalArray;
-  // };
-
-  // handleColor = value => {
-  //   const data = colors;
-  //   let array = value;
-
-  //   const finalArray = [];
-
-  //   array.forEach(i =>
-  //     data.forEach(k => {
-  //       if (i === k._id) {
-  //         finalArray.push(k.name);
-  //       }
-  //     })
-  //   );
-
-  //   return finalArray;
-  // };
-
   handleFilters = (filters, category) => {
     const newFilters = { ...this.state.filters };
     const { handlePrice, handleSize, handleColor, showFilterResults } = this;
@@ -126,17 +93,6 @@ class Shop extends Component {
       let priceValues = handlePrice(filters);
 
       newFilters[category] = priceValues;
-    }
-    if (category === "size") {
-      let sizeValues = handleSize(filters);
-
-      newFilters[category] = sizeValues;
-    }
-
-    if (category === "color") {
-      let colorValues = handleColor(filters);
-
-      newFilters[category] = colorValues;
     }
 
     showFilterResults(newFilters);
@@ -179,9 +135,10 @@ class Shop extends Component {
 
   render() {
     const { products, auth } = this.props;
+
     const { grid, openModal, limit } = this.state;
     const { isAuthenticated } = auth;
-    const { categories, dresses, size, articles } = products;
+    const { categories, size, articles, colors, sizes, dresses } = products;
     const {
       handleFilters,
       handleGrid,
@@ -190,7 +147,7 @@ class Shop extends Component {
       loadMoreCards
     } = this;
     return (
-      <div style={{ marginTop: "100px" }}>
+      <div>
         <div>
           <div className="shop_wrapper">
             <div className="left">
@@ -206,18 +163,18 @@ class Shop extends Component {
                 list={dresses}
                 handleFilters={filters => handleFilters(filters, "dress")}
               />
-              {/* <CollapseList
+              <CollapseList
                 initState={false}
                 title="Colors"
                 list={colors}
                 handleFilters={filters => handleFilters(filters, "color")}
-              /> */}
-              {/* <CollapseList
+              />
+              <CollapseList
                 initState={false}
                 title="Sizes"
                 list={sizes}
                 handleFilters={filters => handleFilters(filters, "size")}
-              /> */}
+              />
 
               <CollapseRadio
                 initState={true}
@@ -227,26 +184,6 @@ class Shop extends Component {
               />
             </div>
             <div className="right">
-              {!isAuthenticated && (
-                <div
-                  className="shop-title-page"
-                  style={{
-                    backgroundImage: `url(${img})`
-                  }}
-                >
-                  <h3>Free Shipping</h3>
-                  <p style={{ textAlign: "center" }}>For Fashe Club members</p>
-                  <div className="shop_span">
-                    <span>
-                      <Link to="/register">Sign up</Link>
-                    </span>
-                    <span>
-                      <Link to="/register_login">Sign in</Link>
-                    </span>
-                  </div>
-                </div>
-              )}
-
               <Sorting grid={grid} handleGrid={handleGrid} list={price} />
 
               {/* {isAuthenticated ? (

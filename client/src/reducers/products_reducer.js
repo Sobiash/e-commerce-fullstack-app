@@ -9,6 +9,7 @@ import {
   GET_SIZES,
   ADD_PRODUCT,
   GET_PRODUCT_DETAIL,
+  CLEAR_PRODUCT_DETAIL,
   DELETE_PRODUCT,
   EDIT_PRODUCT,
   CATEGORY_NAME,
@@ -70,11 +71,11 @@ const ProductReducer = (state = initialState, action) => {
         ...state,
         productDetail: action.payload
       };
-    // case CLEAR_PRODUCT_DETAIL:
-    //   return {
-    //     ...state,
-    //     productDetail: action.payload
-    //   };
+    case CLEAR_PRODUCT_DETAIL:
+      return {
+        ...state,
+        productDetail: action.payload
+      };
     case DELETE_PRODUCT:
       return {
         ...state,

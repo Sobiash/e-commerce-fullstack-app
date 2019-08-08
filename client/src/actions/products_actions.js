@@ -6,6 +6,7 @@ import {
   GET_PRODUCTS,
   GET_DRESSES,
   GET_PRODUCT_DETAIL,
+  CLEAR_PRODUCT_DETAIL,
   GET_ERRORS,
   GET_COLORS,
   GET_SIZES,
@@ -98,9 +99,16 @@ export const getProductDetail = id => dispatch => {
     });
 };
 
+// export const clearProductDetail = () => {
+//   return {
+//     type: GET_PRODUCT_DETAIL,
+//     payload: {}
+//   };
+// };
+
 export const clearProductDetail = () => {
   return {
-    type: GET_PRODUCT_DETAIL,
+    type: CLEAR_PRODUCT_DETAIL,
     payload: {}
   };
 };
