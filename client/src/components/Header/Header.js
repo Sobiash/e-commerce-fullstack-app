@@ -64,10 +64,22 @@ class Header extends React.Component {
     });
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    const { user, getCartDetail } = this.props;
+    const { cartDetail } = user;
+    getCartDetail();
+    return nextProps.user.cartDetail !== cartDetail;
+    // if (nextProps.user.cartDetail.length !== cartDetail.length) {
+
+    // this.setState({
+    //   cartLength: cartDetail.length
+    // });
+    // }
+  }
   componentWillUpdate(nextProps, nextState) {
     const { user, getCartDetail } = this.props;
     const { cartDetail } = user;
-    if (nextProps.user.cartDetail !== cartDetail) {
+    if (nextProps.user.cartDetail.length !== cartDetail.length) {
       getCartDetail();
       this.setState({
         cartLength: cartDetail.length

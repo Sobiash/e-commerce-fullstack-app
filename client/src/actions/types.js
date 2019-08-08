@@ -29,3 +29,4 @@ export const CREATE_CART = "create_cart";
 export const CLEAR_CATEGORIES = "create_categories";
 export const CATEGORY_NAME = "category_name";
 export const DRESS_NAME = "dress_name";
+export const SEARCH_PRODUCTS = "search_products";

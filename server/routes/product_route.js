@@ -19,6 +19,7 @@ router.get("/product_detail/:id", productController.getArticleDetail);
 router.get("/filter_items", productController.filterItems);
 
 router.get("/dresses", productController.getDresses);
+router.get("/tags", productController.getTags);
 
 router.get("/categories", productController.getCategories);
 router.get("/colors", productController.getColors);

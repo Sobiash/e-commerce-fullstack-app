@@ -147,6 +147,23 @@ productController.getDresses = async (req, res) => {
   }
 };
 
+productController.getTags = async (req, res) => {
+  try {
+    const dresses = await Product.distinct("dress", {});
+    if (dresses) {
+      const tags = await Product.distinct("tags", {});
+      res.status(200).json(tags);
+    } else {
+      return res.status(400).json({
+        error: "Could not find any dress!"
+      });
+    }
+  } catch (error) {
+    logger.error(error);
+    res.status(400).json({ error: "Could not find any dress!" });
+  }
+};
+
 productController.getColors = async (req, res) => {
   try {
     const colors = await Product.distinct("color", {});

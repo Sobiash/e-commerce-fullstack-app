@@ -15,7 +15,8 @@ import {
   GET_CATEGORIES,
   CLEAR_CATEGORIES,
   CATEGORY_NAME,
-  DRESS_NAME
+  DRESS_NAME,
+  SEARCH_PRODUCTS
 } from "./types";
 
 //?sortBy=sold&order=desc&limit=10
@@ -99,19 +100,19 @@ export const getProductDetail = id => dispatch => {
     });
 };
 
-// export const clearProductDetail = () => {
-//   return {
-//     type: GET_PRODUCT_DETAIL,
-//     payload: {}
-//   };
-// };
-
 export const clearProductDetail = () => {
   return {
-    type: CLEAR_PRODUCT_DETAIL,
+    type: GET_PRODUCT_DETAIL,
     payload: {}
   };
 };
+
+// export const clearProductDetail = () => {
+//   return {
+//     type: CLEAR_PRODUCT_DETAIL,
+//     payload: {}
+//   };
+// };
 
 export const deleteProduct = id => dispatch => {
   if (window.confirm("Are you sure? This can NOT be undone!")) {
@@ -227,4 +228,21 @@ export const dressName = dress => dispatch => {
       payload: res.data
     })
   );
+};
+
+export const searchProducts = searchTerm => dispatch => {
+  // let endpoint;
+  // if (searchTerm === "") {
+  //   endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+  // } else {
+  //   endpoint = `${API_URL}search/movie?api_key=${API_KEY}&query=${searchTerm}`;
+  // }
+  // fetch(endpoint)
+  //   .then(data => data.json())
+  //   .then(data =>
+  //     dispatch({
+  //       type: SEARCH_PRODUCTS,
+  //       payload: { ...data, searchTerm }
+  //     })
+  //   );
 };
