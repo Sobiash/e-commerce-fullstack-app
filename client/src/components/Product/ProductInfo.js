@@ -13,7 +13,7 @@ const ProductInfo = ({
   deleteProduct,
   detail,
   addToCart,
-  toggleModal,
+
   openModal,
   closeModal,
   handleSizeSelection,
@@ -46,27 +46,6 @@ const ProductInfo = ({
     </div>
   );
 
-  const showModal = (
-    name,
-    price,
-    color,
-    size,
-    description,
-    images,
-    selectedSize,
-    selectedColor
-  ) => {
-    return (
-      <CartModal
-        openModal={openModal}
-        closeModal={closeModal}
-        selectedSize={selectedSize}
-      >
-        {selectedSize}
-      </CartModal>
-    );
-  };
-
   const showProductActions = ({
     _id,
     detail,
@@ -89,21 +68,7 @@ const ProductInfo = ({
           selectedSize={selectedSize}
           selectedColor={selectedColor}
           runAction={() => {
-            return (
-              addToCart(_id, detail, selectedSize, selectedColor),
-              toggleModal()
-              // showModal(
-              //   _id,
-              //   name,
-              //   price,
-              //   color,
-              //   size,
-              //   description,
-              //   images,
-              //   selectedSize,
-              //   selectedColor
-              // )
-            );
+            return addToCart(_id, detail, selectedSize, selectedColor);
           }}
         />
       </div>
@@ -189,7 +154,6 @@ const ProductInfo = ({
 
       {showProductTags(detail)}
       {showProductActions(detail)}
-      {/* {showModal(detail)} */}
     </div>
   );
 };
@@ -197,7 +161,6 @@ const ProductInfo = ({
 ProductInfo.propTypes = {
   detail: PropTypes.object.isRequired,
   addToCart: PropTypes.func.isRequired,
-  toggleModal: PropTypes.func.isRequired,
   deleteProduct: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 };

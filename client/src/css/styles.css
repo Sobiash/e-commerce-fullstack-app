@@ -231,9 +231,7 @@ select {
   display: block;
 }
 
-.card_link,
-.bag_link,
-.add_to_cart_link {
+.card_link {
   padding: 10px 15px;
   box-sizing: border-box;
   text-align: center;
@@ -243,8 +241,7 @@ select {
   background: #222222;
   cursor: pointer;
 }
-.card_link:hover,
-.add_to_cart_link:hover {
+.card_link:hover {
   opacity: 0.8;
   left: 150px;
   width: 50px;
@@ -663,9 +660,7 @@ div.block2-overlay.trans-0-4 img {
 .product_detail_wrapper .product_actions .cart {
   width: 350px;
 }
-.product_detail_wrapper .product_actions .cart .add_to_cart_link {
-  padding-left: 30px;
-}
+
 .user_cart_sum {
   border: 1px solid #e6e6e6;
   width: 33%;

@@ -28,6 +28,27 @@ const MyButton = props => {
           </Link>
         );
         break;
+      case "size":
+        button = (
+          <ul class="top-level-menu">
+            <li>
+              {title}
+              <ul class="second-level-menu">
+                <li
+                  onClick={() => {
+                    return console.log("Chicago");
+                  }}
+                >
+                  Chicago
+                </li>
+                <li>Los Angeles</li>
+                <li>New York</li>
+                <li>Seattle</li>
+              </ul>
+            </li>
+          </ul>
+        );
+        break;
 
       case "add_to_cart_link":
         button = (
@@ -45,7 +66,7 @@ const MyButton = props => {
             }}
             className={!altClass ? "bag_link" : altClass}
           >
-            Add to cart
+            {title}
           </div>
         );
 

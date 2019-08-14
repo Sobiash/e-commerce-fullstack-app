@@ -25,17 +25,20 @@
 }
 
 .link_default {
-  padding: 4px 53px;
+  padding: 4px 50px;
   border: solid 1px #333333;
-  background: #222222;
-  color: #fff;
-  opacity: 0.9;
-  font-size: 0.8rem;
+  color: #222222;
+  background: #fff;
+  font-size: 0.7rem;
   cursor: pointer;
 }
 
-.link_default:hover {
-  opacity: 1;
+.bag_link {
+  padding: 2px 50px;
+  background: #222222;
+  color: #fff;
+  font-size: 0.7rem;
+  cursor: pointer;
 }
 
 .center {
@@ -49,11 +52,6 @@
 .buttons {
   position: relative;
   bottom: 35px;
-  opacity: 0;
-}
-
-.buttons:hover {
-  opacity: 1;
 }
 
 .shop_wrapper {
@@ -63,11 +61,54 @@
 
 .shop_wrapper .left {
   width: 350px;
-
   padding: 0 5px 0 45px;
 }
 
 .shop_wrapper .right {
   min-width: 1200px;
   padding-left: 25px;
+}
+
+.size-button li {
+  padding: 2px 50px;
+  color: #222222;
+  background: #fff;
+  font-size: 0.7rem;
+  cursor: pointer;
+  margin-right: 7px;
+}
+.size-button li:hover {
+  background: #e7e6e4;
+}
+
+.size-button .second-level-menu {
+  position: absolute;
+  z-index: 19;
+  bottom: 21px;
+  left: 0;
+  width: 130px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 300ms ease-in-out;
+}
+
+.size-button .top-level-menu {
+  list-style: none;
+  position: relative;
+  z-index: 20;
+}
+
+.size-button .top-level-menu li:hover > ul {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(0);
+  border: none;
+}
+
+ul.top-level-menu {
+  padding: 0;
 }
