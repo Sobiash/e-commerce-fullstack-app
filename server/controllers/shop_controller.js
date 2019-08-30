@@ -43,7 +43,7 @@ shopController.shopItems = async (req, res) => {
       .limit(limit)
       .exec((err, articles) => {
         if (err) {
-          return res.status(400).json({ error: normalizeErrors(error.errors) });
+          return res.status(400).json({ error: normalizeErrors(err.errors) });
         }
         res.status(200).json({
           size: articles.length,

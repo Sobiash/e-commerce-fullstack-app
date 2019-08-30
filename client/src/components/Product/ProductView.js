@@ -10,7 +10,6 @@ import ProductInfo from "./ProductInfo";
 import Spinner from "../UI/spinner";
 import PropTypes from "prop-types";
 import ProductImages from "./ProductImages";
-import CartModal from "../UI/Modal";
 
 class ProductView extends Component {
   state = {

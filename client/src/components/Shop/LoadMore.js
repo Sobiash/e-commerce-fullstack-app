@@ -2,7 +2,7 @@ import React from "react";
 import CardBlock from "../UI/CardBlock";
 import PropTypes from "prop-types";
 
-const LoadMore = ({ grid, products, toggleModal, size, limit, loadMore }) => {
+const LoadMore = ({ grid, products, size, limit, loadMore }) => {
   return (
     <div>
       <div>
@@ -11,7 +11,6 @@ const LoadMore = ({ grid, products, toggleModal, size, limit, loadMore }) => {
           list={products}
           title=""
           class="card_block_shop"
-          toggleModal={toggleModal}
         />
       </div>
       {size > 0 && size >= limit && (

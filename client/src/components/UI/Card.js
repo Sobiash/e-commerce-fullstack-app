@@ -18,7 +18,7 @@ class Card extends React.Component {
 
   render() {
     const { card, grid, newArrival, popular, linkTo } = this.props;
-    const { _id, images, name, price, color } = card;
+    const { _id, images, name, price, color, size } = card;
     const { renderCardImage } = this;
 
     const classes = {
@@ -54,7 +54,7 @@ class Card extends React.Component {
             </Grid>
             <div className="buttons block center">
               <div className="size-button inlineblock">
-                <MyButton type="size" title="SIZE" />
+                <MyButton type="size" title="SIZE" size={size} />
               </div>
               <div className="inlineblock">
                 <MyButton type="add_to_cart_link" linkTo={linkTo} title="ADD" />

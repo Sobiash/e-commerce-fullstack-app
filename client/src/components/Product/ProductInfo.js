@@ -6,16 +6,12 @@ import ColorSelect from "./ColorSelect";
 import SizeSelect from "./SizeSelect";
 import editor from "../../images/icons/edit.png";
 import cross from "../../images/icons/cancel.png";
-import CartModal from "../UI/Modal";
 
 const ProductInfo = ({
   user,
   deleteProduct,
   detail,
   addToCart,
-
-  openModal,
-  closeModal,
   handleSizeSelection,
   handleColorSelection,
   validateSizeSelection,

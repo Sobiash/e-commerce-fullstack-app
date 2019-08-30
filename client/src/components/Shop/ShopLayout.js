@@ -13,14 +13,13 @@ import { price } from "../utils/FixedCategories";
 import CollapseList from "../UI/CollapseList";
 import CollapseRadio from "../UI/CollapseRadio";
 import LoadMore from "./LoadMore";
-import CartModal from "../UI/Modal";
 import PropTypes from "prop-types";
 import Sorting from "./Sorting";
 
 class Shop extends Component {
   state = {
-    openModal: false,
-    limit: 8,
+    grid: "",
+    limit: 2,
     skip: 0,
     filters: {
       category: [],
@@ -55,23 +54,6 @@ class Shop extends Component {
     }
   }
 
-  handleFilters = (filters, category) => {
-    const newFilters = { ...this.state.filters };
-    const { handlePrice, showFilterResults } = this;
-
-    newFilters[category] = filters;
-
-    if (category === "price") {
-      let priceValues = handlePrice(filters);
-      newFilters[category] = priceValues;
-    }
-
-    showFilterResults(newFilters);
-    this.setState({
-      filters: newFilters
-    });
-  };
-
   handlePrice = value => {
     const data = price;
     let array = [];
@@ -85,7 +67,7 @@ class Shop extends Component {
 
   handleFilters = (filters, category) => {
     const newFilters = { ...this.state.filters };
-    const { handlePrice, handleSize, handleColor, showFilterResults } = this;
+    const { handlePrice, showFilterResults } = this;
 
     newFilters[category] = filters;
 
@@ -113,10 +95,11 @@ class Shop extends Component {
 
   loadMoreCards = () => {
     const { skip, limit, filters } = this.state;
-    const { getProducts } = this.props;
+    const { getProducts, products } = this.props;
+    const { articles } = products;
 
     let skipOlder = skip + limit;
-    getProducts(skip, limit, filters);
+    getProducts(skipOlder, limit, filters, articles);
     this.setState({
       skip: skipOlder
     });
@@ -130,22 +113,13 @@ class Shop extends Component {
     });
   };
 
-  toggleModal = () => this.setState({ openModal: true });
-  closeModal = () => this.setState({ openModal: false });
-
   render() {
     const { products, auth } = this.props;
 
-    const { grid, openModal, limit } = this.state;
+    const { grid, limit } = this.state;
     const { isAuthenticated } = auth;
     const { categories, size, articles, colors, sizes, dresses } = products;
-    const {
-      handleFilters,
-      handleGrid,
-      closeModal,
-      toggleModal,
-      loadMoreCards
-    } = this;
+    const { handleFilters, handleGrid, loadMoreCards } = this;
     return (
       <div>
         <div>
@@ -185,23 +159,12 @@ class Shop extends Component {
             </div>
             <div className="right">
               <Sorting grid={grid} handleGrid={handleGrid} list={price} />
-
-              {/* {isAuthenticated ? (
-                <CartModal openModal={openModal} closeModal={closeModal}>
-                  Item added to your cart
-                </CartModal>
-              ) : (
-                <CartModal openModal={openModal} closeModal={closeModal}>
-                  You need to login to add this product to your cart.
-                </CartModal>
-              )} */}
               <LoadMore
                 grid={grid}
                 limit={limit}
                 size={size}
                 products={articles}
                 loadMore={() => loadMoreCards()}
-                toggleModal={toggleModal}
               />
             </div>
           </div>

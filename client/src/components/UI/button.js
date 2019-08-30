@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 
 const MyButton = props => {
   const {
+    size,
+    type,
     altClass,
     linkTo,
     addStyles,
@@ -14,9 +16,20 @@ const MyButton = props => {
     validateColorSelection,
     runAction
   } = props;
+
+  const dosomething = i => {
+    console.log(i);
+  };
+
+  const list =
+    size &&
+    size.map(i => {
+      return <li>{i}</li>;
+    });
+
   const buttons = () => {
     let button = "";
-    switch (props.type) {
+    switch (type) {
       case "default":
         button = (
           <Link
@@ -33,23 +46,11 @@ const MyButton = props => {
           <ul class="top-level-menu">
             <li>
               {title}
-              <ul class="second-level-menu">
-                <li
-                  onClick={() => {
-                    return console.log("Chicago");
-                  }}
-                >
-                  Chicago
-                </li>
-                <li>Los Angeles</li>
-                <li>New York</li>
-                <li>Seattle</li>
-              </ul>
+              <ul class="second-level-menu">{list}</ul>
             </li>
           </ul>
         );
         break;
-
       case "add_to_cart_link":
         button = (
           <div

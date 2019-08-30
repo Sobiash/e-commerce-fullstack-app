@@ -43,11 +43,17 @@ export const getProductsBySell = () => dispatch => {
     );
 };
 
-export const getProducts = (skip, limit, filters = []) => dispatch => {
+export const getProducts = (
+  skip,
+  limit,
+  filters = [],
+  previousState = []
+) => dispatch => {
   const data = {
     limit,
     skip,
-    filters
+    filters,
+    previousState
   };
 
   axios
@@ -106,13 +112,6 @@ export const clearProductDetail = () => {
     payload: {}
   };
 };
-
-// export const clearProductDetail = () => {
-//   return {
-//     type: CLEAR_PRODUCT_DETAIL,
-//     payload: {}
-//   };
-// };
 
 export const deleteProduct = id => dispatch => {
   if (window.confirm("Are you sure? This can NOT be undone!")) {

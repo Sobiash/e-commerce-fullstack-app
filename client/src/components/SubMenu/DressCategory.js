@@ -14,7 +14,6 @@ import { getCartDetail } from "../../actions/user_actions";
 import { price } from "../utils/FixedCategories";
 import CollapseList from "../UI/CollapseList";
 import CollapseRadio from "../UI/CollapseRadio";
-import CartModal from "../UI/Modal";
 import { Link } from "react-router-dom";
 import layout from "../../images/icons/layout.png";
 import squares from "../../images/icons/squares.png";
