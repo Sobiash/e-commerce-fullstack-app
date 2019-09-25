@@ -109,7 +109,7 @@ export const getProductDetail = id => dispatch => {
 export const clearProductDetail = () => {
   return {
     type: GET_PRODUCT_DETAIL,
-    payload: {}
+    payload: ""
   };
 };
 
