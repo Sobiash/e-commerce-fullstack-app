@@ -45,7 +45,7 @@ const UserReducer = (state = initialState, action) => {
     case ADD_TO_CART:
       return {
         ...state,
-        cart: action.payload
+        cartDetail: action.payload
       };
     case GET_CART_DETAIL:
       return {

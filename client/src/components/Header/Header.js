@@ -64,25 +64,13 @@ class Header extends React.Component {
     });
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const { user, getCartDetail } = this.props;
-    const { cartDetail } = user;
-    getCartDetail();
-    return nextProps.user.cartDetail !== cartDetail;
-    // if (nextProps.user.cartDetail.length !== cartDetail.length) {
-
-    // this.setState({
-    //   cartLength: cartDetail.length
-    // });
-    // }
-  }
   componentWillUpdate(nextProps, nextState) {
     const { user, getCartDetail } = this.props;
     const { cartDetail } = user;
     if (nextProps.user.cartDetail.length !== cartDetail.length) {
       getCartDetail();
       this.setState({
-        cartLength: cartDetail.length
+        cartLength: nextProps.user.cartDetail.length
       });
     }
   }
@@ -173,7 +161,10 @@ class Header extends React.Component {
   };
 
   render() {
+    console.log(this.props.user.cartDetail.length);
+    console.log(this.state.cartLength);
     const { user, page } = this.state;
+
     const { showLinks } = this;
     const useStyles = {
       root: {
