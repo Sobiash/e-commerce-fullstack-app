@@ -41,16 +41,6 @@ const MyButton = props => {
           </Link>
         );
         break;
-      case "size":
-        button = (
-          <ul class="top-level-menu">
-            <li>
-              {title}
-              <ul class="second-level-menu">{list}</ul>
-            </li>
-          </ul>
-        );
-        break;
       case "add_to_cart_link":
         button = (
           <div

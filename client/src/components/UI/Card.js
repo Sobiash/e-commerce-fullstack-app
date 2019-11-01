@@ -53,9 +53,6 @@ class Card extends React.Component {
               </Paper>
             </Grid>
             <div className="buttons block center">
-              <div className="size-button inlineblock">
-                <MyButton type="size" title="SIZE" size={size} />
-              </div>
               <div className="inlineblock">
                 <MyButton type="add_to_cart_link" linkTo={linkTo} title="ADD" />
               </div>

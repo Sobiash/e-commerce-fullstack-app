@@ -161,8 +161,6 @@ class Header extends React.Component {
   };
 
   render() {
-    console.log(this.props.user.cartDetail.length);
-    console.log(this.state.cartLength);
     const { user, page } = this.state;
 
     const { showLinks } = this;

@@ -19,7 +19,7 @@ import Sorting from "./Sorting";
 class Shop extends Component {
   state = {
     grid: "",
-    limit: 2,
+    limit: 9,
     skip: 0,
     filters: {
       category: [],
