@@ -40,7 +40,7 @@ class Card extends React.Component {
       grid: { width: "270px", margin: "0 10px" }
     };
     return (
-      <div className={`${grid}`}>
+      <div className={`${grid}`} style={{ width: "270px", margin: "0 10px" }}>
         <div className={`pos-relative ${newArrival} ${popular}`}>
           <Link to={`/product_detail/${_id}`}>
             <Grid item style={classes.grid}>

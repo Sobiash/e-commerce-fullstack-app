@@ -43,20 +43,18 @@ class PopularCategories extends React.Component {
           <CardBlock
             list={byArrival}
             title="New Arrivals"
-            class="card_block"
+            classes="card_block"
             grid=""
             newArrival="block2-labelnew"
-            toggleModal={toggleModal}
           />
         </div>
         <div>
           <CardBlock
             list={bySell}
             title="Best Selling Products"
-            class="card_block"
+            classes="card_block"
             popular="block2-labelpopular"
             grid=""
-            toggleModal={toggleModal}
           />
         </div>
       </div>

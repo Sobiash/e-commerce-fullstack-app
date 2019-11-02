@@ -461,6 +461,8 @@ div.tag.low_title {
 }
 .card_block_shop {
   margin: 40px 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 .card_item_wrapper {
   flex-grow: 1;

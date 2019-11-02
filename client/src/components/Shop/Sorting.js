@@ -8,7 +8,7 @@ class Sorting extends React.Component {
     value: "0"
   };
 
-  handleGrid = () => {
+  handleGridEvent = () => {
     const { handleGrid } = this.props;
     handleGrid();
   };
@@ -41,31 +41,29 @@ class Sorting extends React.Component {
 
   render() {
     const { grid } = this.props;
-    const { handleGrid } = this;
+    const { handleGridEvent } = this;
     return (
-      <div>
-        <div className="shop_options">
-          <div className="shop_grids clear">
-            <div
-              className={`grid_btn ${grid ? "" : "active"}`}
-              onClick={() => handleGrid()}
-            >
-              <img
-                src={squares}
-                style={{ width: "20px", height: "20px" }}
-                alt=""
-              />
-            </div>
-            <div
-              className={`grid_btn ${!grid ? "" : "active"}`}
-              onClick={() => handleGrid()}
-            >
-              <img
-                src={layout}
-                style={{ width: "20px", height: "20px" }}
-                alt=""
-              />
-            </div>
+      <div className="shop_options">
+        <div className="shop_grids clear">
+          <div
+            className={`grid_btn ${grid ? "" : "active"}`}
+            onClick={() => handleGridEvent()}
+          >
+            <img
+              src={squares}
+              style={{ width: "20px", height: "20px" }}
+              alt=""
+            />
+          </div>
+          <div
+            className={`grid_btn ${!grid ? "" : "active"}`}
+            onClick={() => handleGridEvent()}
+          >
+            <img
+              src={layout}
+              style={{ width: "20px", height: "20px" }}
+              alt=""
+            />
           </div>
         </div>
       </div>

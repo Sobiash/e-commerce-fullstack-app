@@ -19,13 +19,13 @@ const CardBlock = ({ list, grid, newArrival, popular, title, classes }) => {
     <div>
       {classes === "card_block_shop" ? (
         <div className="card_block_shop">
-          <div>
-            {list &&
-              (list.length === 0 && (
-                <div className="no-results">Sorry, no results</div>
-              ))}
-            {renderCards(list)}
-          </div>
+          {/* <div> */}
+          {list &&
+            (list.length === 0 && (
+              <div className="no-results">Sorry, no results</div>
+            ))}
+          {renderCards(list)}
+          {/* </div> */}
         </div>
       ) : (
         <div className="card_block">

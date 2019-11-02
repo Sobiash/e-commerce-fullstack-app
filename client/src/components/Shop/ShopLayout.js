@@ -15,6 +15,8 @@ import CollapseRadio from "../UI/CollapseRadio";
 import LoadMore from "./LoadMore";
 import PropTypes from "prop-types";
 import Sorting from "./Sorting";
+import layout from "../../images/icons/layout.png";
+import squares from "../../images/icons/squares.png";
 
 class Shop extends Component {
   state = {
@@ -107,7 +109,6 @@ class Shop extends Component {
 
   handleGrid = () => {
     const { grid } = this.state;
-
     this.setState({
       grid: !grid ? "grid_bars" : ""
     });
@@ -158,7 +159,33 @@ class Shop extends Component {
               />
             </div>
             <div className="right">
-              <Sorting grid={grid} handleGrid={handleGrid} list={price} />
+              {/* <Sorting grid={grid} handleGrid={handleGrid} list={price} /> */}
+
+              <div className="shop_options">
+                <div className="shop_grids clear">
+                  <div
+                    className={`grid_btn ${grid ? "" : "active"}`}
+                    onClick={() => handleGrid()}
+                  >
+                    <img
+                      src={squares}
+                      style={{ width: "20px", height: "20px" }}
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    className={`grid_btn ${!grid ? "" : "active"}`}
+                    onClick={() => handleGrid()}
+                  >
+                    <img
+                      src={layout}
+                      style={{ width: "20px", height: "20px" }}
+                      alt=""
+                    />
+                  </div>
+                </div>
+              </div>
+
               <LoadMore
                 grid={grid}
                 limit={limit}

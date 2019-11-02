@@ -10,7 +10,9 @@ const LoadMore = ({ grid, products, size, limit, loadMore }) => {
           grid={grid}
           list={products}
           title=""
-          class="card_block_shop"
+          newArrival=""
+          popular=""
+          classes="card_block_shop"
         />
       </div>
       {size > 0 && size >= limit && (
