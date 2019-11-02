@@ -38,7 +38,7 @@ const ProductReducer = (state = initialState, action) => {
     case GET_PRODUCTS:
       return {
         ...state,
-        articles: [...state.articles, ...action.payload.articles],
+        articles: action.payload.articles,
         size: action.payload.size
       };
     case GET_DRESSES:

@@ -43,17 +43,11 @@ export const getProductsBySell = () => dispatch => {
     );
 };
 
-export const getProducts = (
-  skip,
-  limit,
-  filters = [],
-  previousState = []
-) => dispatch => {
+export const getProducts = (skip, limit, filters = []) => dispatch => {
   const data = {
     limit,
     skip,
-    filters,
-    previousState
+    filters
   };
 
   axios
