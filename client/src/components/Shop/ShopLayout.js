@@ -21,7 +21,7 @@ import squares from "../../images/icons/squares.png";
 class Shop extends Component {
   state = {
     grid: "",
-    limit: 9,
+    limit: 2,
     skip: 0,
     filters: {
       category: [],
@@ -97,11 +97,11 @@ class Shop extends Component {
 
   loadMoreCards = () => {
     const { skip, limit, filters } = this.state;
-    const { getProducts, products } = this.props;
-    const { articles } = products;
+    const { getProducts } = this.props;
 
     let skipOlder = skip + limit;
-    getProducts(skipOlder, limit, filters, articles);
+
+    getProducts(skipOlder, limit, filters);
     this.setState({
       skip: skipOlder
     });

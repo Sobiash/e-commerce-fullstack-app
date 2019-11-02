@@ -15,7 +15,7 @@ const LoadMore = ({ grid, products, size, limit, loadMore }) => {
           classes="card_block_shop"
         />
       </div>
-      {size > 0 && size >= limit && (
+      {size > 0 && size <= limit && (
         <div className="load_more_container">
           <span onClick={() => loadMore()}>Load More</span>
         </div>
